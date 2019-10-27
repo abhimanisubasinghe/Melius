@@ -11,8 +11,8 @@ var bodyParser = require('body-parser');
 var mysql = require('mysql');
 var connection = require('./lib/db');
 
-var indexRouter = require('./routes/index');
-var usersRouter = require('./routes/users');
+//var indexRouter = require('./routes/index');
+//var usersRouter = require('./routes/users');
 var customerRouter = require('./routes/customers');
 
 var app = express();
@@ -37,11 +37,11 @@ app.use(session({
 }));
 
 app.use(flash());
-app.use(expressValidator());
+//app.use(expressValidator);
 
-app.use('/', indexRouter);
-app.use('/users', usersRouter);
-app.use('/customers', customersRouter);
+//app.use('/', indexRouter);
+//app.use('/users', usersRouter);
+app.use('/customers', customerRouter);
 
 //catch 404 and forward to error handler
 app.use(function(req, res, next) {
@@ -58,6 +58,11 @@ app.use(function(err, req, res, next) {
 
     res.status(err.status || 500);
     res.render('error');
+});
+
+app.listen(process.env.PORT || '5000', () => {
+
+    console.log(`Server is running on port : ${process.env.PORT || '5000'}`)
 });
 
 module.exports = app;
