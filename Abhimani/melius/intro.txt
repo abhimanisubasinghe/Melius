@@ -1,5 +1,0 @@
-Technolgies used
-ReactJS
-JavaScript
-HTML
-Bootstrap
