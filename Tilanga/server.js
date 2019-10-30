@@ -14,6 +14,6 @@ var Users = require('./routes/Users');
 
 app.use('/users', Users);
 
-app.listen(3001, function(){
-    console.log('server run on 3001 port!!');
+app.listen(3000, function(){
+    console.log('server run on 3000 port!!');
 });

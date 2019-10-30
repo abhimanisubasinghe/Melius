@@ -14,9 +14,21 @@ users.use(ses({
     secret: "adcnskl;"
 }));
 users.use(body.json());
+users.use(body.urlencoded({extended: false}));
 users.use(cors());
 
 var path = require('path');
+
+//START PAGE
+users.get('/',function(req,res){
+    if(req.session.userId){
+        res.send('already logged');
+    }
+    else{
+        res.send('go to login page');
+    }
+})
+
 //REGISTER
 users.post('/register', function(req,res){
 console.log('jnvvjknvsjnvkjsnvkjsnvjk');
@@ -60,10 +72,7 @@ users.post('/login', function(req,res){
                 else{
                     if(result.length>0){
                             req.session.userId = req.body.email;
-                            let token = jwt.sign(user.dataValue,process.env.SECRET_KEY,{
-                                expiresIn  : 1440
-                            }) ;
-                            res.json({token: token});
+                            res.json('logged');
                     }
                     else{
                         res.send('User does not exist')
@@ -86,6 +95,46 @@ users.get('/profile', function(req,res){
     else{
         res.send('User does not exist!!');
     }
-})
+});
+
+//CUSTOMER REGISTRATION
+users.post('/customerRegistration',function(req,res){
+//var id = req.body.customerId;
+var name = req.body.customerName;
+var nic = req.body.customerNIC;
+var phone = req.body.phone;
+var email = req.body.email;
+var address = req.body.address;
+var vehicles = req.body.noOfVehicle;
+console.log(name);
+    if(req.session.userId){
+        if(name && nic && phone && email && address && vehicles){
+            console.log('1111111111111111111');
+            sql.query('SELECT customerName FROM customer WHERE customerNIC = ?',[nic],function(err,result){
+                if(err) {
+                    throw err;
+                }
+                else{
+                    if(result.length>0){
+                        res.send('customer already registered');
+                    }
+                    else{
+                        sql.query('INSERT INTO customer (customerName,customerNIC,phone,email,address,noOfVehicle) VALUES (?,?,?,?,?,?)',[name,nic,phone,email,address,vehicles], function(error,result){
+                            if(error){
+                                throw error;
+                            }
+                            else{
+                                res.send('register successful');
+                            }
+                        });
+                    }
+                }
+            });
+        }
+    }
+    else{
+        res.send('please log');
+    }
+});
 
 module.exports = users;
