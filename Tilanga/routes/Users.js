@@ -29,7 +29,7 @@ users.get('/',function(req,res){
     }
 })
 
-//REGISTER
+//OPERATOR REGISTER
 users.post('/register', function(req,res){
 console.log('jnvvjknvsjnvkjsnvkjsnvjk');
 
@@ -61,9 +61,39 @@ console.log('jnvvjknvsjnvkjsnvkjsnvjk');
     }  
 });
 
+//OPERATOR UPDATE(USER)
+users.post('/userUpdate',function(req,res){
+    var id = req.body.id;
+    var first_name = req.body.first_name;
+    var last_name = req.body.last_name;
+    var email = req.body.email;
+    var password = req.body.password;
+    if(req.session.userId){
+        if(id && first_name && last_name && email && password ){
+            bcrypt.hash(password, 10, function(err, hash){
+                sql.query('UPDATE users SET first_name = ?, last_name = ?, email = ?, password = ? WHERE id = ? ',[first_name,last_name,email,hash,id], function(err, result){
+                    if (err) {
+                        throw err;
+                    }
+                    else{
+                        res.send("Updated successful");
+                    }
+                });
+            });
+        }
+        else{
+            res.send("Fill all details");
+        }
+    }
+    else{
+        res.send("please login");
+    }
+});
+
 
 //LOGIN
 users.post('/login', function(req,res){
+     
     if(req.body.email && req.body.password){
         var password = req.body.password;
         bcrypt.hash(password, 10, function(err, hash){
@@ -106,6 +136,8 @@ var phone = req.body.phone;
 var email = req.body.email;
 var address = req.body.address;
 var vehicles = req.body.noOfVehicle;
+
+
 console.log(name);
     if(req.session.userId){
         if(name && nic && phone && email && address && vehicles){
@@ -134,6 +166,35 @@ console.log(name);
     }
     else{
         res.send('please log');
+    }
+});
+
+//CUSTOMER DATA UPDATE
+users.post('/customerUpdate',function(req,res){
+    var id = req.body.customerId;
+    var name = req.body.customerName;
+    var nic = req.body.customerNIC;
+    var phone = req.body.phone;
+    var email = req.body.email;
+    var address = req.body.address;
+    var vehicles = req.body.noOfVehicle;
+    if(req.session.userId){
+        if(id && name && nic && phone && email && address && vehicles ){
+            sql.query('UPDATE customer SET customerName = ?, phone = ?, email = ?, address =? , noOfVehicle = ? WHERE customerId = ? AND customerNIC = ? ',[name,phone,email,address,vehicles,id,nic], function(err, result){
+                if (err) {
+                    throw err;
+                }
+                else{
+                    res.send("Updated successful");
+                }
+            });
+        }
+        else{
+            res.send("Fill all details");
+        }
+    }
+    else{
+        res.send("please login");
     }
 });
 
