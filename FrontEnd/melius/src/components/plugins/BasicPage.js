@@ -1,16 +1,24 @@
 import React, { Component } from 'react'
 import './BasicPage.css';
-import HeaderNavBar from './HeaderNavBar';
+import HeaderNavBar1 from './HeaderNavBar';
 import CurtainSideBar from './CurtainSideBar';
 import SideBar from './SideBar';
 
+
 class BasicPage extends Component {
+    
+    
     render() {
+        const listItem= ['a','b','c'];
+
         return (
             <div>
-                <HeaderNavBar/>
-                <CurtainSideBar/>
-                <SideBar/>
+                
+                {/*<CurtainSideBar/>*/}
+                <HeaderNavBar1 listItems={listItem} active="a" />
+                <div>
+                {<SideBar/>}
+                </div>
             </div>
         )
     }
