@@ -90,7 +90,38 @@ service.post('/newService',function(req,res){
             });
         }
     }
-})
+});
+
+//GET DATA FOR INVOICE
+service.post('/currentBill',function(req,res){
+    var serviceId = req.body.serviceId;
+
+    if(req.session.userId){
+        sql.query('SELECT date FROM service WHERE serviceId = ?',[serviceId],function(err,result){
+            if(err){
+                throw err;
+            }
+            else{
+                if(result.length>0){
+                    sql.query('SELECT * FROM service WHERE serviceId = ?',[serviceId],function(err1,result1){
+                        if(err1){
+                            throw err1;
+                        }
+                        else{
+                            if(result1.length>0){
+                                res.json({result: result1});
+                            }
+                        }
+                    });
+                }
+            }
+        });
+    }
+    else{
+        res.send('please log');
+    }
+    
+});
 
 
 
