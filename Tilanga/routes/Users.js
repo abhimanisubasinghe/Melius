@@ -5,13 +5,26 @@ var users = express.Router();
 var cors = require('cors');
 var body = require('body-parser');
 var ses = require('express-session');
+var cookieSession= require('cookie-session');
+var cookieParser = require("cookie-parser");
+
 const jwt = require('jsonwebtoken');
 var bcrypt = require('bcrypt');
 //var proxy = require('http-proxy-middleware');
+const TWO_HOUR = 1000*60*60*2;
+
 
 var session;
+var id;
 users.use(ses({
-    secret: "adcnskl;"
+    name: "sid", 
+    secret: "adcnskl",
+    resave: false,
+    saveUnitialized:false,
+    cookie: {
+        maxAge: TWO_HOUR,
+        sameSite: true
+    }
 }));
 users.use(body.json());
 users.use(body.urlencoded({extended: false}));
@@ -25,12 +38,13 @@ users.get('/',function(req,res){
         res.send('already logged');
     }
     else{
-        res.send('go to login page');
+        //res.send('go to login page');
+        res.redirect('/login');
     }
 })
 
 //OPERATOR REGISTER
-users.post('/register', function(req,res){
+users.post('/registration', function(req,res){
 console.log('jnvvjknvsjnvkjsnvkjsnvjk');
 
     var today = new Date();
@@ -47,13 +61,26 @@ console.log('jnvvjknvsjnvkjsnvkjsnvjk');
     //             password = hash;
 
     if(first_name && last_name && email && password){
-        bcrypt.hash(password, 10, function(err, hash){
-            sql.query('INSERT INTO users (first_name,last_name,email,password,created) VALUES (?,?,?,?,?)',[first_name,last_name,email,hash,created], function(error,result){
-                if(error) throw error;
-
-                 //res.sendFile(path.resolve('../views/home.html',{root:__dirname}));
-                res.json("registered!!");
-            });
+        sql.query('SELECT first_name FROM users WHERE email = ?',[email],function(err1,result1){
+            if(err1){
+                throw err1;
+            }
+            else{
+                if(result1.length>0){
+                    res.send('already registered');
+                }
+                else{
+                    bcrypt.hash(password, 10, function(err, hash){
+                        sql.query('INSERT INTO users (first_name,last_name,email,password,created) VALUES (?,?,?,?,?)',[first_name,last_name,email,hash,created], function(error,result){
+                            if(error) throw error;
+            
+                             //res.sendFile(path.resolve('../views/home.html',{root:__dirname}));
+                            //res.json("registered!!");
+                            res.json({data: result});
+                        });
+                    });
+                }
+            }
         });
     }
     else{
@@ -76,7 +103,8 @@ users.post('/userUpdate',function(req,res){
                         throw err;
                     }
                     else{
-                        res.send("Updated successful");
+                        //res.send("Updated successful");
+                        res.json({data: result});
                     }
                 });
             });
@@ -102,6 +130,10 @@ users.post('/login', function(req,res){
                 else{
                     if(result.length>0){
                             req.session.userId = req.body.email;
+                            id = req.session.userId;
+                            // console.log(id);
+                            // //module.exports = id;
+                            // console.log(id);
                             res.json('logged');
                     }
                     else{
@@ -123,79 +155,15 @@ users.get('/profile', function(req,res){
         res.json('logged');
     }
     else{
-        res.send('User does not exist!!');
+        res.send('User does not exist!!');8
     }
 });
 
-//CUSTOMER REGISTRATION
-users.post('/customerRegistration',function(req,res){
-//var id = req.body.customerId;
-var name = req.body.customerName;
-var nic = req.body.customerNIC;
-var phone = req.body.phone;
-var email = req.body.email;
-var address = req.body.address;
-var vehicles = req.body.noOfVehicle;
-
-
-console.log(name);
-    if(req.session.userId){
-        if(name && nic && phone && email && address && vehicles){
-            console.log('1111111111111111111');
-            sql.query('SELECT customerName FROM customer WHERE customerNIC = ?',[nic],function(err,result){
-                if(err) {
-                    throw err;
-                }
-                else{
-                    if(result.length>0){
-                        res.send('customer already registered');
-                    }
-                    else{
-                        sql.query('INSERT INTO customer (customerName,customerNIC,phone,email,address,noOfVehicle) VALUES (?,?,?,?,?,?)',[name,nic,phone,email,address,vehicles], function(error,result){
-                            if(error){
-                                throw error;
-                            }
-                            else{
-                                res.send('register successful');
-                            }
-                        });
-                    }
-                }
-            });
-        }
-    }
-    else{
-        res.send('please log');
-    }
-});
-
-//CUSTOMER DATA UPDATE
-users.post('/customerUpdate',function(req,res){
-    var id = req.body.customerId;
-    var name = req.body.customerName;
-    var nic = req.body.customerNIC;
-    var phone = req.body.phone;
-    var email = req.body.email;
-    var address = req.body.address;
-    var vehicles = req.body.noOfVehicle;
-    if(req.session.userId){
-        if(id && name && nic && phone && email && address && vehicles ){
-            sql.query('UPDATE customer SET customerName = ?, phone = ?, email = ?, address =? , noOfVehicle = ? WHERE customerId = ? AND customerNIC = ? ',[name,phone,email,address,vehicles,id,nic], function(err, result){
-                if (err) {
-                    throw err;
-                }
-                else{
-                    res.send("Updated successful");
-                }
-            });
-        }
-        else{
-            res.send("Fill all details");
-        }
-    }
-    else{
-        res.send("please login");
-    }
-});
+//USER LOGOUT
+users.get('/logout', function (req, res) {
+    req.session.destroy();
+    res.send('Logout');
+    res.end('/');
+   });
 
 module.exports = users;
