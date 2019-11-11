@@ -120,6 +120,57 @@ service.post('/currentBill',function(req,res){
     else{
         res.send('please log');
     }
+});
+
+//GET SUMMERY OF DATE
+service.post('/dateBill',function(req,res){
+    var date = req.body.date;
+    console.log(date);
+    if(req.session.userId){
+        if(date){
+            sql.query('SELECT * FROM service WHERE date = ?',[date],function(err,result){
+                if(err){
+                    throw err;
+                }
+                else{
+                    console.log(result);
+                    res.json({result : result});
+                }
+            });
+        }
+        else{
+            res.send('insert date');
+        }
+    }
+    else{
+        res.send('please log');
+    }
+});
+
+//BILL FOR DATE RANGE
+service.post('/rangeBill', function(req,res){
+    var date1 = req.body.date1;
+    var date2 = req.body.date2;
+    console.log(date1);
+    //yyyy-dd-mm
+    if(req.session.userId){
+        if(date1 && date2){
+            sql.query('SELECT * FROM service WHERE date BETWEEN ? AND ?',[date1,date2],function(err,result){
+                if(err){
+                    throw err;
+                }
+                else{
+                    res.json({result : result});
+                }
+            });
+        }
+        else{
+            res.send('insert dates');
+        }
+    }
+    else{
+        res.send('please log');
+    }
     
 });
 
