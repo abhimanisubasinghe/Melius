@@ -17,6 +17,7 @@ var customerRouter = require('./routes/customers');
 
 var app = express();
 
+
 //Setting up view engine
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
@@ -27,6 +28,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+
 
 
 app.use(session({
@@ -57,6 +59,7 @@ app.use(function(err, req, res, next) {
     //render the error page
 
     res.status(err.status || 500);
+    console.log('Error');
     res.render('error');
 });
 
