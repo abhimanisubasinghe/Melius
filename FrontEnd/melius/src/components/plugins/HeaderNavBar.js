@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import LogOutBtn from './LogOutBtn'
 
 class HeaderNavBar1 extends Component {
     
@@ -78,7 +79,11 @@ class HeaderNavBar1 extends Component {
                     <form className="form-inline my-2 my-lg-0">
                         <input className="form-control mr-sm-2" type="text" placeholder="Search"/>
                         <button className="btn btn-secondary my-2 my-sm-0" type="submit">Search</button>
+                        <br/>
                     </form>
+                    <div class="btn-group ml-2" role="group" aria-label="SignOut Btns">
+                    <LogOutBtn/>
+                    </div>
                 </div>
                 </nav>  
             </header>
