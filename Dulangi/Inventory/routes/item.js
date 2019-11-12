@@ -97,6 +97,73 @@ router.post('/add', function(req, res, next) {
     }
 });
 
+//UPDATE ITEMS FORM
+router.get('/edit/(:id)', function(req, res, next) {
+
+    connection.query('SELECT * FROM item WHERE itemCode=' + req.params.id, function(err, rows, fields) {
+
+        if (err) throw err
+
+        if (rows.length <= 0) {
+            req.flash('error', 'Customer not found with id =', +req.params.id);
+            res.redirect('/items');
+        } else {
+            res.render('items/edit', {
+                title: "Edit item",
+                id: rows[0].itemCode,
+                name: rows[0].name,
+
+            })
+        }
+    })
+
+});
+
+//UPDATE ITEM
+
+router.post('/update/(:id)', function(req, res, next) {
+
+    var user = {
+        name: req.body.name
+    };
+    connection.query('UPDATE item SET ? WHERE itemCode=' + req.params.id, user, function(err, result) {
+        if (err) {
+            req.flash('error', err);
+
+            res.render('items/edit', {
+                title: 'Edit Item',
+                id: req.params.id,
+                name: req.body.name
+
+            })
+        } else {
+            req.flash('success', 'Data updated successfully!');
+            res.redirect('/items');
+        }
+    });
+});
+
+
+//DELETE ITEM
+
+router.get('/delete/(:id)', function(req, res, next) {
+
+    var user = { itemCode: req.params.id }
+
+    connection.query('DELETE FROM item WHERE itemCode=' + req.params.id, user, function(err, result) {
+        if (err) {
+            req.flash('error', err)
+                // redirect to users list page
+            res.redirect('/items')
+        } else {
+            req.flash('success', 'Customer deleted successfully! id = ' + req.params.id)
+                // redirect to users list page
+            res.redirect('/items')
+        }
+
+    })
+})
+
 
 
 
