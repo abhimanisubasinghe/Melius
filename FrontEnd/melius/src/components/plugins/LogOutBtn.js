@@ -31,7 +31,8 @@ class LogOutBtn extends Component {
         return (
                 
             <div>
-                <button 
+                <button
+                    style = {btnStyle} 
                     type="button" 
                     class="btn btn-secondary" 
                     onMouseEnter={() => this.hoverOn} 
@@ -47,3 +48,7 @@ class LogOutBtn extends Component {
 }
 
 export default LogOutBtn
+
+const btnStyle = {
+    borderRadius: '50%'
+}

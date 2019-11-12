@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 import './BasicPage.css';
 import HeaderNavBar1 from './HeaderNavBar';
-import CurtainSideBar from './CurtainSideBar';
 import SideBar from './SideBar';
 
 

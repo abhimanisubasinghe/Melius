@@ -3,60 +3,45 @@ import LogOutBtn from './LogOutBtn'
 
 class HeaderNavBar1 extends Component {
     
-    pickActive(active,listitem){
-        if(active==listitem)
-            return "nav-item active"
-        else
-            return "nav-item"
-    }
-    
-    
-    constructor(props) {
-        super(props)
-        let formattedList = this.props.listItems.map(listItem => 
+    originalList = this.props.listItems
+
+    modifyList(active){
+        let formattedList = this.originalList.map(listItem => 
             {
-                if(listItem == this.props.active){
+                if(listItem == active){
                     return (<li className= "nav-item active"
                         id={listItem}
-                        onClick= {(listItem) => this.chngActive} >
+                        onClick= {({listItem}) => this.chngActive(listItem)} >
                         <a className="nav-link" href="#">{listItem} </a>
                     </li>)
                 }
                 else{
                     return (<li className= "nav-item"
                         id={listItem}
-                        onClick= {(listItem) => this.chngActive}>
+                        onClick= {({listItem}) => this.chngActive(listItem)}>
                         <a className="nav-link" href="#">{listItem} </a>
                     </li>)
 
                 }    
             }        
         )
+        return formattedList
+    }
+
+    constructor(props) {
+        super(props)
         this.state = {
             active: this.props.active,
-            listItems: formattedList 
+            listItems: this.modifyList(this.props.active) 
         }
-
-        this.chngList = this.chngList.bind(this)
 
     }
 
-    chngList(){
-        const formattedList = this.props.listItems.map(listItem => 
-            <li className= "nav-item active"
-                 id={listItem}>
-                <a className="nav-link" href="#">{listItem} </a>
-            </li>    
-            )
-        this.setState(
-            {listItems: {formattedList}}
-        )
-        console.log(formattedList)
-    }   
     
     chngActive(nextActiveItem){
         this.setState({
-            active: nextActiveItem
+            active: nextActiveItem,
+            listItems: this.modifyList(nextActiveItem)
         })
     }
 
@@ -76,11 +61,6 @@ class HeaderNavBar1 extends Component {
                     <ul className="navbar-nav mr-auto">
                         {this.state.listItems}
                     </ul>
-                    <form className="form-inline my-2 my-lg-0">
-                        <input className="form-control mr-sm-2" type="text" placeholder="Search"/>
-                        <button className="btn btn-secondary my-2 my-sm-0" type="submit">Search</button>
-                        <br/>
-                    </form>
                     <div class="btn-group ml-2" role="group" aria-label="SignOut Btns">
                     <LogOutBtn/>
                     </div>
