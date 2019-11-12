@@ -36,10 +36,7 @@ router.get('/add', function(req, res, next) {
 
 // ADD NEW ITEM POST ACTION
 router.post('/add', function(req, res, next) {
-    /*req.assert('name', 'Name is required').notEmpty();
-    req.assert('description','Description is a must').notEmpty();*/
 
-    //var errors = req.validationErrors();
 
     if (true) {
 
@@ -112,6 +109,14 @@ router.get('/edit/(:id)', function(req, res, next) {
                 title: "Edit item",
                 id: rows[0].itemCode,
                 name: rows[0].name,
+                min: rows[0].min,
+                max: rows[0].max,
+                descript: rows[0].descript,
+                purchasePrice: rows[0].purchasePrice,
+                sellingPrice: rows[0].sellingPrice,
+                storageId: rows[0].storageId,
+                supplierId: rows[0].supplierId,
+                barcode: rows[0].barcode
 
             })
         }
@@ -124,7 +129,15 @@ router.get('/edit/(:id)', function(req, res, next) {
 router.post('/update/(:id)', function(req, res, next) {
 
     var user = {
-        name: req.body.name
+        name: req.body.name,
+        descript: req.body.descript,
+        min: req.body.min,
+        max: req.body.max,
+        purchasePrice: req.body.pPrice,
+        sellingPrice: req.body.sPrice,
+        storageId: req.body.storage,
+        supplierId: req.body.supplier,
+        barcode: req.body.barcode
     };
     connection.query('UPDATE item SET ? WHERE itemCode=' + req.params.id, user, function(err, result) {
         if (err) {
@@ -161,14 +174,8 @@ router.get('/delete/(:id)', function(req, res, next) {
             res.redirect('/items')
         }
 
-    })
-})
-
-
-
-
-
-
+    });
+});
 
 
 
