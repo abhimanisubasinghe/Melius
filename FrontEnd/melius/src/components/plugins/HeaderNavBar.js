@@ -74,7 +74,25 @@ class HeaderNavBar1 extends Component {
 
                 <div className="collapse navbar-collapse" id="navbarColor01">    
                     <ul className="navbar-nav mr-auto">
+<<<<<<< HEAD
                         {this.state.listItems}
+=======
+                        <li className="nav-item active">
+                            <a className="nav-link" href="#">Home <span className="sr-only">(current)</span></a>
+                        </li>
+                        <li className="nav-item">
+                            <a className="nav-link" href="#">Features</a>
+                        </li>
+                        <li className="nav-item">
+                            <a className="nav-link" href="#">Register</a>
+                        </li>
+                        <li className="nav-item">
+                            <a className="nav-link" href="#">Pricing</a>
+                        </li>
+                        <li className="nav-item">
+                            <a className="nav-link" href="#">About</a>
+                        </li>
+>>>>>>> 37af5524bc13f98bfd468edb41bbd79d1dd8c28b
                     </ul>
                     <form className="form-inline my-2 my-lg-0">
                         <input className="form-control mr-sm-2" type="text" placeholder="Search"/>
