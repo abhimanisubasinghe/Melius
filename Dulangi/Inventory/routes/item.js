@@ -6,11 +6,23 @@ var connection = require('../lib/db');
 //DISPLAY ITEM  LIST
 
 router.get('/', function(req, res, next) {
+    connection.query('SELECT * FROM item', function(err, rows) {
+        if (err) {
+            req.flash('error', err);
+            res.render('items', {
+                page_title: "Item",
+                data: ''
+            });
+        } else {
+            res.render('items', {
+                page_title: "Item",
+                data: rows
+            });
+        }
+    });
+
 
 });
-
-
-
 
 // ADD NEW ITEM FORM
 router.get('/add', function(req, res, next) {
