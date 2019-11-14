@@ -48,20 +48,26 @@ users.post('/registration', function(req,res){
 console.log('jnvvjknvsjnvkjsnvkjsnvjk');
 
     var today = new Date();
-    var first_name = req.body.first_name;
-    var last_name = req.body.last_name;
-    var email = req.body.email;
+    var name = req.body.name;
+    var DOB = req.body.DOB;
+    var address = req.body.address;
+    var contactNumber = req.body.contactNumber;
+    var status = req.body.status;
+    var dateOfEmployment = today;
     var password = req.body.password;
-    var created = today;
+    var userId ;
+    var username = req.body.username;
+    var resultFinal;
+    
 
-    console.log(created);
+    console.log(username);
     console.log(req.body.password);
 
     // const hash = bcrypt.hashSync(password, 10)
     //             password = hash;
 
-    if(first_name && last_name && email && password){
-        sql.query('SELECT first_name FROM users WHERE email = ?',[email],function(err1,result1){
+    if(name && DOB && address && password && contactNumber && status && username){
+        sql.query('SELECT userId FROM userlogin WHERE username = ?',[username],function(err1,result1){
             if(err1){
                 throw err1;
             }
@@ -70,14 +76,38 @@ console.log('jnvvjknvsjnvkjsnvkjsnvjk');
                     res.send('already registered');
                 }
                 else{
+                    sql.query('INSERT INTO user (name,DOB,address,contactNumber,dateOfEmployment,status) VALUES (?,?,?,?,?,?)',[name,DOB,address,contactNumber,dateOfEmployment,status], function(error,result){
+                        if(error) throw error;
+        
+                         //res.sendFile(path.resolve('../views/home.html',{root:__dirname}));
+                        //res.json("registered!!");
+                        //res.json({data: result});
+                        resultFinal = result;
+                    });
+
                     bcrypt.hash(password, 10, function(err, hash){
-                        sql.query('INSERT INTO users (first_name,last_name,email,password,created) VALUES (?,?,?,?,?)',[first_name,last_name,email,hash,created], function(error,result){
-                            if(error) throw error;
-            
-                             //res.sendFile(path.resolve('../views/home.html',{root:__dirname}));
-                            //res.json("registered!!");
-                            res.json({data: result});
-                        });
+                        sql.query('SELECT id FROM user WHERE name = ?',[name],function(err2,result2){
+                            if(err2){
+                                console.log('tiltil');
+                                throw err2;
+                            }
+                            else{
+                                if(result2.length>0){
+                                    console.log(result2[0].id);
+                                    sql.query('INSERT INTO userlogin (userId,username,password) VALUES (?,?,?)',[result2[0].id,username,hash], function(error,result3){
+                                        console.log("tilintilin");
+                                        if(error){
+                                            console.log('zzzzzzzzzzzzzzz');
+                                            throw error;
+                                        } 
+                        
+                                         //res.sendFile(path.resolve('../views/home.html',{root:__dirname}));
+                                        //res.json("registered!!");
+                                        res.json({data1: result3,resultFinal});
+                                    });
+                                }
+                            }
+                        })
                     });
                 }
             }

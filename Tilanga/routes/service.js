@@ -8,6 +8,7 @@ var sql = require('../database/db');
 var PDFDocument, doc, doc1;
 var fs = require('fs');
 PDFDocument = require('pdfkit');
+//var printer = require('printer');
 
 
 const TWO_HOUR = 1000*60*60*2;
