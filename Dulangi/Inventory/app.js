@@ -12,6 +12,7 @@ var mysql = require('mysql');
 var connection = ('./lib/db');
 
 var itemRouter = require('./routes/item');
+var itemOpRouter = require('./routes/operations');
 
 var app = express();
 
@@ -35,6 +36,7 @@ app.use(flash());
 //app.use(expressValidator());
 
 app.use('/items', itemRouter);
+app.use('/op', itemOpRouter);
 
 
 
