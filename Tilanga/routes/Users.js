@@ -167,7 +167,43 @@ users.post('/userUpdateByAdmin',function(req,res){
 });
 
 //PASSWORD AND USERNAME UPDATE BY USER
-//users.post('userUpdateByUser')
+users.post('/userUpdateByUser',function(req,res){
+    var username = req.body.username;
+    var password = req.body.password
+    if(req.session.userId){
+        if(username && password){
+            sql.query('SELECT userId FROM userlogin WHERE username = ?',[username],function(err1,result1){
+                if(err1){
+                    throw err1;
+                }
+                else{
+                    if(result1.length>0){
+                        bcrypt.hash(password, 10, function(err, hash){
+                            sql.query('UPDATE userlogin SET password = ? WHERE username = ? ',[hash,username],function(err2,result2){
+                                if(err2){
+                                    throw err2;
+                                }
+                                else{
+                                    res.json({data: result2});
+                                }
+                            })
+                        });
+                    }
+                    else{
+                        res.send("please enter valid username")
+                    }
+                }
+            })
+            
+        }
+        else{
+            res.send('fill all the fields');
+        }
+    }
+    else{
+        res.send('please login first');
+    }
+})
 
 
 //LOGIN
