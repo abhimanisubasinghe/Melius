@@ -3,8 +3,10 @@ var router = express.Router();
 var connection = require('../lib/db');
 
 
-//DISPLAY ITEM  LIST
+// Basic CRUD function of this API is implemented using callback functions.
 
+
+//DISPLAY ITEM  LIST
 router.get('/', function(req, res, next) {
     connection.query('SELECT * FROM item', function(err, rows) {
         if (err) {
@@ -20,7 +22,6 @@ router.get('/', function(req, res, next) {
             });
         }
     });
-
 
 });
 
@@ -54,9 +55,6 @@ router.post('/add', function(req, res, next) {
             storageId: req.body.storage,
             supplierId: req.body.supplier,
             barcode: req.body.barcode
-
-
-
         };
 
 
