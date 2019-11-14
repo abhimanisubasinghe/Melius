@@ -45,16 +45,23 @@ routerTwo.post('/add', function(req, res, next) {
                         if (err) {
                             reject(err)
                         } else {
-                            resolve()
+                            resolve(info)
                         }
                     })
                 })
 
-                P1.then(() => {
-                    req.flash('success', 'Data inserted succesfully');
-                    res.redirect('/transfer/add');
+                P1.then((result) => {
+                    connection.query('UPDATE item SET inStock=inStock - ? WHERE itemCode= ?', [result.quantity, result.itemId], function(err, result) {
+                        if (err) {
+                            console.log(err)
+                        }
+                    })
                 }, err => {
                     console.log(err);
+                }).then(() => {
+                    req.flash('success', 'Data inserted succesfully');
+                    res.redirect('/transfer/add');
+
                 })
 
             }
