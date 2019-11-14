@@ -3,15 +3,35 @@ import './SideBar.css';
 
 class SideBar extends Component {
     
+    orginalList = this.props.listItems
     
+    modifyList(active){
+        let formattedList = this.props.listItems.map(listItem => 
+            <a href="#">{listItem}</a>        
+        )
+        return formattedList
+    }
+
+    constructor(props) {
+        super(props)
+        this.state = {
+            listItems: this.modifyList(this.props.active) 
+        }
+
+    }
+
+    
+    chngActive(nextActiveItem){
+        this.setState({
+            listItems: this.modifyList(nextActiveItem)
+        })
+    }
+
     render() {
         return (
             <div>
                 <div class="sidenav">
-                    <a href="#about">About</a>
-                    <a href="#services">Services</a>
-                    <a href="#clients">Clients</a>
-                    <a href="#contact">Contact</a>
+                    {this.state.listItems}
                 </div>
             </div>
         )

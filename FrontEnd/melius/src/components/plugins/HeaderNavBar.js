@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import LogOutBtn from './LogOutBtn'
 
-class HeaderNavBar1 extends Component {
+class HeaderNavBar extends Component {
     
     originalList = this.props.listItems
 
@@ -72,4 +72,4 @@ class HeaderNavBar1 extends Component {
     }
 }
 
-export default HeaderNavBar1
+export default HeaderNavBar

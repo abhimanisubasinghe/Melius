@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import './BasicPage.css';
-import HeaderNavBar1 from './HeaderNavBar';
+import HeaderNavBar from './HeaderNavBar';
 import SideBar from './SideBar';
 
 
@@ -14,9 +14,9 @@ class BasicPage extends Component {
             <div>
                 
                 {/*<CurtainSideBar/>*/}
-                <HeaderNavBar1 listItems={listItem} active="a" />
+                <HeaderNavBar listItems={listItem} active="a" />
                 <div>
-                {<SideBar/>}
+                {<SideBar  listItems={listItem} active="a" />}
                 </div>
             </div>
         )
