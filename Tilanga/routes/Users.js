@@ -118,25 +118,43 @@ console.log('jnvvjknvsjnvkjsnvkjsnvjk');
     }  
 });
 
-//OPERATOR UPDATE(USER)
-users.post('/userUpdate',function(req,res){
+//OPERATOR UPDATE(USER) BY ADMIN
+users.post('/userUpdateByAdmin',function(req,res){
     var id = req.body.id;
-    var first_name = req.body.first_name;
-    var last_name = req.body.last_name;
-    var email = req.body.email;
+    var name = req.body.name;
+    var DOB = req.body.DOB;
+    var address = req.body.address;
+    var contactNumber = req.body.contactNumber;
+    var status = req.body.status;
+    //var dateOfEmployment = today;
+    var password = req.body.password;
+    var userId ;
+    var username = req.body.username;
+    var resultFinal;
+
     var password = req.body.password;
     if(req.session.userId){
-        if(id && first_name && last_name && email && password ){
+        if(id && name && DOB && address && password && contactNumber && status && username){
             bcrypt.hash(password, 10, function(err, hash){
-                sql.query('UPDATE users SET first_name = ?, last_name = ?, email = ?, password = ? WHERE id = ? ',[first_name,last_name,email,hash,id], function(err, result){
+                sql.query('UPDATE user SET name = ?, DOB = ?, address = ?, contactNumber = ?, status = ? WHERE id = ? ',[name,DOB,address,contactNumber,status,id], function(err, result){
                     if (err) {
                         throw err;
                     }
                     else{
                         //res.send("Updated successful");
-                        res.json({data: result});
+                        //res.json({data: result});
+                        resultFinal = result;
                     }
+
                 });
+                sql.query('UPDATE userlogin SET username = ?, password = ? WHERE userId = ?',[username,hash,id],function(err1,result1){
+                    if(err1){
+                        throw err1;
+                    }
+                    else{
+                        res.json({data: resultFinal,result1});
+                    }
+                })
             });
         }
         else{
@@ -148,18 +166,21 @@ users.post('/userUpdate',function(req,res){
     }
 });
 
+//PASSWORD AND USERNAME UPDATE BY USER
+//users.post('userUpdateByUser')
+
 
 //LOGIN
 users.post('/login', function(req,res){
      
-    if(req.body.email && req.body.password){
+    if(req.body.username && req.body.password){
         var password = req.body.password;
         bcrypt.hash(password, 10, function(err, hash){
-            sql.query("SELECT password FROM users WHERE email = ? ",[req.body.email], function(err,result){
+            sql.query("SELECT password FROM userlogin WHERE username = ? ",[req.body.username], function(err,result){
                 if(err) throw err;
                 else{
                     if(result.length>0){
-                            req.session.userId = req.body.email;
+                            req.session.userId = req.body.username;
                             id = req.session.userId;
                             // console.log(id);
                             // //module.exports = id;
