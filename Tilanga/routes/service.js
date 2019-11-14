@@ -5,6 +5,10 @@ var pat = require('path');
 var body = require('body-parser');
 var cors = require('cors');
 var sql = require('../database/db');
+var PDFDocument, doc, doc1;
+var fs = require('fs');
+PDFDocument = require('pdfkit');
+
 
 const TWO_HOUR = 1000*60*60*2;
 var session;
@@ -124,6 +128,7 @@ service.post('/currentBill',function(req,res){
 
 //GET SUMMERY OF DATE
 service.post('/dateBill',function(req,res){
+    var total = 0;
     var date = req.body.date;
     console.log(date);
     if(req.session.userId){
@@ -133,6 +138,45 @@ service.post('/dateBill',function(req,res){
                     throw err;
                 }
                 else{
+                    //TOTAL OF THE CURRENT INVOICE
+                    sql.query('SELECT payment FROM service WHERE date ?',[date],function(err1,result1){
+                        if(err1){
+                            throw err1;
+                        }
+                        else{
+                            console.log('11111111111111111111111');
+                            console.log(result1);
+                            for(var i = 0; i<result1.length; i++){
+                                console.log(result1[i].payment);
+                                var x = parseFloat(result1[i].payment);
+                                total = total + x;
+                            }
+                            console.log(total);
+                            doc1 = new PDFDocument;
+                            doc1.pipe(fs.createWriteStream(date+'_daily.pdf'));
+                            console.log("tttttttttttttttt");
+                                // Set a title and pass the X and Y coordinates
+                            doc1.fontSize(15).text('Summary of Services in the day !\n\n\n', 50, 50);
+                                // Set the paragraph width and align direction
+                            for(var m = 0; m<result.length; m++){
+                                doc1.text("service id : "+result[m].serviceId+"\n customer id : "+result[m].customerId+"\n vehicle number : "+result[m].vehicleNo+"\n date : "+result[m].date+"\n payment : "+result[m].payment,{
+                                    width: 410,
+                                    align: 'left'
+                                });
+                                doc1.text("\n\n",{
+                                    width: 410,
+                                    align: 'left'
+                                });
+                            }    
+                            doc1.text("\n"+"total of all services of the day = "+total, {
+                                width: 410,
+                                align: 'left'
+                            });
+                               // res.json('done');
+                            doc1.end();
+                        }
+                    })
+
                     console.log(result);
                     res.json({result : result});
                 }
@@ -173,6 +217,24 @@ service.post('/rangeBill', function(req,res){
     }
     
 });
+
+
+//SET PDF
+service.post('/pdf',function(req,res){
+    
+    doc = new PDFDocument;
+    doc.pipe(fs.createWriteStream('output.pdf'));
+
+    // Set a title and pass the X and Y coordinates
+    doc.fontSize(15).text('Wally Gator !', 50, 50);
+    // Set the paragraph width and align direction
+    doc.text('Wally Gator is a swinging alligator in the swamp. He\'s the greatest percolator when he really starts to romp. There has never been a greater operator in the swamp. See ya later, Wally Gator.', {
+        width: 410,
+        align: 'left'
+    });
+    res.json('done');
+    doc.end();
+})
 
 
 
