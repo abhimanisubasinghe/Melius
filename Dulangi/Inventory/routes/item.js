@@ -30,8 +30,7 @@ router.get('/add', function(req, res, next) {
 
     res.render('items/add', {
         title: 'Add new item',
-        name: '',
-        email: ''
+
     })
 });
 
@@ -65,8 +64,7 @@ router.post('/add', function(req, res, next) {
 
                 res.render('items/add', {
                     title: 'Add new customer',
-                    name: user.name,
-                    description: user.description
+
                 })
             } else {
                 req.flash('success', 'Data inserted succesfully');
@@ -86,8 +84,7 @@ router.post('/add', function(req, res, next) {
 
         res.render('items/add', {
             title: 'Add new Customer',
-            name: req.body.name,
-            description: req.body.descript
+
         })
     }
 });
