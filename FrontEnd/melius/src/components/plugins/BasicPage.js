@@ -2,25 +2,38 @@ import React, { Component } from 'react'
 import './BasicPage.css';
 import HeaderNavBar from './HeaderNavBar';
 import SideBar from './SideBar';
-
+import DropDown from './DropDown.js'
+//import Customerreg from '../registerforms/customer/Customerreg.js'
 
 class BasicPage extends Component {
     
     
     render() {
-        const listItem= ['a','b','c'];
-
+        const listItem= [ 'a',
+                        'b',
+                        'c',
+                        ['d','e','f','g'],
+                        'h',
+                        ['i','j','k']
+                    ];
+        const options = ['Apple', 'Orange', 'Pear', 'Mango'];
         return (
-            <div>
+            <div style={backgroundStyle} >
                 
-                {/*<CurtainSideBar/>*/}
-                <HeaderNavBar listItems={listItem} active="a" />
-                <div>
+                
+               { <HeaderNavBar listItems={listItem} active="a" />}
+               { <div>
                 {<SideBar  listItems={listItem} active="a" />}
-                </div>
+                </div> 
+                }
+                {/*<Customerreg></Customerreg>*/}
+               
             </div>
         )
     }
 }
-
+ 
+const backgroundStyle = {
+    'backgroundColor': '#f0f0f0'
+}
 export default BasicPage

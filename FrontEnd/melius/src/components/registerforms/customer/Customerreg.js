@@ -1,7 +1,7 @@
 import React from 'react';
-import './Vehiclereg.css';
+import './Customerreg.css';
 
-export default class Vehiclereg extends React.Component{
+export default class Customerreg extends React.Component{
     
 
 
@@ -15,7 +15,7 @@ export default class Vehiclereg extends React.Component{
                             <div className = "col-md-7">
                                     <div className= "row">
                                             <div className="col-md-6"> 
-                                                <h3 className="text">Register Vehicle</h3>
+                                                <h3 className="text">Register Customer</h3>
                                             </div>
                                             <div className ="col-md-6">
                                                 <span className="glyphicon glyphicon-pencil"></span>
@@ -25,24 +25,31 @@ export default class Vehiclereg extends React.Component{
                                   <hr/> 
 
                                     <div className= "form-group">
-                                            <label for="vehicle_no" className="col-sm-4 col-form-label">Vehicle No.</label>
+                                            <label for="vehicle_no" className="col-sm-4 col-form-label">Customer Id</label>
                                                     <div className="col-md-12">
                                                         <input type="text" className="form-control" id="vehicle_no" placeholder="Enter Vehicle No."/>                        
 
                                                     </div>
                                     </div>
- 
+
                                     <div className= "form-group">
 
-                                            <label for="vehicle_no" className="col-sm-4">Vehicle Type</label>
+                                            <label for="vehicle_no" className="col-sm-4">Customer Name</label>
                                                     <div className="col-md-12">
-                                                            <input type="text" className="form-control" id="owner_name"  placeholder="vehicle type"/>                        
+                                                            <input type="text" className="form-control" id="owner_name"  placeholder="vehicle type"/>  
+                                                            <div className="col-md-10"> 
+                                                                        <input type="radio" value="mr" />  <medium>Mr</medium>
+                                                                        <input type="radio" value="mrs" />  <medium>Mrs</medium>
+                                                                        <input type="radio" value="miss" />  <medium>Miss</medium>
+
+
+                                                            </div>                   
                                                     </div>
                                     </div>
 
                                     <div className= "form-group">
 
-                                            <label for="vehicle_no" className="col-sm-4">Owner Name</label>
+                                            <label for="vehicle_no" className="col-sm-4">Address</label>
                                                     <div className="col-md-12">
                                                             <input type="text" className="form-control" id="owner_name"  placeholder="Enter Owner Name"/>                        
                                                     </div>
@@ -55,7 +62,7 @@ export default class Vehiclereg extends React.Component{
                                                             <input type="date" className="form-control" id="owner_name"  placeholder="Enter Owner Name"/>                        
                                                     </div>
                                     </div>
-                                        
+
                                     
 
             
@@ -72,3 +79,4 @@ export default class Vehiclereg extends React.Component{
     
 }
 
+  

@@ -1,23 +1,37 @@
 import React, { Component } from 'react'
 import './SideBar.css';
+import DropDown from './DropDown';
 
 class SideBar extends Component {
     
     orginalList = this.props.listItems
     
     modifyList(active){
-        let formattedList = this.props.listItems.map(listItem => 
-            <a href="#">{listItem}</a>        
+        let formattedList = this.props.listItems.map(function(listItem){
+            if(listItem.length==1)
+                return <a href="#">{listItem[0]}</a>
+            else{
+                return (
+                <React.Fragment>
+                    <DropDown options={listItem} title={listItem[0]}/>
+                </React.Fragment>
+                )
+            }
+        } 
+                    
         )
+
         return formattedList
     }
+
+
 
     constructor(props) {
         super(props)
         this.state = {
             listItems: this.modifyList(this.props.active) 
         }
-
+        console.log(this.props.listItems)
     }
 
     
@@ -30,12 +44,17 @@ class SideBar extends Component {
     render() {
         return (
             <div>
-                <div class="sidenav">
+                <div className="sidenav">
                     {this.state.listItems}
                 </div>
             </div>
         )
     }
 }
+
+
+
+
+
 
 export default SideBar

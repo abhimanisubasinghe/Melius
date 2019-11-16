@@ -34,7 +34,7 @@ class LogOutBtn extends Component {
                 <button
                     style = {btnStyle} 
                     type="button" 
-                    class="btn btn-secondary" 
+                    className="btn btn-secondary" 
                     onMouseEnter={() => this.hoverOn} 
                     onMouseLeave={() => this.hoverOff}
                     >
