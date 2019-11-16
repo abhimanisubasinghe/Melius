@@ -49,20 +49,65 @@ export default class Customerreg extends React.Component{
                                     </div>
 
                                     <div className= "form-group">
+                                            <label for="vehicle_no" className="col-sm-4 col-form-label">Fax</label>
+                                                    <div className="col-md-12">
+                                                        <input type="text" className="form-control" id="vehicle_no" placeholder="Enter Vehicle No."/>                        
 
-                                            <label for="vehicle_no" className="col-sm-4">Address</label>
+                                                    </div>
+                                    </div>
+                                    
+                                    <div className= "form-group">
+                                            <label for="vehicle_no" className="col-sm-4 col-form-label">NIC</label>
+                                                    <div className="col-md-12">
+                                                        <input type="text" className="form-control" id="vehicle_no" placeholder="Enter Vehicle No."/>                        
+
+                                                    </div>
+                                    </div>
+
+                                    <div className= "form-group">
+                                            <label for="vehicle_no" className="col-sm-4 col-form-label">Type</label>
+                                                    <div className="col-md-12">
+                                                        <input type="text" className="form-control" id="vehicle_no" placeholder="Enter Vehicle No."/>                        
+
+                                                    </div>
+                                    </div>
+
+
+
+
+                                    <div className= "form-group">
+
+                                            <label for="vehicle_no" className="col-sm-4">E-Mail</label>
                                                     <div className="col-md-12">
                                                             <input type="text" className="form-control" id="owner_name"  placeholder="Enter Owner Name"/>                        
                                                     </div>
                                     </div>
 
+
+                                    <div className= "form-group">
+                                            <label for="vehicle_no" className="col-sm-4 col-form-label">Web-Site</label>
+                                                    <div className="col-md-12">
+                                                        <input type="text" className="form-control" id="vehicle_no" placeholder="Enter Vehicle No."/>                        
+
+                                                    </div>
+                                    </div>
+
+
                                     <div className= "form-group">
 
-                                            <label for="vehicle_no" className="col-sm-4"> Registered Date</label>
+                                            <label for="vehicle_no" className="col-sm-4">DOB</label>
                                                     <div className="col-md-12">
                                                             <input type="date" className="form-control" id="owner_name"  placeholder="Enter Owner Name"/>                        
                                                     </div>
                                     </div>
+                                    <div className= "form-group">
+                                            <label for="vehicle_no" className="col-sm-4 col-form-label">Note</label>
+                                                    <div className="col-md-12">
+                                                        <input type="text" className="form-control" id="vehicle_no" placeholder="Enter Vehicle No."/>                        
+
+                                                    </div>
+                                    </div>
+
 
                                     
 

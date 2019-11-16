@@ -1,9 +1,56 @@
 var express = require('express');
 var router = express.Router();
 var connection = require('../lib/db');
+var Promise = require('promise');
 
 
 // Basic CRUD function of this API is implemented using callback functions.
+
+router.use(function(req, res, next) {
+
+    var P1 = new Promise(function(resolve, reject) {
+        connection.query('SELECT item.itemCode,supplier.leadTime FROM item INNER JOIN supplier ON item.supplierId = supplier.supplierId', function(err, rows) {
+            if (err) {
+                reject(err)
+            } else {
+                resolve(rows);
+            }
+        })
+    })
+
+    P1.then(function(rows) {
+        var data = [];
+        for (i = 0; i < rows.length; i++) {
+
+            connection.query('SELECT SUM(trading_invoice_item.quantity) FROM trading_invoice_item INNER JOIN tradinginvoice ON tradinginvoce.invoiceId = trading_invoice_item.invoiceId WHERE tradinginvoice.date > DATE_SUB(now(),INTERVAL 6 MONTH) AND trading_invoice_item.itemId=' + rows[i].itemCode, function(err, result) {
+                if (!err) {
+
+                    // Calculate the reorder level
+                    var MConsump = result / 6;
+                    var temp = (MConsump * rows[i].leadTime / 30) + MConsump;
+                    data[i] = {
+                        itemCode: rows[i].itemCode,
+                        reOrder_level: temp
+                    }
+                } else {
+                    req.flash(err);
+                }
+            })
+        }
+    }).then(data => {
+        for (j = 0; j < data.length; j++) {
+
+            connection.query('UPDATE item SET reorder_level = ? WHERE itemCode = ?', data[i], function(err, result) {
+                if (err) {
+                    req.flash(err);
+                }
+
+            })
+        }
+
+    })
+    next();
+});
 
 
 //DISPLAY ITEM  LIST
@@ -30,8 +77,7 @@ router.get('/add', function(req, res, next) {
 
     res.render('items/add', {
         title: 'Add new item',
-        name: '',
-        email: ''
+
     })
 });
 
@@ -65,8 +111,7 @@ router.post('/add', function(req, res, next) {
 
                 res.render('items/add', {
                     title: 'Add new customer',
-                    name: user.name,
-                    description: user.description
+
                 })
             } else {
                 req.flash('success', 'Data inserted succesfully');
@@ -86,8 +131,7 @@ router.post('/add', function(req, res, next) {
 
         res.render('items/add', {
             title: 'Add new Customer',
-            name: req.body.name,
-            description: req.body.descript
+
         })
     }
 });
