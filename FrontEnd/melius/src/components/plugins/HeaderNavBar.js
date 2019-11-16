@@ -1,5 +1,11 @@
+//import React from 'react';
+//import ReactDOM from 'react-dom';
+import {BrowserRouter,Route,Link} from 'react-route-dom';
+import Registerforms from '../registerforms/Registerforms';
+
 import React, { Component } from 'react'
 import LogOutBtn from './LogOutBtn'
+
 
 class HeaderNavBar extends Component {
     
@@ -58,30 +64,37 @@ class HeaderNavBar extends Component {
                 </button>
 
                 <div className="collapse navbar-collapse" id="navbarColor01">    
-                    <ul className="navbar-nav mr-auto">
-<<<<<<< HEAD
-                        {this.state.listItems}
-=======
-                        <li className="nav-item active">
-                            <a className="nav-link" href="#">Home <span className="sr-only">(current)</span></a>
-                        </li>
-                        <li className="nav-item">
-                            <a className="nav-link" href="#">Features</a>
-                        </li>
-                        <li className="nav-item">
-                            <a className="nav-link" href="#">Register</a>
-                        </li>
-                        <li className="nav-item">
-                            <a className="nav-link" href="#">Pricing</a>
-                        </li>
-                        <li className="nav-item">
-                            <a className="nav-link" href="#">About</a>
-                        </li>
->>>>>>> 37af5524bc13f98bfd468edb41bbd79d1dd8c28b
-                    </ul>
-                    <div class="btn-group ml-2" role="group" aria-label="SignOut Btns">
-                    <LogOutBtn/>
-                    </div>
+               
+                            <ul className="navbar-nav mr-auto">
+                            
+
+
+                                <li className="nav-item active">
+                                    <a className="nav-link" href="#">Home <span className="sr-only">(current)</span></a>
+                                </li>
+                                <li className="nav-item">
+                                    <a className="nav-link" href="#">Features</a>
+                                </li>
+                                <li className="nav-item">
+                                <BrowserRouter>
+                                    <Link to="/registerforms"><div className='nav-link'>Register</div></Link>
+                                        <Route path="registerforms" component={Registerforms}/>
+                                        </BrowserRouter>        
+                                </li>
+                                
+                                <li className="nav-item">
+                                    <a className="nav-link" href="#">Pricing</a>
+                                </li>
+                                <li className="nav-item">
+                                    <a className="nav-link" href="#">About</a>
+                                </li>
+
+                            </ul>
+                            <div class="btn-group ml-2" role="group" aria-label="SignOut Btns">
+                            <LogOutBtn/>
+                            </div>
+                    
+
                 </div>
                 </nav>  
             </header>
