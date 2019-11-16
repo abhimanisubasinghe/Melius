@@ -86,4 +86,53 @@ routerTwo.post('/add', function(req, res, next) {
 });
 
 
+//Display transfer requests
+
+routerTwo.get('/', function(req, res, next) {
+
+    var P2 = new Promise(function(resolve, reject) {
+        connection.query('SELECT stocktransfer.transferId,warehouse.name,stocktransfer.date FROM stocktransfer INNER JOIN warehouse ON stocktransfer.warehouseId = warehouse.warehouseId', function(err, result) {
+
+            if (err) {
+                reject(err);
+            } else {
+                resolve(result);
+            }
+        })
+    })
+
+    P2.then(function(rows) {
+        res.render('items/transfer', {
+            data: rows
+        })
+    }, function(err) {
+        req.flash('error', err);
+    })
+})
+
+//View transfer request
+
+routerTwo.get('/view/(:id)', function(req, res, next) {
+
+
+    var P3 = new Promise(function(resolve, reject) {
+        connection.query('SELECT item.name,stocktransfer_item.quantity FROM stocktransfer_item INNER JOIN item ON stocktransfer_item.itemId = item.itemCode WHERE stocktransfer_item.transferId =' + req.params.id, function(err, result) {
+            if (err) {
+                reject(err);
+            } else {
+                resolve(result)
+            }
+        })
+    })
+
+    P3.then(function(result) {
+        res.render('items/transferNote', {
+            data: result
+        });
+    }, function(err) {
+        req.flash(err);
+    })
+})
+
+
 module.exports = routerTwo;

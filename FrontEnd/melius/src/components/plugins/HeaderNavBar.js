@@ -1,5 +1,11 @@
+//import React from 'react';
+//import ReactDOM from 'react-dom';
+import {BrowserRouter,Route,Link} from 'react-route-dom';
+import Registerforms from '../registerforms/Registerforms';
+
 import React, { Component } from 'react'
 import LogOutBtn from './LogOutBtn'
+
 
 class HeaderNavBar extends Component {
     
