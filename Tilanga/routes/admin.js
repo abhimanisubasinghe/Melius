@@ -98,4 +98,12 @@ admin.post('/update',function(req,res){
     }
 });
 
+
+//ADMIN LOGOUT
+users.get('/logout', function (req, res) {
+    req.session.destroy();
+    res.send('Logout');
+    res.end('/');
+   });
+
 module.exports = admin;
