@@ -41,6 +41,14 @@ service.get('/',function(req,res){
     }
 });
 
+//Services what melius provide
+service
+
+
+
+
+///////////////////////////////////
+
 //ADD SERVICE
 service.post('/newService',function(req,res){
     var today = new Date();
