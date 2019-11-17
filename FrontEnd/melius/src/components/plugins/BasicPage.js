@@ -1,5 +1,4 @@
 import React, { Component } from 'react'
-//import './BasicPage.css';
 import HeaderNavBar from './HeaderNavBar';
 import SideBar from './SideBar';
 import Customerreg from '../registerforms/customer/Customerreg.js'
