@@ -4629,6 +4629,9 @@ input[type="button"].btn-block {
   .navbar-expand-lg > .container-fluid {
     padding-right: 0;
     padding-left: 0;
+    position: fixed;
+    top: 0;
+    width: 100%;
   }
 }
 
@@ -5449,6 +5452,7 @@ a.badge-dark:focus, a.badge-dark.focus {
   padding-right: 0;
   padding-left: 0;
   border-radius: 0;
+  padding-top:0;
 }
 
 .alert {

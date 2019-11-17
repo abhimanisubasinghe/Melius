@@ -1,7 +1,4 @@
 import React from 'react';
-import '../../../../public/assets/bootstrap.min.css';
-import '../../../../public/assets/bootstrap.css';
-import './Customerreg.css';
 
 export default class Customerreg extends React.Component{
     

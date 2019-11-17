@@ -1,11 +1,5 @@
-//import React from 'react';
-//import ReactDOM from 'react-dom';
-import {BrowserRouter,Route,Link} from 'react-route-dom';
-import Registerforms from '../registerforms/Registerforms';
-
-import React, { Component } from 'react'
 import LogOutBtn from './LogOutBtn'
-
+import React, { Component } from 'react'
 
 class HeaderNavBar extends Component {
     
@@ -55,9 +49,9 @@ class HeaderNavBar extends Component {
     render() {
         
         return (
-            <div>    
-            <header className="main-header" id="main-header">    
-                <nav className="navbar navbar-expand-lg navbar-dark bg-primary">
+            <div style={navbar}>    
+            <header className="main-header" id="main-header" >    
+                <nav className="navbar navbar-expand-lg navbar-dark bg-primary" >
                 <a className="navbar-brand" href="#">Melius</a>
                 <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
                     <span className="navbar-toggler-icon"></span>
@@ -79,3 +73,7 @@ class HeaderNavBar extends Component {
 }
 
 export default HeaderNavBar
+
+const navbar = {
+  
+}

@@ -2,8 +2,7 @@ import React, { Component } from 'react'
 import './BasicPage.css';
 import HeaderNavBar from './HeaderNavBar';
 import SideBar from './SideBar';
-import DropDown from './DropDown.js'
-//import Customerreg from '../registerforms/customer/Customerreg.js'
+import Customerreg from '../registerforms/customer/Customerreg.js'
 
 class BasicPage extends Component {
     
@@ -24,9 +23,9 @@ class BasicPage extends Component {
                { <HeaderNavBar listItems={listItem} active="a" />}
                { <div>
                 {<SideBar  listItems={listItem} active="a" />}
-                </div> 
-                }
-                {/*<Customerreg></Customerreg>*/}
+                </div>} 
+                
+                {<Customerreg></Customerreg>}
                
             </div>
         )
