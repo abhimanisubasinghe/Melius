@@ -14,7 +14,7 @@ class BasicPage extends Component {
                         'h',
                         ['i','j','k']
                     ];
-        const options = ['Apple', 'Orange', 'Pear', 'Mango'];
+        
         return (
             <div style={backgroundStyle} >
                 
