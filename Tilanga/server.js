@@ -35,10 +35,12 @@ app.use(cookieParser("secretkey"));
 var Users = require('./routes/Users');
 var Customers = require('./routes/customer');
 var Services = require('./routes/service');
+var Admin = require('./routes/admin');
 
 app.use('/users', Users);
 app.use('/customers', Customers);
 app.use('/services', Services);
+app.use('/admin', Admin);
 
 app.listen(3000, function(){
     console.log('server run on 3000 port!!');

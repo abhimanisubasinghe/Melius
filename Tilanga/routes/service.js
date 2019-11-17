@@ -14,6 +14,7 @@ PDFDocument = require('pdfkit');
 const TWO_HOUR = 1000*60*60*2;
 var session;
 var userId;
+var adminId;
 
 service.use(ses({
     name: "sid", 
@@ -40,6 +41,14 @@ service.get('/',function(req,res){
         res.json('services!!!');
     }
 });
+
+//Services what melius provide
+service
+
+
+
+
+///////////////////////////////////
 
 //ADD SERVICE
 service.post('/newService',function(req,res){
