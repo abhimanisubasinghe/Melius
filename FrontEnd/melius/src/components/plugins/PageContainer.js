@@ -1,8 +1,7 @@
 import React, { Component } from 'react'
 import './PageContainer.css';
 import HeaderNavBar from './HeaderNavBar';
-import SideBar from './SideBar';
-import Customerreg from '../registerforms/customer/Customerreg.js'
+
 
 class PageContainer extends Component {
     
