@@ -3,6 +3,7 @@ import './App.css';
 import {BrowserRouter as Router, Route} from 'react-router-dom';
 import Login from './components/pages/Login';
 import Welcome from './components/pages/Welcome';
+import ServiceCenter from './components/pages/ServiceCenter';
 
 
 function App() {
@@ -16,6 +17,7 @@ function App() {
        </React.Fragment>  
       )}/>
      <Route path="/welcome" component={Welcome}/> 
+     <Route path="/servicecenter" component={ServiceCenter}/> 
     </div>
     </Router>
   );
