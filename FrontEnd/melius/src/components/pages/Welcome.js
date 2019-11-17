@@ -10,16 +10,19 @@ export default function Welcome() {
             <PageContainer/>
             <div className="jumbotron" style={jumbotronStyle}>
                 <WelcomeBtn newPage="Service Center"/>
-                <div className ="col-md-6">
-                                                        <span className="glyphicon glyphicon-pencil"></span>
-                                                </div>
+            </div>
+            <div className="jumbotron" style={jumbotronStyle}>
                 <WelcomeBtn newPage="Inventory"/>
-                <WelcomeBtn newPage="Information hub"/>
-            </div>              
+            </div>
+            <div className="jumbotron" style={jumbotronStyle}>
+                <WelcomeBtn newPage="Infromation Hub"/>
+            </div>         
+                     
         </React.Fragment>
     )
 }
 
 const jumbotronStyle = {
-    background: '#f0f0f0'
+    background: '#f0f0f0',
+    paddingTop: "100px"
 }
