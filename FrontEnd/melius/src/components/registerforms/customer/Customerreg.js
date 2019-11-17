@@ -30,6 +30,13 @@ export default class Customerreg extends React.Component{
 
                                                         </div>
                                         </div>
+                                        <div className= "row form-group" align="left">
+                                                <label for="customer_id" className="col-md-2">Customer Id</label>
+                                                        <div className="col-md-10">
+                                                                <input type="text" className="form-control" id="vehicle_no" placeholder="Enter customer ID"/>                        
+
+                                                        </div>
+                                        </div>
 
                                         <div className= "row form-group" align="left">
 
