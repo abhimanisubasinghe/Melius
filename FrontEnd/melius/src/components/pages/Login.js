@@ -4,12 +4,14 @@ import LoginForm from '../login/LoginForm'
 
 export default function Login() {
     return (
-        <React.Fragment style={backStyle}>
+        <React.Fragment style={body}>
             <LoginForm/>            
         </React.Fragment>
     )
 }
 
-const backStyle = {
-    background: 'linear-gradient(rgba(152, 15, 15, 0.5), rgba(255,255,255,.5)), url(./login.jpeg)'
-}
+
+const body ={
+        backgroundImage: 'url(./login.jpeg)'
+    }
+   
