@@ -18,6 +18,7 @@
         <a href="/items" class="btn btn-info ml-3">Item List</a>
         <a href="/transfer/add" class="btn btn-info ml-3">New Transfer</a>
         <a href="/transfer" class="btn btn-info ml-3">Transfer List</a>
+        <a href="/reorder" class="btn btn-info ml-3">New Purchase Order</a>
 
 
     </div>
@@ -36,11 +37,13 @@
                     <tr>
                         <th scope="col">#</th>
                         <th scope="col">Name</th>
-                        <th scope="col">Min</th>
-                        <th scope="col">Max</th>
+                        <th scope="col">Quantity in Stock</th>
+                        <th scope="col">Unit Price</th>
+                        <th scope="col">Cost Price</th>
+                        <th scope="col">Reorder Level</th>
+                        <th scope="col">Lead Time</th>
+                        <th scope="col">Reorder Quantity</th>
                         <th scope="col">Description</th>
-                        <th scope="col">Purchase Price</th>
-                        <th scope="col">Selling Price</th>
                         <th scope="col">Group</th>
                         <th scope="col">Brand</th>
                         <th scope="col">Type</th>
@@ -64,20 +67,27 @@
                                 <%= data[i].name%>
                             </td>
                             <td>
-                                <%= data[i].min%>
+                                <%= data[i].inStock%>
                             </td>
                             <td>
-                                <%= data[i].max%>
+                                <%= data[i].unitPrice%>
+                            </td>
+                            <td>
+                                <%= data[i].costPrice%>
+                            </td>
+                            <td>
+                                <%= data[i].reorderLevel%>
+                            </td>
+                            <td>
+                                <%= data[i].leadTime%>
+                            </td>
+                            <td>
+                                <%= data[i].reorderQuantity%>
                             </td>
                             <td>
                                 <%= data[i].descript%>
                             </td>
-                            <td>
-                                <%= data[i].purchasePrice%>
-                            </td>
-                            <td>
-                                <%= data[i].sellingPrice%>
-                            </td>
+
                             <td>
                                 <%= data[i].Itemgroup%>
                             </td>

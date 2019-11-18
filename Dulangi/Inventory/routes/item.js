@@ -6,6 +6,7 @@ var Promise = require('promise');
 
 // Basic CRUD function of this API is implemented using callback functions.
 
+//Calculate Reorder levels
 router.use(function(req, res, next) {
 
     var P1 = new Promise(function(resolve, reject) {
@@ -87,13 +88,15 @@ router.post('/add', function(req, res, next) {
 
     if (true) {
 
-        var user = {
+        var item = {
             name: req.body.name,
+            inStock: req.body.inStock,
+            unitPrice: req.body.unitPrice,
+            costPrice: req.body.costPrice,
+            reorderLevel: req.body.reorderLevel,
+            leadTime: req.body.leadTime,
+            reorderQuantity: req.body.reorderQuantity,
             descript: req.body.descript,
-            min: req.body.min,
-            max: req.body.max,
-            purchasePrice: req.body.pPrice,
-            sellingPrice: req.body.sPrice,
             Itemgroup: req.body.group,
             brand: req.body.brand,
             type: req.body.type,
@@ -104,13 +107,13 @@ router.post('/add', function(req, res, next) {
         };
 
 
-        connection.query('INSERT INTO item SET ?', user, function(err, result) {
+        connection.query('INSERT INTO item SET ?', item, function(err, result) {
 
             if (err) {
                 req.flash('error', err);
 
                 res.render('items/add', {
-                    title: 'Add new customer',
+                    title: 'Add new item',
 
                 })
             } else {
@@ -207,6 +210,7 @@ router.get('/delete/(:id)', function(req, res, next) {
 
     connection.query('DELETE FROM item WHERE itemCode=' + req.params.id, user, function(err, result) {
         if (err) {
+            console.log(req.params.id);
             req.flash('error', err)
                 // redirect to users list page
             res.redirect('/items')
