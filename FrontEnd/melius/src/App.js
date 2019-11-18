@@ -4,6 +4,10 @@ import {BrowserRouter as Router, Route} from 'react-router-dom';
 import Login from './components/pages/Login';
 import Welcome from './components/pages/Welcome';
 import ServiceCenter from './components/pages/ServiceCenter';
+import Inventory from './components/pages/Inventory'
+import InformationHub from './components/pages/InformationHub'
+import ServiceCenterCutomerRegister from './components/pages/ServiceCenterCustomerRegister';
+import CustomerRegister from './components/pages/CustomerRegister';
 
 
 function App() {
@@ -17,7 +21,11 @@ function App() {
        </React.Fragment>  
       )}/>
      <Route path="/welcome" component={Welcome}/> 
-     <Route path="/servicecenter" component={ServiceCenter}/> 
+     <Route exact path="/servicecenter" component={ServiceCenter}/> 
+     <Route exact path="/customer_register" component={CustomerRegister}/> 
+     <Route path="/inventory" component={Inventory}/> 
+     <Route path="/informationhub" component={InformationHub}/> 
+     <Route path="/servicecenter/customer/register" component={ServiceCenterCutomerRegister}/>
     </div>
     </Router>
   );

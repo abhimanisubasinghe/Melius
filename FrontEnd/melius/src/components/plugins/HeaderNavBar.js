@@ -34,6 +34,8 @@ class HeaderNavBar extends Component {
             active: this.props.active,
             listItems: this.modifyList(this.props.active) 
         }
+        console.log(this.props.active)
+        console.log(this.props.listItems)
 
     }
 

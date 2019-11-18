@@ -1,21 +1,35 @@
 import React, { Component } from 'react'
+import {Link} from 'react-router-dom'
 
 class DropDown extends Component {
 
+    home = this.props.home
     
-    modifyList(head){
+    modifyList(head,address){
         let formattedList = this.props.options.map(function(option){ 
-            if(option!= head)
-                return (<a href="#">{option}</a> )       
+            if(option!= head){
+                let link = "/"+address
+                console.log("first part"+link)
+                let temp = link+"_"
+                console.log("first part"+temp)
+                let final = temp+ option
+                //let link = this.home
+                return <Link to={final}>{option}</Link>
+            }    
             }    
         )
         return formattedList
     }
     
-    modifyTitle(head){
+    modifyTitle(head,address){
         let modifiedTitle = this.props.options.map(function(option){ 
-            if(option== head)
-                return (<a href="#">{option}</a> )       
+            if(option== head){
+                //let link = address+"/"+option
+               // let link = this.home+"_"+option
+               let link = address
+               console.log(link)
+                return <Link to={link} >{option}</Link>
+            }      
             }    
         )
         return modifiedTitle
@@ -28,9 +42,10 @@ class DropDown extends Component {
         this.state = {
             active : false,
             selected : -1,
-            options : this.modifyList(head),
-            title : this.modifyTitle(head)
+            options : this.modifyList(head,this.props.active),
+            title : this.modifyTitle(head,this.props.home)
         }
+        console.log(this.props.active)
     }
     
     toggleDropdown() {

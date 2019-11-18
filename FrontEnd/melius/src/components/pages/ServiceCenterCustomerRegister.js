@@ -2,7 +2,7 @@ import React from 'react'
 import PageContainer from '../plugins/PageContainer'
 import SideBar from '../plugins/SideBar';
 
-export default function ServiceCenter() {
+export default function ServiceCenterCutomerRegister() {
     
     const listItem= [ 
                         ['Customer','Register','View'],
@@ -12,11 +12,12 @@ export default function ServiceCenter() {
                     ];
         
 
+    const active = "Customer"
+    const home = "/servicecenter/"                
     return (
         
         <div>
             <PageContainer/>
-            <SideBar listItems={listItem} active="" />}
         </div>
     )
 }
