@@ -9,13 +9,13 @@ export default function Welcome() {
         <React.Fragment>
             <PageContainer/>
             <div className="jumbotron" style={jumbotronStyle}>
-                <WelcomeBtn newPage="Service Center"/>
+                <WelcomeBtn newPage="Service Center" link="/servicecenter"/>
             </div>
             <div className="jumbotron" style={jumbotronStyle}>
-                <WelcomeBtn newPage="Inventory"/>
+                <WelcomeBtn newPage="Inventory" link="/inventory"/>
             </div>
             <div className="jumbotron" style={jumbotronStyle}>
-                <WelcomeBtn newPage="Infromation Hub"/>
+                <WelcomeBtn newPage="Infromation Hub" link="/informationhub"/>
             </div>         
                      
         </React.Fragment>
@@ -23,6 +23,6 @@ export default function Welcome() {
 }
 
 const jumbotronStyle = {
-    background: '#f0f0f0',
-    paddingTop: "100px"
+    backgroundColor: 'transparent',
+    paddingTop: "63px",
 }

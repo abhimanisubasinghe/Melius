@@ -1,7 +1,7 @@
 import React from 'react'
 import PageContainer from '../plugins/PageContainer'
 import SideBar from '../plugins/SideBar';
-import './Inventory.css';
+import './Image.css';
 
 export default function Inventory() {
     

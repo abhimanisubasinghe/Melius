@@ -1,4 +1,5 @@
 import LogOutBtn from './LogOutBtn'
+import {Link} from 'react-router-dom'
 import React, { Component } from 'react'
 
 class HeaderNavBar extends Component {
@@ -9,17 +10,19 @@ class HeaderNavBar extends Component {
         let formattedList = this.originalList.map(listItem => 
             {
                 if(listItem == active){
+                    const address= "/"+listItem
                     return (<li className= "nav-item active"
                         id={listItem}
                         onClick= {({listItem}) => this.chngActive(listItem)} >
-                        <a className="nav-link" href="#">{listItem} </a>
+                        <Link className="nav-link" to={address}>{listItem} </Link>
                     </li>)
                 }
                 else{
+                    const address= "/"+listItem
                     return (<li className= "nav-item"
                         id={listItem}
                         onClick= {({listItem}) => this.chngActive(listItem)}>
-                        <a className="nav-link" href="#">{listItem} </a>
+                        <Link className="nav-link" to={address}>{listItem} </Link>
                     </li>)
 
                 }    

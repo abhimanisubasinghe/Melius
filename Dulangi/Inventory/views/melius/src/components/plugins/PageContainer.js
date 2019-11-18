@@ -7,9 +7,9 @@ class PageContainer extends Component {
     
     
     render() {
-        const listItem= [ "Service Center",
+        const listItem= [ "ServiceCenter",
                         "Inventory",
-                        "Information Hub"
+                        "InformationHub"
                     ];
         return (
             <div style={backgroundStyle} >
