@@ -8,6 +8,7 @@ import Inventory from './components/pages/Inventory'
 import InformationHub from './components/pages/InformationHub'
 import ServiceCenterCutomerRegister from './components/pages/ServiceCenterCustomerRegister';
 import CustomerRegister from './components/pages/CustomerRegister';
+import ItemRegister from './components/pages/ItemRegister';
 
 
 function App() {
@@ -23,6 +24,7 @@ function App() {
      <Route path="/welcome" component={Welcome}/> 
      <Route exact path="/servicecenter" component={ServiceCenter}/> 
      <Route exact path="/customer_register" component={CustomerRegister}/> 
+     <Route exact path="/item_register" component={ItemRegister}/> 
      <Route path="/inventory" component={Inventory}/> 
      <Route path="/informationhub" component={InformationHub}/> 
      <Route path="/servicecenter/customer/register" component={ServiceCenterCutomerRegister}/>
