@@ -9,6 +9,7 @@ import InformationHub from './components/pages/InformationHub'
 import ServiceCenterCutomerRegister from './components/pages/ServiceCenterCustomerRegister';
 import CustomerRegister from './components/pages/CustomerRegister';
 import ItemRegister from './components/pages/ItemRegister';
+import BasicPage from './components/plugins/BasicPage';
 
 
 function App() {
@@ -21,6 +22,7 @@ function App() {
        {<Login/>}
        </React.Fragment>  
       )}/>
+     <Route path="/testing" component={BasicPage}/> 
      <Route path="/welcome" component={Welcome}/> 
      <Route exact path="/servicecenter" component={ServiceCenter}/> 
      <Route exact path="/customer_register" component={CustomerRegister}/> 

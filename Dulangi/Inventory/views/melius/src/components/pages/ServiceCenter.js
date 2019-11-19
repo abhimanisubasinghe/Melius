@@ -16,7 +16,7 @@ export default function ServiceCenter() {
         
         <div>
             <PageContainer/>
-            <SideBar listItems={listItem} active="" />}
+            <SideBar home="/servicecenter" listItems={listItem} active="" />}
         </div>
     )
 }

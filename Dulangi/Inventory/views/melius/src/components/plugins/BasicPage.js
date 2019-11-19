@@ -2,6 +2,8 @@ import React, { Component } from 'react'
 import HeaderNavBar from './HeaderNavBar';
 import SideBar from './SideBar';
 import Customerreg from '../registerforms/customer/Customerreg.js'
+import Table from './Table';
+
 
 class BasicPage extends Component {
     
@@ -19,12 +21,13 @@ class BasicPage extends Component {
             <div style={backgroundStyle} >
                 
                 
-               { <HeaderNavBar listItems={listItem} active="a" />}
+               { <HeaderNavBar listItems={listItem} active="testing" />}
                { <div>
-                {<SideBar  listItems={listItem} active="a" />}
+                {<SideBar  listItems={listItem}  home="/testing" active="testing" />}
                 </div>} 
-                
-                {<Customerreg></Customerreg>}
+               <div className="container" style={containerStyle}> 
+               <Table/>
+               </div>
                
             </div>
         )
@@ -32,6 +35,13 @@ class BasicPage extends Component {
 }
  
 const backgroundStyle = {
-    'backgroundColor': '#f0f0f0'
+    'backgroundColor': 'transparent'
+}
+
+
+const containerStyle = {
+    backgroundColor: 'transparent'
 }
 export default BasicPage
+
+

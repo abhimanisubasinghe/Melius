@@ -14,7 +14,7 @@ class SideBar extends Component {
         let formattedList = this.props.listItems.map(function(listItem){
             if(listItem.length==1){
                 //let link = address+"/"+listItem
-                let link = this.props.home
+                let link = home
                 return <Link to={link}>{listItem[0]}</Link>
             }    
             else{
