@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import './Login.css';
+import { login } from '../UserFunction';
 
 class LoginForm extends Component {
     constructor(props) {
@@ -7,20 +8,51 @@ class LoginForm extends Component {
     
         this.state = {
             userName: "",
-            password:""
+            password: ""
         }
+        ////////////
+        this.onChange = this.onChange.bind(this)
+        this.onSubmit = this.onSubmit.bind(this)
     }
 
     onChange = (e) => {
         this.setState(
         {[e.target.name]: e.target.value}
-    )
+        )
     }
     
     handleSubmit = event => {
         alert(`Hi ${this.state.userName}!`);
         event.preventDefault()
     }
+
+    /////////////////////////////////////
+    onSubmit(e){
+        e.preventDefault();
+        
+        const user = {
+            userName: this.state.userName,
+            password: this.state.password
+        }
+        console.log(user.userName);
+        login(user).then(res => {
+            if(res === 'logged') {
+                /////
+                console.log(res);
+                console.log('111111111111111');
+                this.props.history.push('/profile');
+            }
+            else if(res === 'User does not exist'){
+                console.log(res);
+                console.log('fj');
+                this.props.history.push('/LoginForm');
+            }
+            else if(res === 'fill all fields'){
+                alert(res);
+            }
+        })
+    }
+
     
     render() {
         return (
@@ -37,7 +69,7 @@ class LoginForm extends Component {
                     </div>
                     <div className="bs-component">
                         <div className="jumbotron" style={jumbotronStyle}>
-                            <form onSubmit={this.handleSubmit}>
+                            <form onSubmit={this.onSubmit}>
                                 <fieldset>
                                     <legend><h1>Login</h1></legend>
                                     <div class="form-group">

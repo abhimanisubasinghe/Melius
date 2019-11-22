@@ -4,7 +4,7 @@ var ses = require('express-session');
 var pat = require('path');
 var body = require('body-parser');
 var cors = require('cors');
-var sql = require('../database/db');
+var sql = require('../database/db2');
 var PDFDocument, doc, doc1;
 var fs = require('fs');
 PDFDocument = require('pdfkit');
@@ -43,10 +43,7 @@ service.get('/',function(req,res){
 });
 
 //Services what melius provide
-service
-
-
-
+//service
 
 ///////////////////////////////////
 
