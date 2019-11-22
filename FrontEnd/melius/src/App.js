@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import './App.css';
-<<<<<<< HEAD
 //import logo from './logo.svg';
 import LoginForm from './components/login/LoginForm';
 //import Profile from './components/login/profile';
@@ -17,8 +16,6 @@ import LoginForm from './components/login/LoginForm';
 
 
 
-=======
-<<<<<<< HEAD
 import {BrowserRouter as Router, Route} from 'react-router-dom';
 import Login from './components/pages/Login';
 import Welcome from './components/pages/Welcome';
@@ -50,7 +47,7 @@ function App() {
     </div>
     </Router>
   );
-=======
+
 //import logo from './logo.svg';
 import LoginForm from './components/login/LoginForm';
 //import Profile from './components/login/profile';
@@ -67,7 +64,7 @@ import LoginForm from './components/login/LoginForm';
 
 
 
->>>>>>> 3b3607fd3d6e0b4484b7bacec6d0cbc9766e7384
+
 //export default App;
 
 class App extends Component {
@@ -87,10 +84,6 @@ class App extends Component {
       </div>
     );
   }
-<<<<<<< HEAD
-=======
->>>>>>> connect login back and front
->>>>>>> 3b3607fd3d6e0b4484b7bacec6d0cbc9766e7384
 }
-
+}
 export default App;
