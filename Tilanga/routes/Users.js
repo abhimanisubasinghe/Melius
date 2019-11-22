@@ -220,8 +220,12 @@ users.post('/delete',function(req,res){
 
 //LOGIN
 users.post('/login', function(req,res){
-     
+     console.log('mmmmmmmmmmmmmmmmmmmm');
+     //console.log(userData.password)
+     console.log(req.body.username)
+     console.log(req.body.password)
     if(req.body.username && req.body.password){
+        console.log('jnvejnvejnv')
         var password = req.body.password;
         bcrypt.hash(password, 10, function(err, hash){
             sql.query("SELECT password FROM userlogin WHERE username = ? ",[req.body.username], function(err,result){
@@ -230,13 +234,14 @@ users.post('/login', function(req,res){
                     if(result.length>0){
                             req.session.userId = req.body.username;
                             id = req.session.userId;
-                            // console.log(id);
+                             console.log(id);
                             // //module.exports = id;
                             // console.log(id);
                             res.json('logged');
+                            //res.redirect('/profile')
                     }
                     else{
-                        res.send('User does not exist')
+                         res.send('User does not exist')
                     }
                 }
             })
@@ -250,7 +255,9 @@ users.post('/login', function(req,res){
 
 //PROFILE
 users.get('/profile', function(req,res){
+    console.log('tytytytytyty');
     if(req.session.userId){
+        console.log('profile');
         res.json('logged');
     }
     else{
