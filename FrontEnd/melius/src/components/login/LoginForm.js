@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import {Link} from 'react-router-dom'
 import './Login.css';
 import { login } from '../UserFunction';
 
@@ -22,8 +23,8 @@ class LoginForm extends Component {
     }
     
     handleSubmit = event => {
-        alert(`Hi ${this.state.userName}!`);
-        event.preventDefault()
+        alert(`Hi ${this.state.userName}! `);
+        //event.preventDefault()
     }
 
     /////////////////////////////////////
@@ -100,7 +101,7 @@ class LoginForm extends Component {
                                     </div>
                                     <small id="loginHelp" class="form-text text-muted">Welcome to Melius!</small>
                                     <br/>
-                                    <button className="btn btn-primary" type="submit">Submit</button>
+                                    <Link to="/welcome"><button className="btn btn-primary" type="submit">Submit</button></Link>
                                 </fieldset>    
                             </form>    
                         </div>

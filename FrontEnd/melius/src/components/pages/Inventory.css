@@ -1,0 +1,13 @@
+body,html {
+    /* The image used */
+   /* background-image: url(./login.jpeg);*/
+    /*background: linear-gradient(rgba(152, 15, 15, 0.5), rgba(255,255,255,.5)), url(./pic1.jpg);
+    /* Full height */
+    height: 100%; 
+    width: 100%;
+    /* Center and scale the image nicely */
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    
+}
