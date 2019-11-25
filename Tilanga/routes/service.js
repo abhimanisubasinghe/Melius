@@ -34,11 +34,23 @@ service.use(cors());
 
 //go to service
 service.get('/',function(req,res){
-    if(!req.session.userId){
-        res.send('please log');
+    if(!req.session.adminId){
+        res.send('please log as an admin');
     }
     else{
-        res.json('services!!!');
+        sql.query("SELECT * FROM service",function(err,result){
+            if(err){
+                throw err;
+            }
+            else{
+                if(result.length>0){
+                    res.json(result);
+                }
+                else{
+                    res.json('No any services');
+                }
+            }
+        });
     }
 });
 
