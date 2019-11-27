@@ -32,7 +32,7 @@ service.use(body.urlencoded({extend: false}));
 service.use(cors());
 
 
-//go to service
+//go to service and display
 service.get('/',function(req,res){
     if(!req.session.adminId){
         res.send('please log as an admin');
@@ -53,6 +53,51 @@ service.get('/',function(req,res){
         });
     }
 });
+
+
+//ADD NEW SERVICE
+service.post('/addService',function(req,res){
+    var category =  req.body.category;
+    var name = req.body.name;
+    var price =  req.body.price;
+    if(req.session.adminId){
+        if(category && name && price){
+            sql.query('SELECT serviceId FROM service WHERE name = ? AND category = ?',[name,category],function(err,result){
+                if(err){
+                    throw err;
+                }
+                else{
+                    if(result.length>0){
+                        res.send('service already exist');
+                    }
+                    else{
+                        sql.query('INERT INTO service (category,name,price) VALUES (?,?,?)',[category,name,price],function(err1,result1){
+                            if(err1){
+                                throw err1;
+                            }
+                            else{
+                                sql.query("SELECT * FROM service",function(err2,result2){
+                                    if(err){
+                                        throw err;
+                                    }
+                                    else{\
+                                        console.log('service added');
+                                        if(result2.length>0){
+                                            res.json(result2);
+                                        }
+                                        else{
+                                            res.json('No any services');
+                                        }
+                                    }
+                                });
+                            }
+                        })
+                    }
+                }
+            })
+        }
+    }
+})
 
 //Services what melius provide
 //service
