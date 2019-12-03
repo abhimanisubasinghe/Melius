@@ -25,7 +25,7 @@ app.use(ses({
 
 app.use(cors());
 app.use(bodyParser.json());
-app.use(bodyParser( {extended: false} ));
+app.use(bodyParser.urlencoded( {extended: false} ));
 app.use(cookieParser("secretkey"));
 
 //Setting up view engine

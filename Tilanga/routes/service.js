@@ -4,7 +4,8 @@ var ses = require('express-session');
 var pat = require('path');
 var body = require('body-parser');
 var cors = require('cors');
-var sql = require('../database/db2');
+var sql = require('../database/db');
+var sql2 = require('../database/db2');
 var PDFDocument, doc, doc1;
 var fs = require('fs');
 PDFDocument = require('pdfkit');
@@ -62,8 +63,9 @@ service.post('/addService',function(req,res){
     var price =  req.body.price;
     if(req.session.adminId){
         if(category && name && price){
-            sql.query('SELECT serviceId FROM service WHERE name = ? AND category = ?',[name,category],function(err,result){
+            sql.query('SELECT serviceId FROM service WHERE name = ? AND category = ?;',[name,category],function(err,result){
                 if(err){
+                    console.log('errrrrrrr');
                     throw err;
                 }
                 else{
@@ -80,12 +82,14 @@ service.post('/addService',function(req,res){
                                     if(err){
                                         throw err;
                                     }
-                                    else{\
+                                    else{
                                         console.log('service added');
                                         if(result2.length>0){
+                                            console.log('service added');
                                             res.json(result2);
                                         }
                                         else{
+                                            //console.log('')
                                             res.json('No any services');
                                         }
                                     }
@@ -97,6 +101,59 @@ service.post('/addService',function(req,res){
             })
         }
     }
+    else{
+        
+        res.send('please log as an admin');
+    }
+});
+
+//UPDATE SERVICE DATA
+service.post('/updateService',function(req,res){
+    var serviceId = req.body.serviceId;
+    var category = req.body.category;
+    var name = req.body.name;
+    var price = req.body.price;
+    if(req.session.adminId){
+        if(serviceId && category && name && price){
+            sql.query('SELECT name FROM service WHERE serviceId = ?',[serviceId],function(err,result){
+                if(err){
+                    throw err;
+                }
+                else{
+                    if(result.length>0){
+                        sql.query('UPDATE service SET name = ?, category = ?,price = ? WHERE serviceId = ?',[name,category,price,serviceId],function(err1,result1){
+                            if(err1){
+                                throw err1;
+                            }
+                            else{
+                                sql.query("SELECT * FROM service",function(err2,result2){
+                                    if(err){
+                                        throw err;
+                                    }
+                                    else{
+                                        console.log('service updated');
+                                        if(result2.length>0){
+                                            res.json(result2);
+                                        }
+                                        else{
+                                            res.json('No any services');
+                                        }
+                                    }
+                                });
+                            };
+                        })
+                    }
+                    else{
+                        req.send('wrong serviceId');
+                    }
+                }
+            })
+        }
+    }
+    else{
+        res.send('please log as an admin');
+    }
+    
 })
 
 //Services what melius provide
@@ -121,7 +178,7 @@ service.post('/newService',function(req,res){
     }
     else{
         if(customerId && vehicleNo && serviceType && payment && (cashPayment || cardPayment)){
-            sql.query('SELECT vehicle.vehicleType FROM vehicle INNER JOIN service ON vehicle.vehicleNo = service.vehicleNo WHERE service.customerId = ? AND service.vehicleNo = ?',[customerId,vehicleNo],function(err1,result1){
+            sql2.query('SELECT vehicle.vehicleType FROM vehicle INNER JOIN service ON vehicle.vehicleNo = service.vehicleNo WHERE service.customerId = ? AND service.vehicleNo = ?',[customerId,vehicleNo],function(err1,result1){
                 if(err1){
                     throw err;
                 }
@@ -130,7 +187,7 @@ service.post('/newService',function(req,res){
                         console.log(result1);
                         if(cashPayment){
                             cardPayment = 0.0;
-                            sql.query('INSERT INTO service (customerId, vehicleNo, serviceType, date, payment, cashPayment,cardPayment) VALUES (?,?,?,?,?,?,?)',[customerId, vehicleNo,serviceType,date,payment,cashPayment,cardPayment],function(err,result){
+                            sql2.query('INSERT INTO service (customerId, vehicleNo, serviceType, date, payment, cashPayment,cardPayment) VALUES (?,?,?,?,?,?,?)',[customerId, vehicleNo,serviceType,date,payment,cashPayment,cardPayment],function(err,result){
                                 if(err){
                                     throw err;
                                 }
@@ -141,7 +198,7 @@ service.post('/newService',function(req,res){
                         }
                         else if(cardPayment){
                             cashPayment = 0.0;
-                            sql.query('INSERT INTO service (serviceId, customerId, vehicleNo, serviceType, date, payment, cashPayment,cardPayment) VALUES (?,?,?,?,?,?,?,?)',[customerId, vehicleNo,serviceType,date,payment,cashPayment,cardPayment],function(err,result){
+                            sql2.query('INSERT INTO service (serviceId, customerId, vehicleNo, serviceType, date, payment, cashPayment,cardPayment) VALUES (?,?,?,?,?,?,?,?)',[customerId, vehicleNo,serviceType,date,payment,cashPayment,cardPayment],function(err,result){
                                 if(err){
                                     throw err;
                                 }
@@ -165,13 +222,13 @@ service.post('/currentBill',function(req,res){
     var serviceId = req.body.serviceId;
 
     if(req.session.userId){
-        sql.query('SELECT date FROM service WHERE serviceId = ?',[serviceId],function(err,result){
+        sql2.query('SELECT date FROM service WHERE serviceId = ?',[serviceId],function(err,result){
             if(err){
                 throw err;
             }
             else{
                 if(result.length>0){
-                    sql.query('SELECT * FROM service WHERE serviceId = ?',[serviceId],function(err1,result1){
+                    sql2.query('SELECT * FROM service WHERE serviceId = ?',[serviceId],function(err1,result1){
                         if(err1){
                             throw err1;
                         }
@@ -197,13 +254,13 @@ service.post('/dateBill',function(req,res){
     console.log(date);
     if(req.session.userId){
         if(date){
-            sql.query('SELECT * FROM service WHERE date = ?',[date],function(err,result){
+            sql2.query('SELECT * FROM service WHERE date = ?',[date],function(err,result){
                 if(err){
                     throw err;
                 }
                 else{
                     //TOTAL OF THE CURRENT INVOICE
-                    sql.query('SELECT payment FROM service WHERE date ?',[date],function(err1,result1){
+                    sql2.query('SELECT payment FROM service WHERE date ?',[date],function(err1,result1){
                         if(err1){
                             throw err1;
                         }
@@ -263,7 +320,7 @@ service.post('/rangeBill', function(req,res){
     //yyyy-dd-mm
     if(req.session.userId){
         if(date1 && date2){
-            sql.query('SELECT * FROM service WHERE date BETWEEN ? AND ?',[date1,date2],function(err,result){
+            sql2.query('SELECT * FROM service WHERE date BETWEEN ? AND ?',[date1,date2],function(err,result){
                 if(err){
                     throw err;
                 }
