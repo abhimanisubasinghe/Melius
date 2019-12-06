@@ -107,7 +107,7 @@ service.post('/addService',function(req,res){
     }
 });
 
-//UPDATE SERVICE DATA
+//UPDATE SERVICE 
 service.post('/updateService',function(req,res){
     var serviceId = req.body.serviceId;
     var category = req.body.category;
@@ -154,7 +154,52 @@ service.post('/updateService',function(req,res){
         res.send('please log as an admin');
     }
     
+});
+
+//REMOVE SERVICE
+service.post('/serviceRemove',function(req,res){
+    var serviceId = req.body.serviceId;
+    var name = req.body.name;
+    if(req.session.adminId){
+        if(serviceId && name){
+            sql.query('SELECT * FROM service WHERE serviceId = ? AND name = ?',[serviceId,name],function(err,result){
+                if(err){
+                    throw err;
+                }
+                else{
+                    if(result.length>0){
+                        sql.query('DELETE FROM service WHERE serviceId = ? AND name = ?',[serviceId,name],function(err1,result2){
+                            if(err1){
+                                throw err1;
+                            }
+                            else{
+                                console.log('deleted');
+                                sql.query("SELECT * FROM service",function(err2,result2){
+                                    if(err){
+                                        throw err;
+                                    }
+                                    else{
+                                        console.log('service deleted');
+                                        if(result2.length>0){
+                                            res.json(result2);
+                                        }
+                                        else{
+                                            res.json('No any services');
+                                        }
+                                    }
+                                });
+                            }
+                        })
+                    }
+                }
+            })
+        }
+        else{
+            res.send('please log as an admin')
+        }
+    }
 })
+
 
 //Services what melius provide
 //service
