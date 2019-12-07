@@ -63,7 +63,7 @@ service.post('/addService',function(req,res){
     var price =  req.body.price;
     if(req.session.adminId){
         if(category && name && price){
-            sql.query('SELECT serviceId FROM service WHERE name = ? AND category = ?;',[name,category],function(err,result){
+            sql.query('SELECT serviceId FROM service WHERE name = ? AND category = ?',[name,category],function(err,result){
                 if(err){
                     console.log('errrrrrrr');
                     throw err;
@@ -73,7 +73,7 @@ service.post('/addService',function(req,res){
                         res.send('service already exist');
                     }
                     else{
-                        sql.query('INERT INTO service (category,name,price) VALUES (?,?,?)',[category,name,price],function(err1,result1){
+                        sql.query('INSERT INTO service (category,name,price) VALUES (?,?,?)',[category,name,price],function(err1,result1){
                             if(err1){
                                 throw err1;
                             }
@@ -207,57 +207,98 @@ service.post('/serviceRemove',function(req,res){
 ///////////////////////////////////
 
 //ADD SERVICE
-service.post('/newService',function(req,res){
+service.post('/newServiceInvoice',function(req,res){
     var today = new Date();
 
     var serviceId = req.body.serviceId;
     var customerId = req.body.customerId;
-    var vehicleNo = req.body.vehicleNo;
-    var serviceType = req.body.serviceType;
+    var vehicleId = req.body.vehicleId;
+    //var serviceType = req.body.serviceType;
     var date = today;
-    var payment = req.body.payment;
-    var cashPayment = req.body.cashPayment;
-    var cardPayment = req.body.cardPayment;
-    if(!req.session.userId){
+    var sub_total = 0;
+    var total =  0;
+    var discount = req.body.discount;
+    var remarks = req.body.remarks;
+    var newTotal = 0.0;
+    if(!(req.session.userId || req.session.adminId)){
         res.send('please log');
     }
     else{
-        if(customerId && vehicleNo && serviceType && payment && (cashPayment || cardPayment)){
-            sql2.query('SELECT vehicle.vehicleType FROM vehicle INNER JOIN service ON vehicle.vehicleNo = service.vehicleNo WHERE service.customerId = ? AND service.vehicleNo = ?',[customerId,vehicleNo],function(err1,result1){
-                if(err1){
-                    throw err;
+        
+        if(customerId && serviceId && discount && vehicleId && date && remarks){
+            console.log('llllllllllllllllll')
+            sql.query('select name from service where serviceId = ?',[serviceId],function(err3,result3){
+                if(err3){
+                    throw err3;
                 }
                 else{
-                    if(result1.length>0){
-                        console.log(result1);
-                        if(cashPayment){
-                            cardPayment = 0.0;
-                            sql2.query('INSERT INTO service (customerId, vehicleNo, serviceType, date, payment, cashPayment,cardPayment) VALUES (?,?,?,?,?,?,?)',[customerId, vehicleNo,serviceType,date,payment,cashPayment,cardPayment],function(err,result){
-                                if(err){
-                                    throw err;
+                    if(result3.length>0){
+                        sql.query('select price from service where serviceId = ?',[serviceId],function(err4,result4){
+                            if(err4){
+                                throw err4;
+                            }
+                            else{
+                                if(result4.length>0){
+                                    total = result4[0].price;
+                                    console.log('aaaaaaaaaaaaaa');
+                                    console.log(total);
+                                    var iid;
+
+                                    sql.query('SELECT vehicleNo FROM vehicle  WHERE custId = ? AND Id = ?',[customerId,vehicleId],function(err1,result1){
+                                        if(err1){
+                                            throw err1;
+                                        }
+                                        else{
+                                            if(result1.length>0){
+                                                console.log(result1);
+                                                    var temp = parseInt(total);
+                                                    sub_total = temp*(discount/100);
+                                                    
+                                                    sql.query('INSERT INTO service_invoice (customerId, vehicleId, date, total, discount, remarks, sub_total) VALUES (?,?,?,?,?,?,?)',[customerId, vehicleId,date,total,discount,remarks,sub_total],function(err,result){
+                                                        if(err){
+                                                            throw err;
+                                                        }
+                                                        else{
+                                                            console.log('plofv,ofgmkmokgrmogrb');
+                                                            console.log(result.insertId);
+                                                            iid = result.insertId;
+                                                            console.log('insert invoice');
+
+                                                            sql.query('insert into service_invoice_services (invoiceId,serviceId) values (?,?)',[iid,serviceId],function(err5,result5){
+                                                                if(err5){
+                                                                    throw err5;
+                                                                }
+                                                                else{
+                                                                    req.send("success");
+                                                                }
+                                                            })
+
+                                                            //sql.query('INSERT INTO service_invoice_service (customerId, vehicleId, date, total, discount, remarks) VALUES (?,?,?,?,?,?)')
+                                                            //res.json({result : result});
+                                                        }
+                                                    });
+                                                    console.log(iid)
+                                                    
+                                            }
+                                            else{
+                                                res.send('Wrong details!!!!, please check agin')
+                                            }
+                                        }
+                                    });
                                 }
                                 else{
-                                    res.json({result : result});
+                                    req.send('something went wrong try again')
                                 }
-                            });
-                        }
-                        else if(cardPayment){
-                            cashPayment = 0.0;
-                            sql2.query('INSERT INTO service (serviceId, customerId, vehicleNo, serviceType, date, payment, cashPayment,cardPayment) VALUES (?,?,?,?,?,?,?,?)',[customerId, vehicleNo,serviceType,date,payment,cashPayment,cardPayment],function(err,result){
-                                if(err){
-                                    throw err;
-                                }
-                                else{
-                                    res.json({result : result});
-                                }
-                            });
-                        }
+                            }
+                        })
                     }
                     else{
-                        res.send('Wrong details!!!!, please check agin')
+                        res.send('service not found');
                     }
                 }
-            });
+            })
+
+            
         }
     }
 });
