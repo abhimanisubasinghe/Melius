@@ -387,15 +387,15 @@ service.post('/dateBill',function(req,res){
     var total = 0;
     var date = req.body.date;
     console.log(date);
-    if(req.session.userId){
+    if(req.session.userId || req.session.adminId){
         if(date){
-            sql2.query('SELECT * FROM service WHERE date = ?',[date],function(err,result){
+            sql.query('SELECT * FROM service_invoice WHERE date = ?',[date],function(err,result){
                 if(err){
                     throw err;
                 }
                 else{
                     //TOTAL OF THE CURRENT INVOICE
-                    sql2.query('SELECT payment FROM service WHERE date ?',[date],function(err1,result1){
+                    sql.query('SELECT sub_total FROM service_invoice WHERE date ?',[date],function(err1,result1){
                         if(err1){
                             throw err1;
                         }
@@ -403,8 +403,8 @@ service.post('/dateBill',function(req,res){
                             console.log('11111111111111111111111');
                             console.log(result1);
                             for(var i = 0; i<result1.length; i++){
-                                console.log(result1[i].payment);
-                                var x = parseFloat(result1[i].payment);
+                                console.log(result1[i].sub_total);
+                                var x = parseFloat(result1[i].sub_total);
                                 total = total + x;
                             }
                             console.log(total);
@@ -415,7 +415,7 @@ service.post('/dateBill',function(req,res){
                             doc1.fontSize(15).text('Summary of Services in the day !\n\n\n', 50, 50);
                                 // Set the paragraph width and align direction
                             for(var m = 0; m<result.length; m++){
-                                doc1.text("service id : "+result[m].serviceId+"\n customer id : "+result[m].customerId+"\n vehicle number : "+result[m].vehicleNo+"\n date : "+result[m].date+"\n payment : "+result[m].payment,{
+                                doc1.text("invoice Id : "+result[m].invoiceId+"\n customer id : "+result[m].customerId+"\n vehicle Id : "+result[m].vehicleId+"\n date : "+result[m].date+"\n total : "+result[m].total+"\n subtotal :"+result[m].sub_total,{
                                     width: 410,
                                     align: 'left'
                                 });
