@@ -352,29 +352,18 @@ service.post('/newServiceInvoice',function(req,res,next){
     console.log('end');
 });
 
-service.get('/functionNew',function(req,res){
-    console.log('done');
-    if(req.session.userId || req.session.adminId){
-        res.json(req.params.result);
-    }
-    else{
-        res.send('please log');
-    }
-    
-});
-
 //GET DATA FROM INVOICE
 service.post('/currentBill',function(req,res){
-    var serviceId = req.body.serviceId;
+    var serviceId = req.body.invoiceId;
 
-    if(req.session.userId){
-        sql2.query('SELECT date FROM service WHERE serviceId = ?',[serviceId],function(err,result){
+    if(req.session.userId || req.session.adminId){
+        sql.query('SELECT date FROM service_invoice WHERE invoiceId = ?',[serviceId],function(err,result){
             if(err){
                 throw err;
             }
             else{
                 if(result.length>0){
-                    sql2.query('SELECT * FROM service WHERE serviceId = ?',[serviceId],function(err1,result1){
+                    sql.query('SELECT * FROM service_invoice WHERE invoiceId = ?',[serviceId],function(err1,result1){
                         if(err1){
                             throw err1;
                         }
