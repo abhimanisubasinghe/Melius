@@ -352,6 +352,47 @@ service.post('/newServiceInvoice',function(req,res,next){
     console.log('end');
 });
 
+//delete DATA OF INVOICE
+service.post('/deleteBill',function(req,res){
+    var invoiceId = req.body.invoiceId;
+    
+    if( req.session.adminId){
+        sql.query('select serviceId from service_invoice_services where invoiceId = ?',[invoiceId],function(err,result){
+            if(err){
+                throw err;
+            }
+            else{
+                if(result.length>0){
+                    sql.query('delete from service_invoice_services where invoiceId = ?',[invoiceId],function(err2,result2){
+                        if(err2){
+                            throw err2;
+                        }
+                        else{
+                            sql.query('delete from service_invoice where invoiceId = ?',[invoiceId],function(err1,result1){
+                                if(err1){
+                                    throw err1
+                                }
+                                else{
+                                    res.send('delete success');
+                                }
+                            })
+                        }
+                    })
+                    
+                }
+                else{
+                    res.send('wrong invoice id')
+                }
+            }
+        })
+
+        
+    }
+    else{
+        res.send('please log')
+    }
+})
+
 //GET DATA FROM INVOICE
 service.post('/currentBill',function(req,res){
     var serviceId = req.body.invoiceId;
@@ -453,9 +494,9 @@ service.post('/rangeBill', function(req,res){
     var date2 = req.body.date2;
     console.log(date1);
     //yyyy-dd-mm
-    if(req.session.userId){
+    if(req.session.userId || req.session.adminId){
         if(date1 && date2){
-            sql2.query('SELECT * FROM service WHERE date BETWEEN ? AND ?',[date1,date2],function(err,result){
+            sql.query('SELECT * FROM service_invoice WHERE date BETWEEN ? AND ?',[date1,date2],function(err,result){
                 if(err){
                     throw err;
                 }
@@ -496,9 +537,3 @@ service.post('/pdf',function(req,res){
 
 
 module.exports = service;
-
-//////////////////////////NEW SERVICEiNVOICE FUNCTION SOME ETRA PART
-
-
-// console.log('sendddddddd');
-// resss = result6;
