@@ -25,21 +25,25 @@ app.use(ses({
 
 app.use(cors());
 app.use(bodyParser.json());
-app.use(bodyParser( {extended: false} ));
+app.use(bodyParser.urlencoded( {extended: false} ));
 app.use(cookieParser("secretkey"));
 
 //Setting up view engine
 // app.set('views', path.join(__dirname, 'views'));
 // app.set('view engine', 'ejs');
 
+var Index = require('./routes/index');
 var Users = require('./routes/Users');
 var Customers = require('./routes/customer');
 var Services = require('./routes/service');
+var Admin = require('./routes/admin');
 
+app.use('/',Index);
 app.use('/users', Users);
 app.use('/customers', Customers);
 app.use('/services', Services);
+app.use('/admin', Admin);
 
-app.listen(3000, function(){
-    console.log('server run on 3000 port!!');
+app.listen(3001, function(){
+    console.log('server run on 3001 port!!');
 });

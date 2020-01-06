@@ -1,10 +1,11 @@
 var express = require('express');
 var service = express.Router();
 var ses = require('express-session');
-var pat = require('path');
+var path = require('path');
 var body = require('body-parser');
 var cors = require('cors');
 var sql = require('../database/db');
+var sql2 = require('../database/db2');
 var PDFDocument, doc, doc1;
 var fs = require('fs');
 PDFDocument = require('pdfkit');
@@ -14,6 +15,7 @@ PDFDocument = require('pdfkit');
 const TWO_HOUR = 1000*60*60*2;
 var session;
 var userId;
+var adminId;
 
 service.use(ses({
     name: "sid", 
@@ -31,84 +33,378 @@ service.use(body.urlencoded({extend: false}));
 service.use(cors());
 
 
-//go to service
+//go to service and display
 service.get('/',function(req,res){
-    if(!req.session.userId){
-        res.send('please log');
+    if(!req.session.adminId){
+        res.send('please log as an admin');
     }
     else{
-        res.json('services!!!');
-    }
-});
-
-//ADD SERVICE
-service.post('/newService',function(req,res){
-    var today = new Date();
-
-    var serviceId = req.body.serviceId;
-    var customerId = req.body.customerId;
-    var vehicleNo = req.body.vehicleNo;
-    var serviceType = req.body.serviceType;
-    var date = today;
-    var payment = req.body.payment;
-    var cashPayment = req.body.cashPayment;
-    var cardPayment = req.body.cardPayment;
-    if(!req.session.userId){
-        res.send('please log');
-    }
-    else{
-        if(customerId && vehicleNo && serviceType && payment && (cashPayment || cardPayment)){
-            sql.query('SELECT vehicle.vehicleType FROM vehicle INNER JOIN service ON vehicle.vehicleNo = service.vehicleNo WHERE service.customerId = ? AND service.vehicleNo = ?',[customerId,vehicleNo],function(err1,result1){
-                if(err1){
-                    throw err;
-                }
-                else{
-                    if(result1.length>0){
-                        console.log(result1);
-                        if(cashPayment){
-                            cardPayment = 0.0;
-                            sql.query('INSERT INTO service (customerId, vehicleNo, serviceType, date, payment, cashPayment,cardPayment) VALUES (?,?,?,?,?,?,?)',[customerId, vehicleNo,serviceType,date,payment,cashPayment,cardPayment],function(err,result){
-                                if(err){
-                                    throw err;
-                                }
-                                else{
-                                    res.json({result : result});
-                                }
-                            });
-                        }
-                        else if(cardPayment){
-                            cashPayment = 0.0;
-                            sql.query('INSERT INTO service (serviceId, customerId, vehicleNo, serviceType, date, payment, cashPayment,cardPayment) VALUES (?,?,?,?,?,?,?,?)',[customerId, vehicleNo,serviceType,date,payment,cashPayment,cardPayment],function(err,result){
-                                if(err){
-                                    throw err;
-                                }
-                                else{
-                                    res.json({result : result});
-                                }
-                            });
-                        }
-                    }
-                    else{
-                        res.send('Wrong details!!!!, please check agin')
-                    }
-                }
-            });
-        }
-    }
-});
-
-//GET DATA FOR INVOICE
-service.post('/currentBill',function(req,res){
-    var serviceId = req.body.serviceId;
-
-    if(req.session.userId){
-        sql.query('SELECT date FROM service WHERE serviceId = ?',[serviceId],function(err,result){
+        sql.query("SELECT * FROM service",function(err,result){
             if(err){
                 throw err;
             }
             else{
                 if(result.length>0){
-                    sql.query('SELECT * FROM service WHERE serviceId = ?',[serviceId],function(err1,result1){
+                    res.json(result);
+                }
+                else{
+                    res.json('No any services');
+                }
+            }
+        });
+    }
+});
+
+
+//ADD NEW SERVICE
+service.post('/addService',function(req,res){
+    var category =  req.body.category;
+    var name = req.body.name;
+    var price =  req.body.price;
+    if(req.session.adminId){
+        if(category && name && price){
+            sql.query('SELECT serviceId FROM service WHERE name = ? AND category = ?',[name,category],function(err,result){
+                if(err){
+                    console.log('errrrrrrr');
+                    throw err;
+                }
+                else{
+                    if(result.length>0){
+                        res.send('service already exist');
+                    }
+                    else{
+                        sql.query('INSERT INTO service (category,name,price) VALUES (?,?,?)',[category,name,price],function(err1,result1){
+                            if(err1){
+                                throw err1;
+                            }
+                            else{
+                                sql.query("SELECT * FROM service",function(err2,result2){
+                                    if(err){
+                                        throw err;
+                                    }
+                                    else{
+                                        console.log('service added');
+                                        if(result2.length>0){
+                                            console.log('service added');
+                                            res.json(result2);
+                                        }
+                                        else{
+                                            //console.log('')
+                                            res.json('No any services');
+                                        }
+                                    }
+                                });
+                            }
+                        })
+                    }
+                }
+            })
+        }
+    }
+    else{
+        
+        res.send('please log as an admin');
+    }
+});
+
+//UPDATE SERVICE 
+service.post('/updateService',function(req,res){
+    var serviceId = req.body.serviceId;
+    var category = req.body.category;
+    var name = req.body.name;
+    var price = req.body.price;
+    if(req.session.adminId){
+        if(serviceId && category && name && price){
+            sql.query('SELECT name FROM service WHERE serviceId = ?',[serviceId],function(err,result){
+                if(err){
+                    throw err;
+                }
+                else{
+                    if(result.length>0){
+                        sql.query('UPDATE service SET name = ?, category = ?,price = ? WHERE serviceId = ?',[name,category,price,serviceId],function(err1,result1){
+                            if(err1){
+                                throw err1;
+                            }
+                            else{
+                                sql.query("SELECT * FROM service",function(err2,result2){
+                                    if(err){
+                                        throw err;
+                                    }
+                                    else{
+                                        console.log('service updated');
+                                        if(result2.length>0){
+                                            res.json(result2);
+                                        }
+                                        else{
+                                            res.json('No any services');
+                                        }
+                                    }
+                                });
+                            };
+                        })
+                    }
+                    else{
+                        req.send('wrong serviceId');
+                    }
+                }
+            })
+        }
+    }
+    else{
+        res.send('please log as an admin');
+    }
+    
+});
+
+//REMOVE SERVICE
+service.post('/serviceRemove',function(req,res){
+    var serviceId = req.body.serviceId;
+    var name = req.body.name;
+    if(req.session.adminId){
+        if(serviceId && name){
+            sql.query('SELECT * FROM service WHERE serviceId = ? AND name = ?',[serviceId,name],function(err,result){
+                if(err){
+                    throw err;
+                }
+                else{
+                    if(result.length>0){
+                        sql.query('DELETE FROM service WHERE serviceId = ? AND name = ?',[serviceId,name],function(err1,result2){
+                            if(err1){
+                                throw err1;
+                            }
+                            else{
+                                console.log('deleted');
+                                sql.query("SELECT * FROM service",function(err2,result2){
+                                    if(err){
+                                        throw err;
+                                    }
+                                    else{
+                                        console.log('service deleted');
+                                        if(result2.length>0){
+                                            res.json(result2);
+                                        }
+                                        else{
+                                            res.json('No any services');
+                                        }
+                                    }
+                                });
+                            }
+                        })
+                    }
+                }
+            })
+        }
+        else{
+            res.send('please log as an admin')
+        }
+    }
+})
+
+
+//Services what melius provide
+//service
+
+///////////////////////////////////
+
+//ADD SERVICE to INVOICE
+service.post('/newServiceInvoice',function(req,res,next){
+    console.log('comes')
+    var today = new Date();
+    var resss;
+    var serviceId = req.body.serviceId;
+    var customerId = req.body.customerId;
+    var vehicleId = req.body.vehicleId;
+    //var serviceType = req.body.serviceType;
+    var date = today;
+    var sub_total = 0;
+    var total =  0;
+    var discount = req.body.discount;
+    var remarks = req.body.remarks;
+    var iid;
+    var newTotal = 0.0;
+    if(!(req.session.userId || req.session.adminId)){
+        console.log('not logged')
+        res.send('please log');
+    }
+    else{
+        console.log('else')
+        if(customerId && serviceId && discount && vehicleId && date && remarks){
+            console.log('llllllllllllllllll')
+            sql.query('select name from service where serviceId = ?',[serviceId],function(err3,result3){
+                if(err3){
+                    throw err3;
+                }
+                else{
+                    if(result3.length>0){
+                        sql.query('select price from service where serviceId = ?',[serviceId],function(err4,result4){
+                            if(err4){
+                                throw err4;
+                            }
+                            else{
+                                if(result4.length>0){
+                                    total = result4[0].price;
+                                    console.log('aaaaaaaaaaaaaa');
+                                    console.log(total);
+                                    //var iid;
+
+                                    sql.query('SELECT vehicleNo FROM vehicle  WHERE custId = ? AND Id = ?',[customerId,vehicleId],function(err1,result1){
+                                        if(err1){
+                                            throw err1;
+                                        }
+                                        else{
+                                            if(result1.length>0){
+                                                console.log(result1);
+                                                    var temp = parseInt(total);
+                                                    sub_total =total - temp*(discount/100);
+                                                    
+                                                    sql.query('INSERT INTO service_invoice (customerId, vehicleId, date, total, discount, remarks, sub_total) VALUES (?,?,?,?,?,?,?)',[customerId, vehicleId,date,total,discount,remarks,sub_total],function(err,result){
+                                                        if(err){
+                                                            throw err;
+                                                        }
+                                                        else{
+                                                            console.log('plofv,ofgmkmokgrmogrb');
+                                                            console.log(result.insertId);
+                                                            iid = result.insertId;
+                                                            console.log('insert invoice');
+
+                                                            sql.query('insert into service_invoice_services (invoiceId,serviceId) values (?,?)',[iid,serviceId],function(err5,result5){
+                                                                if(err5){
+                                                                    console.log('error5')
+                                                                    throw err5;
+                                                                }
+                                                                else{
+                                                                    console.log('success')
+                                                                    //res.send("success");
+                                                                    
+                                                                }
+                                                                
+                                                            })
+
+                                                            sql.query("select * from service_invoice where invoiceId = ?",[iid],function(err6,result6){
+                                                                if(err6){
+                                                                    console.log("error6")
+                                                                    console.log(err6);
+                                                                }
+                                                                else{
+                                                                    // DOWN PART
+                                                                    console.log('11111111111111111111111');
+                                                                    console.log(result6);
+                                                                    //res.send(result6);
+                                                                    console.log(total);
+                                                                    doc1 = new PDFDocument;
+                                                                    console.log('llwdlwionfsndlkvnavkjvnsdkjvn')
+                                                                    doc1.pipe(fs.createWriteStream(iid+'.pdf'));
+                                                                    console.log("tttttttttttttttt");
+                                                                        // Set a title and pass the X and Y coordinates
+                                                                    doc1.fontSize(15).text('Summary of Services in the day !\n\n\n', 50, 50);
+                                                                        // Set the paragraph width and align direction
+                                                                    for(var m = 0; m<result6.length; m++){
+                                                                        doc1.text("invoice Id  : "+result6[m].invoiceId+"\n customer id : "+result6[m].customerId+"\n vehicle id : "+result6[m].vehicleId+"\n date : "+result6[m].date+"\n price : "+result6[m].total+"\n disconut : "+result6[m].discount +"\n final total : "+result6[m].sub_total,{
+                                                                            width: 410,
+                                                                            align: 'left'
+                                                                        });
+                                                                        doc1.text("\n\n",{
+                                                                            width: 410,
+                                                                            align: 'left'
+                                                                        });
+                                                                    }    
+
+                                                                    // res.json('done');
+                                                                    doc1.end();
+                                                                    if(result6.length>0){
+                                                                        res.json(result6);
+                                                                    }
+                                                                    else{
+                                                                        res.send('try again')
+                                                                    }
+                                                                    
+                                                                }
+                                                                
+                                                            });
+                                                        }
+                                                    });
+                                                    console.log('eeeeeeeeeeeeeeeeeeeeeeee')
+                                                    console.log(iid)
+                                                    
+                                            }
+                                            else{
+                                                res.send('Wrong details!!!!, please check agin')
+                                            }
+                                        }
+                                    });
+                                }
+                                else{
+                                    req.send('something went wrong try again')
+                                }
+                            }
+                        })
+                    }
+                    else{
+                        res.send('service not found');
+                    }
+                }
+            })
+        }else{
+            res.send('fill all details000000000000000')
+        }
+        
+    }
+    console.log('end');
+});
+
+//delete DATA OF INVOICE
+service.post('/deleteBill',function(req,res){
+    var invoiceId = req.body.invoiceId;
+    
+    if( req.session.adminId){
+        sql.query('select serviceId from service_invoice_services where invoiceId = ?',[invoiceId],function(err,result){
+            if(err){
+                throw err;
+            }
+            else{
+                if(result.length>0){
+                    sql.query('delete from service_invoice_services where invoiceId = ?',[invoiceId],function(err2,result2){
+                        if(err2){
+                            throw err2;
+                        }
+                        else{
+                            sql.query('delete from service_invoice where invoiceId = ?',[invoiceId],function(err1,result1){
+                                if(err1){
+                                    throw err1
+                                }
+                                else{
+                                    res.send('delete success');
+                                }
+                            })
+                        }
+                    })
+                    
+                }
+                else{
+                    res.send('wrong invoice id')
+                }
+            }
+        })
+
+        
+    }
+    else{
+        res.send('please log')
+    }
+})
+
+//GET DATA FROM INVOICE
+service.post('/currentBill',function(req,res){
+    var serviceId = req.body.invoiceId;
+
+    if(req.session.userId || req.session.adminId){
+        sql.query('SELECT date FROM service_invoice WHERE invoiceId = ?',[serviceId],function(err,result){
+            if(err){
+                throw err;
+            }
+            else{
+                if(result.length>0){
+                    sql.query('SELECT * FROM service_invoice WHERE invoiceId = ?',[serviceId],function(err1,result1){
                         if(err1){
                             throw err1;
                         }
@@ -132,15 +428,15 @@ service.post('/dateBill',function(req,res){
     var total = 0;
     var date = req.body.date;
     console.log(date);
-    if(req.session.userId){
+    if(req.session.userId || req.session.adminId){
         if(date){
-            sql.query('SELECT * FROM service WHERE date = ?',[date],function(err,result){
+            sql.query('SELECT * FROM service_invoice WHERE date = ?',[date],function(err,result){
                 if(err){
                     throw err;
                 }
                 else{
                     //TOTAL OF THE CURRENT INVOICE
-                    sql.query('SELECT payment FROM service WHERE date ?',[date],function(err1,result1){
+                    sql.query('SELECT sub_total FROM service_invoice WHERE date ?',[date],function(err1,result1){
                         if(err1){
                             throw err1;
                         }
@@ -148,8 +444,8 @@ service.post('/dateBill',function(req,res){
                             console.log('11111111111111111111111');
                             console.log(result1);
                             for(var i = 0; i<result1.length; i++){
-                                console.log(result1[i].payment);
-                                var x = parseFloat(result1[i].payment);
+                                console.log(result1[i].sub_total);
+                                var x = parseFloat(result1[i].sub_total);
                                 total = total + x;
                             }
                             console.log(total);
@@ -160,7 +456,7 @@ service.post('/dateBill',function(req,res){
                             doc1.fontSize(15).text('Summary of Services in the day !\n\n\n', 50, 50);
                                 // Set the paragraph width and align direction
                             for(var m = 0; m<result.length; m++){
-                                doc1.text("service id : "+result[m].serviceId+"\n customer id : "+result[m].customerId+"\n vehicle number : "+result[m].vehicleNo+"\n date : "+result[m].date+"\n payment : "+result[m].payment,{
+                                doc1.text("invoice Id : "+result[m].invoiceId+"\n customer id : "+result[m].customerId+"\n vehicle Id : "+result[m].vehicleId+"\n date : "+result[m].date+"\n total : "+result[m].total+"\n subtotal :"+result[m].sub_total,{
                                     width: 410,
                                     align: 'left'
                                 });
@@ -198,9 +494,9 @@ service.post('/rangeBill', function(req,res){
     var date2 = req.body.date2;
     console.log(date1);
     //yyyy-dd-mm
-    if(req.session.userId){
+    if(req.session.userId || req.session.adminId){
         if(date1 && date2){
-            sql.query('SELECT * FROM service WHERE date BETWEEN ? AND ?',[date1,date2],function(err,result){
+            sql.query('SELECT * FROM service_invoice WHERE date BETWEEN ? AND ?',[date1,date2],function(err,result){
                 if(err){
                     throw err;
                 }
@@ -241,4 +537,3 @@ service.post('/pdf',function(req,res){
 
 
 module.exports = service;
-
