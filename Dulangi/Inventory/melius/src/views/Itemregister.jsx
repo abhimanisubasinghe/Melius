@@ -21,7 +21,7 @@ export default class Itemregister extends React.Component{
             
                 this.state = {
                     itemcode:"",    
-                    name: "",
+                    name: "sdfesfsefsefesresrseresr ersesr ",
                     inStock: "",
                     unitPrice: "",
                     descript: "",
@@ -45,27 +45,31 @@ export default class Itemregister extends React.Component{
             }
             
             handleSubmit = _ => {
-                const { item } = this.state;
-                console.log(item)
+               
+                alert("item " + this.state.name+this.state.costPrice);
                 fetch(`http://localhost:5000/items/add?
-                        itemcode=${item.itemcode}
-                        &name=${item.name}
-                        &instock=${item.inStock}
-                        &unitPrice= ${item.unitPrice}
-                        &descript: ${item.descript}
-                        &costPrice: ${item.costPrice}
-                        &reorderLevel: ${item.reorderLevel}
-                        &itemgroup: ${item.itemgroup}
-                        &brand: ${item.brand}
-                        &type: ${item.type}
-                        &category: ${item.category}
-                        &storageId: ${item.storageId}
-                        &supplierId: ${item.supplierId}
-                        &barcode: ${item.barcode}
-                        &leadTime:${item.leadTime}`)
+                        
+                        &name=${this.state.name}
+                        &instock=${this.state.inStock}
+                        &unitPrice= ${this.state.unitPrice}
+                        &descript: ${this.state.descript}
+                        &costPrice: ${this.state.costPrice}
+                        &reorderLevel: ${this.state.reorderLevel}
+                        &itemgroup: ${this.state.itemgroup}
+                        &brand: ${this.state.brand}
+                        &type: ${this.state.type}
+                        &category: ${this.state.category}
+                        &storageId: ${this.state.storageId}
+                        &supplierId: ${this.state.supplierId}
+                        &barcode: ${this.state.barcode}
+                        &leadTime:${this.state.leadTime}`,
+                        )
                 .then(response => response.json())
                 .then(alert(`item registered`))
                 .catch(err => console.error(err))
+                
+
+                
                 
             }
 

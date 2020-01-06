@@ -84,7 +84,7 @@ router.get('/add', function(req, res, next) {
 // ADD NEW ITEM POST ACTION
 router.post('/add', function(req, res, next) {
 
-
+    console.log("data");
     if (true) {
 
         var user = {
@@ -105,7 +105,7 @@ router.post('/add', function(req, res, next) {
             //leadTime: req.body.leadTime
         };
 
-
+        
         connection.query('INSERT INTO item SET ?', user, function(err, result) {
 
             if (err) {
