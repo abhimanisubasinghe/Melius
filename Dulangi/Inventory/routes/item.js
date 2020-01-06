@@ -88,19 +88,21 @@ router.post('/add', function(req, res, next) {
     if (true) {
 
         var user = {
+            itemcode: req.body.itemcode,
             name: req.body.name,
+            //inStock: req.body.inStock,
+            //unitPrice: req.body.unitPrice,
             descript: req.body.descript,
-            min: req.body.min,
-            max: req.body.max,
-            purchasePrice: req.body.pPrice,
-            sellingPrice: req.body.sPrice,
-            Itemgroup: req.body.group,
+            //costPrice: req.body.costPrice,
+            //reorderLevel:req.body.reorderLevel,
+            itemgroup: req.body.itemgroup,
             brand: req.body.brand,
             type: req.body.type,
             category: req.body.category,
-            storageId: req.body.storage,
-            supplierId: req.body.supplier,
-            barcode: req.body.barcode
+            storageId: req.body.storageId,
+            supplierId: req.body.supplierId,
+            barcode: req.body.barcode,
+            //leadTime: req.body.leadTime
         };
 
 

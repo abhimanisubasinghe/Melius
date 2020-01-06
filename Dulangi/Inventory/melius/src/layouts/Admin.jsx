@@ -38,10 +38,21 @@ class Admin extends Component {
       image: image,
       color: "black",
       hasImage: true,
-      fixedClasses: "dropdown show-dropdown open"
+      fixedClasses: "dropdown show-dropdown open",
+      users:[]
     };
     console.log(this.props);
   }
+
+  getUsers = _ => {
+    fetch('http://localhost:5000')
+    .then(response => console.log(response))//response.json())
+    .then(({response}) => this.setState({users: 'response.users'}))
+    .catch(error => console.log(error));
+    }
+  
+  //showUsers = user => {this.user.username;} 
+
   handleNotificationClick = position => {
     var color = Math.floor(Math.random() * 4 + 1);
     var level;
@@ -123,6 +134,7 @@ class Admin extends Component {
     }
   };
   componentDidMount() {
+    this.getUsers();
     this.setState({ _notificationSystem: this.refs.notificationSystem });
     var _notificationSystem = this.refs.notificationSystem;
     var color = Math.floor(Math.random() * 4 + 1);
@@ -143,6 +155,7 @@ class Admin extends Component {
       default:
         break;
     }
+    
     _notificationSystem.addNotification({
       title: <span data-notify="icon" className="pe-7s-gift" />,
       message: (

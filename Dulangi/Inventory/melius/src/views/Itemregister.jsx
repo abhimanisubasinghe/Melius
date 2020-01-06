@@ -21,7 +21,7 @@ export default class Itemregister extends React.Component{
             
                 this.state = {
                     itemcode:"",    
-                    itemName: "",
+                    name: "",
                     inStock: "",
                     unitPrice: "",
                     descript: "",
@@ -44,8 +44,28 @@ export default class Itemregister extends React.Component{
             )
             }
             
-            handleSubmit = event => {
-                alert(`item registered`);
+            handleSubmit = _ => {
+                const { item } = this.state;
+                console.log(item)
+                fetch(`http://localhost:5000/items/add?
+                        itemcode=${item.itemcode}
+                        &name=${item.name}
+                        &instock=${item.inStock}
+                        &unitPrice= ${item.unitPrice}
+                        &descript: ${item.descript}
+                        &costPrice: ${item.costPrice}
+                        &reorderLevel: ${item.reorderLevel}
+                        &itemgroup: ${item.itemgroup}
+                        &brand: ${item.brand}
+                        &type: ${item.type}
+                        &category: ${item.category}
+                        &storageId: ${item.storageId}
+                        &supplierId: ${item.supplierId}
+                        &barcode: ${item.barcode}
+                        &leadTime:${item.leadTime}`)
+                .then(response => response.json())
+                .then(alert(`item registered`))
+                .catch(err => console.error(err))
                 
             }
 
@@ -63,14 +83,14 @@ export default class Itemregister extends React.Component{
                                                                                 ncols={["col-md-8","col-md-4"]}
                                                                                 properties={[
                                                                                         {
-                                                                                        label: "itemName",
+                                                                                        label: "name",
                                                                                         type: "text",
                                                                                         bsClass: "form-control",
                                                                                         placeholder: "Item Name",
-                                                                                        value:this.state.itemName,
+                                                                                        value:this.state.name,
                                                                                         onChange: this.onChange,
-                                                                                        id: "itemName",
-                                                                                        name: "itemName"
+                                                                                        id: "name",
+                                                                                        name: "name"
                                                                                         },
                                                                                         {
                                                                                         label: "itemcode",
