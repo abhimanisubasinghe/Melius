@@ -147,15 +147,20 @@ router.get('/edit/(:id)', function(req, res, next) {
         if (err) throw err
 
         if (rows.length <= 0) {
-            req.flash('error', 'Customer not found with id =', +req.params.id);
+            req.flash('error', 'item not found with id =', +req.params.id);
             res.redirect('/items');
         } else {
+            console.log(rows[0].inStock);
             res.render('items/edit', {
                 title: "Edit item",
                 id: rows[0].itemCode,
                 name: rows[0].name,
-                min: rows[0].min,
-                max: rows[0].max,
+                inStock: rows[0].inStock,
+                unitPrice: rows[0].unitPrice,
+                costPrice: rows[0].costPrice,
+                reorderLevel: rows[0].reorderLevel,
+                leadTime: rows[0].leadTime,
+                reorderQuantity: rows[0].reorderQuantity,
                 descript: rows[0].descript,
                 purchasePrice: rows[0].purchasePrice,
                 sellingPrice: rows[0].sellingPrice,
@@ -172,28 +177,27 @@ router.get('/edit/(:id)', function(req, res, next) {
 //UPDATE ITEM
 
 router.post('/update/(:id)', function(req, res, next) {
-
-    var user = {
+    console.log(req.body.inStock);
+    var items = {
         name: req.body.name,
+        inStock: req.body.inStock,
+        unitPrice: req.body.unitPrice,
+        costPrice: req.body.costPrice,
+        reorderLevel: req.body.reorderLevel,
+        leadTime: req.body.leadTime,
+        reorderQuantity: req.body.reorderQuantity,
         descript: req.body.descript,
-        min: req.body.min,
-        max: req.body.max,
-        purchasePrice: req.body.pPrice,
-        sellingPrice: req.body.sPrice,
         storageId: req.body.storage,
         supplierId: req.body.supplier,
         barcode: req.body.barcode
+
     };
-    connection.query('UPDATE item SET ? WHERE itemCode=' + req.params.id, user, function(err, result) {
+    connection.query('UPDATE item SET ? WHERE itemCode=' + req.params.id, items, function(err) {
         if (err) {
+
             req.flash('error', err);
+            res.redirect('/items');
 
-            res.render('items/edit', {
-                title: 'Edit Item',
-                id: req.params.id,
-                name: req.body.name
-
-            })
         } else {
             req.flash('success', 'Data updated successfully!');
             res.redirect('/items');
