@@ -3,17 +3,9 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-<<<<<<< HEAD
     "axios": "^0.19.0",
     "jwt-decode": "^2.2.0",
-=======
-<<<<<<< HEAD
     "express": "^4.17.1",
-=======
-    "axios": "^0.19.0",
-    "jwt-decode": "^2.2.0",
->>>>>>> connect login back and front
->>>>>>> 3b3607fd3d6e0b4484b7bacec6d0cbc9766e7384
     "react": "^16.11.0",
     "react-dom": "^16.11.0",
     "react-router-dom": "^5.1.2",

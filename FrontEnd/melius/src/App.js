@@ -49,8 +49,9 @@ function App() {
   );
 
 //import logo from './logo.svg';
-import LoginForm from './components/login/LoginForm';
+//import LoginForm from './components/login/LoginForm';
 //import Profile from './components/login/profile';
+//import LoginForm from './components/login/LoginForm';
 
 // function App() {
 //   return (
