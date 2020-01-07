@@ -17,8 +17,13 @@ var reorderRouter = require('./routes/reorder');
 
 var app = express();
 
+var cors = require('cors');
+
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
+
+app.use(cors());
+
 
 //app.use(logger('dev'));
 app.use(bodyParser.json());

@@ -12,6 +12,7 @@ import { Card } from "components/Card/Card.jsx";
 import { FormInputs } from "components/FormInputs/FormInputs.jsx";
 import { UserCard } from "components/UserCard/UserCard.jsx";
 import Button from "components/CustomButton/CustomButton.jsx";
+import axios from 'axios';
 //import './Customerreg.css';
 
 export default class Itemregister extends React.Component{
@@ -21,7 +22,7 @@ export default class Itemregister extends React.Component{
             
                 this.state = {
                     itemcode:"",    
-                    name: "sdfesfsefsefesresrseresr ersesr ",
+                    name: "",
                     inStock: "",
                     unitPrice: "",
                     descript: "",
@@ -44,34 +45,23 @@ export default class Itemregister extends React.Component{
             )
             }
             
-            handleSubmit = _ => {
-               
-                alert("item " + this.state.name+this.state.costPrice);
-                fetch(`http://localhost:5000/items/add?
-                        
-                        &name=${this.state.name}
-                        &instock=${this.state.inStock}
-                        &unitPrice= ${this.state.unitPrice}
-                        &descript: ${this.state.descript}
-                        &costPrice: ${this.state.costPrice}
-                        &reorderLevel: ${this.state.reorderLevel}
-                        &itemgroup: ${this.state.itemgroup}
-                        &brand: ${this.state.brand}
-                        &type: ${this.state.type}
-                        &category: ${this.state.category}
-                        &storageId: ${this.state.storageId}
-                        &supplierId: ${this.state.supplierId}
-                        &barcode: ${this.state.barcode}
-                        &leadTime:${this.state.leadTime}`,
+            handleSubmit = e => { 
+                e.preventDefault();
+                console.log(this.state);
+                const url = "http://localhost:5000/items/add"; 
+                axios
+                        .post(url,
+                                this.state
+                        ,{headers: {'Accept': 'application/json'}})
+                        .then( response =>
+                                {console.log("good "+response)}
                         )
-                .then(response => response.json())
-                .then(alert(`item registered`))
-                .catch(err => console.error(err))
-                
-
+                        .catch(() => console.log("Can’t access " + url + " response. Blocked by browser?"))
                 
                 
             }
+
+            
 
         render(){
                 return(  
