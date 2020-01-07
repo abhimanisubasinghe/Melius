@@ -104,6 +104,7 @@ router.post('/add', function(req, res, next) {
             storageId: req.body.storageId,
             supplierId: req.body.supplierId,
             barcode: req.body.barcode,
+            //hi
         };
 
         console.log(item);
