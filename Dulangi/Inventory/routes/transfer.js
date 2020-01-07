@@ -40,29 +40,52 @@ routerTwo.post('/add', function(req, res, next) {
                     quantity: req.body.quantity,
                     transferId: result.insertId
                 }
+
+                console.log(info);
+
+
                 var P1 = new Promise(function(resolve, reject) {
-                    connection.query('INSERT INTO stocktransfer_item SET ?', info, function(err, result) {
+                    connection.query('SELECT inStock FROM item WHERE itemCode=' + req.body.item, function(err, result) {
                         if (err) {
-                            reject(err)
+                            reject(err);
                         } else {
-                            resolve(info)
+                            resolve(result);
                         }
                     })
                 })
 
-                P1.then((result) => {
-                    connection.query('UPDATE item SET inStock=inStock - ? WHERE itemCode= ?', [result.quantity, result.itemId], function(err, result) {
+                P1.then(result => {
+                    if (parseInt(result.inStock) >= parseInt(info.quantity)) {
+                        connection.query('INSERT INTO stocktransfer_item SET ?', info, function(err) {
+                            if (err) {
+                                req.flash('error', err);
+                            } else {
+                                console.log(parseInt(result.inStock) - info.quantity);
+                                return parseInt(result.inStock) - info.quantity;
+                            }
+                        })
+
+                    } else {
+                        req.flash('error', 'Not enough stock');
+                    }
+                }).then((val) => {
+                    //var temp = parseInt(req.body.quantity);
+                    console.log('qqqqqqqqqqqqqqqqqqq');
+                    console.log(val);
+                    console.log(req.body.itemId);
+                    connection.query('UPDATE item SET inStock= WHERE itemCode=?', [val, req.body.itemId], function(err, result) {
                         if (err) {
                             console.log(err)
+                        } else {
+                            console.log(temp);
+                            console.log('here');
                         }
                     })
-                }, err => {
-                    console.log(err);
                 }).then(() => {
                     req.flash('success', 'Data inserted succesfully');
                     res.redirect('/transfer/add');
 
-                })
+                });
 
             }
         });

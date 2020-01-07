@@ -50,7 +50,7 @@
                                 <%= data[i].name%>
                             </td>
                             <td>
-                                <%= data[i].date%>
+                                <%= data[i].date.toUTCString().split('GMT')[0]%>
                             </td>
 
 
