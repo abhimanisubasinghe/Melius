@@ -22,10 +22,10 @@ class LoginForm extends Component {
         )
     }
     
-    handleSubmit = event => {
+   /* handleSubmit = event => {
         alert(`Hi ${this.state.userName}! `);
         //event.preventDefault()
-    }
+    }*/
 
     /////////////////////////////////////
     onSubmit(e){
@@ -53,6 +53,23 @@ class LoginForm extends Component {
             }
         })
     }
+    handleSubmit = e => { 
+        e.preventDefault();
+        console.log(this.state);
+        const url = "http://localhost:5000/admin/login"; 
+        axios
+                .post(url,
+                        this.state
+                ,{headers: {'Accept': 'application/json'}})
+                .then( response =>
+                        {console.log("good "+response)}
+                )
+                .catch(() => console.log("Can’t access " + url + " response. Blocked by browser?"))
+        
+        
+    }
+
+    
 
     
     render() {
@@ -62,7 +79,7 @@ class LoginForm extends Component {
 
                     <div className="col-md-4">
                            
-                            <form onSubmit={this.onSubmit}>
+                            <form onSubmit={this.handleSubmit}>
                         <fieldset>
                                 <br/>
                          

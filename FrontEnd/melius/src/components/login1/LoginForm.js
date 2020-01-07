@@ -1,29 +1,62 @@
 import React, { Component } from 'react'
-//import {Link} from 'react-router-dom'
+import {Link} from 'react-router-dom'
 import './Login.css';
+import { login } from '../UserFunction';
 
 
 
-class LoginForm extends Component{
-    constructor(props){
 
+class LoginForm extends Component {
+    constructor(props) {
         super(props)
-
-        this.state={
-            username:"",
-            password:""
+    
+        this.state = {
+            userName: "",
+            password: ""
         }
+        ////////////
+        this.onChange = this.onChange.bind(this)
+        this.onSubmit = this.onSubmit.bind(this)
     }
 
-    onChange=(e)=>{
+    onChange = (e) => {
         this.setState(
-            {[e.target.name]:e.target.value}
+        {[e.target.name]: e.target.value}
         )
     }
+    
+    handleSubmit = event => {
+        alert(`Hi ${this.state.userName}! `);
+        //event.preventDefault()
+    }
 
-    /*handleSubmit=event=>{
+    /////////////////////////////////////
+    onSubmit(e){
+        e.preventDefault();
         
-    }*/
+        const user = {
+            userName: this.state.userName,
+            password: this.state.password
+        }
+        console.log(user.userName);
+        login(user).then(res => {
+            if(res === 'logged') {
+                /////
+                console.log(res);
+                console.log('111111111111111');
+                this.props.history.push('/profile');
+            }
+            else if(res === 'User does not exist'){
+                console.log(res);
+                console.log('fj');
+                this.props.history.push('/LoginForm');
+            }
+            else if(res === 'fill all fields'){
+                alert(res);
+            }
+        })
+    }
+
 
     render() {
         return (
@@ -31,9 +64,14 @@ class LoginForm extends Component{
                 <div className="container">
 
                     <div className="col-md-4">
-                        <fieldset>
-                            <h1>Log In</h1>
                             
+                           
+                            
+                            <form onSubmit={this.onSubmit}>
+                        <fieldset>
+                                <br/>
+                         
+                            <h1>Log In</h1>
                             <div className="form-group">
                                 <label className="label1" for="username">User Name</label>
                                 <input 
@@ -59,8 +97,10 @@ class LoginForm extends Component{
                                     onChange={this.onChange}/>
 
                             </div>
-                            <button>Sign up</button>
+                            <Link to="/welcome"><button className="btn btn-primary" type="submit">Submit</button></Link>
+
                         </fieldset>
+                        </form>
                     </div>
                 </div>
             </div>
