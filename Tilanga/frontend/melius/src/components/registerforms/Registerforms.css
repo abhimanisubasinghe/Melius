@@ -1,0 +1,23 @@
+.Registerforms {
+    text-align: center;
+  }
+  
+  .Registerforms-logo {
+    height: 40vmin;
+  }
+  
+  .Registerforms-header {
+    background-color: #282c34;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-size: calc(10px + 2vmin);
+    color: white;
+  }
+  
+  .Registerforms-link {
+    color: #09d3ac;
+  }
+  
