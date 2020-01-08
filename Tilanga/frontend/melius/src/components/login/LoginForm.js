@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import {Link} from 'react-router-dom'
 import './Login.css';
 import { login } from '../UserFunction';
+import axios from 'axios';
 
 class LoginForm extends Component {
     constructor(props) {
@@ -109,7 +110,7 @@ class LoginForm extends Component {
                                     onChange={this.onChange}/>
 
                             </div>
-                            <Link to="/welcome"><button className="btn btn-primary" type="submit">Submit</button></Link>
+                            <Link to=""><button className="btn btn-primary" type="submit">Submit</button></Link>
 
                         </fieldset>
                         </form>
