@@ -21,7 +21,9 @@ import { Grid } from "react-bootstrap";
 class Footer extends Component {
   render() {
     return (
-      <footer className="footer">
+           /* <footer className="footer">
+
+     /* <footer className="footer">
         <Grid fluid>
           <nav className="pull-left">
             <ul>
@@ -38,16 +40,16 @@ class Footer extends Component {
                 <a href="#pablo">Blog</a>
               </li>
             </ul>
-          </nav>
+          </nav>*/
           <p className="copyright pull-right">
             &copy; {new Date().getFullYear()}{" "}
             <a href="http://www.creative-tim.com?ref=lbr-footer">
-              Creative Tim
+              Melius
             </a>
             , made with love for a better web
           </p>
-        </Grid>
-      </footer>
+       /* </Grid>
+      </footer>*/
     );
   }
 }

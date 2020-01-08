@@ -13,87 +13,83 @@
 =========================================================
 
 * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
-
 */
+
 import React, { Component } from "react";
 import { Grid, Row, Col, Table } from "react-bootstrap";
 
 import Card from "components/Card/Card.jsx";
 import { thArray, tdArray } from "variables/Variables.jsx";
+import {Link} from 'react-router-dom'
 
-class TableList extends Component {
-  render() {
-    return (
-      <div className="content">
-        <Grid fluid>
-          <Row>
-            <Col md={12}>
-              <Card
-                title="Striped Table with Hover"
-                category="Here is a subtitle for this table"
-                ctTableFullWidth
-                ctTableResponsive
-                content={
-                  <Table striped hover>
-                    <thead>
-                      <tr>
-                        {thArray.map((prop, key) => {
-                          return <th key={key}>{prop}</th>;
-                        })}
-                      </tr>
-                    </thead>
-                    <tbody>
-                      {tdArray.map((prop, key) => {
-                        return (
-                          <tr key={key}>
-                            {prop.map((prop, key) => {
-                              return <td key={key}>{prop}</td>;
-                            })}
-                          </tr>
-                        );
-                      })}
-                    </tbody>
-                  </Table>
-                }
-              />
-            </Col>
+import './TableList.css';
+import axios from 'axios';
 
-            <Col md={12}>
-              <Card
-                plain
-                title="Striped Table with Hover"
-                category="Here is a subtitle for this table"
-                ctTableFullWidth
-                ctTableResponsive
-                content={
-                  <Table hover>
-                    <thead>
-                      <tr>
-                        {thArray.map((prop, key) => {
-                          return <th key={key}>{prop}</th>;
-                        })}
-                      </tr>
-                    </thead>
-                    <tbody>
-                      {tdArray.map((prop, key) => {
-                        return (
-                          <tr key={key}>
-                            {prop.map((prop, key) => {
-                              return <td key={key}>{prop}</td>;
-                            })}
-                          </tr>
-                        );
-                      })}
-                    </tbody>
-                  </Table>
-                }
-              />
-            </Col>
-          </Row>
-        </Grid>
-      </div>
-    );
-  }
+export default class Customer extends React.Component{
+    
+        
+
+        render(){
+                return(  
+                  
+                        <div className="container">
+                                    <div className="col-md-12">
+                                      <br/>
+                                      <h1>Customers</h1>
+                                    </div>
+                                    <div className="col-md-10">
+                                      
+                                    <Link to="/welcome"><button className="button1" type="submit">Add Customer</button></Link>
+
+
+                                      </div>
+                                      <div className="col-md-10">
+                                      
+                                      <Link to="/welcome"><button className="button1" type="submit">Edit Customer</button></Link>
+
+
+                                      </div>
+                         
+                                      <div className="col-md-10">
+                                      <Link to="/welcome"><button className="button1" type="submit">Delete Customer</button></Link>
+
+
+                                      </div>
+                                      <div className="col-md-10">
+                                      <Link to="/welcome"><button className="button1" type="submit">Edit</button></Link>
+
+
+                                      </div>
+
+
+
+                         
+                                    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                                  
+                                        
+                                  </div> 
+                   
+                )
+    }
+        
+    
 }
 
-export default TableList;
+
+
+//export default TableList;

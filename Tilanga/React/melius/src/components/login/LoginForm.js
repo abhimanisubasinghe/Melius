@@ -57,6 +57,7 @@ class LoginForm extends Component {
     handleSubmit = e => { 
         e.preventDefault();
         console.log(this.state);
+        //const url = "http://localhost:3001/admin/login";
         const url = "http://localhost:5000/admin/login"; 
         axios
                 .post(url,
@@ -89,7 +90,7 @@ class LoginForm extends Component {
                                 <label className="label1" for="username">User Name</label>
                                 <input 
                                     type="text" 
-                                    name="username" 
+                                    name="username"
                                     class="form-control"
                                     id="username"
                                     placeholder="user name"
@@ -110,7 +111,7 @@ class LoginForm extends Component {
                                     onChange={this.onChange}/>
 
                             </div>
-                            <Link to=""><button className="btn btn-primary" type="submit">Submit</button></Link>
+                            <Link to="/welcome"><button className="btn btn-primary" type="submit">Submit</button></Link>
 
                         </fieldset>
                         </form>
