@@ -17,14 +17,32 @@
 */
 import React, { Component } from "react";
 import { NavItem, Nav, NavDropdown, MenuItem } from "react-bootstrap";
+import {Link} from 'react-router-dom'
+import {BrowserRouter as Router, Route} from 'react-router-dom';
+
+import routes from "routes.js";
+import Dashboard from "views/Dashboard.jsx";
+import UserProfile from "views/UserProfile.jsx";
+import TableList from "views/TableList.jsx";
+import Typography from "views/Typography.jsx";
+import Icons from "views/Icons.jsx";
+import Maps from "views/Maps.jsx";
+import Notifications from "views/Notifications.jsx";
+import Upgrade from "views/Upgrade.jsx";
+import Itemregister from "views/Itemregister";
 
 class AdminNavbarLinks extends Component {
+  
+  componentDidMount(){
+    
+  }
+  
   render() {
+    
     const notification = (
       <div>
         <i className="fa fa-globe" />
         <b className="caret" />
-        <span className="notification">5</span>
         <p className="hidden-lg hidden-md">Notification</p>
       </div>
     );
@@ -41,11 +59,10 @@ class AdminNavbarLinks extends Component {
             noCaret
             id="basic-nav-dropdown"
           >
-            <MenuItem eventKey={2.1}>Notification 1</MenuItem>
-            <MenuItem eventKey={2.2}>Notification 2</MenuItem>
-            <MenuItem eventKey={2.3}>Notification 3</MenuItem>
-            <MenuItem eventKey={2.4}>Notification 4</MenuItem>
-            <MenuItem eventKey={2.5}>Another notifications</MenuItem>
+            <MenuItem eventKey={2.1}><Link to="table">Register</Link></MenuItem>
+            <MenuItem eventKey={2.2}>Update</MenuItem>
+            <MenuItem eventKey={2.3}>Search</MenuItem>
+            <MenuItem eventKey={2.4}>Delete</MenuItem>
           </NavDropdown>
           <NavItem eventKey={3} href="#">
             <i className="fa fa-search" />

@@ -23,7 +23,8 @@ import Icons from "views/Icons.jsx";
 import Maps from "views/Maps.jsx";
 import Notifications from "views/Notifications.jsx";
 import Upgrade from "views/Upgrade.jsx";
-import Itemregister from "views/Itemregister";
+import Hello from "views/Hello.js";
+import ItemView from "views/ItemView";
 
 const dashboardRoutes = [
   {
@@ -34,10 +35,10 @@ const dashboardRoutes = [
     layout: "/admin"
   },
   {
-    path: "/test",
+    path: "/testing",
     name: "Testing",
-    icon: "pe-7s-smile",
-    component: Itemregister,
+    icon: "pe-7s-headphones",
+    component: Hello,
     layout: "/admin"
   },
   {
@@ -82,14 +83,7 @@ const dashboardRoutes = [
     component: Notifications,
     layout: "/admin"
   },
-  {
-    upgrade: true,
-    path: "/upgrade",
-    name: "Upgrade to PRO",
-    icon: "pe-7s-rocket",
-    component: Upgrade,
-    layout: "/admin"
-  }
+  
 ];
 
 export default dashboardRoutes;
