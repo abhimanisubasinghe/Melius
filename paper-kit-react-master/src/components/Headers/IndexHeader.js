@@ -31,14 +31,14 @@ function IndexHeader() {
         className="page-header section-dark"
         style={{
           backgroundImage:
-            "url(" + require("assets/img/11207.jpg") + ")"
+            "url(" + require("assets/img/login1.jpg") + ")"
         }}
       >
         <div className="filter" />
         <div className="content-center">
           <Container>
             <div className="title-brand">
-              <h1 className="presentation-title">Paper Kit React</h1>
+              <h2 className="presentation-title">On Top Super Clean Center</h2>
               <div className="fog-low">
                 <img alt="..." src={require("assets/img/fog-low.png")} />
               </div>
@@ -47,7 +47,7 @@ function IndexHeader() {
               </div>
             </div>
             <h2 className="presentation-subtitle text-center">
-              Make your mark with a Free Bootstrap 4 (Reactstrap) UI Kit!
+            Drive Confident with  Ontop
             </h2>
           </Container>
         </div>
@@ -58,17 +58,14 @@ function IndexHeader() {
           }}
         />
         <h6 className="category category-absolute">
-          Designed and coded by{" "}
-          <a
-            href="https://www.creative-tim.com?ref=pkr-index-page"
-            target="_blank"
-          >
+          Designed and coded by{" Melius"}
+          
             <img
               alt="..."
               className="creative-tim-logo"
-              src={require("assets/img/creative-tim-white-slim2.png")}
+              src={require("assets/img/11207.jpg")}
             />
-          </a>
+          
         </h6>
       </div>
     </>
