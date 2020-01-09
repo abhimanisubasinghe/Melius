@@ -86,7 +86,7 @@ class AdminNavbarLinks extends Component {
             <MenuItem divider />
             <MenuItem eventKey={2.5}>Separated link</MenuItem>
           </NavDropdown>
-          <NavItem eventKey={3} href="../../../../Tilanga/login">
+          <NavItem eventKey={3} href="../../../../../Tilanga/frontend/melius/src/componets/login">
             Log out
           </NavItem>
         </Nav>

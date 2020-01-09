@@ -50,7 +50,7 @@ const dashboardRoutes = [
   },
   {
     path: "/table",
-    name: "Table List",
+    name: "Customers",
     icon: "pe-7s-note2",
     component: TableList,
     layout: "/admin"

@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import {Link} from 'react-router-dom'
 import './Login.css';
 import { login } from '../UserFunction';
+import axios from 'axios';
 
 class LoginForm extends Component {
     constructor(props) {
@@ -56,6 +57,7 @@ class LoginForm extends Component {
     handleSubmit = e => { 
         e.preventDefault();
         console.log(this.state);
+        //const url = "http://localhost:3001/admin/login";
         const url = "http://localhost:5000/admin/login"; 
         axios
                 .post(url,
@@ -88,7 +90,7 @@ class LoginForm extends Component {
                                 <label className="label1" for="username">User Name</label>
                                 <input 
                                     type="text" 
-                                    name="username" 
+                                    name="username"
                                     class="form-control"
                                     id="username"
                                     placeholder="user name"
