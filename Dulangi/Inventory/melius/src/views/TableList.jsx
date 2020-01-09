@@ -38,8 +38,8 @@ export default class Customer extends React.Component{
                                       <h1>Customers</h1>
                                     </div>
                                     <div className="col-md-10">
-                                      
-                                    <Link to="/welcome"><button className="button1" type="submit">Add Customer</button></Link>
+                                    
+                                    <Link to="/welcome"><button className="button1" type="submit"><i class="fa fa-car" style={iconStyle}></i>Add Customer</button></Link>
 
 
                                       </div>
@@ -59,28 +59,7 @@ export default class Customer extends React.Component{
                                       <Link to="/welcome"><button className="button1" type="submit">Edit</button></Link>
 
 
-                                      </div>
-
-
-
-                         
-                                    
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-                                  
+                                      </div>                              
                                         
                                   </div> 
                    
@@ -90,6 +69,9 @@ export default class Customer extends React.Component{
     
 }
 
-
+const iconStyle = {
+  fontSize: '60px',
+  color: 'red'
+}
 
 //export default TableList;
