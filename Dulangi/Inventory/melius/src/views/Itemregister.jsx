@@ -5,7 +5,11 @@ import {
         Col,
         FormGroup,
         ControlLabel,
-        FormControl
+        FormControl,
+        Navbar,
+        Nav,
+        NavItem,
+        NavbarBrand
       } from "react-bootstrap";
       
 import { Card } from "components/Card/Card.jsx";
@@ -13,6 +17,12 @@ import { FormInputs } from "components/FormInputs/FormInputs.jsx";
 import { UserCard } from "components/UserCard/UserCard.jsx";
 import Button from "components/CustomButton/CustomButton.jsx";
 import axios from 'axios';
+import {Link} from 'react-router-dom'
+import { Router,Route,IndexRoute,hashHistory } from "react-router"
+import Admin from "layouts/Admin"
+import Hello from "views/Hello.js"
+//import Itemregister from "views/Itemregister";
+
 //import './Customerreg.css';
 
 export default class Itemregister extends React.Component{
@@ -37,6 +47,7 @@ export default class Itemregister extends React.Component{
                     barcode: "",
                     leadTime:""
                 }
+                
             }
         
             onChange = (e) => {
@@ -65,7 +76,21 @@ export default class Itemregister extends React.Component{
 
         render(){
                 return(  
-                <div className="contet">
+                <div>
+                <div>    
+                </div>
+                        <div>
+                                <Navbar style={navStyle}>
+                                        <Nav className="mr-auto" >
+                                                <NavbarBrand style={cursorStyle}>Item</NavbarBrand>  
+                                                <NavItem><Link to="item_register">Register</Link></NavItem>
+                                                <NavItem href="#features">Features</NavItem>
+                                                <NavItem href="#pricing">Pricing</NavItem>
+                                        </Nav>
+   
+                                </Navbar>
+                        </div>            
+                <div className="content">
                         <Grid fluid>
                                 <Row>
                                         <Col md={8}>
@@ -190,7 +215,7 @@ export default class Itemregister extends React.Component{
                                                                         <Row>
                                                                                 <Col md={12}>
                                                                                         <FormGroup controlId="formControlsTextarea">
-                                                                                        <ControlLabel>Description</ControlLabel>
+                                                                                        <label>Description</label>
                                                                                         <FormControl
                                                                                                 rows="3"
                                                                                                 componentClass="textarea"
@@ -289,9 +314,20 @@ export default class Itemregister extends React.Component{
                                         </Col>
                                 </Row>
                         </Grid>        
+        </div>
         </div>            
                 )
     }
         
     
 }
+
+
+const navStyle = {
+        backgroundColor: '#262626'
+      }
+    
+    const cursorStyle = {
+        cursor : 'pointer'
+    }  
+    

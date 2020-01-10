@@ -26,19 +26,12 @@ import FixedPlugin from "components/FixedPlugin/FixedPlugin.jsx";
 
 import { style } from "variables/Variables.jsx";
 
-import routes from "routes.js";
+import routes from "routes/routes.js";
 
 import image from "assets/img/sidebar-3.jpg";
 
-import Dashboard from "views/Dashboard.jsx";
-import UserProfile from "views/UserProfile.jsx";
 import TableList from "views/TableList.jsx";
-import Typography from "views/Typography.jsx";
-import Icons from "views/Icons.jsx";
-import Maps from "views/Maps.jsx";
-import Notifications from "views/Notifications.jsx";
-import Upgrade from "views/Upgrade.jsx";
-import Itemregister from "views/Itemregister";
+
 
 class Admin extends Component {
   constructor(props) {
@@ -186,7 +179,7 @@ class Admin extends Component {
   render() {
     
     return (
-      
+      <div> 
       <div className="wrapper">
       <Route path="/table" component={TableList} layout= "/admin/item"/>
         <NotificationSystem ref="notificationSystem" style={style} />
@@ -211,6 +204,7 @@ class Admin extends Component {
             fixedClasses={this.state.fixedClasses}
           />
         </div>
+      </div>
       </div>
     );
   }

@@ -24,7 +24,8 @@ import Maps from "views/Maps.jsx";
 import Notifications from "views/Notifications.jsx";
 import Upgrade from "views/Upgrade.jsx";
 import Hello from "views/Hello.js";
-import ItemView from "views/ItemView";
+import Itemregister from "views/Itemregister";
+import SubNav from "components/Navbars/SubNav"
 
 const dashboardRoutes = [
   {
@@ -38,7 +39,7 @@ const dashboardRoutes = [
     path: "/testing",
     name: "Testing",
     icon: "pe-7s-headphones",
-    component: Hello,
+    component: Itemregister,
     layout: "/admin"
   },
   {
@@ -85,5 +86,7 @@ const dashboardRoutes = [
   },
   
 ];
+
+
 
 export default dashboardRoutes;
