@@ -40,7 +40,7 @@ function SectionLogin() {
       <div
         className="section section-image section-login"
         style={{
-          backgroundImage: "url(" + require("assets/img/login-image.jpg") + ")"
+          backgroundImage: "url(" + require("assets/img/loginimage.jpg") + ")"
         }}
       >
         <Container>
@@ -103,14 +103,14 @@ function SectionLogin() {
                   </Button>
                 </Form>
                 <div className="forgot">
-                  <Button
+                {  <Button
                     className="btn-link"
                     color="danger"
                     href="#pablo"
                     onClick={e => e.preventDefault()}
                   >
                     Forgot password?
-                  </Button>
+                </Button>}
                 </div>
               </Card>
               <div className="col text-center">
@@ -123,6 +123,7 @@ function SectionLogin() {
                   target="_blank"
                 >
                   View Register Page
+                  
                 </Button>
               </div>
             </Col>
@@ -134,3 +135,5 @@ function SectionLogin() {
 }
 
 export default SectionLogin;
+
+

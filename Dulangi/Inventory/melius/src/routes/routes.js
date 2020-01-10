@@ -35,13 +35,13 @@ const dashboardRoutes = [
     component: Dashboard,
     layout: "/admin"
   },
-  {
+  /*{
     path: "/testing",
     name: "Testing",
     icon: "pe-7s-headphones",
     component: Itemregister,
     layout: "/admin"
-  },
+  },*/
   {
     path: "/user",
     name: "User Profile",
@@ -82,6 +82,13 @@ const dashboardRoutes = [
     name: "Notifications",
     icon: "pe-7s-bell",
     component: Notifications,
+    layout: "/admin"
+  },
+  {
+    path: "/testing",
+    name: "Testing",
+    icon: "pe-7s-headphones",
+    component: Hi,
     layout: "/admin"
   },
   

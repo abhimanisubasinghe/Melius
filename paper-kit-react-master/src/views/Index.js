@@ -39,6 +39,7 @@ import SectionDark from "views/index-sections/SectionDark.js";
 import SectionLogin from "views/index-sections/SectionLogin.js";
 import SectionExamples from "views/index-sections/SectionExamples.js";
 import SectionDownload from "views/index-sections/SectionDownload.js";
+import {BrowserRouter as Router,Route} from 'react-router-dom';
 
 function Index() {
   document.documentElement.classList.remove("nav-open");
@@ -49,11 +50,12 @@ function Index() {
     };
   });
   return (
-    <>
+    <Router>
+  
       <IndexNavbar />
       <IndexHeader />
       <div className="main">
-        <SectionButtons />
+       {/* <SectionButtons />
         <SectionNavbars />
         <SectionNavigation />
         <SectionProgress />
@@ -61,14 +63,16 @@ function Index() {
         <SectionTypography />
         <SectionJavaScript />
         <SectionCarousel />
-        <SectionNucleoIcons />
+       <SectionNucleoIcons />*/}
         <SectionDark />
+        <Route path="/index/views" component={SectionLogin}/>
         <SectionLogin />
-        <SectionExamples />
-        <SectionDownload />
+        <SectionExamples />}
+        {/*<SectionDownload />*/}
         <DemoFooter />
       </div>
-    </>
+    
+    </Router>
   );
 }
 
