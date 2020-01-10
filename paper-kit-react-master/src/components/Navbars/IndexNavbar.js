@@ -97,7 +97,7 @@ function IndexNavbar() {
           isOpen={navbarCollapse}
         >
           <Nav navbar>
-            <NavItem>
+            {/*<NavItem>
               <NavLink
                 data-placement="bottom"
                 //href="https://twitter.com/CreativeTim?ref=creativetim"
@@ -142,14 +142,13 @@ function IndexNavbar() {
                 <i className="fa fa-github" />
                 <p className="d-lg-none">GitHub</p>
               </NavLink>
-            </NavItem>
+            </NavItem>*/}
             <NavItem>
               <NavLink
                 href="https://demos.creative-tim.com/paper-kit-react/#/documentation?ref=pkr-index-navbar"
                 target="_blank"
               >
-                <i class="fas fa-sign-in-alt" ></i>
-                <i class="fa fa-car" style={iconStyle}></i> Login
+                <i class="fa fa-user-circle" style={iconStyle}></i> Login
               </NavLink>
             </NavItem>
             
@@ -161,26 +160,26 @@ function IndexNavbar() {
                 target="_blank"
                 disabled
               >
-                <i class="fas fa-sign-in-alt" style={iconStyle} ></i>
+               <i class="fa fa-copy" style={iconStyle}></i>
+                 
                 Systems
               </Button>
             </NavItem>
             <NavItem>
             <Link to="/index/views/SectionLogin">
-              <Button
+            <Button
                 className="btn-round"
                 color="danger"
-                href=""
+                href="#pablo"
                 target="_blank"
                 disabled
               >
-                
-                <i class="fas fa-sign-in-alt" style={iconStyle} ></i>
-                
-                login
+               <i class="fa fa-copy" style={iconStyle} ></i>
+                 
+                 Login
               </Button>
              
-</Link>
+          </Link>
 
             </NavItem>
           </Nav>
@@ -192,7 +191,6 @@ function IndexNavbar() {
   );
 }
 const iconStyle = {
-  fontSize: '15px',
-  color: 'red'
-}
+  fontSize: '20px',
+  color: 'black',}
 export default IndexNavbar;

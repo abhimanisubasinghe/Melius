@@ -66,8 +66,8 @@ function Index() {
        <SectionNucleoIcons />*/}
         <SectionDark />
         <Route path="/index/views" component={SectionLogin}/>
-        {/*<SectionLogin />
-        <SectionExamples />*/}
+        <SectionLogin />
+        <SectionExamples />}
         {/*<SectionDownload />*/}
         <DemoFooter />
       </div>
