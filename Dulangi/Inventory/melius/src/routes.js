@@ -25,7 +25,7 @@ import Notifications from "views/Notifications.jsx";
 import Upgrade from "views/Upgrade.jsx";
 import Hello from "views/Hello.js";
 import ItemView from "views/ItemView";
-
+import Hi from "views/Hi.js"
 const dashboardRoutes = [
   {
     path: "/dashboard",
@@ -34,13 +34,13 @@ const dashboardRoutes = [
     component: Dashboard,
     layout: "/admin"
   },
-  {
+  /*{
     path: "/testing",
     name: "Testing",
     icon: "pe-7s-headphones",
     component: Hello,
     layout: "/admin"
-  },
+  },*/
   {
     path: "/user",
     name: "User Profile",
@@ -81,6 +81,13 @@ const dashboardRoutes = [
     name: "Notifications",
     icon: "pe-7s-bell",
     component: Notifications,
+    layout: "/admin"
+  },
+  {
+    path: "/testing",
+    name: "Testing",
+    icon: "pe-7s-headphones",
+    component: Hi,
     layout: "/admin"
   },
   

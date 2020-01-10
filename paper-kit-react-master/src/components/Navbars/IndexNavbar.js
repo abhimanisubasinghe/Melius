@@ -31,6 +31,10 @@ import {
   Container
 } from "reactstrap";
 
+import SectionLogin from "views/index-sections/SectionLogin.js";
+
+import {Link} from 'react-router-dom';
+
 function IndexNavbar() {
   const [navbarColor, setNavbarColor] = React.useState("navbar-transparent");
   const [navbarCollapse, setNavbarCollapse] = React.useState(false);
@@ -62,6 +66,8 @@ function IndexNavbar() {
     };
   });
   return (
+
+    
     <Navbar className={classnames("fixed-top", navbarColor)} expand="lg">
       <Container>
         <div className="navbar-translate">
@@ -71,7 +77,7 @@ function IndexNavbar() {
             target="_blank"
             title="Coded by Creative Tim"
           >
-            Paper Kit React
+            Melius
           </NavbarBrand>
           <button
             aria-expanded={navbarCollapse}
@@ -94,11 +100,13 @@ function IndexNavbar() {
             <NavItem>
               <NavLink
                 data-placement="bottom"
-                href="https://twitter.com/CreativeTim?ref=creativetim"
+                //href="https://twitter.com/CreativeTim?ref=creativetim"
                 target="_blank"
                 title="Follow us on Twitter"
               >
                 <i className="fa fa-twitter" />
+                
+                 
                 <p className="d-lg-none">Twitter</p>
               </NavLink>
             </NavItem>
@@ -120,7 +128,7 @@ function IndexNavbar() {
                 target="_blank"
                 title="Follow us on Instagram"
               >
-                <i className="fa fa-instagram" />
+                <i class="fa fa-car" style={iconStyle}></i>
                 <p className="d-lg-none">Instagram</p>
               </NavLink>
             </NavItem>
@@ -140,9 +148,11 @@ function IndexNavbar() {
                 href="https://demos.creative-tim.com/paper-kit-react/#/documentation?ref=pkr-index-navbar"
                 target="_blank"
               >
-                <i className="nc-icon nc-book-bookmark" /> Documentation
+                <i class="fas fa-sign-in-alt" ></i>
+                <i class="fa fa-car" style={iconStyle}></i> Login
               </NavLink>
             </NavItem>
+            
             <NavItem>
               <Button
                 className="btn-round"
@@ -151,14 +161,38 @@ function IndexNavbar() {
                 target="_blank"
                 disabled
               >
-                Upgrade to Pro
+                <i class="fas fa-sign-in-alt" style={iconStyle} ></i>
+                Systems
               </Button>
             </NavItem>
+            <NavItem>
+            <Link to="/index/views/SectionLogin">
+              <Button
+                className="btn-round"
+                color="danger"
+                href=""
+                target="_blank"
+                disabled
+              >
+                
+                <i class="fas fa-sign-in-alt" style={iconStyle} ></i>
+                
+                login
+              </Button>
+             
+</Link>
+
+            </NavItem>
           </Nav>
+
         </Collapse>
       </Container>
     </Navbar>
+    
   );
 }
-
+const iconStyle = {
+  fontSize: '15px',
+  color: 'red'
+}
 export default IndexNavbar;
