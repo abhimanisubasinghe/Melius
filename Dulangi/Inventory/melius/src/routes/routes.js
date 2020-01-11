@@ -58,7 +58,7 @@ const dashboardRoutes = [
   },
   {
     path: "/typography",
-    name: "Typography",
+    name: "Vehicles",
     icon: "pe-7s-news-paper",
     component: Typography,
     layout: "/admin"

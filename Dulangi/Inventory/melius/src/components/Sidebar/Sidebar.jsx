@@ -21,6 +21,8 @@ import { NavLink } from "react-router-dom";
 import AdminNavbarLinks from "../Navbars/AdminNavbarLinks.jsx";
 
 import logo from "assets/img/reactlogo.png";
+import customers from "assets/img/customers.jpg";
+
 
 class Sidebar extends Component {
   constructor(props) {
@@ -42,7 +44,7 @@ class Sidebar extends Component {
   }
   render() {
     const sidebarBackground = {
-      backgroundImage: "url(" + this.props.image + ")"
+      backgroundImage: "customers",
     };
     return (
       <div
@@ -62,14 +64,14 @@ class Sidebar extends Component {
             className="simple-text logo-mini"
           >
             <div className="logo-img">
-              <img src={logo} alt="logo_image" />
+              <img src={customers} alt="logo_image" />
             </div>
           </a>
           <a
             href="#"
             className="simple-text logo-normal"
           >
-            Creative Tim
+            Melius
           </a>
         </div>
         <div className="sidebar-wrapper">
