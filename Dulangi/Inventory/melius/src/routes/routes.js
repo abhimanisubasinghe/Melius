@@ -88,7 +88,7 @@ const dashboardRoutes = [
     path: "/testing",
     name: "Testing",
     icon: "pe-7s-headphones",
-    component: Hi,
+    component: Itemregister,
     layout: "/admin"
   },
   
