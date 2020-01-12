@@ -46,7 +46,7 @@ import {
   
   
 
-} from "reactstrap";
+} from "react-bootstrap";
 
 
 

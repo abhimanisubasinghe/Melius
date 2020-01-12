@@ -16,7 +16,8 @@
 */
 
 import React, { Component } from "react";
-import customers from "./../assets/img/customers.jpg"
+import customers from "./../assets/img/customers.jpg";
+import ItemRoutes from "layouts/ItemRoutes"
 
 import {Link} from 'react-router-dom';
 import {
@@ -26,7 +27,10 @@ import {
   InputGroupAddon,
   InputGroupText,
   InputGroup,
-  
+  NavItem,
+  NavbarBrand,
+  Nav,
+  Navbar
   
 
 } from "react-bootstrap";
@@ -38,7 +42,20 @@ export default class Customers extends React.Component{
         
 
         render(){
-                return(  
+                return( 
+                  <div> 
+                      <ItemRoutes/>
+                          <div>
+                                <Navbar style={navStyle}>
+                                        <Nav className="mr-auto" >
+                                                <NavbarBrand style={cursorStyle}>Item</NavbarBrand>  
+                                                <NavItem><Link to="item_register">Register</Link></NavItem>
+                                                <NavItem href="#features">Features</NavItem>
+                                                <NavItem href="#pricing">Pricing</NavItem>
+                                        </Nav>
+   
+                                </Navbar>
+                        </div> 
                   
                         <div className="container" style={container}>
                               
@@ -93,6 +110,7 @@ export default class Customers extends React.Component{
                                                       </div>
 
             
+                        </div>
                         </div>
                    
                 )
@@ -185,6 +203,16 @@ const imgstyle={
   //padding: "10px 10px",
 
 }
+
+
+const navStyle = {
+  backgroundColor: '#262626'
+}
+
+const cursorStyle = {
+  cursor : 'pointer'
+}  
+
 
 
 

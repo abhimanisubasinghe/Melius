@@ -82,6 +82,7 @@ class Admin extends Component {
   getRoutes = routes => {
     return routes.map((prop, key) => {
       if (prop.layout === "/admin") {
+        //console.log("path "+prop.path+"component "+ prop.component+"layout "+prop.layout);
         return (
           <Route
             path={prop.layout + prop.path}
@@ -99,6 +100,20 @@ class Admin extends Component {
       }
     });
   };
+
+  show = routes => {
+    return routes.map((prop, key) => {
+      if (prop.in === "TRUE") {
+        //console.log("path "+prop.path+"component "+ prop.component+"layout "+prop.layout);
+        return (
+          "TRUE"
+        );
+      } else {
+        return "FALSE";
+      }
+    });
+  };
+
   getBrandText = path => {
     for (let i = 0; i < routes.length; i++) {
       if (
@@ -181,11 +196,11 @@ class Admin extends Component {
     return (
       <div> 
       <div className="wrapper">
-      <Route path="/table" component={TableList} layout= "/admin/item"/>
         <NotificationSystem ref="notificationSystem" style={style} />
         {<Sidebar {...this.props} routes={routes} image={this.state.image}
         color={this.state.color}
-        hasImage={this.state.hasImage}/> }
+        hasImage={this.state.hasImage}
+        shouldDisplay={this.show(routes)}/> }
         <div id="main-panel" className="main-panel" ref="mainPanel">
           <AdminNavbar
             {...this.props}
