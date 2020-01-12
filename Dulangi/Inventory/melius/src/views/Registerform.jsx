@@ -289,7 +289,10 @@ const     btn ={
         borderColor:"rgba(15, 28, 30, 0.62)",
     }
 
-
+const colmd10={
+        marginTop: "20px",
+        color:"wheat",
+   }
        /* 
 
 
