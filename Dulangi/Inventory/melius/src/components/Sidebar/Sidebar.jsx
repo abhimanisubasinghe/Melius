@@ -44,7 +44,7 @@ class Sidebar extends Component {
   }
   render() {
     const sidebarBackground = {
-      backgroundImage: "customers",
+      backgroundImage: "url(" +this.props.image +")",
     };
     return (
       <div

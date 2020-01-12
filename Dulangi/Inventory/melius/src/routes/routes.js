@@ -19,6 +19,8 @@ import Dashboard from "views/Dashboard.jsx";
 import UserProfile from "views/UserProfile.jsx";
 import TableList from "views/TableList.jsx";
 import Typography from "views/Typography.jsx";
+import Customerreg from "views/Registerform.jsx";
+
 import Icons from "views/Icons.jsx";
 import Maps from "views/Maps.jsx";
 import Notifications from "views/Notifications.jsx";
@@ -26,6 +28,7 @@ import Upgrade from "views/Upgrade.jsx";
 import Hello from "views/Hello.js";
 import Itemregister from "views/Itemregister";
 import SubNav from "components/Navbars/SubNav"
+
 
 const dashboardRoutes = [
   {
@@ -88,7 +91,7 @@ const dashboardRoutes = [
     path: "/testing",
     name: "Testing",
     icon: "pe-7s-headphones",
-    component: Hello,
+    component: Customerreg,
     layout: "/admin"
   },
   
