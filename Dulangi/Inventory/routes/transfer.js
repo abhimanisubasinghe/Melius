@@ -6,15 +6,22 @@ var Promise = require('promise');
 //Display transfer request form
 routerTwo.get('/add', function(req, res, next) {
 
-    res.render('items/transferadd', {
-        title: 'Add new item',
+    //Get the list of locations from the database and render it to transfer note
 
+    connection.query("SELECT warehouseId,name FROM warehouse", function(err, result) {
+        if (err) {
+            res.flash('error', err);
+        } else {
+            console.log(result);
+            res.render('items/transferadd', {
+                dropdownVals: result,
+            });
+        }
     })
 });
 
 // Insert new transfer request
 routerTwo.post('/add', function(req, res, next) {
-
 
     if (true) {
 
@@ -27,66 +34,29 @@ routerTwo.post('/add', function(req, res, next) {
         connection.query('INSERT INTO stocktransfer SET ?', data, function(err, result) {
 
             if (err) {
+                console.log("here");
                 req.flash('error', err);
+                res.redirect('/items');
 
-                res.render('items/transferadd', {
-                    title: 'Add new customer',
-
-                })
             } else {
-
                 var info = {
+                    transferId: result.insertId,
                     itemId: req.body.item,
-                    quantity: req.body.quantity,
-                    transferId: result.insertId
+                    quantity: req.body.quantity
+
                 }
 
-                console.log(info);
+                connection.query('INSERT INTO stocktransfer_item SET ?', info, function(err, result) {
 
+                    if (err) {
 
-                var P1 = new Promise(function(resolve, reject) {
-                    connection.query('SELECT inStock FROM item WHERE itemCode=' + req.body.item, function(err, result) {
-                        if (err) {
-                            reject(err);
-                        } else {
-                            resolve(result);
-                        }
-                    })
-                })
-
-                P1.then(result => {
-                    if (parseInt(result.inStock) >= parseInt(info.quantity)) {
-                        connection.query('INSERT INTO stocktransfer_item SET ?', info, function(err) {
-                            if (err) {
-                                req.flash('error', err);
-                            } else {
-                                console.log(parseInt(result.inStock) - info.quantity);
-                                return parseInt(result.inStock) - info.quantity;
-                            }
-                        })
-
+                        req.flash('error', err);
+                        res.redirect('/items');
                     } else {
-                        req.flash('error', 'Not enough stock');
+
+                        res.redirect('/items');
                     }
-                }).then((val) => {
-                    //var temp = parseInt(req.body.quantity);
-                    console.log('qqqqqqqqqqqqqqqqqqq');
-                    console.log(val);
-                    console.log(req.body.itemId);
-                    connection.query('UPDATE item SET inStock= WHERE itemCode=?', [val, req.body.itemId], function(err, result) {
-                        if (err) {
-                            console.log(err)
-                        } else {
-                            console.log(temp);
-                            console.log('here');
-                        }
-                    })
-                }).then(() => {
-                    req.flash('success', 'Data inserted succesfully');
-                    res.redirect('/transfer/add');
-
                 });
-
             }
         });
 
@@ -106,6 +76,7 @@ routerTwo.post('/add', function(req, res, next) {
             description: req.body.descript
         })
     }
+
 });
 
 

@@ -30,7 +30,7 @@ class Sidebar extends Component {
     this.state = {
       width: window.innerWidth
     };
-    console.log(this.props);
+    //console.log("PROPS "+this.props.shouldDisplay);
   }
   activeRoute(routeName) {
     return this.props.location.pathname.indexOf(routeName) > -1 ? "active" : "";
@@ -47,6 +47,7 @@ class Sidebar extends Component {
       backgroundImage: "url(" +this.props.image +")",
     };
     return (
+
       <div
         id="sidebar"
         className="sidebar"
@@ -78,7 +79,7 @@ class Sidebar extends Component {
           <ul className="nav">
             {this.state.width <= 991 ? <AdminNavbarLinks /> : null}
             {this.props.routes.map((prop, key) => {
-              if (!prop.redirect)
+              if (!prop.redirect && prop.in==="TRUE")
                 return (
                   <li
                     className={

@@ -27,7 +27,8 @@ import Notifications from "views/Notifications.jsx";
 import Upgrade from "views/Upgrade.jsx";
 import Hello from "views/Hello.js";
 import Itemregister from "views/Itemregister";
-import SubNav from "components/Navbars/SubNav"
+import SubNav from "components/Navbars/SubNav";
+import Invoice from "views/Invoice"
 
 
 const dashboardRoutes = [
@@ -36,7 +37,8 @@ const dashboardRoutes = [
     name: "Dashboard",
     icon: "pe-7s-graph",
     component: Dashboard,
-    layout: "/admin"
+    layout: "/admin",
+    in  : "TRUE"
   },
   /*{
     path: "/testing",
@@ -50,50 +52,74 @@ const dashboardRoutes = [
     name: "User Profile",
     icon: "pe-7s-user",
     component: UserProfile,
-    layout: "/admin"
+    layout: "/admin",
+    in  : "TRUE"
   },
   {
     path: "/table",
     name: "Customers",
     icon: "pe-7s-note2",
     component: TableList,
-    layout: "/admin"
+    layout: "/admin",
+    in  : "TRUE"
   },
   {
     path: "/typography",
     name: "Vehicles",
     icon: "pe-7s-news-paper",
     component: Typography,
-    layout: "/admin"
+    layout: "/admin",
+    in  : "TRUE"
   },
   {
     path: "/icons",
     name: "Icons",
     icon: "pe-7s-science",
     component: Icons,
-    layout: "/admin"
+    layout: "/admin",
+    in  : "TRUE"
   },
   {
     path: "/maps",
     name: "Maps",
     icon: "pe-7s-map-marker",
     component: Maps,
-    layout: "/admin"
+    layout: "/admin",
+    in  : "TRUE"
   },
   {
     path: "/notifications",
     name: "Notifications",
     icon: "pe-7s-bell",
     component: Notifications,
-    layout: "/admin"
+    layout: "/admin",
+    in  : "TRUE"
   },
   {
     path: "/testing",
     name: "Testing",
     icon: "pe-7s-headphones",
-    component: Customerreg,
-    layout: "/admin"
+    component: Itemregister,
+    layout: "/admin",
+    in  : "TRUE"
   },
+  {
+    path: "/item_register",
+    name: "Register",
+    icon: "pe-7s-headphones",
+    component: Itemregister,
+    layout: "/admin",
+    in : "FALSE"
+  },
+  {
+    path: "/inovice",
+    name: "Invoice",
+    icon: "pe-7s-cart",
+    component: Invoice,
+    layout: "/admin",
+    in : "TRUE"
+  },
+  
   
 ];
 
