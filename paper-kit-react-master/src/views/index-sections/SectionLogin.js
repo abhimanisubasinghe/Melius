@@ -40,10 +40,10 @@ function SectionLogin() {
       <div
         className="section section-image section-login"
         style={{
-          backgroundImage: "url(" + require("assets/img/loginimage.jpg") + ")"
+          backgroundImage: "url(" + require("assets/img/logs.jpg") + ")"
         }}
       >
-        <Container>
+        <Container style={container}>
           <Row>
             <Col className="mx-auto" lg="4" md="6">
               <Card className="card-register">
@@ -134,6 +134,9 @@ function SectionLogin() {
   );
 }
 
+const container={
+  background:"transparent",
+}
 export default SectionLogin;
 
 

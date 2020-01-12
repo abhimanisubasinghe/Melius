@@ -77,28 +77,28 @@ export default class Vehiclereg extends React.Component{
                                         <div className= "row form-group" align="left">
                                                 <label for="NIC" className="col-md-2">Owner Name</label>
                                                         <div className="col-md-10">
-                                                                <input type="text" value={this.state.nic} style={formcontrol} onChange={this.onChange} className="form-control" id="nic" name="nic" placeholder="NIC"/>                        
+                                                                <input type="text" value={this.state.nic} style={formcontrol} onChange={this.onChange} className="form-control" id="nic" name="nic" placeholder="Owner Name"/>                        
 
                                                         </div>
                                         </div>
                                         <div className= "row form-group" align="left">
                                                 <label for="fax" className="col-md-2">Owner Id</label>
                                                         <div className="col-md-10">
-                                                                <input type="text" value={this.state.fax} style={formcontrol} onChange={this.onChange} className="form-control" id="fax" name="fax" placeholder="Fax Number"/>                        
+                                                                <input type="text" value={this.state.fax} style={formcontrol} onChange={this.onChange} className="form-control" id="fax" name="fax" placeholder="Owner Id"/>                        
 
                                                         </div>
                                         </div>
                                         <div className= "row form-group" align="left">
                                                 <label for="type" className="col-md-2">Mileage</label>
                                                         <div className="col-md-10">  
-                                                                <input type="text" value={this.state.type}style={formcontrol} onChange={this.onChange} className="form-control" id="type" name="type" placeholder="Type"/>                        
+                                                                <input type="text" value={this.state.type}style={formcontrol} onChange={this.onChange} className="form-control" id="type" name="type" placeholder="Eg:-100,000km"/>                        
 
                                                         </div>
                                         </div>
                                         <div className= "row form-group" align="left">
                                                 <label for="website" className="col-md-2">Type</label>
                                                         <div className="col-md-10">
-                                                                <input type="text" value={this.state.website} style={formcontrol} onChange={this.onChange} className="form-control" id="website" name="website" placeholder="Insert website"/>                        
+                                                                <input type="text" value={this.state.website} style={formcontrol} onChange={this.onChange} className="form-control" id="website" name="website" placeholder="Eg:-Benz"/>                        
 
                                                         </div>
                                         </div>
