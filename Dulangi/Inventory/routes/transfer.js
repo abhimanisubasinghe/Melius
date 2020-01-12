@@ -49,9 +49,11 @@ routerTwo.post('/add', function(req, res, next) {
                 connection.query('INSERT INTO stocktransfer_item SET ?', info, function(err, result) {
 
                     if (err) {
+
                         req.flash('error', err);
                         res.redirect('/items');
                     } else {
+
                         res.redirect('/items');
                     }
                 });
