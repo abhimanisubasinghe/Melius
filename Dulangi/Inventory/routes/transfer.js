@@ -6,9 +6,17 @@ var Promise = require('promise');
 //Display transfer request form
 routerTwo.get('/add', function(req, res, next) {
 
-    res.render('items/transferadd', {
-        title: 'Add new item',
+    //Get the list of locations from the database and render it to transfer note
 
+    connection.query("SELECT warehouseId,name FROM warehouse", function(err, result) {
+        if (err) {
+            res.flash('error', err);
+        } else {
+            console.log(result);
+            res.render('items/transferadd', {
+                dropdownVals: result,
+            });
+        }
     })
 });
 
