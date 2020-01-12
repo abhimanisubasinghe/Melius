@@ -20,6 +20,7 @@ import UserProfile from "views/UserProfile.jsx";
 import TableList from "views/TableList.jsx";
 import Typography from "views/Typography.jsx";
 import Customerreg from "views/Registerform.jsx";
+import Vehiclereg from "views/Vehiclereg.jsx";
 
 import Icons from "views/Icons.jsx";
 import Maps from "views/Maps.jsx";
@@ -58,7 +59,7 @@ const dashboardRoutes = [
   {
     path: "/table",
     name: "Customers",
-    icon: "pe-7s-note2",
+    icon: "pe-7s-add-user",
     component: TableList,
     layout: "/admin",
     in  : "TRUE"
@@ -66,7 +67,7 @@ const dashboardRoutes = [
   {
     path: "/typography",
     name: "Vehicles",
-    icon: "pe-7s-news-paper",
+    icon: "pe-7s-car",
     component: Typography,
     layout: "/admin",
     in  : "TRUE"
@@ -119,7 +120,22 @@ const dashboardRoutes = [
     layout: "/admin",
     in : "TRUE"
   },
-  
+  {
+    path: "/customers",
+    name: "Register_cus",
+    icon: "pe-7s-add-user",
+    component: Customerreg,
+    layout: "/admin",
+    in  : "TRUE"
+  },
+  {
+    path: "/vehicle",
+    name: "Register_veh",
+    icon: "pe-7s-add-user",
+    component: Vehiclereg,
+    layout: "/admin",
+    in  : "TRUE"
+  },
   
 ];
 
