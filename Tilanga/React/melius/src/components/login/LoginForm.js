@@ -9,7 +9,7 @@ class LoginForm extends Component {
         super(props)
     
         this.state = {
-            userName: "",
+            username: "",
             password: ""
         }
         ////////////
@@ -33,10 +33,10 @@ class LoginForm extends Component {
         e.preventDefault();
         
         const user = {
-            userName: this.state.userName,
+            username: this.state.username,
             password: this.state.password
         }
-        console.log(user.userName);
+        console.log(user.username);
         login(user).then(res => {
             if(res === 'logged') {
                 /////
@@ -57,16 +57,22 @@ class LoginForm extends Component {
     handleSubmit = e => { 
         e.preventDefault();
         console.log(this.state);
-        //const url = "http://localhost:3001/admin/login";
-        const url = "http://localhost:5000/admin/login"; 
+        const url = "http://localhost:3001/admin/login";
+        //const url = "http://localhost:5000/admin/login"; 
         axios
                 .post(url,
                         this.state
                 ,{headers: {'Accept': 'application/json'}})
                 .then( response =>
-                        {console.log("good "+response)}
+                        {console.log(response)
+                            if(response.data == "worng data"){
+                                console.log('run')
+                            }
+                        }
+                        
                 )
-                .catch(() => console.log("Can’t access " + url + " response. Blocked by browser?"))
+                
+                //.catch(() => console.log("Can’t access " + url + " response. Blocked by browser?"))
         
         
     }
@@ -111,7 +117,9 @@ class LoginForm extends Component {
                                     onChange={this.onChange}/>
 
                             </div>
-                            <Link to="/welcome"><button className="btn btn-primary" type="submit">Submit</button></Link>
+                            {/* <Link to="/welcome"> */}
+                                <button className="btn btn-primary" type="submit">Submit</button>
+                                {/* </Link> */}
 
                         </fieldset>
                         </form>

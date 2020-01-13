@@ -38,6 +38,7 @@ admin.get('/',function(req,res){
 
 //ADMIN LOGIN
 admin.post('/login',function(req,res){
+    console.log(req.body.username);
     var username = req.body.username;
     var password = req.body.password;
     if(req.session.adminId){
@@ -51,8 +52,14 @@ admin.post('/login',function(req,res){
                         throw err;
                     }
                     else{
-                        req.session.adminId = username
-                        res.send('logged');
+                        if(result.length>0){
+                            req.session.adminId = username;
+                            res.send('logged'); 
+                        }
+                        else{
+                            res.send('worng data');
+                        }
+                        
                     }
                 });
             })

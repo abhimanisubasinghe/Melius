@@ -1,0 +1,33 @@
+{
+  "name": "mean",
+  "version": "1.0.0",
+  "main": "server.js",
+  "scripts": {
+    "starts": "node server.js",
+    "server": "nodemon server.js"
+  },
+  "author": "Tilanga Pramith",
+  "license": "ISC",
+  "dependencies": {
+    "bcrypt": "^3.0.6",
+    "body-parser": "^1.19.0",
+    "cookie-parser": "^1.4.4",
+    "cookie-session": "^1.4.0",
+    "cookies-parser": "^1.2.0",
+    "cors": "^2.8.5",
+    "express": "^4.17.1",
+    "express-session": "^1.17.0",
+    "fs": "0.0.1-security",
+    "jsonwebtoken": "^8.5.1",
+    "mysql": "^2.17.1",
+    "mysql2": "^1.7.0",
+    "node-gyp": "^6.0.1",
+    "nodemod": "^1.5.19",
+    "pdfkit": "^0.10.0"
+  },
+  "devDependencies": {
+    "http-proxy-middleware": "^0.20.0",
+    "nodemon": "^1.19.4"
+  },
+  "description": ""
+}
