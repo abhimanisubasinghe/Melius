@@ -54,9 +54,12 @@ routerTwo.post('/add', function(req, res, next) {
                         res.redirect('/items');
                     } else {
 
+                        connection.query()
                         res.redirect('/items');
                     }
                 });
+
+
             }
         });
 
