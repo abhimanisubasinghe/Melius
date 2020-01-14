@@ -21,6 +21,7 @@ import TableList from "views/TableList.jsx";
 import Typography from "views/Typography.jsx";
 import Customerreg from "views/Registerform.jsx";
 import Vehiclereg from "views/Vehiclereg.jsx";
+import Customerdetails from "views/Customerdetails.jsx";
 
 import Icons from "views/Icons.jsx";
 import Maps from "views/Maps.jsx";
@@ -110,7 +111,7 @@ const dashboardRoutes = [
     icon: "pe-7s-headphones",
     component: Itemregister,
     layout: "/admin",
-    in : "FALSE"
+    in : "TRUE"
   },
   {
     path: "/inovice",
@@ -122,20 +123,29 @@ const dashboardRoutes = [
   },
   {
     path: "/customers",
-    name: "Register_cus",
+    name: "Register Customer",
     icon: "pe-7s-add-user",
     component: Customerreg,
     layout: "/admin",
-    in  : "TRUE"
+    in  : "FALSE"
   },
   {
     path: "/vehicle",
-    name: "Register_veh",
+    name: "Register Vehicle",
     icon: "pe-7s-add-user",
     component: Vehiclereg,
     layout: "/admin",
+    in  : "FALSE"
+  },
+  {
+    path: "/details",
+    name: "Details",
+    icon: "pe-7s-add-user",
+    component: Customerdetails,
+    layout: "/admin",
     in  : "TRUE"
   },
+  
   
 ];
 
