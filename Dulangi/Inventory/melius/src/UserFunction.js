@@ -32,7 +32,7 @@ export const login = user => {
 
 export const customerregister = user => {
     return axios
-    .post('customers/customerRegistration', {
+    .post('users/customerRegistration', {
         // username: user.userName,
         // password: user.password
         name: user.name,

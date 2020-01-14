@@ -49,7 +49,7 @@ export default class Customers extends React.Component{
                                 <Navbar style={navStyle}>
                                         <Nav className="mr-auto" >
                                                 <NavbarBrand style={cursorStyle}>Item</NavbarBrand>  
-                                                <NavItem><Link to="item_register">Register</Link></NavItem>
+                                                <NavItem><Link to="customers">Register</Link></NavItem>
                                                 <NavItem href="#features">Features</NavItem>
                                                 <NavItem href="#pricing">Pricing</NavItem>
                                         </Nav>
@@ -73,13 +73,13 @@ export default class Customers extends React.Component{
                                                                 
                                                                                 <div className="column" style={column} >
                                                                                                   
-                                                                                              <Link to="/welcome"><button className="button1" style={button1}  type="submit">Add Customer</button></Link>
+                                                                                <Link to="customers"><button className="button1" style={button1}  type="submit">Add Customer</button></Link>
 
                                                                                 </div>
                                                                                                     
                                                                                 <div className="column" style={column} >
                                                                                                     
-                                                                                              <Link to="/welcome"><button className="button1" style={button1} type="submit">Edit Customer 
+                                                                                <Link to="customers"><button className="button1" style={button1} type="submit">Edit Customer 
 
                                                                                                 </button></Link>
                                                                                 </div>

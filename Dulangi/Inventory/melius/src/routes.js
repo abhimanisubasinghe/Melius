@@ -19,10 +19,6 @@ import Dashboard from "views/Dashboard.jsx";
 import UserProfile from "views/UserProfile.jsx";
 import TableList from "views/TableList.jsx";
 import Typography from "views/Typography.jsx";
-import Customerreg from "views/Registerform.jsx";
-import Vehiclereg from "views/Vehiclereg.jsx";
-import Customerdetails from "views/Customerdetails.jsx";
-
 import Icons from "views/Icons.jsx";
 import Maps from "views/Maps.jsx";
 import Notifications from "views/Notifications.jsx";
@@ -31,7 +27,6 @@ import Hello from "views/Hello.js";
 import Itemregister from "views/Itemregister";
 import SubNav from "components/Navbars/SubNav";
 import Invoice from "views/Invoice"
-
 
 const dashboardRoutes = [
   {
@@ -60,7 +55,7 @@ const dashboardRoutes = [
   {
     path: "/table",
     name: "Customers",
-    icon: "pe-7s-add-user",
+    icon: "pe-7s-note2",
     component: TableList,
     layout: "/admin",
     in  : "TRUE"
@@ -68,7 +63,7 @@ const dashboardRoutes = [
   {
     path: "/typography",
     name: "Vehicles",
-    icon: "pe-7s-car",
+    icon: "pe-7s-news-paper",
     component: Typography,
     layout: "/admin",
     in  : "TRUE"
@@ -111,7 +106,7 @@ const dashboardRoutes = [
     icon: "pe-7s-headphones",
     component: Itemregister,
     layout: "/admin",
-    in : "TRUE"
+    in : "FALSE"
   },
   {
     path: "/inovice",
@@ -120,30 +115,6 @@ const dashboardRoutes = [
     component: Invoice,
     layout: "/admin",
     in : "TRUE"
-  },
-  {
-    path: "/customers",
-    name: "Register Customer",
-    icon: "pe-7s-add-user",
-    component: Customerreg,
-    layout: "/admin",
-    in  : "FALSE"
-  },
-  {
-    path: "/vehicle",
-    name: "Register Vehicle",
-    icon: "pe-7s-add-user",
-    component: Vehiclereg,
-    layout: "/admin",
-    in  : "FALSE"
-  },
-  {
-    path: "/details",
-    name: "Details",
-    icon: "pe-7s-add-user",
-    component: Customerdetails,
-    layout: "/admin",
-    in  : "TRUE"
   },
   
   
