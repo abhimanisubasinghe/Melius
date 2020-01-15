@@ -33,13 +33,34 @@ customers.use(cors());
 
 var path = require('path');
 
+customers.get('/view',function(req,res){
+    if(req.session.adminId){
+        res.send('please log as an admin');
+    }
+    else{
+        sql.query("SELECT * FROM customer",function(err,result){
+            if(err){
+                throw err;
+            }
+            else{
+                if(result.length>0){
+                    res.json(result);
+                }
+                else{
+                    res.json('No any services');
+                }
+            }
+        });
+    }
+});
 
 //CUSTOMER REGISTRATION
 customers.post('/customerRegistration',function(req,res){
     //var id = req.body.customerId;
 
     var name = req.body.name;
-    var NIC = req.body.customerNIC;
+    //var NIC = req.body.NIC;
+    var NIC = req.body.NIC;
     var fax = req.body.fax;
     var type = req.body.type;
     var email = req.body.email;
@@ -51,6 +72,15 @@ customers.post('/customerRegistration',function(req,res){
 
     console.log('eeeeeeeeeeeeeeeeeeeee')
     console.log(name);
+    console.log(NIC);
+    console.log(fax);
+    console.log(type);
+    console.log(email);
+    console.log(website);
+    console.log(address);
+    console.log(phoneNo);
+    console.log(DOB);
+    console.log(note);
 
   
     
@@ -61,17 +91,20 @@ customers.post('/customerRegistration',function(req,res){
        // if(req.session.userId)
         if(!req.session.userId)
         {
-            if(name && NIC && fax && type && email && website && address && phoneNo && DOB && note){
+            if(name && fax && type && email && website && address && phoneNo && DOB && note){
                 console.log('1111111111111111111');
                 sql.query('SELECT name FROM customer WHERE NIC = ?',[NIC],function(err1,result1){
                     if(err1) {
                         throw err1;
                     }
                     else{
+                        console.log('cffffffffffffff');
                         if(result1.length>0){
+                            console.log('gggggg')
                             res.send('customer already registered');
                         }
                         else{
+                            console.log('jnbvkjsbnvkjsbvkjsnbvkjbskjvbskjvn')
                             sql.query('INSERT INTO customer (name,NIC,fax,type,email,website,DOB,note) VALUES (?,?,?,?,?,?,?,?)',[name,NIC,fax,type,email,website,DOB,note], function(err2,result2){
                                 if(err2){
                                     throw err2;
@@ -119,6 +152,10 @@ customers.post('/customerRegistration',function(req,res){
                         }
                     }
                 });
+            }
+            else{
+                console.log('all datanot fill')
+                res.send('fill all field');
             }
         }
         else{

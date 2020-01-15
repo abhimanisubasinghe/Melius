@@ -12,16 +12,12 @@ export default class Customerreg extends React.Component{
             
                 this.state = {
 
-                    name:"",
-                    fax:"",    
-                    NIC: "",
+                    vehicleNo:"",
+                    category:"",    
                     type: "",
-                    email: "",
-                    website: "",
-                    address: "",
-                    phoneNo: "",
-                    DOB: "",
-                    note: ""
+                    mileage: "",
+                    custId: "",
+                    
                    
                 }
                 
@@ -36,7 +32,7 @@ export default class Customerreg extends React.Component{
             handleSubmit = e => { 
                 e.preventDefault();
                 console.log(this.state);
-                const url = "http://localhost:5001/customers/customerRegistration"; 
+                const url = "http://localhost:5001/vehicles/vehicleRegistration"; 
                 axios
                         .post(url,
                                 this.state
@@ -64,7 +60,7 @@ export default class Customerreg extends React.Component{
                                 <div className = "col-md-12">
                                         <div className= "row">
                                                 <div className="col-md-8" align="left" > 
-                                                        <h3 style={h3}>Register Customer</h3>
+                                                        <h3 style={h3}>Register Vegicle</h3>
                                                 </div>
                                                 <div className ="col-md-4">
                                                         <span className="glyphicon glyphicon-pencil" style={glyphiconpencil }></span>
@@ -78,23 +74,17 @@ export default class Customerreg extends React.Component{
 
                                         <div className= "row form-group" align="left">
 
-                                                <label for="customerName" className="col-md-2">Customer Name</label>
+                                                <label for="customerName" className="col-md-2">Vehicle No</label>
                                                          <div className="col-md-10">
-                                                                <input type="text" className="form-control" style={formcontrol}  onChange={this.onChange} id="name" name="name"  placeholder="Cutomer Name"/>  
+                                                                <input type="text" value={this.state.vehicleNo}className="form-control" style={formcontrol}  onChange={this.onChange} id="vehicleNo" name="vehicleNo"  placeholder="Cutomer Name"/>  
                                                              
                                                         </div>
                                         </div>
+                                       
                                         <div className= "row form-group" align="left">
-                                                <label for="fax" className="col-md-2">NIC</label>
+                                                <label for="fax" className="col-md-2">Catagory</label>
                                                         <div className="col-md-10">
-                                                                <input type="text" value={this.state.NIC} style={formcontrol} onChange={this.onChange} className="form-control" id="NIC" name="NIC" placeholder="NIC Number"/>                        
-
-                                                        </div>
-                                        </div>
-                                        <div className= "row form-group" align="left">
-                                                <label for="fax" className="col-md-2">Fax</label>
-                                                        <div className="col-md-10">
-                                                                <input type="text" value={this.state.fax} style={formcontrol} onChange={this.onChange} className="form-control" id="fax" name="fax" placeholder="Fax Number"/>                        
+                                                                <input type="text" value={this.state.category} style={formcontrol} onChange={this.onChange} className="form-control" id="category" name="category" placeholder="Fax Number"/>                        
 
                                                         </div>
                                         </div>
@@ -106,47 +96,21 @@ export default class Customerreg extends React.Component{
                                                         </div>
                                         </div>
                                         <div className= "row form-group" align="left">
-                                                <label for="website" className="col-md-2">Website</label>
+                                                <label for="website" className="col-md-2">Mileage</label>
                                                         <div className="col-md-10">
-                                                                <input type="text" value={this.state.website} style={formcontrol} onChange={this.onChange} className="form-control" id="website" name="website" placeholder="Insert website"/>                        
+                                                                <input type="text" value={this.state.mileage} style={formcontrol} onChange={this.onChange} className="form-control" id="mileage" name="mileage" placeholder="Insert website"/>                        
 
                                                         </div>
                                         </div>
                                         <div className= "row form-group" align="left">
-                                                <label for="email" className="col-md-2">E-Mail</label>
+                                                <label for="custId" className="col-md-2">Cust Id</label>
                                                         <div className="col">
-                                                                <input type="email" value={this.state.email} style={formcontrol}onChange={this.onChange} className="form-control" id="email" name="email"  placeholder="email"/>                        
-                                                        </div>
-                                        </div>
-                                         <div className= "row form-group" align="left">
-                                                <label for="address" className="col-md-2">Address</label>
-                                                        <div className="col">
-                                                                <input type="address" value={this.state.address} style={formcontrol} onChange={this.onChange} className="form-control" id="address" name="address" placeholder="address"/>                        
-                                                        </div>
-                                        </div> 
-                                         <div className= "row form-group" align="left">
-                                                <label for="contactNo" className="col-md-2">Contact no</label>
-                                                        <div className="col-md">
-                                                                <input type="text" value={this.state.phoneNo} style={formcontrol} onChange={this.onChange} className="form-control" id="phoneNo" name="phoneNo" placeholder="contact number"/>                        
-                                                        </div>
-                                        </div> 
-
-                                        <div className= "row form-group" align="left">
-                                                <label for="dob" className="col-md-2">DOB</label>
-                                                        <div className="col-md">
-                                                                <input type="date" value={this.state.DOB} style={formcontrol} onChange={this.onChange} className="form-control" id="DOB" name="DOB"  placeholder="date of birth"/>                        
+                                                                <input type="text" value={this.state.custId} style={formcontrol}onChange={this.onChange} className="form-control" id="custId" name="custId"  placeholder="email"/>                        
                                                         </div>
                                         </div>
                                         
 
-                                        <div className= "row form-group" align="left">
-                                                <label for="note" className="col-md-2">Note</label>
-                                                        <div className="col-md-10">
-                                                        <textarea name="message" rows="3" value={this.state.note} style={formcontrol} onChange={this.onChange} id="note" name="note" className="col-md-12" style={textAreaStyle}>
-                                                                The cat was playing in the garden.
-                                                        </textarea>           
-                                                        </div>
-                                        </div>
+                
                                         <div align="right">
                                         <button className="btn btn-primary"  style={btn} type="submit">Submit</button>
                                         </div>

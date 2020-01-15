@@ -69,25 +69,24 @@ export default class Customers extends React.Component{
 
 
                                                       <div className="row1">
-                                                              <div className="column1" style={column1} >
+                                                              <div className="column2" style={column2} >
                                                                 
                                                                                 <div className="column" style={column} >
                                                                                                   
-                                                                                <Link to="customers"><button className="button1" style={button1}  type="submit">Add Customer</button></Link>
+                                                                                <Link to="customers"><button className="btn btn-primary" style={button1}  type="submit"><i class="fa fa-user-plus" style={iconstyle}></i>Add Customer</button></Link>
 
                                                                                 </div>
                                                                                                     
                                                                                 <div className="column" style={column} >
                                                                                                     
-                                                                                <Link to="customers"><button className="button1" style={button1} type="submit">Edit Customer 
+                                                                                <Link to="customers"><button className="btn btn-primary" style={button1}  type="submit"><i class="fa fa-file" style={iconstyle}></i>Edit  Customer</button></Link>
 
-                                                                                                </button></Link>
                                                                                 </div>
                                                                                       
                                                                                 
                                                                                 <div className="column"  style={column}>
                                                                                                             
-                                                                                                <Link to="/welcome"><button className="button1" style={button1} type="submit">Delete Customer</button></Link>
+                                                                                <Link to="deletecus"><button className="btn btn-primary" style={button1}  type="submit"><i class="fa fa-trash-o"  style={iconstyle}></i> Delete  Customer</button></Link>
 
 
                                                                                 </div>
@@ -95,12 +94,12 @@ export default class Customers extends React.Component{
 
                                                                                 <div className="column"  style={column}>
                                                                                                             
-                                                                                                  <Link to="/welcome"><button className="button1" style={button1} type="submit">View</button></Link>
+                                                                                <Link to="viewcustomer"><button className="btn btn-primary" style={button1}  type="submit"><i class="fa fa-arrow-right" style={iconstyle}></i>View  Customer</button></Link>
                                                                                                     
                                                                                 </div> 
                                                                 
                                                               </div>
-                                                              <div className="column1" >
+                                                              <div className="column2" >
                                                                 
 
                                                                         <div className="column">
@@ -119,6 +118,15 @@ export default class Customers extends React.Component{
     
 }
 
+
+const iconstyle = {
+  fontSize: '20px',
+  color: 'black',
+  width:"40px",
+  fontWeight:"bolt",
+
+}
+
 const column1 = {
   float: "left",
   width:"50%" ,
@@ -126,6 +134,12 @@ const column1 = {
   height: "300px", /* Should be removed. Only for demonstration */
 }
 
+const column2 = {
+  float: "left",
+  width:"25%" ,
+  padding:"10px" ,
+  height: "300px", /* Should be removed. Only for demonstration */
+}
 
 const container={
   justifyContent:"center",
@@ -145,6 +159,18 @@ const colmd12={
   margin:"20px 20px 10px 10px",
 
 }
+const     button1 ={
+  borderRadius:"20px" ,
+  border:"1px solid #ff4b",
+  background:"rgba(84, 181, 246, 0.93)",
+  color:"rgba(249, 249, 249, 0.93)",
+  fontSize:"12px",
+  fontWeight: "bold",
+  padding:"12px 45px",
+  letterSpacing:"1px" ,
+  borderColor:"rgba(127, 119, 242, 0.93)",
+}
+
 
 
 const h1 ={
@@ -157,7 +183,7 @@ const h1 ={
 
 
 const column={
-  width:"50%",
+  width:"90%",
   height:"50px",
   backgroundColor:"white" ,
   borderRadius: "10px",
@@ -171,24 +197,24 @@ const column={
 }
 
 
-const button1={
+// const button1={
 
-  fontSize:"20px",
-  fontWeight: "bold",
-  color:"black",
-  backgroundColor: "white",
-  borderRadius: "12px",
-  borderColor:"blue",
-  width:"225px",
-  textAlign:"left",
-  position: "absolute",
-  left: "150px",
-  padding: "9px 28px",
-  hover:"{opacity: 1}",
-  borderColor:"#2196F3" ,
-  color: "dodgerblue",
+//   fontSize:"20px",
+//   fontWeight: "bold",
+//   color:"black",
+//   backgroundColor: "white",
+//   borderRadius: "12px",
+//   borderColor:"blue",
+//   width:"225px",
+//   textAlign:"left",
+//   position: "absolute",
+//   left: "150px",
+//   padding: "9px 28px",
+//   hover:"{opacity: 1}",
+//   borderColor:"#2196F3" ,
+//   color: "dodgerblue",
   
-  }
+//   }
 
 
   

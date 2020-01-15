@@ -9,11 +9,13 @@ console.log(React.version);
 
 class Customerdetails extends Component {
 
-    state = {
+    State = {
         persons: []
       }
     componentDidMount() {
-        axios.get(`https://jsonplaceholder.typicode.com/users`)
+      console.log("hii")
+
+        axios.get(`http://localhost:5001/customers/customerView`)
           .then(res => {
             const persons = res.data;
             this.setState({ persons });
@@ -22,16 +24,40 @@ class Customerdetails extends Component {
   
     render() {
       return (<table width="100%">
-          <tr>
-    <th>Firstname</th>
-    <th>Lastname</th>
-    <th>Age</th>
-  </tr>
-        { this.state.persons.map(person => <tr><td>{person.name}</td><td>{person.username}</td><td>{person.email}</td></tr>)}
-      </table>)
-    }
+                                                     <tr>
+                                                              <th>Id</th>
+                                                              <th>name</th>
+
+                                                              <th>fax</th>
+                                                              <th>NIC</th>
+                                                              <th>email</th>
+                                                              <th>website</th>
+                                                                           
+                                                              <th>DOB</th>
+
+                                                              <th>note</th>
+                                                        
+                                                      </tr>
+        {/* { this.state.persons.map(customer => 
+                                      <tr>
+                                        <td>{customer.Id}</td>
+                                        <td>{customer.name}</td>
+                                        <td>{customer.fax}</td>
+                                        <td>{customer.NIC}</td>
+                                        <td>{customer.email}</td>
+                                        <td>{customer.website}</td>
+
+                                        <td>{customer.DOB}</td>
+                                        <td>{customer.note}</td>
+
+                                        </tr>)}  */}
+          </table>
+      
+      )
+   
   
   }
+}
   
   export default Customerdetails;
 
