@@ -33,19 +33,16 @@ import Itemregister from "views/Itemregister";
 import AdminLayout from "layouts/Admin.jsx";
 
 ReactDOM.render(
-  <BrowserRouter>
-    <Switch>
-      <Route path="/admin" render={props => <AdminLayout {...props} />} >  
-      </Route>
-      <Redirect from="/" to="/admin/dashboard" />
-    </Switch>
-  
-  <Route path="/admin" component={Admin}>
-                <Route path="item" component={Hello}>
-                    
-                </Route>
-                <Route path="item_register" component={Itemregister}></Route>
-            </Route> 
+
+        <BrowserRouter >
+        <Switch >
+        <Route path = "/admin"
+        render = {
+            props => < AdminLayout {...props }
+            />} >   
+            </Route> <Redirect from = "/" to = "/admin/dashboard"  />
+            </Switch>
+
             </BrowserRouter>        ,
-  document.getElementById("root")
-);
+            document.getElementById("root")
+        )

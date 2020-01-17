@@ -73,7 +73,7 @@ export default class Customer extends React.Component{
                                                                 
                                                                                 <div className="column" style={column} >
                                                                                                   
-                                                                                              <Link to="/welcome"><button className="button1" style={button1}  type="submit">Add Vehicle</button></Link>
+                                                                                              <Link to="/vehicle"><button className="button1" style={button1}  type="submit">Add Vehicle</button></Link>
 
                                                                                 </div>
                                                                                                     
@@ -95,7 +95,7 @@ export default class Customer extends React.Component{
 
                                                                                 <div className="column"  style={column}>
                                                                                                             
-                                                                                                  <Link to="/welcome"><button className="button1" style={button1} type="submit">View</button></Link>
+                                                                                                  <Link to="/viewcustomer"><button className="button1" style={button1} type="submit">View</button></Link>
                                                                                                     
                                                                                 </div> 
                                                                 

@@ -9,7 +9,12 @@
     "react": "^16.11.0",
     "react-dom": "^16.11.0",
     "react-router-dom": "^5.1.2",
+<<<<<<< HEAD
     "react-scripts": "^3.3.0"
+=======
+    "react-scripts": "3.2.0",
+    "react-table": "^7.0.0-rc.15"
+>>>>>>> 5b6c1714a3fe11615c63f49f3795c4f04a51426b
   },
   "scripts": {
     "start": "react-scripts start",
@@ -32,5 +37,9 @@
       "last 1 safari version"
     ]
   },
+<<<<<<< HEAD
   "proxy": "http://localhost:3010"
+=======
+  "proxy": "http://localhost:5001"
+>>>>>>> 5b6c1714a3fe11615c63f49f3795c4f04a51426b
 }
