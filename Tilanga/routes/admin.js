@@ -32,7 +32,7 @@ admin.get('/',function(req,res){
     }
     else{
         //res.send('go to login page');
-        res.redirect('/adminLogin');
+        res.redirect('please log');
     }
 });
 
@@ -41,23 +41,35 @@ admin.post('/login',function(req,res){
     console.log(req.body.username);
     var username = req.body.username;
     var password = req.body.password;
+    console.log(password)
     if(req.session.adminId){
+        console.log('ll')
         res.send('already logged');
     }
     else{
+        console.log('lllllllll')
         if(username && password){
             bcrypt.hash(password, 10, function(err, hash){
-                sql.query('SELECT adminId FROM admin WHERE username = ? AND password = ?',[username, hash],function(err,result){
+                //sql.query('SELECT adminId FROM admin WHERE username = ? AND password = ?',[username, hash],function(err,result){
+                    sql.query('SELECT adminId FROM admin WHERE username = ? AND password = ?',[username, password],function(err,result){
                     if(err){
                         throw err;
                     }
                     else{
+                        console.log('ooooooooooooo');
+                        console.log(result)
                         if(result.length>0){
-                            req.session.adminId = username;
-                            res.send('logged'); 
+                            if(result[0].password == password){
+                                req.session.adminId = username;
+                                res.send('logged'); 
+                            }
+                            else{
+                                res.send('wrong data')
+                            }
                         }
                         else{
-                            res.send('worng data');
+                            res.send('wrong data');
+                            //res.send('User does not exist');
                         }
                         
                     }
@@ -82,7 +94,7 @@ admin.post('/update',function(req,res){
                 else{
                     if(result.length>0){
                         bcrypt.hash(password, 10, function(err, hash){
-                            sql.query('UPDATE admin SET username = ? , password = ? WHERE adminId = ?',[username,hash,id],function(err1,result1){
+                            sql.query('UPDATE admin SET username = ? , password = ? WHERE adminId = ?',[username,password,id],function(err1,result1){
                                 if(err1){
                                     throw err1;
                                 }

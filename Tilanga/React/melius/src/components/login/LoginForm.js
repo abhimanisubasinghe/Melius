@@ -1,8 +1,9 @@
 import React, { Component } from 'react'
-import {Link} from 'react-router-dom'
+import {Link, Redirect} from 'react-router-dom'
 import './Login.css';
 import { login } from '../UserFunction';
 import axios from 'axios';
+import profile from "./profile";
 
 class LoginForm extends Component {
     constructor(props) {
@@ -57,28 +58,32 @@ class LoginForm extends Component {
     handleSubmit = e => { 
         e.preventDefault();
         console.log(this.state);
-        const url = "http://localhost:3001/admin/login";
+        //const url = "admin/login";
+        const url = "http://localhost:3010/admin/login";
         //const url = "http://localhost:5000/admin/login"; 
         axios
                 .post(url,
                         this.state
                 ,{headers: {'Accept': 'application/json'}})
-                .then( response =>
-                        {console.log(response)
-                            if(response.data == "worng data"){
+                .then( res =>
+                        {console.log(res)
+                            if(res.data == "worng data"){
                                 console.log('run')
+                                this.props.history.push('/LoginForm');
+                            }
+                            else if(res.data == "logged"){
+                                console.log('done')
+                                //this.props.history.push('/profile');
+                                return <Redirect to='/profile' />
                             }
                         }
-                        
                 )
-                
-                //.catch(() => console.log("Can’t access " + url + " response. Blocked by browser?"))
+                .catch((err) => console.log("Can’t access " + url + " response. Blocked by browser?"))
         
         
     }
 
     
-
     
     render() {
         return (

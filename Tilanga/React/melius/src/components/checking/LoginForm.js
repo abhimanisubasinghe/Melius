@@ -1,56 +1,10 @@
-// import React, { Component } from 'react';
-// import jwt_decode from 'jwt-decode';
-
-// class Profile extends Component {
-//     constructor() {
-//         super()
-//         this.state = {
-//             userName: ''
-//         }
-//     }
-
-//     componentDidMount() {
-//         const token = localStorage.usertoken
-//         const decode = jwt_decode(token)
-//         this.setState({
-//             userName: decode.userName
-//         })
-//     }
-
-//     render() {
-//         return (
-//             <div>
-//                 <div>
-//                     <div>
-//                         <h1>PROFILE</h1>
-//                     </div>
-//                     <table>
-//                         <tbody>
-//                             <tr>
-//                                 <td>User Name</td>
-//                                 <td>{this.state.username}</td>
-//                             </tr>
-//                             <tr>
-//                                 <td>Last Name</td>
-//                                 {/* <td>{this.state.last_name}</td> */}
-//                             </tr>
-//                         </tbody>
-//                     </table>
-//                 </div>
-//             </div>
-//         )
-//     }
-// }
-
-// export default Profile
-
-
 import React, { Component } from 'react'
-import {Link, Redirect} from 'react-router-dom'
+import {Link} from 'react-router-dom'
 import './Login.css';
 import { login } from '../UserFunction';
 import axios from 'axios';
-class profile extends Component {
+
+class LoginForm extends Component {
     constructor(props) {
         super(props)
     
@@ -103,32 +57,28 @@ class profile extends Component {
     handleSubmit = e => { 
         e.preventDefault();
         console.log(this.state);
-        //const url = "admin/login";
-        const url = "http://localhost:3010/admin/login";
+        const url = "http://localhost:3001/admin/login";
         //const url = "http://localhost:5000/admin/login"; 
         axios
                 .post(url,
                         this.state
                 ,{headers: {'Accept': 'application/json'}})
-                .then( res =>
-                        {console.log(res)
-                            if(res.data == "worng data"){
+                .then( response =>
+                        {console.log(response)
+                            if(response.data == "worng data"){
                                 console.log('run')
-                                this.props.history.push('/LoginForm');
-                            }
-                            else if(res.data == "logged"){
-                                console.log('done')
-                                //this.props.history.push('/profile');
-                                return <Redirect to='/profile' />
                             }
                         }
+                        
                 )
-                .catch((err) => console.log("Can’t access " + url + " response. Blocked by browser?"))
+                
+                //.catch(() => console.log("Can’t access " + url + " response. Blocked by browser?"))
         
         
     }
 
     
+
     
     render() {
         return (
@@ -141,7 +91,7 @@ class profile extends Component {
                         <fieldset>
                                 <br/>
                          
-                            <h1>Logged In</h1>
+                            <h1>Log In</h1>
                             <div className="form-group">
                                 <label className="label1" for="username">User Name</label>
                                 <input 
@@ -198,5 +148,5 @@ const invisiblejumbotronStyle = {
 
   
 
-export default profile
+export default LoginForm
 
