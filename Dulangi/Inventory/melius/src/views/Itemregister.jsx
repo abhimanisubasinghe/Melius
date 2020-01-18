@@ -99,7 +99,7 @@ export default class Itemregister extends React.Component{
                                                         content={
                                                                 <form onSubmit={this.handleSubmit}>
                                                                         <FormInputs
-                                                                                ncols={["col-md-8","col-md-4"]}
+                                                                                ncols={["col-md-8"]}
                                                                                 properties={[
                                                                                         {
                                                                                         label: "name",
@@ -111,7 +111,7 @@ export default class Itemregister extends React.Component{
                                                                                         id: "name",
                                                                                         name: "name"
                                                                                         },
-                                                                                        {
+                                                                              /*          {
                                                                                         label: "itemcode",
                                                                                         type: "text",
                                                                                         bsClass: "form-control",
@@ -120,7 +120,7 @@ export default class Itemregister extends React.Component{
                                                                                         onChange: this.onChange,
                                                                                         id: "itemcode",
                                                                                         name: "itemcode"
-                                                                                        }
+                                                                                        }*/
                                                                                 ]}
                                                                         />
                                                                         <FormInputs

@@ -34,22 +34,13 @@ import AdminLayout from "layouts/Admin.jsx";
 
 ReactDOM.render(
 
-        <
-        BrowserRouter >
-        <
-        Switch >
-        <
-        Route path = "/admin"
-        render = {
-            props => < AdminLayout {...props }
-            />} >   <
-            /Route> <
-            Redirect from = "/"
-            to = "/admin/dashboard" / >
-            <
-            /Switch>
+        <BrowserRouter >
+        <Switch >
+        <Route path = "/admin" render = {props => < AdminLayout {...props }/>} >     
+        </Route>   
+        <Redirect from = "/" to = "/admin/dashboard" / >
+            </Switch>
 
-            <
-            /BrowserRouter>        ,
+            </BrowserRouter>        ,
             document.getElementById("root")
         );
