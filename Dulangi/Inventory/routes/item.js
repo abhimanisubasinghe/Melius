@@ -58,18 +58,14 @@ router.use(function(req, res, next) {
 router.get('/', function(req, res, next) {
     connection.query('SELECT * FROM item2', function(err, result) {
         if (err) {
-            req.flash('error', err);
-            res.render('items', {
-                page_title: "Item",
-                data: ''
-            });
+            throw err;
         } else {
-            console.log(result);
-            return result.send()
-           // res.render('items', {
-               // page_title: "Item",
-             //   data: rows
-           // });
+            if(result.length>0){
+                res.json(result);
+            }
+            else{
+                res.json('No items');
+            }
         }
     });
 

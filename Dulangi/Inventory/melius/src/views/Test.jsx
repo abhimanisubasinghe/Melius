@@ -1,5 +1,13 @@
 import React, { Component } from 'react'
-
+import {
+    Form,
+    Grid,
+    Row,
+    Col,
+    FormGroup,
+    ControlLabel,
+    FormControl
+  } from "react-bootstrap";
 import axios from 'axios';
 
 export class Test extends Component {
@@ -8,54 +16,32 @@ export class Test extends Component {
         super(props)
     
         this.state = {
-             items: []
+             items:[ {
+                 name: "abc"
+             }
+            ]
         }
     }
 
     componentDidMount() {
-        axios.get(`http://localhost:5000/items`)
+        axios.get(`http://localhost:5000/items/`)
           .then(res => {
               
-            console.log("data "+res)  
-            //const items = res;
-            //this.setState({ items });
+            //console.log("data "+res.data)
+              
+            const items = res.data;
+            this.setState({ items });
           })
     }
 
-    getItems = () => {
-        try {
-          return axios.get('http://localhost:5000/items')
-        } catch (error) {
-          console.error(error)
-        }
-      }
-      
-    /*countBreeds = async () => {
-        const breeds = getBreeds()
-          .then(response => {
-            if (response.data.message) {
-              console.log(
-                `Got ${Object.entries(response.data.message).length} breeds`
-              )
-            }
-          })
-          .catch(error => {
-            console.log(error)
-          })
-      }
-      
-      countBreeds()
-    
-    */
-
-    render() {
+       render() {
         return (
-            <div>
-                {this.getItems}
-            <ul>
-              {/* this.state.items.map(person => <li>{person.name}</li>)*/}
-            </ul>
-            </div>
+            <React.Fragment>
+            <select name="items">
+            { this.state.items.map(person => <option>{person.name}</option>)}
+</select> 
+            
+            </React.Fragment>
           )
     }
 }
