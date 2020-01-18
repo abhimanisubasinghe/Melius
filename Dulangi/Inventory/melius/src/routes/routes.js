@@ -32,6 +32,11 @@ import Itemregister from "views/Itemregister";
 import SubNav from "components/Navbars/SubNav";
 import Invoice from "views/Invoice"
 import Test from "views/Test"
+import Services from "views/Services.jsx"
+import Addvehicle from "views/Addvehicle.jsx"
+import Viewcustomer from "views/Viewcustomer.jsx"
+
+
 
 
 const dashboardRoutes = [
@@ -130,19 +135,20 @@ const dashboardRoutes = [
     layout: "/admin",
     in  : "FALSE"
   },
-  {
-    path: "/vehicle",
-    name: "Register Vehicle",
-    icon: "pe-7s-add-user",
-    component: Vehiclereg,
-    layout: "/admin",
-    in  : "FALSE"
-  },
+  
   {
     path: "/details",
     name: "Details",
     icon: "pe-7s-add-user",
     component: Customerdetails,
+    layout: "/admin",
+    in  : "TRUE"
+  },
+  {
+    path: "/services",
+    name: "service",
+    icon: "pe-7s-add-user",
+    component: Services,
     layout: "/admin",
     in  : "TRUE"
   },
@@ -154,6 +160,23 @@ const dashboardRoutes = [
     layout: "/admin",
     in : "TRUE"
   },
+  {
+    path: "/vehicle",
+    name: "Add Vehicle",
+    icon: "pe-7s-add-user",
+    component: Addvehicle,
+    layout: "/admin",
+    in  : "TRUE"
+  },
+  {
+    path: "/viewcustomer",
+    name: "Our Customers",
+    icon: "pe-7s-add-user",
+    component: Viewcustomer,
+    layout: "/admin",
+    in  : "FALSE"
+  },
+  
   
   
 ];

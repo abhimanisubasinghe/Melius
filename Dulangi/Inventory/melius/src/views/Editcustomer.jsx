@@ -1,11 +1,10 @@
-
 import React from 'react';
 
 import axios from 'axios';
 
 
 
-export default class Customerreg extends React.Component{
+export default class Editcustomer extends React.Component{
     
         constructor(props) {
                 super(props)
@@ -36,7 +35,7 @@ export default class Customerreg extends React.Component{
             handleSubmit = e => { 
                 e.preventDefault();
                 console.log(this.state);
-                const url = "http://localhost:5000//customer/customerRegistration"; 
+                const url = "http://localhost:5001/customers/customerRegistration"; 
                 axios
                         .post(url,
                                 this.state
@@ -44,7 +43,7 @@ export default class Customerreg extends React.Component{
                         .then( response =>
                                 {console.log("good "+response)}
                         )
-                        .catch(err => console.log(err))
+                        .catch(() => console.log("Can’t access " + url + " response. Blocked by browser?"))
                 
                 
             }
@@ -76,12 +75,58 @@ export default class Customerreg extends React.Component{
                                         </div>
                                         <hr style={hr}/> 
 
+                                        {/* <div className= "row form-group" align="left">
+                                                <label for="id" className="col-md-2">Customer Id</label>
+                                                        <div className="col-md-10">
+                                                                <input type="text" value={this.state.Id} onChange={this.onChange} className="form-control" style={formcontrol}id="Id" name="Id" placeholder="Enter customer ID"/>                        
+
+                                                        </div>
+                                        </div> */}
                                         <div className= "row form-group" align="left">
 
                                                 <label for="customerName" className="col-md-2">Customer Name</label>
                                                          <div className="col-md-10">
                                                                 <input type="text" className="form-control" style={formcontrol}  onChange={this.onChange} id="name" name="name"  placeholder="Cutomer Name"/>  
-                                                             
+                                                              {/* <fieldset className="row-md form-group">
+                                                                        <div className="form-check">
+                                                                                <label class="form-check-label">
+                                                                                <input 
+                                                                                        type="radio" 
+                                                                                        className="form-check-input" 
+                                                                                        name="gender" 
+                                                                                        id="gender" 
+                                                                                        value={this.state.gender} 
+                                                                                        onChange={this.onChange}
+                                                                                        />
+                                                                                        Mr.
+                                                                                </label>
+                                                                        </div>
+                                                                        <div class="form-check">
+                                                                                <label class="form-check-label">
+                                                                                <input 
+
+                                                                                        type="radio" 
+                                                                                        class="form-check-input" 
+                                                                                        name="gender" 
+                                                                                        id="gender" 
+                                                                                        value={this.state.gender} 
+                                                                                        onChange={this.onChange}/>
+                                                                                        Ms.
+                                                                                </label>
+                                                                        </div>
+                                                                        <div class="form-check">
+                                                                                <label class="form-check-label">
+                                                                                <input 
+                                                                                        type="radio" 
+                                                                                        class="form-check-input" 
+                                                                                        name="gender" 
+                                                                                        id="gender" 
+                                                                                        value={this.state.gender} 
+                                                                                        onChange={this.onChange}/>
+                                                                                        Other
+                                                                                </label>
+                                                                        </div>
+                                                                </fieldset> */}
                                                         </div>
                                         </div>
                                         <div className= "row form-group" align="left">

@@ -37,13 +37,20 @@ var Users = require('./routes/Users');
 var Customers = require('./routes/customer');
 var Services = require('./routes/service');
 var Admin = require('./routes/admin');
+var Vehicle = require('./routes/vehicle');
 
 app.use('/',Index);
 app.use('/users', Users);
 app.use('/customers', Customers);
 app.use('/services', Services);
 app.use('/admin', Admin);
+app.use('/vehicles',Vehicle)
 
+<<<<<<< HEAD
+app.listen(3010, function(){
+    console.log('server run on 3010 port!!');
+=======
 app.listen(5001, function(){
     console.log('server run on 5001 port!!');
+>>>>>>> 5b6c1714a3fe11615c63f49f3795c4f04a51426b
 });

@@ -92,14 +92,13 @@ router.post('/add', function(req, res, next) {
 
         var item = {
             name: req.body.name,
-            //inStock: req.body.inStock,
-            //unitPrice: req.body.unitPrice,
-            //costPrice: req.body.costPrice,
-            //reorderLevel: req.body.reorderLevel,
-            //leadTime: req.body.leadTime,
-            //reorderQuantity: req.body.reorderQuantity,
+            inStock: req.body.inStock,
+            unitPrice: req.body.unitPrice,
+            costPrice: req.body.costPrice,
+            reorderLevel: req.body.reorderLevel,
+            leadTime: req.body.leadTime,
             descript: req.body.descript,
-            itemgroup: req.body.group,
+            itemgroup: req.body.itemgroup,
             brand: req.body.brand,
             type: req.body.type,
             category: req.body.category,
@@ -110,7 +109,7 @@ router.post('/add', function(req, res, next) {
         };
 
         console.log(item);
-        connection.query('INSERT INTO item2 SET ?', item, function(err, result) {
+        connection.query('INSERT INTO item SET ?', item, function(err, result) {
 
             if (err) {
                 req.flash('error', err);

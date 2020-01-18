@@ -2,12 +2,13 @@ import React from 'react';
 import axios from 'axios';
 
 
-export default class Viewcustomer extends React.Components{
+
+export default class Viewcustomer extends React.Component{
 
     constructor(props) {
         super(props)
     
-        this.state = {
+        this.State = {
             Id:"",
             name:"",
             fax:"",    
@@ -19,7 +20,7 @@ export default class Viewcustomer extends React.Components{
             phoneNo: "",
             DOB: "",
             note: "",
-            customers: [],
+            customer:[]
 
            
         }
@@ -32,7 +33,7 @@ export default class Viewcustomer extends React.Components{
     )
     }
     componentDidMount() {
-        axios.get(`http://localhost:5001/customer/`)
+        axios.get(`http://localhost:5001/customer/view`)
           .then(res => {
             const customers = res.data;
             this.setState({ customers });
@@ -56,7 +57,7 @@ export default class Viewcustomer extends React.Components{
                                         <th>note</th>
 
                                 </tr>
-                                { this.state.customers.map(customer =>
+                                { this.State.customers.map(customer =>
                                      <tr>
                                     <td>{customer.Id}</td>
                                     <td>{customer.name}</td>
@@ -77,3 +78,4 @@ export default class Viewcustomer extends React.Components{
         )
     }
 }
+
