@@ -3,6 +3,7 @@ import { Router,Route,IndexRoute,hashHistory } from "react-router"
 import Admin from "layouts/Admin"
 import Hello from "views/Hello.js"
 import Itemregister from "views/Itemregister";
+import ItemTransfer from "views/ItemTransfer";
 
 
 const itemNavBarRoutes = [
@@ -21,6 +22,14 @@ const itemNavBarRoutes = [
       component: Itemregister,
       layout: "/admin"
     },
+    {
+      path: "/item_transfer",
+      name: "Transfer",
+      icon: "pe-7s-headphones",
+      component: ItemTransfer,
+      layout: "/admin"
+    },
+
     
     
   ];

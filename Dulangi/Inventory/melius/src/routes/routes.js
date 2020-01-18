@@ -34,7 +34,8 @@ import Invoice from "views/Invoice"
 import Services from "views/Services.jsx"
 import Addvehicle from "views/Addvehicle.jsx"
 import Viewcustomer from "views/Viewcustomer.jsx"
-
+import ItemTransfer from "views/ItemTransfer.jsx"
+import ItemPurchase from "views/itemPurchase.jsx"
 
 
 
@@ -166,6 +167,20 @@ const dashboardRoutes = [
     component: Viewcustomer,
     layout: "/admin",
     in  : "FALSE"
+  },
+  {
+    path: "/item_transfer",
+    name: "Transfer",
+    icon: "pe-7s-headphones",
+    component: ItemTransfer,
+    layout: "/admin"
+  },
+  {
+    path: "/item_purchase",
+    name: "Transfer",
+    icon: "pe-7s-headphones",
+    component: ItemPurchase,
+    layout: "/admin"
   },
   
   
