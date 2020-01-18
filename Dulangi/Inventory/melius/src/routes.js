@@ -27,6 +27,7 @@ import Hello from "views/Hello.js";
 import Itemregister from "views/Itemregister";
 import SubNav from "components/Navbars/SubNav";
 import Invoice from "views/Invoice"
+import Test from "views/Test"
 
 const dashboardRoutes = [
   {
@@ -113,6 +114,14 @@ const dashboardRoutes = [
     name: "Invoice",
     icon: "pe-7s-cart",
     component: Invoice,
+    layout: "/admin",
+    in : "TRUE"
+  },
+  {
+    path: "/test",
+    name: "Test",
+    icon: "pe-7s-gleam",
+    component: Test,
     layout: "/admin",
     in : "TRUE"
   },

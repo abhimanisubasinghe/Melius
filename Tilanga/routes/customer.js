@@ -7,9 +7,10 @@ var body = require('body-parser');
 var ses = require('express-session');
 const jwt = require('jsonwebtoken');
 var bcrypt = require('bcrypt');
+var Promise = require('promise');
 var user = require('../routes/Users')
 
-
+const All_customer = 'SELECT * FROM customer';
 
 const TWO_HOUR = 1000*60*60*2;
 var session;
@@ -25,6 +26,22 @@ customers.use(ses({
     }
 }));
 
+customers.get('/customer',function(req,res){
+    console.log('cccccccccccccc');
+    sql.query(All_customer, function(err,result){
+        if(err){
+            return res.send(err);
+        }
+        else{
+            console.log(result);
+            return res.json({
+                data: result
+            })
+        }
+    })
+})
+
+
 //console.log(userId);
 
 customers.use(body.json());
@@ -32,11 +49,60 @@ customers.use(body.urlencoded({extended: false}));
 customers.use(cors());
 
 var path = require('path');
+/*
+router.post('/add', function(req, res, next) {
 
+    console.log("data");
+    if (true) {
 
+        var name = req.body.name;
+        var NIC = req.body.customerNIC;
+        var fax = req.body.fax;
+        var type = req.body.type;
+        var email = req.body.email;
+        var website = req.body.website;
+        var address = req.body.address;
+        var phoneNo = req.body.phoneNo;
+        var DOB = req.body.DOB;
+        var note = req.body.note;
+
+    console.log('eeeeeeeeeeeeeeeeeeeee')
+    console.log(name);
+
+        var person = {
+            name: req.body.name,
+            //inStock: req.body.inStock,
+            //unitPrice: req.body.unitPrice,
+            //costPrice: req.body.costPrice,
+            //reorderLevel: req.body.reorderLevel,
+            //leadTime: req.body.leadTime,
+            //reorderQuantity: req.body.reorderQuantity,
+            
+            
+        };
+
+        console.log(person);
+        connection.query('INSERT INTO customer SET ?', person, function(err, result) {
+
+            if (err) {
+                req.flash('error', err);
+
+                res.send("ERROR")
+            } else {
+                req.flash('success', 'Data inserted succesfully');
+                res.send('SUCCESS');
+            }
+        });
+
+    } else {
+
+        
+    }
+});
+
+*/
 //CUSTOMER REGISTRATION
 customers.post('/customerRegistration',function(req,res){
-    //var id = req.body.customerId;
 
     var name = req.body.name;
     var NIC = req.body.customerNIC;

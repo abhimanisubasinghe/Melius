@@ -56,7 +56,7 @@ router.use(function(req, res, next) {
 
 //DISPLAY ITEM  LIST
 router.get('/', function(req, res, next) {
-    connection.query('SELECT * FROM item', function(err, rows) {
+    connection.query('SELECT * FROM item2', function(err, result) {
         if (err) {
             req.flash('error', err);
             res.render('items', {
@@ -64,10 +64,12 @@ router.get('/', function(req, res, next) {
                 data: ''
             });
         } else {
-            res.render('items', {
-                page_title: "Item",
-                data: rows
-            });
+            console.log(result);
+            return result.send()
+           // res.render('items', {
+               // page_title: "Item",
+             //   data: rows
+           // });
         }
     });
 
@@ -104,7 +106,7 @@ router.post('/add', function(req, res, next) {
             storageId: req.body.storageId,
             supplierId: req.body.supplierId,
             barcode: req.body.barcode,
-            //hi
+            
         };
 
         console.log(item);

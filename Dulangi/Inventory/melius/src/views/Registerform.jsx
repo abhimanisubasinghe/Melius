@@ -521,7 +521,7 @@ export default class Itemregister extends React.Component{
             handleSubmit = e => { 
                 e.preventDefault();
                 console.log(this.state);
-                const url = "http://localhost:5001/customer/customerRegistration"; 
+                const url = "http://localhost:5000//customer/customerRegistration"; 
                 axios
                         .post(url,
                                 this.state
@@ -529,7 +529,7 @@ export default class Itemregister extends React.Component{
                         .then( response =>
                                 {console.log("good "+response)}
                         )
-                        .catch(() => console.log("Can’t access " + url + " response. Blocked by browser?"))
+                        .catch(err => console.log(err))
                 
                 
             }
