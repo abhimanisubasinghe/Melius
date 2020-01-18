@@ -14,6 +14,13 @@ const itemNavBarRoutes = [
       component: Itemregister,
       layout: "/admin"
     },
+    {
+      path: "/item_display",
+      name: "Item",
+      icon: "pe-7s-headphones",
+      component: Itemregister,
+      layout: "/admin"
+    },
     
     
   ];
