@@ -25,7 +25,7 @@ import Hello from "views/Hello.js"
 
 //import './Customerreg.css';
 
-export default class Itemregister extends React.Component{
+export default class ItemPurchase extends React.Component{
     
         constructor(props) {
                 super(props)
@@ -82,10 +82,11 @@ export default class Itemregister extends React.Component{
                         <div>
                                 <Navbar style={navStyle}>
                                         <Nav className="mr-auto" >
-                                        { /*<NavbarBrand style={cursorStyle}>Item</NavbarBrand>  */}
+                                                { /*<NavbarBrand style={cursorStyle}>Item</NavbarBrand>  */}
                                                 <NavItem><Link to="item_register">Register</Link></NavItem>
                                                 <NavItem><Link to="item_purchase">Purchase</Link></NavItem>
                                                 <NavItem><Link to="item_transfer">Transfer</Link></NavItem>
+                                                
                                         </Nav>
    
                                 </Navbar>
@@ -95,7 +96,7 @@ export default class Itemregister extends React.Component{
                                 <Row>
                                         <Col md={8}>
                                                 <Card 
-                                                        title="Register Item"
+                                                        title="New Purchase Order"
                                                         content={
                                                                 <form onSubmit={this.handleSubmit}>
                                                                         <FormInputs
