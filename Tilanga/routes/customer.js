@@ -7,9 +7,10 @@ var body = require('body-parser');
 var ses = require('express-session');
 const jwt = require('jsonwebtoken');
 var bcrypt = require('bcrypt');
+var Promise = require('promise');
 var user = require('../routes/Users')
 
-
+const All_customer = 'SELECT * FROM customer';
 
 const TWO_HOUR = 1000*60*60*2;
 var session;
@@ -25,6 +26,22 @@ customers.use(ses({
     }
 }));
 
+customers.get('/customer',function(req,res){
+    console.log('cccccccccccccc');
+    sql.query(All_customer, function(err,result){
+        if(err){
+            return res.send(err);
+        }
+        else{
+            console.log(result);
+            return res.json({
+                data: result
+            })
+        }
+    })
+})
+
+
 //console.log(userId);
 
 customers.use(body.json());
@@ -32,6 +49,11 @@ customers.use(body.urlencoded({extended: false}));
 customers.use(cors());
 
 var path = require('path');
+/*
+router.post('/add', function(req, res, next) {
+
+    console.log("data");
+    if (true) {
 
 customers.get('/view',function(req,res){
     if(req.session.adminId){
@@ -54,9 +76,9 @@ customers.get('/view',function(req,res){
     }
 });
 
+*/
 //CUSTOMER REGISTRATION
 customers.post('/customerRegistration',function(req,res){
-    //var id = req.body.customerId;
 
     var name = req.body.name;
     //var NIC = req.body.NIC;

@@ -95,7 +95,7 @@ console.log('jnvvjknvsjnvkjsnvkjsnvjk');
                                 else{
                                     if(result2.length>0){
                                         console.log(result2[0].id);
-                                        sql.query('INSERT INTO userlogin (userId,username,password) VALUES (?,?,?)',[result2[0].id,username,hash], function(error,result3){
+                                        sql.query('INSERT INTO userlogin (userId,username,password) VALUES (?,?,?)',[result2[0].id,username,password], function(error,result3){
                                             console.log("tilintilin");
                                             if(error){
                                                 console.log('zzzzzzzzzzzzzzz');
@@ -155,7 +155,7 @@ users.post('/userUpdateByAdmin',function(req,res){
                     }
 
                 });
-                sql.query('UPDATE userlogin SET username = ?, password = ? WHERE userId = ?',[username,hash,id],function(err1,result1){
+                sql.query('UPDATE userlogin SET username = ?, password = ? WHERE userId = ?',[username,password,id],function(err1,result1){
                     if(err1){
                         throw err1;
                     }
@@ -187,7 +187,7 @@ users.post('/userUpdateByUser',function(req,res){
                 else{
                     if(result1.length>0){
                         bcrypt.hash(password, 10, function(err, hash){
-                            sql.query('UPDATE userlogin SET password = ? WHERE username = ? ',[hash,username],function(err2,result2){
+                            sql.query('UPDATE userlogin SET password = ? WHERE username = ? ',[password,username],function(err2,result2){
                                 if(err2){
                                     throw err2;
                                 }
@@ -229,16 +229,29 @@ users.post('/login', function(req,res){
         console.log('jnvejnvejnv')
         var password = req.body.password;
         bcrypt.hash(password, 10, function(err, hash){
-            sql.query("SELECT password FROM userlogin WHERE username = ? ",[req.body.username], function(err,result){
+            sql.query("SELECT * FROM userlogin WHERE username = ? ",[req.body.username], function(err,result){
                 if(err) throw err;
                 else{
                     if(result.length>0){
-                            req.session.userId = req.body.username;
-                            id = req.session.userId;
+                            
                              console.log(id);
                             // //module.exports = id;
+                            if(result[0].password == password){
+                                console.log(result[0].password);
+                                req.session.userId = req.body.username;
+                                id = req.session.userId;
+                                console.log(hash);
+                                console.log('suck');
+                                res.json('logged');
+                            }
+                            else{
+                                console.log(result[0].password)
+                                console.log(result[0].password.length = 7);
+                                console.log(hash);
+                                console.log('fuck');
+                            }
                             // console.log(id);
-                            res.json('logged');
+                            
                             //res.redirect('/profile')
                     }
                     else{

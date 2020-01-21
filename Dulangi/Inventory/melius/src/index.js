@@ -40,9 +40,12 @@ ReactDOM.render(
         render = {
             props => < AdminLayout {...props }
             />} >   
-            </Route> <Redirect from = "/" to = "/admin/dashboard"  />
-            </Switch>
+        </Route> 
+        <Redirect from = "/" to = "/admin/dashboard" / >
+        
+        </Switch>
 
-            </BrowserRouter>        ,
-            document.getElementById("root")
-        )
+        </BrowserRouter>,
+        
+        document.getElementById("root")
+        );

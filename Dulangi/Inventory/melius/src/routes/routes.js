@@ -31,10 +31,12 @@ import Hello from "views/Hello.js";
 import Itemregister from "views/Itemregister";
 import SubNav from "components/Navbars/SubNav";
 import Invoice from "views/Invoice"
+import Test from "views/Test"
 import Services from "views/Services.jsx"
 import Addvehicle from "views/Addvehicle.jsx"
 import Viewcustomer from "views/Viewcustomer.jsx"
-
+import ItemTransfer from "views/ItemTransfer.jsx"
+import ItemPurchase from "views/itemPurchase.jsx"
 
 
 
@@ -104,7 +106,7 @@ const dashboardRoutes = [
   },
   {
     path: "/testing",
-    name: "Testing",
+    name: "Item",
     icon: "pe-7s-headphones",
     component: Itemregister,
     layout: "/admin",
@@ -152,6 +154,14 @@ const dashboardRoutes = [
     in  : "TRUE"
   },
   {
+    path: "/test",
+    name: "Test",
+    icon: "pe-7s-gleam",
+    component: Test,
+    layout: "/admin",
+    in : "TRUE"
+  },
+  {
     path: "/vehicle",
     name: "Add Vehicle",
     icon: "pe-7s-add-user",
@@ -166,6 +176,20 @@ const dashboardRoutes = [
     component: Viewcustomer,
     layout: "/admin",
     in  : "FALSE"
+  },
+  {
+    path: "/item_transfer",
+    name: "Transfer",
+    icon: "pe-7s-headphones",
+    component: ItemTransfer,
+    layout: "/admin"
+  },
+  {
+    path: "/item_purchase",
+    name: "Transfer",
+    icon: "pe-7s-headphones",
+    component: ItemPurchase,
+    layout: "/admin"
   },
   
   
