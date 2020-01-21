@@ -6,9 +6,10 @@ import {
     Col,
     FormGroup,
     ControlLabel,
-    FormControl
+    FormControl,
   } from "react-bootstrap";
 import axios from 'axios';
+import FormInputs from 'components/FormInputs/FormInputs';
 
 export class Test extends Component {
 
@@ -17,7 +18,7 @@ export class Test extends Component {
     
         this.state = {
              items:[ {
-                 name: "abc"
+                 name: "abc "
              }
             ]
         }
@@ -36,10 +37,10 @@ export class Test extends Component {
 
        render() {
         return (
-            <React.Fragment>
+            <React.Fragment>   
             <select name="items">
-            { this.state.items.map(person => <option>{person.name}</option>)}
-</select> 
+            { this.state.items.map(person => <option style={{flex: '1'}}>{person.name}</option>)}
+            </select> 
             
             </React.Fragment>
           )
@@ -47,3 +48,7 @@ export class Test extends Component {
 }
 
 export default Test
+
+const list = {
+
+}

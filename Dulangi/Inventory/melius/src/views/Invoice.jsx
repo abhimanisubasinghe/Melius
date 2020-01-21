@@ -10,41 +10,39 @@ import uuid from 'uuid';
 class App extends Component {
   
   state = {
-    todos: [
+    items2add: [
     ]
   }
 
   componentDidMount(){
-    axios.get('https://jsonplaceholder.typicode.com/todos?_limit=10')
-      .then(res => this.setState({ todos: res.data }))
+    
   }
 
-  markComplete = (id) => {
+  /*markComplete = (id) => {
     this.setState(
       {
-        todos: this.state.todos.map(todo => {
-          if(todo.id === id){
-            todo.completed = !todo.completed
+        items2add: this.state.items2add.map(item2add => {
+          if(item2add.id === id){
+            item2add.completed = !item2add.completed
           }
-          return todo;
+          return item2add;
         } )
       }
     );
-  }
+  }*/
 
   delToDo = (id) => {
-    this.setState({ todos: [...this.state.todos.filter(todo => todo.id!==id)] });
+    this.setState({ items2add: [...this.state.items2add.filter(item2add => item2add.id!==id)] });
   }
 
-  addToDo = (title) => {
+  addToDo = (quantity,item) => {
     const newToDo = {
-      id: uuid.v4(),
-      title: title,
-      completed:false
-    }
+      id: item,
+      quantity: quantity,
+      item: item    }
 
     this.setState({
-      todos:[...this.state.todos,newToDo]
+      items2add:[...this.state.items2add,newToDo]
     })
   }
   
@@ -54,7 +52,7 @@ class App extends Component {
           <div className="container">
             <React.Fragment>
                 <AddToDo addToDo= {this.addToDo}/>
-                <ToDos todos={this.state.todos} markComplete={this.markComplete} delToDo={this.delToDo}/>
+                <ToDos items2add={this.state.items2add} /*markComplete={this.markComplete}*/ delToDo={this.delToDo}/>
             </React.Fragment>  
             
           </div>
