@@ -109,6 +109,15 @@ const dashboardRoutes = [
     layout: "/admin",
     in : "TRUE"
   },
+  {
+    path: "/inovice",
+    name: "Car",
+    icon: "pe-7s-cart",
+    component: Invoice,
+    layout: "/admin",
+    in : "TRUE"
+  },
+ 
   
   
 ];

@@ -26,8 +26,9 @@ export default class SubNav extends Component {
                     <Nav className="mr-auto" >
                         <NavbarBrand style={cursorStyle}>{this.state.header}</NavbarBrand>  
                             <NavItem href="#home">Home</NavItem>
-                            <NavItem href="#features">Features</NavItem>
+                            <NavItem href="#">Features</NavItem>
                             <NavItem href="#pricing">Pricing</NavItem>
+                            
                     </Nav>
    
                 </Navbar>
