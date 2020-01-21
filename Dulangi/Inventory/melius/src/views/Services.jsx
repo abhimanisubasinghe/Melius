@@ -1,19 +1,4 @@
-/*!
 
-=========================================================
-* Light Bootstrap Dashboard React - v1.3.0
-=========================================================
-
-* Product Page: https://www.creative-tim.com/product/light-bootstrap-dashboard-react
-* Copyright 2019 Creative Tim (https://www.creative-tim.com)
-* Licensed under MIT (https://github.com/creativetimofficial/light-bootstrap-dashboard-react/blob/master/LICENSE.md)
-
-* Coded by Creative Tim
-
-=========================================================
-
-* The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
-*/
 
 import React, { Component } from "react";
 import axios from "axios";
@@ -40,30 +25,42 @@ import {
 
 
 export default class Services extends React.Component{
-    constructor(props) {
-        super(props)
-    
-        this.state = {
-            serviceId:"",  
-            category: "",
-            name: "",
-            price: "",
-            services:[]
-        }
-        
+  constructor(props) {
+    super(props)
+
+    this.state = {
+       
+   
+        services:[]
+
+       
     }
+    
+}
+
+
+componentDidMount() {   /* lifecycle method*/
 
    
-    
-    componentDidMount() {
-        axios.get(`http://localhost:5001/service/view`)
-          .then(res => {
-            const services = res.data;
-            this.setState({ services });
-          })
-      }
+    axios.get(`http://localhost:5001/services/view`)
+      .then(res => {
+        console.log(res);
+        const services = res.data;
+        this.setState({services});
+        console.log('data');
+
+        
+       
+      })
 
     
+  }
+
+  onChange = (e) => {
+    this.setState(
+    {[e.target.name]: e.target.value}
+)
+} 
         
 
         render(){
@@ -91,23 +88,43 @@ export default class Services extends React.Component{
                                                                 
                                                                         
                                         </div>
-
+<var></var>
 
                                                       <div className="row1">
                                                               <div className="column1" style={column1} >
-                                                              <table width="100%">
-                                                                                                                <tr>
-                                                                            <th>Id</th>
-                                                                            <th>catogery</th>
-
-                                                                            <th>name</th>
-                                                                            <th>price</th>
-
-
-                                                                        </tr>
-                                                                                { this.state.services.map(service => <tr><td>{service.serviceId}</td><td>{service.category}</td><td>{service.name}</td><td>{service.price}</td></tr>)}
-                                                                            </table>
+                                                              <div className="tbl-header" style={tblheader}>
+                                                    <table className="table" style ={table}  >
+                                                    <thead className='thead'  >
+                                                        <tr className='tr' >
+                                                            
+                                                              
+                                                                <th>name</th>
                                                                 
+                                                            
+                                                        </tr>
+                                                    </thead>
+
+                                                    </table>
+
+                                                </div>
+                                                <div className="tbl-content" style={tblcontent}>
+                                                    <table className="table" style ={table} >
+                                                    <tbody>
+                                                                   
+                                                                    { this.state.services.map(person =>
+                                                                    <tr className='td' >
+                                                                    <td>{person.name}</td>
+
+                                                                    </tr>)} 
+                                                                    
+
+                                                        </tbody>
+                                                        </table>
+                                                </div>
+                                                </div>  
+
+
+                                                           
                                                               </div>
                                                               <div className="column1" >
                                                                 
@@ -140,12 +157,36 @@ export default class Services extends React.Component{
                                                         </div>
             
                         </div>
-                        </div>
+                        
                    
                 )
     }
         
     
+}
+
+const td={
+  padding:'15px' ,
+  textAlign: 'left',
+  verticalAlign:'middle',
+  fontWeight:"300",
+  fontSize: '12px',
+  color: '#010607',
+  borderBottom:'solid  rgba(255,255,255,0.1)' 
+}
+
+const tblheader={
+  backgroundColor: '#114252 ',
+
+  color:'red',
+  fontSize:'25px'
+ }
+
+const tblcontent={
+  height:'350px',
+  overflow:'auto',
+  marginTop:'0px' ,
+  border:'1px solid #25c481' ,
 }
 
 const iconstyle = {
@@ -169,7 +210,12 @@ const column2 = {
     height: "300px", /* Should be removed. Only for demonstration */
   }
   
-
+  const table={
+    width:'100%',
+    tableLayout: 'fixed',
+    borderRadius: "10px",
+    margin:"20px 20px 20px 5px",
+  } 
 const container={
   justifyContent:"center",
   alignItems:"center",

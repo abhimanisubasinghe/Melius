@@ -89,7 +89,7 @@ customers.post('/customerRegistration',function(req,res){
     //console.log(req.session.userId);
 
        // if(req.session.userId)
-        if(!req.session.userId)
+        if(req.session.userId)
         {
             if(name && fax && type && email && website && address && phoneNo && DOB && note){
                 console.log('1111111111111111111');
