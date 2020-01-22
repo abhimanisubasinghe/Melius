@@ -14,13 +14,14 @@ class ToDoItem extends Component {
      
     render() {
         const {id,quantity,item} = this.props.item2add;
+        //console.log(item);
         //console.log("completed" + completed)
         return (
             <div style={this.getStyle()}>
                <p> 
                    {/*<input type="checkbox" onChange={this.props.markComplete.bind(this,id)}/>*/}
                    {' '}
-                   { item }
+                   { item.name }
                    { quantity }
                    <button onClick={this.props.delToDo.bind(this,id)} style={btnStyle}>x</button>
                 </p> 

@@ -21,9 +21,9 @@ class AddToDo extends Component {
     
         this.state = {
             quantity: '',
-            item:'',
+            item:{},
             items:[ {
-                 name: "abc",
+                 name: "abcd",
                  itemCode: "000"
              }
             ]
@@ -45,9 +45,21 @@ class AddToDo extends Component {
         {[e.target.name]: e.target.value}
     );
 
+    onSelect = (e) => {
+        console.log(e.target.value)
+        //console.log(e.target.value.name)
+       console.log(this.state.items[e.target.value])
+        this.setState(
+         {item: this.state.items[e.target.value]}
+        );
+        
+    }
+
     onSubmit = (e) => {
         console.log("Submitted",this.state.quantity)
-        console.log(this.state.item)
+        console.log("item ",this.state.item)
+        console.log(this.state.item.name)
+        console.log(this.state.item.itemCode)
         e.preventDefault();
         this.props.addToDo(this.state.item,this.state.quantity);
         this.setState({
@@ -70,8 +82,8 @@ class AddToDo extends Component {
                     onChange={this.onChange}
                 />*/}
                 <React.Fragment>   
-                    <select id="item" name="item" onChange={this.onChange}>
-                        { this.state.items.map(item => <option  value={item.name}>{item.itemCode}</option>)}
+                    <select id="item" name="item" onChange={this.onSelect}>
+                        { this.state.items.map((obj,i) => <option  value={i}>{obj.name}</option>)}
                     </select> 
             
                 </React.Fragment>

@@ -35,11 +35,15 @@ class App extends Component {
     this.setState({ items2add: [...this.state.items2add.filter(item2add => item2add.id!==id)] });
   }
 
-  addToDo = (quantity,item) => {
+  addToDo = (item,quantity) => {
+    console.log("adding: ",item)
+    console.log("code",item.itemCode,quantity)
     const newToDo = {
-      id: item,
+      id: item.itemCode,
       quantity: quantity,
-      item: item    }
+      item: item    
+    
+    }
 
     this.setState({
       items2add:[...this.state.items2add,newToDo]
