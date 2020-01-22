@@ -37,7 +37,7 @@ import Addvehicle from "views/Addvehicle.jsx"
 import Viewcustomer from "views/Viewcustomer.jsx"
 import ItemTransfer from "views/ItemTransfer.jsx"
 import ItemPurchase from "views/itemPurchase.jsx"
-
+import DeleteCustomer from "views/Deletecustomer.jsx"
 
 
 const dashboardRoutes = [
@@ -191,7 +191,14 @@ const dashboardRoutes = [
     component: ItemPurchase,
     layout: "/admin"
   },
-  
+  {
+    path: "/deletecus",
+    name: "Delete Customer",
+    icon: "pe-7s-headphones",
+    component: DeleteCustomer,
+    layout: "/admin",
+    in: "FALSE"
+  },  
   
   
 ];
