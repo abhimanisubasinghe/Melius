@@ -38,16 +38,49 @@ class App extends Component {
   addToDo = (item,quantity) => {
     console.log("adding: ",item)
     console.log("code",item.itemCode,quantity)
-    const newToDo = {
-      id: item.itemCode,
-      quantity: quantity,
-      item: item    
-    
-    }
+    //var point = {};
+    //var x;
+    //var i = 0;
+    //console.log("itemsToadd",this.state.items2add)
 
-    this.setState({
-      items2add:[...this.state.items2add,newToDo]
-    })
+
+
+    /*for (x in this.state.items2add){
+      console.log("x",x[i].item)
+      /*if(x.id == item.itemCode){
+        point = x;
+        console.log("Found",x.name);
+        break;
+      }*/
+      //i = i++;
+    //}
+    /*if(point){
+      this.setState({
+        items2add : this.state.items2add.filter(item2add =>
+            item2add.id != point.id 
+        )
+      })
+      console.log("items2add",this.state.items2add)
+      var newToDo = {
+        id: item.itemCode,
+        quantity: quantity+point.quantity,
+        item: item    
+      }
+      
+    }
+    else{*/
+
+      var newToDo = {
+        id: item.itemCode,
+        quantity: quantity,
+        item: item    
+      }
+
+  //}
+  this.setState({
+    items2add:[...this.state.items2add,newToDo]
+  })
+    
   }
   
   render(){
