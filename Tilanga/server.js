@@ -46,11 +46,11 @@ app.use('/services', Services);
 app.use('/admin', Admin);
 app.use('/vehicles',Vehicle)
 
-<<<<<<< HEAD
-app.listen(3010, function(){
-    console.log('server run on 3010 port!!');
-=======
+// <<<<<<< HEAD
+// app.listen(3010, function(){
+//     console.log('server run on 3010 port!!');
+// =======
 app.listen(5001, function(){
     console.log('server run on 5001 port!!');
->>>>>>> 5b6c1714a3fe11615c63f49f3795c4f04a51426b
+//>>>>>>> 5b6c1714a3fe11615c63f49f3795c4f04a51426b
 });
