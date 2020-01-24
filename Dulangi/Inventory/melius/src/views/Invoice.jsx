@@ -10,42 +10,77 @@ import uuid from 'uuid';
 class App extends Component {
   
   state = {
-    todos: [
+    items2add: [
     ]
   }
 
   componentDidMount(){
-    axios.get('https://jsonplaceholder.typicode.com/todos?_limit=10')
-      .then(res => this.setState({ todos: res.data }))
+    
   }
 
-  markComplete = (id) => {
+  /*markComplete = (id) => {
     this.setState(
       {
-        todos: this.state.todos.map(todo => {
-          if(todo.id === id){
-            todo.completed = !todo.completed
+        items2add: this.state.items2add.map(item2add => {
+          if(item2add.id === id){
+            item2add.completed = !item2add.completed
           }
-          return todo;
+          return item2add;
         } )
       }
     );
-  }
+  }*/
 
   delToDo = (id) => {
-    this.setState({ todos: [...this.state.todos.filter(todo => todo.id!==id)] });
+    this.setState({ items2add: [...this.state.items2add.filter(item2add => item2add.id!==id)] });
   }
 
-  addToDo = (title) => {
-    const newToDo = {
-      id: uuid.v4(),
-      title: title,
-      completed:false
-    }
+  addToDo = (item,quantity) => {
+    console.log("adding: ",item)
+    console.log("code",item.itemCode,quantity)
+    //var point = {};
+    //var x;
+    //var i = 0;
+    //console.log("itemsToadd",this.state.items2add)
 
-    this.setState({
-      todos:[...this.state.todos,newToDo]
-    })
+
+
+    /*for (x in this.state.items2add){
+      console.log("x",x[i].item)
+      /*if(x.id == item.itemCode){
+        point = x;
+        console.log("Found",x.name);
+        break;
+      }*/
+      //i = i++;
+    //}
+    /*if(point){
+      this.setState({
+        items2add : this.state.items2add.filter(item2add =>
+            item2add.id != point.id 
+        )
+      })
+      console.log("items2add",this.state.items2add)
+      var newToDo = {
+        id: item.itemCode,
+        quantity: quantity+point.quantity,
+        item: item    
+      }
+      
+    }
+    else{*/
+
+      var newToDo = {
+        id: item.itemCode,
+        quantity: quantity,
+        item: item    
+      }
+
+  //}
+  this.setState({
+    items2add:[...this.state.items2add,newToDo]
+  })
+    
   }
   
   render(){
@@ -54,7 +89,7 @@ class App extends Component {
           <div className="container">
             <React.Fragment>
                 <AddToDo addToDo= {this.addToDo}/>
-                <ToDos todos={this.state.todos} markComplete={this.markComplete} delToDo={this.delToDo}/>
+                <ToDos items2add={this.state.items2add} /*markComplete={this.markComplete}*/ delToDo={this.delToDo}/>
             </React.Fragment>  
             
           </div>

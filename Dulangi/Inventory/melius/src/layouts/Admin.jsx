@@ -191,7 +191,6 @@ class Admin extends Component {
       this.refs.mainPanel.scrollTop = 0;
     }
 
-    console.log("Hi!");
   }
   render() {
     

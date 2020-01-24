@@ -3,7 +3,7 @@ var bodyParser = require('body-parser');
 var cors = require('cors');
 const bcrypt = require('bcrypt');
 var ses =  require('express-session'); 
-//var proxy = require('http-proxy-middleware');
+var proxy = require('http-proxy-middleware');
 var cookieSession= require('cookie-session');
 var cookieParser = require("cookie-parser");
 
@@ -25,9 +25,9 @@ app.use(ses({
 
 app.use(cors());
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded( {extended: false} ));
+app.use(bodyParser.urlencoded( {extended: true} ));
 app.use(cookieParser("secretkey"));
-
+//app.use(express.static(path.join(__dirname, 'public')));
 //Setting up view engine
 // app.set('views', path.join(__dirname, 'views'));
 // app.set('view engine', 'ejs');

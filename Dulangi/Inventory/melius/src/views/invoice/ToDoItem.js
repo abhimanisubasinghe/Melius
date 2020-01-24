@@ -5,22 +5,24 @@ class ToDoItem extends Component {
     
     getStyle = () => {
         return {
-            textDecoration: this.props.todo.completed ? 'line-through' : 'none',
-            backgroundColor: this.props.todo.completed ? '#baffc0' : '#f4f4f4',
+            //textDecoration: this.props.todo.completed ? 'line-through' : 'none',
+            //backgroundColor: this.props.todo.completed ? '#baffc0' : '#f4f4f4',
             padding: '10px',
             borderBottom: '1px #ccc dotted'
         }
     }
      
     render() {
-        const {id,title,completed} = this.props.todo;
-        console.log("completed" + completed)
+        const {id,quantity,item} = this.props.item2add;
+        //console.log(item);
+        //console.log("completed" + completed)
         return (
             <div style={this.getStyle()}>
                <p> 
-                   <input type="checkbox" onChange={this.props.markComplete.bind(this,id)}/>
+                   {/*<input type="checkbox" onChange={this.props.markComplete.bind(this,id)}/>*/}
                    {' '}
-                   { title }
+                   { item.name }
+                   { quantity }
                    <button onClick={this.props.delToDo.bind(this,id)} style={btnStyle}>x</button>
                 </p> 
             </div>
@@ -29,7 +31,7 @@ class ToDoItem extends Component {
 }
 
 ToDoItem.propItem = {
-    todo: PropTypes.object.isRequired
+    item2add: PropTypes.object.isRequired
 }
 
 const btnStyle = {
