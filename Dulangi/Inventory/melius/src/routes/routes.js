@@ -31,12 +31,13 @@ import Hello from "views/Hello.js";
 import Itemregister from "views/Itemregister";
 import SubNav from "components/Navbars/SubNav";
 import Invoice from "views/Invoice"
+import Test from "views/Test"
 import Services from "views/Services.jsx"
 import Addvehicle from "views/Addvehicle.jsx"
 import Viewcustomer from "views/Viewcustomer.jsx"
 import ItemTransfer from "views/ItemTransfer.jsx"
 import ItemPurchase from "views/itemPurchase.jsx"
-
+import DeleteCustomer from "views/Deletecustomer.jsx"
 
 
 const dashboardRoutes = [
@@ -153,6 +154,14 @@ const dashboardRoutes = [
     in  : "TRUE"
   },
   {
+    path: "/test",
+    name: "Test",
+    icon: "pe-7s-gleam",
+    component: Test,
+    layout: "/admin",
+    in : "TRUE"
+  },
+  {
     path: "/vehicle",
     name: "Add Vehicle",
     icon: "pe-7s-add-user",
@@ -182,7 +191,14 @@ const dashboardRoutes = [
     component: ItemPurchase,
     layout: "/admin"
   },
-  
+  {
+    path: "/deletecus",
+    name: "Delete Customer",
+    icon: "pe-7s-headphones",
+    component: DeleteCustomer,
+    layout: "/admin",
+    in: "FALSE"
+  },  
   
   
 ];

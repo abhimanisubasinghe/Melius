@@ -36,11 +36,16 @@ ReactDOM.render(
 
         <BrowserRouter >
         <Switch >
-        <Route path = "/admin" render = {props => < AdminLayout {...props }/>} >     
-        </Route>   
+        <Route path = "/admin"
+        render = {
+            props => < AdminLayout {...props }
+            />} >   
+        </Route> 
         <Redirect from = "/" to = "/admin/dashboard" / >
-            </Switch>
+        
+        </Switch>
 
-            </BrowserRouter>        ,
-            document.getElementById("root")
-        )
+        </BrowserRouter>,
+        
+        document.getElementById("root")
+        );

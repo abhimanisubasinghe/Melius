@@ -56,18 +56,16 @@ router.use(function(req, res, next) {
 
 //DISPLAY ITEM  LIST
 router.get('/', function(req, res, next) {
-    connection.query('SELECT * FROM item', function(err, rows) {
+    connection.query('SELECT * FROM item2', function(err, result) {
         if (err) {
-            req.flash('error', err);
-            res.render('items', {
-                page_title: "Item",
-                data: ''
-            });
+            throw err;
         } else {
-            res.render('items', {
-                page_title: "Item",
-                data: rows
-            });
+            if(result.length>0){
+                res.json(result);
+            }
+            else{
+                res.json('No items');
+            }
         }
     });
 

@@ -35,10 +35,10 @@ service.use(cors());
 
 //go to service and display
 service.get('/view',function(req,res){
-    if(!req.session.adminId){
+    if(req.session.adminId){
         res.send('please log as an admin');
     }
-    else{
+    else{ 
         sql.query("SELECT * FROM service",function(err,result){
             if(err){
                 throw err;
