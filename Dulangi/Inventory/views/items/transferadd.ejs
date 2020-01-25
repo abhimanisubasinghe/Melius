@@ -26,7 +26,7 @@
 
                         <div class="form-group">
                             <label for="exampleInputPassword1">Location</label>
-                            <select class="form-control" name="Location" id="Location">
+                            <select class="form-control" name="warehouseId" id="warehouseId">
                                 <% for(var i=0; i < dropdownVals.length; i++) { %>
                                     <option value="<%= dropdownVals[i].warehouseId %>"><%= dropdownVals[i].name %></option>
                                  <% } %>
@@ -38,7 +38,7 @@
                         </div>
                         <div class="form-group">
                             <label for="exampleInputPassword1">Item</label>
-                            <input type="text" class="form-control" name="item" id="item" value="">
+                            <input type="text" class="form-control" name="itemId" id="itemId" value="">
                         </div>
                         <div class="form-group">
                             <label for="exampleInputEmail1">Quantity</label>
