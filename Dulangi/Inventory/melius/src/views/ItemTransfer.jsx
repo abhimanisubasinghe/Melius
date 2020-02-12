@@ -33,10 +33,22 @@ export default class ItemTransfer extends React.Component{
                 this.state = {
                     warehouseId:"",    
                     date: "",
-                    itemId: "",
+                    itemId:[] ,
                     quantity:""
                 }
+                console.log(typeof this.state.itemId);
+            }
+
+            addItem(){
+
                 
+                this.setState({itemId:[...this.state.itemId," "]})
+            }
+
+            handleChange = (e)=>{
+                this.setState(
+                    {itemId:this.state.itemId.concat(e.target.value)}
+                )
             }
         
             onChange = (e) => {
@@ -46,6 +58,8 @@ export default class ItemTransfer extends React.Component{
             }
             
             handleSubmit = e => { 
+
+                console.log(this.state,"$$$$");
                 e.preventDefault();
                 console.log(this.state);
                 const url = "http://localhost:5000/transfer/add"; 
@@ -115,33 +129,67 @@ export default class ItemTransfer extends React.Component{
                                                                                         id: "date",
                                                                                         name: "date"}
                                                                                 ]}
+                                                                                
                                                                         />
+                         
                                                                         <FormInputs
                                                                                 ncols={["col-md-4","col-md-4"]}
                                                                                 properties={[
-                                                                                    {
-                                                                                        label: "Item",
-                                                                                        type: "text",
-                                                                                        bsClass: "form-control",
-                                                                                        placeholder: "Item",
-                                                                                        value:this.state.itemId,
-                                                                                        onChange: this.onChange,
-                                                                                        id: "itemId",
-                                                                                        name: "itemId"
-                                                                                        }
-                                                                                        ,
+                                                                                       
+                                                                                        {
+                                                                                            label: "Destinstion Plant",
+                                                                                            type: "text",
+                                                                                            bsClass: "form-control",
+                                                                                            placeholder: "Destination",
+                                                                                            value:this.state.itemId,
+                                                                                            onChange: this.handleChange,
+                                                                                            id: "itemId",
+                                                                                            name: "itemId"
+                                                                                        },
+                                                                                        
+                                                                                        
                                                                                         {
                                                                                         label: "Quantity",
                                                                                         type: "number",        
                                                                                         value: this.state.quantity,
-                                                                                        onChange: this.onChange,
+                                                                                        onChange:this.onChange,
                                                                                         bsClass: "form-control",
                                                                                         id:"quantity",
                                                                                         name: "quantity", 
                                                                                         placeholder: "quantity"
-                                                                                        },                                                                                       
+                                                                                        }
+                                                                                                                                                                                  
                                                                                 ]}
+                                                                                
+                                                                        />    
+                                                            {/*
+                                                                this.state.itemId.map((item,index)=>{
+                                                                    return(
+                                                                        <div key={index}>
+                                                                                <FormInputs
+                                                                                ncols={["col-md-5"]}
+                                                                                properties={[
+                                                                                        {
+                                                                                        label: "Document Date",
+                                                                                        type: "text",
+                                                                                        bsClass: "form-control",
+                                                                                        placeholder: "Date",
+                                                                                        value:item,
+                                                                                        onChange: this.handleChange,
+                                                                                        id: "itemId",
+                                                                                        name: "itemId"}
+                                                                                ]}
+
+                                                                                
                                                                         />
+
+
+                                                                        </div>
+                                                                    )
+                                                                })
+                                                        */}
+                                                                        
+                                                                        <Button onClick={(e)=> this.addItem(e)}>Add Item</Button>
                                                                         
                                                                        
                                                                        
