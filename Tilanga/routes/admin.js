@@ -36,6 +36,53 @@ admin.get('/',function(req,res){
     }
 });
 
+//Admin Registration
+admin.post('/adminreg',function(req,res){
+    var username = req.body.username;
+    var password = req.body.password;
+    console.log(password);
+    console.log(username);
+
+    if(password && username){
+        console.log('aa');
+        sql.query('select adminId from admin where username = ?',[username],function(err,result){
+            if(err){
+                console.log('admidregerr1');
+                console.log(err);
+                throw err;
+            }
+            else{
+                if(!result.length>0){
+                    bcrypt.hash(password, 10, function(err2, hash){
+                        if(err2){
+                            console.log("adminregerr2");
+                            console.log(err2);
+                            throw err2;
+                        }
+                        else{
+                            sql.query('insert into admin (username,password) values (?,?)',[username,hash],function(err3,result){
+                                if(err3){
+                                    console.log("adminregerr3");
+                                    console.log(err3);
+                                    throw err3;
+                                }
+                                else{
+                                    res.send('admin registered');
+                                }
+                            })
+                        }
+                    });
+                }
+                else{
+                    res.send('all ready registered');
+                }
+            }
+        })
+    }
+})
+
+    
+
 //ADMIN LOGIN
 admin.post('/login',function(req,res){
     console.log(req.body.username);
@@ -49,33 +96,40 @@ admin.post('/login',function(req,res){
     else{
         console.log('lllllllll')
         if(username && password){
-            bcrypt.hash(password, 10, function(err, hash){
-                //sql.query('SELECT adminId FROM admin WHERE username = ? AND password = ?',[username, hash],function(err,result){
-                    sql.query('SELECT adminId FROM admin WHERE username = ? AND password = ?',[username, password],function(err,result){
-                    if(err){
-                        throw err;
-                    }
-                    else{
-                        console.log('ooooooooooooo');
-                        console.log(result)
-                        if(result.length>0){
-                            if(result[0].password == password){
-                                req.session.adminId = username;
-                                res.send('logged'); 
+            sql.query('select password from admin where username = ?',[username],function(err,result){
+                if(err){
+                    console.log('adminloginerr1');
+                    console.log(err);
+                    throw err;
+                }
+                else{
+                    if(result[0].password){
+                        console.log(result[0],password)
+                        bcrypt.hash(password,10,function(er,hash){
+                            console.log('aaaaa',hash);
+                        })
+                        bcrypt.compare(password, result[0].password,function(err2,result2){
+                            if(err2){
+                                console.log('adminlogerr2');
+                                console.log(err2);
+                                throw err;
                             }
                             else{
-                                res.send('wrong data')
+                                if(result2 == true){
+                                    req.session.adminId = username
+                                    res.send('logged as admin');
+                                }
+                                else{
+                                    res.send('user name or password incorrect');
+                                }
                             }
-                        }
-                        else{
-                            res.send('wrong data');
-                            //res.send('User does not exist');
-                        }
-                        
+                        })
                     }
-                });
-            })
-            
+                }
+            });
+        }
+        else{
+            res.send('fill all details');
         }
     }
 });

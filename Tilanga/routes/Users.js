@@ -60,7 +60,11 @@ console.log('jnvvjknvsjnvkjsnvkjsnvjk');
     var username = req.body.username;
     var resultFinal;
     
-
+    console.log(name);
+    console.log(DOB);
+    console.log(contactNumber);
+    console.log(status);
+    console.log(address);
     console.log(username);
     console.log(req.body.password);
 
@@ -160,7 +164,13 @@ users.post('/userUpdateByAdmin',function(req,res){
                         throw err1;
                     }
                     else{
-                        res.json({data: resultFinal,result1});
+                        if(result1 == true){
+                            var done= "updated";
+                            res.send({data: resultFinal,result1,done});
+                        }
+                        else{
+                            res.send('update not done');
+                        }
                     }
                 })
             });
@@ -192,7 +202,12 @@ users.post('/userUpdateByUser',function(req,res){
                                     throw err2;
                                 }
                                 else{
-                                    res.json({data: result2});
+                                    if(result2.length>0){
+                                        res.json({data: result2});
+                                    }
+                                    else{
+                                        res.send('not update')
+                                    }
                                 }
                             })
                         });
@@ -215,51 +230,93 @@ users.post('/userUpdateByUser',function(req,res){
 
 //USER DELETE
 users.post('/delete',function(req,res){
-    
+    var username = req.body.username;
+    if(req.session.adminId){
+        sql.query('select * from userlogin where username = ?',[name],function(err,result){
+            if(err){
+                console.log('deleteusererr1');
+                console.log(err);
+                throw err;
+            }
+            else{
+                if(result[0].userId){
+                    sql.query('delete from userlogin where username = ?',[username],function(err2,result2){
+                        if(err2){
+                            console.log('userdeleteerr2');
+                            console.log(err2);
+                            throw err2;
+                        }
+                        else{
+                            if(result2){
+                                sql.query('delete from user where id = ?',[result[0].userId],function(err3,result3){
+                                    if(err3){
+                                        console.log('deleteusererr3');
+                                        console.log(err3);
+                                        throw err3;
+                                    }
+                                    else{
+                                        if(result3){
+                                            res.send('deleted');
+                                        }
+                                        else{
+                                            res.send('try again');
+                                        }
+                                    }
+                                })
+                            }
+                            else{
+                                res.send('try again');
+                            }
+                        }
+                    })
+                }
+                else{
+                    res.send('cannot find user')
+                }
+            }
+        })
+    }
 })
 
 
 //LOGIN
 users.post('/login', function(req,res){
-     console.log('mmmmmmmmmmmmmmmmmmmm');
-     //console.log(userData.password)
      console.log(req.body.username)
      console.log(req.body.password)
     if(req.body.username && req.body.password){
         console.log('jnvejnvejnv')
         var password = req.body.password;
-        bcrypt.hash(password, 10, function(err, hash){
-            sql.query("SELECT * FROM userlogin WHERE username = ? ",[req.body.username], function(err,result){
-                if(err) throw err;
-                else{
-                    if(result.length>0){
-                            
-                             console.log(id);
-                            // //module.exports = id;
-                            if(result[0].password == password){
-                                console.log(result[0].password);
-                                req.session.userId = req.body.username;
-                                id = req.session.userId;
-                                console.log(hash);
-                                console.log('suck');
-                                res.json('logged');
+        sql.query('select userId,password from userlogin where username = ?',[username],function(err,result){
+            if(err){
+                console.log('dlogusererr1');
+                console.log(err);
+                throw err;
+            }
+            else{
+                if(result[0].password){
+                    bcrypt.compare(password,result[0].password,function(err2,result2){
+                        if(err2){
+                            console.log('userloginerr2');
+                            console.log(err2);
+                            throw err2;
+                        }
+                        else{
+                            if(result2 == true){
+                                req.session.userId = username;
+                                res.send('logged');
                             }
                             else{
-                                console.log(result[0].password)
-                                console.log(result[0].password.length = 7);
-                                console.log(hash);
-                                console.log('fuck');
+                                res.send('wrong data');
                             }
-                            // console.log(id);
-                            
-                            //res.redirect('/profile')
-                    }
-                    else{
-                         res.send('User does not exist')
-                    }
+                        }
+                    })
                 }
-            })
-        });
+                else{
+                    res.send('wrong data');
+                }
+            }
+        })
+
         
     }
     else{
