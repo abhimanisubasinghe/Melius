@@ -39,6 +39,7 @@ class AddToDo extends Component {
             const items = res.data;
             this.setState({ items });
           })
+        
     }
 
     onChange = (e) => this.setState(
@@ -56,11 +57,16 @@ class AddToDo extends Component {
     }
 
     onSubmit = (e) => {
-        console.log("Submitted",this.state.quantity)
-        console.log("item ",this.state.item)
-        console.log(this.state.item.name)
-        console.log(this.state.item.itemCode)
-        e.preventDefault();
+        if(this.state.item != null){
+            console.log("Submitted",this.state.quantity)
+            console.log("item ",this.state.item)
+            console.log(this.state.item.name)
+            console.log(this.state.item.itemCode)
+            e.preventDefault();
+        }
+        else{
+            console.log("Please select an item");
+        }
         this.props.addToDo(this.state.item,this.state.quantity);
         this.setState({
             item:'',
@@ -82,8 +88,9 @@ class AddToDo extends Component {
                     onChange={this.onChange}
                 />*/}
                 <React.Fragment>   
+                    
                     <select id="item" name="item" onChange={this.onSelect}>
-                        { this.state.items.map((obj,i) => <option  value={i}>{obj.name}</option>)}
+                        { this.state.items.map((obj,i) => <option  value={i} selected>{obj.name}</option>)}
                     </select> 
             
                 </React.Fragment>
