@@ -22,7 +22,7 @@
     "react-table": "^6.0.0",
     "react-table-6": "^6.11.0",
     "react-toggle": "4.0.2",
-    "reactstrap": "^8.2.0"
+    "reactstrap": "^8.2.0" 
   },
   "devDependencies": {
     "@types/googlemaps": "3.30.19",
