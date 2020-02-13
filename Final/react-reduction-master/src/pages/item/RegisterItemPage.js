@@ -13,6 +13,8 @@ import {
   Input,
   Label,
   Row,
+  InputGroupAddon,
+  InputGroup
 } from 'reactstrap';
 import axios from 'axios';
 
@@ -74,14 +76,6 @@ handleSubmit = e => {
             <CardBody>
               <Form>
                 <FormGroup>
-                  <Label for="exampleEmail">Plain Text (Static)</Label>
-                  <Input
-                    plaintext
-                    value="Some plain text/ static value"
-                    readOnly
-                  />
-                </FormGroup>
-                <FormGroup>
                   <Label for="name">Item Name</Label>
                   <Input
                     type="text"
@@ -99,22 +93,111 @@ handleSubmit = e => {
                     placeholder="In Stock"
                   />
                 </FormGroup>
+                <div className="form-inline">  
                 <FormGroup>
-                <Label for="unitPrice">Unit Price</Label>
+                <div className="col">  
+                <Label for="unitPrice">Unit Price </Label>
+                  <InputGroup>
+                  <InputGroupAddon addonType="prepend">Rs.</InputGroupAddon>
                   <Input
                     type="number"
                     name="unitPrice"
                     id="unitPrice"
                     placeholder="Unit Price"
+                    step="1"
                   />
-                </FormGroup>
-                <FormGroup>
-                <Label for="costPrice">Cost Price</Label>
+                  <InputGroupAddon addonType="append">.00</InputGroupAddon>
+                  </InputGroup>
+                </div>  
+                <div className="col">             
+                  <Label for="costPrice">Cost Price </Label>
+                  <InputGroup>
+                  <InputGroupAddon addonType="prepend">Rs.</InputGroupAddon>
                   <Input
                     type="number"
                     name="costPrice"
                     id="costPrice"
                     placeholder="Cost Price"
+                    step="1"
+                  />
+                  <InputGroupAddon addonType="append">.00</InputGroupAddon>
+                  </InputGroup>
+                  </div>
+                  </FormGroup>
+                </div>
+                <div className="form-inline">
+                <FormGroup>
+                <div className="col">  
+                <Label for="itemgroup">Item Group</Label>
+                  <Input
+                    type="text"
+                    name="itemgroup"
+                    id="itemgroup"
+                    placeholder="Item Group"
+                  />
+                </div>
+                <div className="col">    
+                <Label for="brand">Brand</Label>
+                  <Input
+                    type="text"
+                    name="brand"
+                    id="brand"
+                    placeholder="Brand"
+                  />
+                </div>
+                </FormGroup>
+                </div>
+                <div className="form-inline">
+                <FormGroup>
+                <div className="col">  
+                <Label for="type">Type</Label>
+                  <Input
+                    type="text"
+                    name="type"
+                    id="type"
+                    placeholder="Type"
+                  />
+                </div>  
+                <div className="col">  
+                <Label for="category">Category</Label>
+                  <Input
+                    type="text"
+                    name="category"
+                    id="category"
+                    placeholder="Category"
+                  />
+                </div>  
+                </FormGroup>
+                </div>
+                <div className="form-inline">
+                <FormGroup>
+                <div className="col">  
+                <Label for="storageId">Storage ID</Label>
+                  <Input
+                    type="text"
+                    name="storageId"
+                    id="storageId"
+                    placeholder="Storage ID"
+                  />
+                </div>
+                <div className="col">
+                <Label for="supplierId">Supplier ID</Label>
+                  <Input
+                    type="text"
+                    name="supplierId"
+                    id="supplierId"
+                    placeholder="Supplier Id"
+                  />
+                </div>  
+                </FormGroup>
+                </div>
+                <FormGroup>
+                <Label for="bracode">Barcode</Label>
+                  <Input
+                    type="text"
+                    name="barcode"
+                    id="barcode"
+                    placeholder="Barcode"
                   />
                 </FormGroup>
                 <FormGroup>
@@ -124,69 +207,6 @@ handleSubmit = e => {
                     name="reorderLevel"
                     id="reorderLevel"
                     placeholder="Reorder Level"
-                  />
-                </FormGroup>
-                <FormGroup>
-                <Label for="itemgroup">Item Group</Label>
-                  <Input
-                    type="text"
-                    name="itemgroup"
-                    id="itemgroup"
-                    placeholder="Item Group"
-                  />
-                </FormGroup>
-                <FormGroup>
-                <Label for="brand">Brand</Label>
-                  <Input
-                    type="text"
-                    name="brand"
-                    id="brand"
-                    placeholder="Brand"
-                  />
-                </FormGroup>
-                <FormGroup>
-                <Label for="type">Type</Label>
-                  <Input
-                    type="text"
-                    name="type"
-                    id="type"
-                    placeholder="Type"
-                  />
-                </FormGroup>
-                <FormGroup>
-                <Label for="category">Category</Label>
-                  <Input
-                    type="text"
-                    name="category"
-                    id="category"
-                    placeholder="Category"
-                  />
-                </FormGroup>
-                <FormGroup>
-                <Label for="storageId">Storage ID</Label>
-                  <Input
-                    type="text"
-                    name="storageId"
-                    id="storageId"
-                    placeholder="Storage ID"
-                  />
-                </FormGroup>
-                <FormGroup>
-                <Label for="supplierId">Supplier ID</Label>
-                  <Input
-                    type="text"
-                    name="supplierId"
-                    id="supplierId"
-                    placeholder="Supplier Id"
-                  />
-                </FormGroup>
-                <FormGroup>
-                <Label for="bracode">Barcode</Label>
-                  <Input
-                    type="text"
-                    name="barcode"
-                    id="barcode"
-                    placeholder="Barcode"
                   />
                 </FormGroup>
                 <FormGroup>
@@ -220,9 +240,7 @@ handleSubmit = e => {
                   </Input>
                 </FormGroup>
                 <FormGroup check row>
-                  <Col sm={{ size: 10, offset: 2 }}>
                     <Button>Submit</Button>
-                  </Col>
                 </FormGroup>
               </Form>
             </CardBody>
