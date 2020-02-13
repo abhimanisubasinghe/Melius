@@ -263,9 +263,7 @@ const FormPage = () => {
                   </Col>
                 </FormGroup>
                 <FormGroup check row>
-                  <Col sm={{ size: 10, offset: 2 }}>
-                    <Button>Submit</Button>
-                  </Col>
+                  <Button>Submit</Button>
                 </FormGroup>
               </Form>
             </CardBody>
