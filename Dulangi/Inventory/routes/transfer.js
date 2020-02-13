@@ -10,6 +10,7 @@ routerTwo.get('/add', function(req, res, next) {
 
     connection.query("SELECT warehouseId,name FROM warehouse", function(err, result) {
         if (err) {
+            console.log(err);
             res.flash('error', err);
         } else {
             console.log(result);
@@ -25,23 +26,26 @@ routerTwo.post('/add', function(req, res, next) {
 
     if (true) {
 
+        var k =[""];
         var data = {
-            warehouseId: req.body.Location,
-            date: req.body.date
+            warehouseId: req.body.warehouseId,
+            date: req.body.date,
+            
         }
-
-
+        console.log(typeof k);
+        
         connection.query('INSERT INTO stocktransfer SET ?', data, function(err, result) {
 
             if (err) {
-                console.log("here");
+                console.log(err);
                 req.flash('error', err);
                 res.redirect('/items');
 
             } else {
+                
                 var info = {
                     transferId: result.insertId,
-                    itemId: req.body.item,
+                    itemId: req.body.itemId,
                     quantity: req.body.quantity
 
                 }
@@ -49,12 +53,10 @@ routerTwo.post('/add', function(req, res, next) {
                 connection.query('INSERT INTO stocktransfer_item SET ?', info, function(err, result) {
 
                     if (err) {
-
+                        console.log(err);
                         req.flash('error', err);
                         res.redirect('/items');
                     } else {
-
-                        connection.query()
                         res.redirect('/items');
                     }
                 });
