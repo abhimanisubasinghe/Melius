@@ -7,7 +7,7 @@ var body = require('body-parser');
 var ses = require('express-session');
 const jwt = require('jsonwebtoken');
 var bcrypt = require('bcrypt');
-var user = require('../routes/Users')
+var user = require('./Users')
 
 
 

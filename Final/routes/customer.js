@@ -8,7 +8,7 @@ var ses = require('express-session');
 const jwt = require('jsonwebtoken');
 var bcrypt = require('bcrypt');
 //var Promise = require('promise');
-var user = require('../routes/Users')
+var user = require('./Users')
 
 const All_customer = 'SELECT * FROM customer';
 
