@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import './select.css';
 import Test from 'views/Test'
 import {
     Grid,
@@ -10,7 +11,10 @@ import {
     Navbar,
     Nav,
     NavItem,
-    NavbarBrand
+    NavbarBrand,
+    DropdownButton,
+    Dropdown,
+    Form
   } from "react-bootstrap";
 import axios from 'axios';
 import { FormInputs } from "components/FormInputs/FormInputs.jsx";  
@@ -39,6 +43,14 @@ class AddToDo extends Component {
             const items = res.data;
             this.setState({ items });
           })
+          this.props.addToDo(this.state.item,this.state.quantity)
+          this.setState({
+              item:this.state.items[0],
+              quantity:0
+          })
+          
+        
+        
     }
 
     onChange = (e) => this.setState(
@@ -46,9 +58,9 @@ class AddToDo extends Component {
     );
 
     onSelect = (e) => {
-        console.log(e.target.value)
+        //console.log(e.target.value)
         //console.log(e.target.value.name)
-       console.log(this.state.items[e.target.value])
+       //console.log(this.state.items[e.target.value])
         this.setState(
          {item: this.state.items[e.target.value]}
         );
@@ -56,39 +68,39 @@ class AddToDo extends Component {
     }
 
     onSubmit = (e) => {
-        console.log("Submitted",this.state.quantity)
-        console.log("item ",this.state.item)
-        console.log(this.state.item.name)
-        console.log(this.state.item.itemCode)
-        e.preventDefault();
-        this.props.addToDo(this.state.item,this.state.quantity);
+        if(this.state.item != null){
+            //console.log("Submitted",this.state.quantity)
+            //console.log("item ",this.state.item)
+            //console.log(this.state.item.name)
+            //console.log(this.state.item.itemCode)
+            e.preventDefault();
+        }
+        else{
+            console.log("Please select an item");
+        }
+        if(this.state.item != null || this.state.quantity != null)
+            this.props.addToDo(this.state.item,this.state.quantity);
         this.setState({
-            item:'',
-            quantity:''
+            item:this.state.item,
+            quantity:0
         })
     }
 
     render() {
         return (
-            <form onSubmit={this.onSubmit} style={{ display: 'flex' }}>
-            
-                
-                {/*<input
-                    type="text"
-                    name="title"
-                    placeholder="Add Todo ..."
-                    style={{flex:'10', padding: '5px' }}
-                    value={this.state.title}
-                    onChange={this.onChange}
-                />*/}
-                <React.Fragment>   
-                    <select id="item" name="item" onChange={this.onSelect}>
-                        { this.state.items.map((obj,i) => <option  value={i}>{obj.name}</option>)}
+            <div>
+                <form onSubmit={this.onSubmit} className="form-inline" >   
+                    <div style={widthStyle}>  
+                    <select id="item" name="item" onChange={this.onSelect} style={optionStyle}>
+                        { this.state.items.map((obj,i) => 
+                         <option  value={i} style={optionStyle}>{obj.name}</option>)
+                        }
+                        
+                         
                     </select> 
-            
-                </React.Fragment>
+                    </div>  
                 <FormInputs
-                ncols={["col-md-5"]}
+                ncols={["col-sm-3"]}
                 properties={[
                 {
                     label: "",
@@ -107,10 +119,26 @@ class AddToDo extends Component {
                     className="btn"
                     style={{flex: '1'}}
                 />
-                
             </form>
+            </div>
         )
     }
 }
+
+const widthStyle = {
+    'width' : '200px'
+}
+
+const optionStyle = {
+    'background':'blue'
+}
+
+ /* The container must be positioned relative: */
+const customSelect={
+    'position': 'relative',
+
+}
+  
+
 
 export default AddToDo

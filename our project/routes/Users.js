@@ -83,36 +83,34 @@ console.log('jnvvjknvsjnvkjsnvkjsnvjk');
                     else{
                         sql.query('INSERT INTO user (name,DOB,address,contactNumber,dateOfEmployment,status) VALUES (?,?,?,?,?,?)',[name,DOB,address,contactNumber,dateOfEmployment,status], function(error,result){
                             if(error) throw error;
+                            else{
+                                bcrypt.hash(password, 10, function(err, hash){
+                                    sql.query('SELECT id FROM user WHERE contactNumber = ?',[contactNumber],function(err2,result2){
+                                        if(err2){
+                                            console.log('tiltil');
+                                            throw err2;
+                                        }
+                                        else{
+                                            if(result2.length>0){
+                                                console.log(result2[0].id);
+                                                sql.query('INSERT INTO userlogin (userId,username,password) VALUES (?,?,?)',[result2[0].id,username,hash], function(error,result3){
+                                                    console.log("tilintilin");
+                                                    if(error){
+                                                        console.log('zzzzzzzzzzzzzzz');
+                                                        throw error;
+                                                    } 
+                                    
+                                                     //res.sendFile(path.resolve('../views/home.html',{root:__dirname}));
+                                                    //res.json("registered!!");
+                                                    res.json({data1: result3,resultFinal});
+                                                });
+                                            }
+                                        }
+                                    })
+                                });
+                            }
             
-                             //res.sendFile(path.resolve('../views/home.html',{root:__dirname}));
-                            //res.json("registered!!");
-                            //res.json({data: result});
-                            resultFinal = result;
-                        });
-    
-                        bcrypt.hash(password, 10, function(err, hash){
-                            sql.query('SELECT id FROM user WHERE name = ?',[name],function(err2,result2){
-                                if(err2){
-                                    console.log('tiltil');
-                                    throw err2;
-                                }
-                                else{
-                                    if(result2.length>0){
-                                        console.log(result2[0].id);
-                                        sql.query('INSERT INTO userlogin (userId,username,password) VALUES (?,?,?)',[result2[0].id,username,password], function(error,result3){
-                                            console.log("tilintilin");
-                                            if(error){
-                                                console.log('zzzzzzzzzzzzzzz');
-                                                throw error;
-                                            } 
                             
-                                             //res.sendFile(path.resolve('../views/home.html',{root:__dirname}));
-                                            //res.json("registered!!");
-                                            res.json({data1: result3,resultFinal});
-                                        });
-                                    }
-                                }
-                            })
                         });
                     }
                 }
@@ -159,7 +157,7 @@ users.post('/userUpdateByAdmin',function(req,res){
                     }
 
                 });
-                sql.query('UPDATE userlogin SET username = ?, password = ? WHERE userId = ?',[username,password,id],function(err1,result1){
+                sql.query('UPDATE userlogin SET username = ?, password = ? WHERE userId = ?',[username,hash,id],function(err1,result1){
                     if(err1){
                         throw err1;
                     }
@@ -281,18 +279,22 @@ users.post('/delete',function(req,res){
 
 //LOGIN
 users.post('/login', function(req,res){
+    var state;
+    var message;
      console.log(req.body.username)
      console.log(req.body.password)
+     var password = req.body.password;
     if(req.body.username && req.body.password){
         console.log('jnvejnvejnv')
-        var password = req.body.password;
-        sql.query('select userId,password from userlogin where username = ?',[username],function(err,result){
+        
+        sql.query('select * from userlogin where username = ?',[req.body.username],function(err,result){
             if(err){
                 console.log('dlogusererr1');
                 console.log(err);
                 throw err;
             }
             else{
+                console.log(result[0].password);
                 if(result[0].password){
                     bcrypt.compare(password,result[0].password,function(err2,result2){
                         if(err2){
@@ -302,17 +304,34 @@ users.post('/login', function(req,res){
                         }
                         else{
                             if(result2 == true){
-                                req.session.userId = username;
-                                res.send('logged');
+                                req.session.userId = req.body.username;
+                                sql.query('select * from user where Id = ?',[result[0].userId],function(err3,result3){
+                                    if(err3){
+                                        console.log('userlog err3');
+                                        console.log(err3);
+                                        throw err3
+                                    }
+                                    else{
+                                        state = true;
+                                        res1 = result[0];
+                                        res3 = result3[0];
+                                        //res.send('wwwwww');
+                                        res.send({state,res1,res3});
+                                    }
+                                })
                             }
                             else{
-                                res.send('wrong data');
+                                state = false;
+                                message = "wrong data"
+                                res.send({state,message});
                             }
                         }
                     })
                 }
                 else{
-                    res.send('wrong data');
+                    state = false;
+                    message = "wrong data"
+                    res.send({state,message});
                 }
             }
         })
@@ -320,7 +339,9 @@ users.post('/login', function(req,res){
         
     }
     else{
-        res.send('fill all fields'); 
+        state = false;
+        message = "fill all fields"
+        res.send({state,message}); 
     }
 });
 
