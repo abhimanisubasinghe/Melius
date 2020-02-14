@@ -1,6 +1,6 @@
 import Page from 'components/Page';
 import React from 'react';
-import { Card, CardBody, CardHeader, Col, Row, Table } from 'reactstrap';
+import { Button, Card, CardBody, CardHeader, Col, Row, Table } from 'reactstrap';
 import axios from 'axios';
 
 const tableTypes = ['', 'bordered', 'striped', 'hover'];
@@ -12,12 +12,12 @@ class ViewOperatorPage extends React.Component{
     
         this.state = {
             operators:[ {
-                name: "",
-                username: "",
-                DOB: "",
-                address: "",
-                contactNumber: "",
-                status: "",
+                name: "abc",
+                username: "abc@abc.com",
+                DOB: "1/4/2020",
+                address: "abc abc abc",
+                contactNumber: "0123456789",
+                status: "0",
                 password: "",
              }
             ]
@@ -25,16 +25,19 @@ class ViewOperatorPage extends React.Component{
     }
 
     componentDidMount() {
-        axios.get(`http://localhost:5001/Users/selectAll`)
+        
+          axios.get(`http://localhost:5001/Users/viewUser`)
           .then(res => {
-              
-            //console.log("data "+res.data)
-              
             const operators = res.data;
             this.setState({ operators });
           })
           
     }
+
+    setStatus = () => {
+
+    }
+
     render(){    
     return (
         <Page
@@ -48,7 +51,6 @@ class ViewOperatorPage extends React.Component{
                 <CardHeader>Responsive</CardHeader>
                 <CardBody>
                 <Table responsive>
-                    <thead>
                     <tr className="table-active">
                         <th>#</th>
                         <th>Name</th>
@@ -57,16 +59,20 @@ class ViewOperatorPage extends React.Component{
                         <th>Address</th>
                         <th>Contact Number</th>
                         <th>Status</th>
+                        <th></th>
                     </tr>
-                    </thead>
-                    <tbody>
-                    <tr>
-                        <th scope="row">1</th>
-                        { this.state.operators.map((obj,i) => 
-                         <td>{obj}</td>)
-                        }
-                    </tr>
-                    </tbody>
+                    { this.state.operators.map((operator,i) =>
+
+                                      <tr>
+                                        <th>{i+1}</th>
+                                        <td>{operator.name}</td>
+                                        <td>{operator.username}</td>
+                                        <td>{operator.DOB}</td>
+                                        <td>{operator.address}</td>
+                                        <td>{operator.contactNumber}</td>
+                                        <td>{operator.status!==0 ? "Operator" : "Admin" }</td>
+                                        <td><Button color="info">View</Button></td>
+                                        </tr>)}    
                 </Table>
                 </CardBody>
             </Card>
