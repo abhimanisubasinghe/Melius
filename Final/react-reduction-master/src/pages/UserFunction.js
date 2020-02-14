@@ -9,7 +9,8 @@ export const register = userRes => {
         contactNumber: userRes.contactNumber,
         password: userRes.password,
         address: userRes.address,
-        status: userRes.status
+        status: userRes.status,
+        username: userRes.username
     })
     .then(res => {
         console.log(res.data)
