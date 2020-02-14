@@ -61,6 +61,9 @@ service.post('/addService',function(req,res){
     var category =  req.body.category;
     var name = req.body.name;
     var price =  req.body.price;
+    console.log("name",name);
+    console.log('price',price)
+    console.log("cat",category);
     if(req.session.adminId){
         if(category && name && price){
             sql.query('SELECT serviceId FROM service WHERE name = ? AND category = ?',[name,category],function(err,result){
@@ -78,22 +81,29 @@ service.post('/addService',function(req,res){
                                 throw err1;
                             }
                             else{
-                                sql.query("SELECT * FROM service",function(err2,result2){
-                                    if(err){
-                                        throw err;
-                                    }
-                                    else{
-                                        console.log('service added');
-                                        if(result2.length>0){
-                                            console.log('service added');
-                                            res.json(result2);
+                                if(result1){
+                                    var state = true;
+                                    sql.query("SELECT * FROM service",function(err2,result2){
+                                        if(err){
+                                            throw err;
                                         }
                                         else{
-                                            //console.log('')
-                                            res.json('No any services');
+                                            console.log('service added');
+                                            if(result2.length>0){
+                                                console.log('service added');
+                                                res.send({result2, state});
+                                            }
+                                            else{
+                                                //console.log('')
+                                                res.json('No any services');
+                                            }
                                         }
-                                    }
-                                });
+                                    });
+                                }
+                                else{
+                                    var state = false;
+                                    res.send(state)
+                                }
                             }
                         })
                     }
@@ -102,8 +112,9 @@ service.post('/addService',function(req,res){
         }
     }
     else{
-        
-        res.send('please log as an admin');
+        var message = 'please log as an admin';
+        var state = false;
+        res.send({message, state});
     }
 });
 
