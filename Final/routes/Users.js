@@ -281,19 +281,26 @@ users.post('/delete',function(req,res){
 
 //LOGIN
 users.post('/login', function(req,res){
+    var state;
+    var res1;
+    var res3;
+    var password = req.body.password;
+    var username = req.body.username;
      console.log(req.body.username)
      console.log(req.body.password)
     if(req.body.username && req.body.password){
         console.log('jnvejnvejnv')
-        var password = req.body.password;
-        sql.query('select userId,password from userlogin where username = ?',[username],function(err,result){
+        
+        sql.query('select * from userlogin where username = ?',[username],function(err,result){
+            console.log(result)
             if(err){
                 console.log('dlogusererr1');
                 console.log(err);
                 throw err;
             }
             else{
-                if(result[0].password){
+                console.log(result)
+                if(result.length>0){
                     bcrypt.compare(password,result[0].password,function(err2,result2){
                         if(err2){
                             console.log('userloginerr2');
@@ -303,7 +310,30 @@ users.post('/login', function(req,res){
                         else{
                             if(result2 == true){
                                 req.session.userId = username;
-                                res.send('logged');
+                                sql.query('select * from user where id = ?',[result[0].userId],function(err3,result3){
+                                    if(err3){
+                                        console.log('login err3')
+                                        console.log(err3);
+                                        throw err3
+                                    }
+                                    else{
+                                        if(result3.length>0){
+                                            res.status
+                                            state = true;
+                                            var res1 = result[0];
+                                            var res2 = result3[0];
+                                            console.log('xxxxx')
+                                            console.log(res1)
+                                            console.log(res2);
+                                            console.log('qqqqqq');
+                                            //res.status({state,res2});
+                                            res.send({res2,res1,state});
+                                        }
+                                        else{
+                                            res.send('try again');
+                                        }
+                                    }
+                                })
                             }
                             else{
                                 res.send('wrong data');
