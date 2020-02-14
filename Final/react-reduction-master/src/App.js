@@ -26,7 +26,8 @@ import ProgressPage from './pages/ProgressPage';
 import TablePage from './pages/TablePage';
 import TypographyPage from './pages/TypographyPage';
 import WidgetPage from './pages/WidgetPage';
-import RegisterItemPage from './pages/item/RegisterItemPage'
+import RegisterItemPage from './pages/item/RegisterItemPage';
+import Addservice from './pages/service/Addservice';
 
 // const AlertPage = React.lazy(() => import('pages/AlertPage'));
 // const AuthModalPage = React.lazy(() => import('pages/AuthModalPage'));
@@ -97,6 +98,7 @@ class App extends React.Component {
                 <Route exact path="/input-groups" component={InputGroupPage} />
                 <Route exact path="/charts" component={ChartPage} />
                 <Route exact path="/item-register" component={RegisterItemPage} />
+                <Route exact path="/Addservice" component={Addservice}/>
               </React.Suspense>
             </MainLayout>
             <Redirect to="/" />

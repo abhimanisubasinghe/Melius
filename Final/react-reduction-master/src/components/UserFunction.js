@@ -41,3 +41,25 @@ export const login = user => {
         console.log(err)
     })
 }
+
+export const addService = service => {
+    return axios
+    .post('http://localhost:5001/services/addService', {
+        name: service.name,
+        category: service.category,
+        price: service.price
+    })
+    .then(res => {
+        console.log('eeeeeeeeeeeeee')
+        console.log(res.data.state);
+        //console.log(res.data)
+        
+        localStorage.setItem('servicetoken',res.data)
+        return res.data
+    })
+    .catch(err =>{
+        console.log('log err')
+        console.log(err)
+    })
+}
+

@@ -78,6 +78,7 @@ console.log('jnvvjknvsjnvkjsnvkjsnvjk');
                 }
                 else{
                     if(result1.length>0){
+                        var state = false;
                         res.send('already registered');
                     }
                     else{
@@ -105,10 +106,13 @@ console.log('jnvvjknvsjnvkjsnvkjsnvjk');
                                                 console.log('zzzzzzzzzzzzzzz');
                                                 throw error;
                                             } 
-                            
+                                                if(result){
+                                                    var state = true;
+                                                    res.json({result3,resultFinal,state});
+                                                }
                                              //res.sendFile(path.resolve('../views/home.html',{root:__dirname}));
                                             //res.json("registered!!");
-                                            res.json({data1: result3,resultFinal});
+                                            
                                         });
                                     }
                                 }
@@ -120,10 +124,12 @@ console.log('jnvvjknvsjnvkjsnvkjsnvjk');
         }
         
         else{
-            res.json({error: 'Fill all details!!'});
+            var state = false;
+            res.send({error: 'Fill all details!!',state});
         }  
     }
     else{
+        var state = false;
         res.send('please log as an admin')
     }
 
