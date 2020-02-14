@@ -224,17 +224,19 @@ customers.post('/customerRegistration',function(req,res){
 
 
 customers.get('/customerView',function(req,res){
-        if(!req.session.adminId){
+        if(req.session.adminId){
             res.send('please log as an admin');
         }
         else{
-            sql.query("SELECT * FROM customer",function(err,result){
+            sql.query("SELECT * FROM customer inner join customer_address on customer.Id = customer_address.Id inner join customer_phone on customer.Id = customer_phone.Id ",function(err,result){
                 if(err){
                     throw err;
                 }
                 else{
                     if(result.length>0){
-                        res.json(result);
+                        console.log(result);
+                        var length = result.length;
+                        res.send(result);
                     }
                     else{
                         res.json('No any services');
