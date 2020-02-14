@@ -8,6 +8,8 @@ import componentQueries from 'react-component-queries';
 import { BrowserRouter, Redirect, Route, Switch } from 'react-router-dom';
 import './styles/reduction.scss';
 import Profile from './components/Profile'
+
+import Login from 'pages/AuthPage.js';
 //import { Router } from 'express';
 
 const AlertPage = React.lazy(() => import('pages/AlertPage'));
@@ -27,6 +29,7 @@ const TablePage = React.lazy(() => import('pages/TablePage'));
 const TypographyPage = React.lazy(() => import('pages/TypographyPage'));
 const WidgetPage = React.lazy(() => import('pages/WidgetPage'));
 const RegisterItemPage = React.lazy(() => import('pages/item/RegisterItemPage'));
+
 
 const getBasename = () => {
   return `/${process.env.PUBLIC_URL.split('/').pop()}`;
@@ -79,6 +82,7 @@ class App extends React.Component {
                 <Route exact path="/input-groups" component={InputGroupPage} />
                 <Route exact path="/charts" component={ChartPage} />
                 <Route exact path="/item-register" component={RegisterItemPage} />
+                <Route exact path="/login" component={Login} />
               </React.Suspense>
             </MainLayout>
             <Redirect to="/" />
