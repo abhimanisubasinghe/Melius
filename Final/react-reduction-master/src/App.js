@@ -12,23 +12,41 @@ import Profile from './components/Profile'
 import Login from 'pages/AuthPage.js';
 //import { Router } from 'express';
 
-const AlertPage = React.lazy(() => import('pages/AlertPage'));
-const AuthModalPage = React.lazy(() => import('pages/AuthModalPage'));
-const BadgePage = React.lazy(() => import('pages/BadgePage'));
-const ButtonGroupPage = React.lazy(() => import('pages/ButtonGroupPage'));
-const ButtonPage = React.lazy(() => import('pages/ButtonPage'));
-const CardPage = React.lazy(() => import('pages/CardPage'));
-const ChartPage = React.lazy(() => import('pages/ChartPage'));
-const DashboardPage = React.lazy(() => import('pages/DashboardPage'));
-const DropdownPage = React.lazy(() => import('pages/DropdownPage'));
-const FormPage = React.lazy(() => import('pages/FormPage'));
-const InputGroupPage = React.lazy(() => import('pages/InputGroupPage'));
-const ModalPage = React.lazy(() => import('pages/ModalPage'));
-const ProgressPage = React.lazy(() => import('pages/ProgressPage'));
-const TablePage = React.lazy(() => import('pages/TablePage'));
-const TypographyPage = React.lazy(() => import('pages/TypographyPage'));
-const WidgetPage = React.lazy(() => import('pages/WidgetPage'));
-const RegisterItemPage = React.lazy(() => import('pages/item/RegisterItemPage'));
+import AlertPage from './pages/AlertPage';
+import AuthModalPage from './pages/AuthModalPage';
+import BadgePage from './pages/BadgePage';
+import ButtonGroupPage from './pages/ButtonGroupPage';
+import ButtonPage from './pages/ButtonPage';
+import CardPage from './pages/CardPage';
+import ChartPage from './pages/ChartPage';
+import DashboardPage from './pages/DashboardPage';
+import DropdownPage from './pages/DropdownPage';
+import FormPage from './pages/FormPage';
+import InputGroupPage from './pages/InputGroupPage';
+import ModalPage from './pages/ModalPage';
+import ProgressPage from './pages/ProgressPage';
+import TablePage from './pages/TablePage';
+import TypographyPage from './pages/TypographyPage';
+import WidgetPage from './pages/WidgetPage';
+import RegisterItemPage from './pages/item/RegisterItemPage'
+
+// const AlertPage = React.lazy(() => import('pages/AlertPage'));
+// const AuthModalPage = React.lazy(() => import('pages/AuthModalPage'));
+// const BadgePage = React.lazy(() => import('pages/BadgePage'));
+// const ButtonGroupPage = React.lazy(() => import('pages/ButtonGroupPage'));
+// const ButtonPage = React.lazy(() => import('pages/ButtonPage'));
+// const CardPage = React.lazy(() => import('pages/CardPage'));
+// const ChartPage = React.lazy(() => import('pages/ChartPage'));
+// const DashboardPage = React.lazy(() => import('pages/DashboardPage'));
+// const DropdownPage = React.lazy(() => import('pages/DropdownPage'));
+// const FormPage = React.lazy(() => import('pages/FormPage'));
+// const InputGroupPage = React.lazy(() => import('pages/InputGroupPage'));
+// const ModalPage = React.lazy(() => import('pages/ModalPage'));
+// const ProgressPage = React.lazy(() => import('pages/ProgressPage'));
+// const TablePage = React.lazy(() => import('pages/TablePage'));
+// const TypographyPage = React.lazy(() => import('pages/TypographyPage'));
+// const WidgetPage = React.lazy(() => import('pages/WidgetPage'));
+// const RegisterItemPage = React.lazy(() => import('pages/item/RegisterItemPage'));
 
 
 const getBasename = () => {
