@@ -31,6 +31,7 @@ import WidgetPage from './pages/WidgetPage';
 import RegisterItemPage from './pages/item/RegisterItemPage'; 
 import RegisterStoragePage from './pages/storage/RegisterStoragePage';
 import RegisterOperatorPage from './pages/operator/RegisterOperatorPage';
+import ViewOperatorPage from './pages/operator/ViewOperatorPage';
 
 
 const getBasename = () => {
@@ -86,6 +87,7 @@ class App extends React.Component {
                 <Route exact path="/item-register" component={RegisterItemPage} />
                 <Route exact path="/storage-register" component={RegisterStoragePage} />
                 <Route exact path="/operator-register" component={RegisterOperatorPage} />
+                <Route exact path="/operator-view" component={ViewOperatorPage} />
                 <Route exact path="/login" component={Login} />
               </React.Suspense>
             </MainLayout>
