@@ -4,12 +4,9 @@
   "private": false,
   "homepage": "https://reduction-admin.github.io/react-reduction",
   "dependencies": {
-<<<<<<< HEAD
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.4.0",
     "@testing-library/user-event": "^7.2.1",
-=======
->>>>>>> 8777323beb8d2a1ba65a1d785af3bb79e9bc66ce
     "axios": "^0.19.2",
     "bootstrap": "4.3.1",
     "chart.js": "2.7.2",
@@ -19,12 +16,9 @@
     "nouislider": "^14.1.1",
     "prop-types": "^15.7.2",
     "react": "^16.8.4",
-<<<<<<< HEAD
     "jshint": "^2.11.0",
     "jwt-decode": "^2.2.0",
-=======
     "react-bootstrap-switch": "^15.5.3",
->>>>>>> 8777323beb8d2a1ba65a1d785af3bb79e9bc66ce
     "react-chartjs-2": "^2.7.4",
     "react-component-queries": "^2.3.0",
     "react-d3-map": "^0.8.3",
