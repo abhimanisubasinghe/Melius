@@ -360,6 +360,32 @@ users.post('/login', function(req,res){
     }
 });
 
+//USER VIEW
+users.get('/viewUser',function(req,res){
+    if(!req.session.userId || !req.session.adminId){
+        sql.query('select * from user inner join userLogin on user.Id = userLogin.userId;',function(err,result){
+            if(err){
+                console.log('err viewuser')
+                console.log(err);
+                throw err;
+            }
+            else{
+                if(result.length>0){
+                    var state = true;
+                    var res1 = result[0];
+                    res.send({state, res1});
+                }
+                else{
+                    console.log('not work');
+                }
+            }
+        })
+    }
+    else{
+        res.send('please log');
+    }
+})
+
 //PROFILE
 users.get('/profile', function(req,res){
     console.log('tytytytytyty');
