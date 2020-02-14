@@ -59,7 +59,7 @@ function SectionExamples() {
               <Button
                 className="btn-outline-neutral btn-round"
                 color="default"
-                href="/profile-page"
+                href="http://localhost:3000/"
                 target="_blank"
               >
                 Inventory

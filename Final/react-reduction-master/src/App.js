@@ -25,11 +25,6 @@ const TablePage = React.lazy(() => import('pages/TablePage'));
 const TypographyPage = React.lazy(() => import('pages/TypographyPage'));
 const WidgetPage = React.lazy(() => import('pages/WidgetPage'));
 const RegisterItemPage = React.lazy(() => import('pages/item/RegisterItemPage'));
-const WelcomeIndex = React.lazy(() => import('pages/welcome/Index.js'));
-const NucleoIcons = React.lazy(() => import('pages/welcome/NucleoIcons.js'));
-const LandingPage = React.lazy(() => import('pages/welcome/examples/LandingPage.js'));
-const ProfilePage = React.lazy(() => import('pages/welcome/examples/ProfilePage.js'));
-const RegisterPage = React.lazy(() => import('pages/welcome/examples/RegisterPage.js'));
 
 const getBasename = () => {
   return `/${process.env.PUBLIC_URL.split('/').pop()}`;
@@ -81,31 +76,6 @@ class App extends React.Component {
                 <Route exact path="/input-groups" component={InputGroupPage} />
                 <Route exact path="/charts" component={ChartPage} />
                 <Route exact path="/item-register" component={RegisterItemPage} />
-                <Route 
-                exact path="/welcome-index" 
-                layout={EmptyLayout}
-                component={props => (<WelcomeIndex {...props} 
-                />)} />
-                <Route
-                  path="/nucleo-icons"
-                  layout={EmptyLayout}
-                  component ={props => <NucleoIcons {...props} />}
-                />
-                <Route
-                  path="/landing-page"
-                  layout={EmptyLayout}
-                  component={props => <LandingPage {...props} />}
-                />
-                <Route
-                  path="/profile-page"
-                  layout={EmptyLayout}
-                  component={props => <ProfilePage {...props} />}
-                />
-                <Route
-                  path="/register-page"
-                  layout={EmptyLayout}
-                  component={props => <RegisterPage {...props} />}
-                />
               </React.Suspense>
             </MainLayout>
             <Redirect to="/" />
