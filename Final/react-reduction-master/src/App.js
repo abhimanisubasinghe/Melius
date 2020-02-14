@@ -101,11 +101,11 @@ class App extends React.Component {
                 <Route exact path="/input-groups" component={InputGroupPage} />
                 <Route exact path="/charts" component={ChartPage} />
                 <Route exact path="/item-register" component={RegisterItemPage} />
-<<<<<<< HEAD
+
                 <Route exact path="/Addservice" component={Addservice}/>
-=======
+
                 <Route exact path="/login" component={Login} />
->>>>>>> 95d303be9fbf81d552b7e3df9a2e64f183ab71da
+
               </React.Suspense>
             </MainLayout>
             <Redirect to="/" />
