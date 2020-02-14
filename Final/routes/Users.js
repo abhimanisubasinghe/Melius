@@ -60,17 +60,17 @@ console.log('jnvvjknvsjnvkjsnvkjsnvjk');
     var username = req.body.username;
     var resultFinal;
     
-    console.log(name);
-    console.log(DOB);
-    console.log(contactNumber);
-    console.log(status);
-    console.log(address);
-    console.log(username);
-    console.log(req.body.password);
+    console.log("name",name);
+    console.log("DOB",DOB);
+    console.log("phone",contactNumber);
+    console.log("status",status);
+    console.log("add",address);
+    console.log("uname",username);
+    console.log("pass",req.body.password);
 
     // const hash = bcrypt.hashSync(password, 10)
     //             password = hash;
-    if(req.session.adminId){
+    if(!req.session.adminId){
         if(name && DOB && address && password && contactNumber && status && username){
             sql.query('SELECT userId FROM userlogin WHERE username = ?',[username],function(err1,result1){
                 if(err1){
@@ -375,9 +375,10 @@ users.get('/viewUser',function(req,res){
             }
             else{
                 if(result.length>0){
-                    var state = true;
-                    var res1 = result[0];
-                    res.send({state, res1});
+                    //var state = true;
+                    //var res1 = result[0];
+                    res.json(result);
+                    //res.send({state, res1});
                 }
                 else{
                     console.log('not work');
