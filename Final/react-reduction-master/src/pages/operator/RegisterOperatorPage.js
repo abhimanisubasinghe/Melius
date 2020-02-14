@@ -1,6 +1,6 @@
 import Page from 'components/Page';
 import React from 'react';
-import { register } from '../UserFunction';
+import { register } from './UserFunction';
 import {
   Button,
   Card,

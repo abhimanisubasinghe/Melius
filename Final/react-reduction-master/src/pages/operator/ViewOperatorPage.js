@@ -60,6 +60,7 @@ class ViewOperatorPage extends React.Component{
                         <th>Contact Number</th>
                         <th>Status</th>
                         <th></th>
+                        <th></th>
                     </tr>
                     { this.state.operators.map((operator,i) =>
 
