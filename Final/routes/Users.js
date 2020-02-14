@@ -171,8 +171,9 @@ users.post('/userUpdateByAdmin',function(req,res){
                     }
                     else{
                         if(result1 == true){
+                            var state = true,
                             var done= "updated";
-                            res.send({data: resultFinal,result1,done});
+                            res.send({state,done});
                         }
                         else{
                             res.send('update not done');
