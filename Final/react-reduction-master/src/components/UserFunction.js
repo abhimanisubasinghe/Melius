@@ -1,5 +1,7 @@
 import axios from 'axios';
 
+
+//USER
 export const register = userRes => {
     console.log(userRes);
     return axios
@@ -65,17 +67,52 @@ export const addService = service => {
 
 export const selectUser = user => {
     return axios
-    .get('http://localhost:5001/services/viewUser',{
+    .get('http://localhost:5001/users/viewUser',{
 
     })
     .then(res => {
         console.log('come resposnse')
         console.log(res.data)
         console.log(res.data.state);
-        localStorage.setItem('servicetoken',res.data);
+        localStorage.setItem('usertoken',res.data);
         return res.data;
     })
     .catch(err =>{
+        console.log('err');
+        console.log(err);
+    })
+}
+
+export const updateUser = user => {
+    return axios
+    .post('http://localhost:5001/users/userUpdateByUser', {
+        username: user.username,
+        password: user.password,
+    })
+    .then(res => {
+        console.log('come response');
+        console.log(res.data.state);
+        localStorage.setItem('usertoken',res.data);
+        return res.data;
+    })
+    .catch(err => {
+        console.log('err');
+        console.log(err);
+    })
+}
+
+export const deleteUser = user => {
+    return axios
+    .post('http://localhost:5001/users/delete', {
+        username: user.username,
+    })
+    .then(res => {
+        console.log('come response');
+        console.log(res.data.state);
+        localStorage.setItem('usertoken',res.data);
+        return res.data;
+    })
+    .catch(err => {
         console.log('err');
         console.log(err);
     })

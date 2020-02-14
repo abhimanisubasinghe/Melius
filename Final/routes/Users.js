@@ -209,7 +209,8 @@ users.post('/userUpdateByUser',function(req,res){
                                 }
                                 else{
                                     if(result2.length>0){
-                                        res.json({data: result2});
+                                        var state = true;
+                                        res.json({state,result2});
                                     }
                                     else{
                                         res.send('not update')
@@ -238,7 +239,7 @@ users.post('/userUpdateByUser',function(req,res){
 users.post('/delete',function(req,res){
     var username = req.body.username;
     if(req.session.adminId){
-        sql.query('select * from userlogin where username = ?',[name],function(err,result){
+        sql.query('select * from userlogin where username = ?',[username],function(err,result){
             if(err){
                 console.log('deleteusererr1');
                 console.log(err);
@@ -262,7 +263,9 @@ users.post('/delete',function(req,res){
                                     }
                                     else{
                                         if(result3){
-                                            res.send('deleted');
+                                            var state = true;
+                                            var message = 'deleted';
+                                            res.send({state,message});
                                         }
                                         else{
                                             res.send('try again');

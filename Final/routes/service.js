@@ -34,7 +34,7 @@ service.use(cors());
 
 
 //go to service and display
-service.get('/view',function(req,res){
+service.get('/serviceView',function(req,res){
     if(req.session.adminId){
         res.send('please log as an admin');
     }
@@ -45,6 +45,7 @@ service.get('/view',function(req,res){
             }
             else{
                 if(result.length>0){
+                    
                     res.json(result);
                 }
                 else{
