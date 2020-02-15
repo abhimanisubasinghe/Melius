@@ -67,7 +67,7 @@ export default class InvoiceServicePrint extends Component {
             <td>{this.state.discount}</td>
           </tr>
           <tr>
-            <td>Paid</td>
+            <td>price</td>
             <td>{this.state.sub_total}</td>
           </tr>
         </tbody>

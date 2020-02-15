@@ -34,7 +34,7 @@ service.use(cors());
 
 
 //go to service and display
-service.get('/serviceView',function(req,res){
+service.get('/viewService',function(req,res){
     if(req.session.adminId){
         res.send('please log as an admin');
     }
@@ -45,8 +45,8 @@ service.get('/serviceView',function(req,res){
             }
             else{
                 if(result.length>0){
-
-                    res.json(result);
+                    var state = true;
+                    res.json({result,state});
                 }
                 else{
                     res.json('No any services');
@@ -216,6 +216,35 @@ service.post('/serviceRemove',function(req,res){
         else{
             res.send('please log as an admin')
         }
+    }
+})
+
+//SEARCH SINGLE SERVICE
+service.post('/search',function(req,res){
+    var searchId = req.body.searchId;
+    if(!req.session.userId || !req.session.adminId){
+        sql.query('select * from service where serviceId = ?',[searchId],function(err,result){
+            if(err) {
+                console.log('servicesearch err');
+                console.log(err);
+            }
+            else{
+                if(result.length>0){
+                    var state = true;
+                    console.log('done');
+                    res.send(result);
+                }
+                else{
+                    console.log('no data');
+                    res.send('no data');
+                }
+            }
+        })
+    }
+    else{
+        var state = false;
+        var message = "not work"
+        res.send({state,message});
     }
 })
 

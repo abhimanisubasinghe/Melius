@@ -461,10 +461,7 @@ users.post('/search',function(req,res){
             }
             else{
                 if(result.length>0){
-                    //var state = true;
-                    //var res1 = result[0];
                     res.json(result);
-                    //res.send({state, res1});
                 }
                 else{
                     console.log('not work');

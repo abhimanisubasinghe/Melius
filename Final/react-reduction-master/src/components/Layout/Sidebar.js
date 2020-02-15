@@ -80,8 +80,11 @@ const navInventoryItems = [
 ];
 
 const navService = [
-  { to: '/addservice', name: 'addservice', exact: false, Icon: MdAddCircle },
+  { to: '/service-add', name: 'addservice', exact: false, Icon: MdAddCircle },
   { to: '/new-invoice', name: 'newinvoice', exact: false, Icon: MdAddCircle },
+  { to: '/service-view', name: 'serviceview', exact: false, Icon: MdAddCircle },
+  { to: '/service-profile', name: 'serviceprofile', exact: false, Icon: MdAddCircle },
+  { to: '/printInvoiceService', name: 'printservice', exact: false, Icon: MdAddCircle },
 
 ];
 
