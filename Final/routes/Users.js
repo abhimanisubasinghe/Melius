@@ -153,9 +153,15 @@ users.post('/userUpdateByAdmin',function(req,res){
     var resultFinal;
     console.log("fifoefaefrawiorawlriekailriea");
     console.log("id",id);
+    console.log("name",name);
+    console.log("DOB",DOB);
+    console.log("address",address);
+    console.log("c#",contactNumber);
+    console.log("status",status);
+    console.log("password",password);
+    console.log("userna",username);
 
-
-    var password = req.body.password;
+    //var password = req.body.password;
     if(!req.session.adminId){
         if(id && name && DOB && address && password && contactNumber && status && username){
             bcrypt.hash(password, 10, function(err, hash){
@@ -167,19 +173,20 @@ users.post('/userUpdateByAdmin',function(req,res){
                     else{
                         sql.query('UPDATE userlogin SET username = ?, password = ? WHERE userId = ?',[username,hash,id],function(err1,result1){
                             if(err1){
+
                                 throw err1;
                             }
                             else{
-                                if(result1 == true){
+                                if(result1){
                                     console.log("update success");
                                     //res.send("Updated successful");
                                     //res.json({data: result});
                                     console.log("res",result);
                                     resultFinal = result;
                                     res.json(result);
-                                    var state = true;
-                                    var done= "updated";
-                                    res.send({state,done});
+                                    //var state = true;
+                                    //var done= "updated";
+                                    //res.send({state,done});
                                 }
                                 else{
                                     res.send('update not done');
@@ -248,8 +255,9 @@ users.post('/userUpdateByUser',function(req,res){
 
 //USER DELETE
 users.post('/delete',function(req,res){
+    console.log("bajioae");
     var username = req.body.username;
-    if(req.session.adminId){
+    if(!req.session.adminId){
         sql.query('select * from userlogin where username = ?',[username],function(err,result){
             if(err){
                 console.log('deleteusererr1');

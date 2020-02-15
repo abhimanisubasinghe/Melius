@@ -153,9 +153,25 @@ customers.post('/customerRegistration',function(req,res){
                                                                         throw err5;
                                                                     }else{
                                                                         if(result5){
-                                                                            var state = true;
-                                                                            var message = "registered successfull";
-                                                                            res.send({message,state});
+                                                                            console.log("plz")
+                                                                            sql.query('select count(Id)  as count from customer',function(err6,result6){
+                                                                                console.log("plzzzz")
+                                                                                            if(err6){
+                                                                                                    throw err6;                                                                                    console.log("plzzzz")
+
+
+                                                                                            }else{
+                                                                                                if(result6){
+                                                                                                    console.log(result6);
+                                                                                                    var state = true;
+                                                                                                    var message = "registered successfull";
+                                                                                                    res.send({message,state});
+
+                                                                                                }
+                                                                                                
+                                                                                            }
+                                                                            })
+                                                                          
                                                                         }
                                                                         else{
                                                                             res.send('phone number not inserted')
@@ -196,16 +212,22 @@ customers.post('/customerRegistration',function(req,res){
     
     //CUSTOMER DATA UPDATE
     customers.post('/customerUpdate',function(req,res){
-        var id = req.body.customerId;
-        var name = req.body.customerName;
-        var nic = req.body.customerNIC;
-        var phone = req.body.phone;
+        console.log("magula")
+    
+        var Id = req.body.Id;
+        var name = req.body.name;
+        var NIC = req.body.NIC;
+        var fax = req.body.fax;
+        var type = req.body.type;
         var email = req.body.email;
+        var website = req.body.website;
         var address = req.body.address;
-        var vehicles = req.body.noOfVehicle;
-        if(req.session.userId){
-            if(id && name && nic && phone && email && address && vehicles ){
-                sql.query('UPDATE customer SET customerName = ?, phone = ?, email = ?, address =? , noOfVehicle = ? WHERE customerId = ? AND customerNIC = ? ',[name,phone,email,address,vehicles,id,nic], function(err, result){
+        var phoneNo = req.body.phoneNo;
+        var DOB = req.body.DOB;
+        var note = req.body.note;
+        if(!req.session.userId){
+            if(Id && name && NIC && fax && type && email  && website && address && phoneNo && DOB && note ){
+                sql.query('UPDATE customer SET Id = ? ,name = ?,NIC = ? , fax = ?,type = ?, email = ?,website = ? ,address =? , phoneNo = ?, DOB =?, note= ? WHERE Id = ? AND NIC = ? ',[Id,name,NIC,fax,email,website,address,phoneNo,DOB,note,Id,NIC], function(err, result){
                     if (err) {
                         throw err;
                     }
@@ -249,12 +271,41 @@ customers.get('/customerView',function(req,res){
                         res.send({result,state});
                     }
                     else{
-                        res.json('No any services');
+                        res.json('No any customers');
                     }
                 }
             });
         }
     });
     
+    customers.post('/search',function(req,res){
+        console.log("foeiajfej");
+        if(!req.session.userId || !req.session.adminId){
+            var searchId = req.body.searchId;
+            console.log(searchId);
+            sql.query('select * from customer  WHERE Id = ?',[searchId],function(err,result){
+                console.log(result);
+                if(err){
+                    console.log('err viewuser')
+                    console.log(err);
+                    throw err;
+                }
+                else{
+                    if(result.length>0){
+                        //var state = true;
+                        //var res1 = result[0];
+                        res.json(result);
+                        //res.send({state, res1});
+                    }
+                    else{
+                        console.log('not work');
+                    }
+                }
+            })
+        }
+        else{
+            res.send('please log');
+        }
+    })
     
     module.exports = customers;

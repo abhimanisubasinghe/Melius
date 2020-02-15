@@ -75,16 +75,22 @@ const navOperator = [
 const navInventoryItems = [
   { to: '/item-register', name: 'register', exact: false, Icon: MdAddCircle },
   { to: '/new-pr', name: 'new purchase requisition', exact: false, Icon: MdAddCircle },
+  { to: '/new-po', name: 'new purchase requisition', exact: false, Icon: MdAddCircle },
   { to: '/storage-register', name: 'storage-register', exact: false, Icon: MdAddCircle },
   { to: '/tables', name: 'tables', exact: false, Icon: MdBorderAll },
 ];
 
 const navService = [
+<<<<<<< HEAD
   { to: '/service-add', name: 'addservice', exact: false, Icon: MdAddCircle },
   { to: '/new-invoice', name: 'newinvoice', exact: false, Icon: MdAddCircle },
   { to: '/service-view', name: 'serviceview', exact: false, Icon: MdAddCircle },
   { to: '/service-profile', name: 'serviceprofile', exact: false, Icon: MdAddCircle },
   { to: '/printInvoiceService', name: 'printservice', exact: false, Icon: MdAddCircle },
+=======
+  { to: '/addService', name: 'add service', exact: false, Icon: MdAddCircle },
+  { to: '/new-invoice', name: 'invoice', exact: false, Icon: MdAddCircle },
+>>>>>>> 30000caa403c9e496c13597f4bf1fbda5d76ed9e
 
 ];
 
@@ -101,6 +107,8 @@ const navCustomers= [
 
 const navVehicle = [
   { to: '/add-vehicle', name: 'register', exact: false, Icon: MdTextFields },
+  { to: '/view-vehicle', name: 'View Vehicle', exact: false, Icon: MdAddCircle },
+
 ];
 
 const pageContents = [

@@ -32,6 +32,27 @@ import RegisterItemPage from './pages/item/RegisterItemPage';
 import AddCustomer from './pages/customer/AddCustomer';
 import ViewCustomer from './pages/customer/ViewCustomer';
 import AddVehicle from './pages/vehicle/AddVehicle';
+
+// const AlertPage = React.lazy(() => import('pages/AlertPage'));
+// const AuthModalPage = React.lazy(() => import('pages/AuthModalPage'));
+// const BadgePage = React.lazy(() => import('pages/BadgePage'));
+// const ButtonGroupPage = React.lazy(() => import('pages/ButtonGroupPage'));
+// const ButtonPage = React.lazy(() => import('pages/ButtonPage'));
+// const CardPage = React.lazy(() => import('pages/CardPage'));
+// const ChartPage = React.lazy(() => import('pages/ChartPage'));
+// const DashboardPage = React.lazy(() => import('pages/DashboardPage'));
+// const DropdownPage = React.lazy(() => import('pages/DropdownPage'));
+// const FormPage = React.lazy(() => import('pages/FormPage'));
+// const InputGroupPage = React.lazy(() => import('pages/InputGroupPage'));
+// const ModalPage = React.lazy(() => import('pages/ModalPage'));
+// const ProgressPage = React.lazy(() => import('pages/ProgressPage'));
+// const TablePage = React.lazy(() => import('pages/TablePage'));
+// const TypographyPage = React.lazy(() => import('pages/TypographyPage'));
+// const WidgetPage = React.lazy(() => import('pages/WidgetPage'));
+// const RegisterItemPage = React.lazy(() => import('pages/item/RegisterItemPage'));
+import AddNewPRPage from './pages/item/AddNewPR';
+import AddNewPOPage from './pages/item/AddNewPO';
+import POTablePage from './pages/item/PO';
 import ServiceInvoice from './pages/service/ServiceInvoice';
 //import AddNewPRPage from './pages/item/AddNewPR';
 import RegisterStoragePage from './pages/storage/RegisterStoragePage';
@@ -43,6 +64,11 @@ import OperatorProfilePage from './pages/operator/OperatorProfilePage';
 import OperatorUpdatePage from './pages/operator/OperatorUpdatePage';
 import ServiceView from './pages/service/ViewService';
 import ServiceProfilePage from './pages/service/ServiceProfile';
+import SingleView from './pages/customer/SingleView';
+import UpdateCustomer from './pages/customer/UpdateCustomer';
+import ViewVehicle from './pages/vehicle/ViewVehicle';
+import Singlevehicle from './pages/vehicle/Singlevehicle';
+import UpdateVehicle from './pages/vehicle/UpdateVehicle';
 
 
 
@@ -97,6 +123,8 @@ class App extends React.Component {
                 <Route exact path="/input-groups" component={InputGroupPage} />
                 <Route exact path="/charts" component={ChartPage} />
                 <Route exact path="/item-register" component={RegisterItemPage} />
+                <Route exact path="/new-pr" component={AddNewPRPage} />
+                <Route exact path="/new-po" component={AddNewPOPage} />
                 {/*<Route exact path="/new-pr" component={AddNewPRPage} />*/}
                 {/* <Route exact path="/new-pr" component={AddNewPRPage} /> */}
                 <Route exact path="/storage-register" component={RegisterStoragePage} />
@@ -113,6 +141,12 @@ class App extends React.Component {
                 <Route exact path="/service-add" component={Addservice}/>
                 <Route exact path="/service-view" component={ServiceView}/>
                 <Route exact path="/service-profile" component={ServiceProfilePage}/>
+                <Route exact path="/addservice" component={Addservice}/>
+                <Route exact path="/singleview" component={SingleView}/>
+                <Route exact path="/updatecustomer" component={UpdateCustomer}/>
+                <Route exact path="/view-vehicle" component={ViewVehicle}/>
+                <Route exact path="/singlevehicle" component={Singlevehicle}/>
+                <Route exact path="/updatevehicle" component={UpdateVehicle}/>
 
               </React.Suspense>
             </MainLayout>

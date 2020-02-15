@@ -33,7 +33,6 @@ class NewInvoice extends React.Component{
         serviceId:"",    
 
         vehicleId: "",
-        total: "",
         discount: "",
         remarks: "",
      
@@ -55,16 +54,15 @@ class NewInvoice extends React.Component{
 
 
   onSubmit(e){
-    e.preventDefault();
-    const invoice1 = {
-        customerId:this.state.customerId,   
-        serviceId:this.state.serviceId,    
-        vehicleId: this.state.vehicleId,
-        total: this.state.total,
-        discount: this.state.discount,
-        remarks: this.state.remarks
-      
-    }
+  e.preventDefault();
+  const invoice1 = {
+      customerId:this.state.customerId,   
+      serviceId:this.state.serviceId,    
+      vehicleId: this.state.vehicleId,
+      discount: this.state.discount,
+      remarks: this.state.remarks
+     
+  }
     console.log('nvjsdnvklsnvsnkndslkvcnsdovnosinvsklnclksnvknskldnvsklvklsnvlks');
     console.log(invoice1);
     invoice(invoice1).then(res => {
@@ -86,6 +84,7 @@ class NewInvoice extends React.Component{
     })
 
   }
+
 
 
   render(){
@@ -133,17 +132,7 @@ class NewInvoice extends React.Component{
                     value={this.state.vehicleId}
                   />
                 </FormGroup>
-                <FormGroup>
-                <Label for="NIC">Total</Label>
-                  <Input
-                    type="number"
-                    name="total"
-                    id="total"
-                    placeholder="total"
-                    onChange={this.onChange}
-                    value={this.state.total}
-                  />
-                </FormGroup>
+                
                 <FormGroup>
                   <Label for="name">Discount</Label>
                   
@@ -188,6 +177,7 @@ class NewInvoice extends React.Component{
   )
   }
 }
+
 
 
 

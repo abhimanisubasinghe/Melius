@@ -101,6 +101,41 @@ export const viewCustomer = userReg=>{
 
 
 
+export const updatecustomer = customer => {
+    console.log("customer",customer);
+    console.log("id",customer.Id);
+    return axios 
+    .post("http://localhost:5001/customers/customerUpdate", {
+            Id: customer.Id,
+            name: customer.name,
+            fax: customer.fax,
+            NIC: customer.NIC,
+            type: customer.type,
+            email: customer.email,
+            website: customer.website,
+            address: customer.address,
+            phoneNo: customer.phoneNo,
+            DOB: customer.DOB,
+            note: customer.note,
+    })
+    .then(res => {
+        console.log('come response');
+       // console.log(res.data);
+        //localStorage.setItem('usertoken',res.data);
+        //return res.data;
+        console.log('eeeeeeeeeeeeee')
+        //console.log(res.data.state);
+        console.log(res.data)
+        
+        return res.data;
+    })
+    .catch(err => {
+        console.log('err');
+        console.log(err);
+    })
+}
+
+
 export const registerVehicle = userReg=>{
     console.log(userReg);
     return axios
@@ -121,6 +156,56 @@ export const registerVehicle = userReg=>{
     })
     .catch(err=>{
         console.log("not registered")
+        console.log(err);
+    })
+}
+
+export const vehiclesearch = user => {
+    console.log("user",user);
+    console.log(user.searchId);
+    return axios
+    .post('http://localhost:5001/vehicles/search', {
+        searchId: user.searchId,
+    })
+    .then(res => {
+        console.log('eeeeeeeeeeeeee')
+        //console.log(res.data.state);
+        console.log(res.data)
+        
+        //localStorage.setItem('usertoken',res.data)
+        return res.data;
+    })
+    .catch(err =>{
+        console.log('log err')
+        console.log(err)
+    })
+}
+
+export const updatevehicle = user => {
+    console.log("userfn",user);
+    console.log("id",user.id);
+    return axios 
+    .post("http://localhost:5001/vehicles/updatevehicle", {
+            Id: user.Id,
+            vehicle: user.vehicle,
+            category: user.category,
+            type: user.type,
+            mileage: user.mileage,
+            custId: user.custId,
+    })
+    .then(res => {
+        console.log('come response');
+       // console.log(res.data);
+        //localStorage.setItem('usertoken',res.data);
+        //return res.data;
+        console.log('eeeeeeeeeeeeee')
+        //console.log(res.data.state);
+        console.log(res.data)
+        
+        return res.data;
+    })
+    .catch(err => {
+        console.log('err');
         console.log(err);
     })
 }
@@ -190,6 +275,8 @@ export const selectUser = user => {
         console.log(err);
     })
 }
+
+
 
 export const updateUser = user => {
     return axios
@@ -265,4 +352,23 @@ export const viewService = service => {
         console.log(err);
     })
 }
-
+export const customersearch = user => {
+    console.log("user",user);
+    console.log(user.searchId);
+    return axios
+    .post('http://localhost:5001/customers/search', {
+        searchId: user.searchId,
+    })
+    .then(res => {
+        console.log('eeeeeeeeeeeeee')
+        //console.log(res.data.state);
+        console.log(res.data)
+        
+        //localStorage.setItem('usertoken',res.data)
+        return res.data;
+    })
+    .catch(err =>{
+        console.log('log err')
+        console.log(err)
+    })
+}
