@@ -45,6 +45,7 @@ app.use(flash());
 app.use('/items', itemRouter);
 app.use('/transfer', itemTransRouter);
 app.use('/reorder', reorderRouter);
+app.use('/storage', storageRouter);
 
 
 
