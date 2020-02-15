@@ -309,8 +309,9 @@ users.post('/login', function(req,res){
                 throw err;
             }
             else{
-                console.log(result)
                 if(result.length>0){
+                    console.log(result)
+                if(result[0].status>0){
                     bcrypt.compare(password,result[0].password,function(err2,result2){
                         if(err2){
                             console.log('userloginerr2');
@@ -352,6 +353,50 @@ users.post('/login', function(req,res){
                     })
                 }
                 else{
+                    //
+                    bcrypt.compare(password,result[0].password,function(err4,result4){
+                        if(err2){
+                            console.log('userloginerr4');
+                            console.log(err4);
+                            throw err4;
+                        }
+                        else{
+                            if(result4 == true){
+                                req.session.adminId = username;
+                                sql.query('select * from user where id = ?',[result[0].userId],function(err5,result5){
+                                    if(err3){
+                                        console.log('login err5')
+                                        console.log(err5);
+                                        throw err5
+                                    }
+                                    else{
+                                        if(result5.length>0){
+                                            res.status
+                                            state = true;
+                                            var res1 = result[0];
+                                            var res2 = result5[0];
+                                            console.log('xxxxx')
+                                            console.log(res1)
+                                            console.log(res2);
+                                            console.log('qqqqqq');
+                                            //res.status({state,res2});
+                                            res.send({res2,res1,state});
+                                        }
+                                        else{
+                                            res.send('try again');
+                                        }
+                                    }
+                                })
+                            }
+                            else{
+                                res.send('wrong data');
+                            }
+                        }
+                    })
+                }
+                }
+                else{
+                    console.log('wrong data')
                     res.send('wrong data');
                 }
             }
