@@ -105,11 +105,14 @@ console.log('jnvvjknvsjnvkjsnvkjsnvjk');
                                             if(error){
                                                 console.log('zzzzzzzzzzzzzzz');
                                                 throw error;
-                                            } 
-                                                if(result){
+                                            }
+                                             else{
+                                                if(result3){
                                                     var state = true;
                                                     res.json({result3,resultFinal,state});
                                                 }
+                                            }
+                                                
                                              //res.sendFile(path.resolve('../views/home.html',{root:__dirname}));
                                             //res.json("registered!!");
                                             
@@ -162,28 +165,30 @@ users.post('/userUpdateByAdmin',function(req,res){
                         throw err;
                     }
                     else{
-                        console.log("update success");
-                        //res.send("Updated successful");
-                        //res.json({data: result});
-                        resultFinal = result;
-                        res.json(result);
+                        sql.query('UPDATE userlogin SET username = ?, password = ? WHERE userId = ?',[username,hash,id],function(err1,result1){
+                            if(err1){
+                                throw err1;
+                            }
+                            else{
+                                if(result1 == true){
+                                    console.log("update success");
+                                    //res.send("Updated successful");
+                                    //res.json({data: result});
+                                    console.log("res",result);
+                                    resultFinal = result;
+                                    res.json(result);
+                                    var state = true;
+                                    var done= "updated";
+                                    res.send({state,done});
+                                }
+                                else{
+                                    res.send('update not done');
+                                }
+                            }
+                        })
+                        
                     }
 
-                });
-                sql.query('UPDATE userlogin SET username = ?, password = ? WHERE userId = ?',[username,hash,id],function(err1,result1){
-                    if(err1){
-                        throw err1;
-                    }
-                    else{
-                        if(result1 == true){
-                            var state = true;
-                            var done = "updated";
-                            res.send({state,done});
-                        }
-                        else{
-                            res.send('update not done');
-                        }
-                    }
                 })
             });
         }

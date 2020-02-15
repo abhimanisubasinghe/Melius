@@ -65,7 +65,7 @@ service.post('/addService',function(req,res){
     console.log("name",name);
     console.log('price',price)
     console.log("cat",category);
-    if(req.session.adminId){
+    if(!req.session.adminId){
         if(category && name && price){
             sql.query('SELECT serviceId FROM service WHERE name = ? AND category = ?',[name,category],function(err,result){
                 if(err){
@@ -73,6 +73,7 @@ service.post('/addService',function(req,res){
                     throw err;
                 }
                 else{
+                    console.log('qqqq4')
                     if(result.length>0){
                         res.send('service already exist');
                     }
@@ -96,12 +97,14 @@ service.post('/addService',function(req,res){
                                             }
                                             else{
                                                 //console.log('')
+                                                console.log('qqqq1')
                                                 res.json('No any services');
                                             }
                                         }
                                     });
                                 }
                                 else{
+                                    console.log('qqqq')
                                     var state = false;
                                     res.send(state)
                                 }
@@ -113,6 +116,7 @@ service.post('/addService',function(req,res){
         }
     }
     else{
+        console.log('qqqq2')
         var message = 'please log as an admin';
         var state = false;
         res.send({message, state});

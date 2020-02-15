@@ -37,6 +37,8 @@ import ServiceInvoice from './pages/service/ServiceInvoice';
 import RegisterStoragePage from './pages/storage/RegisterStoragePage';
 import RegisterOperatorPage from './pages/operator/RegisterOperatorPage';
 import ViewOperatorPage from './pages/operator/ViewOperatorPage';
+import InvoiceServicePrint from './pages/service/PrintInvoiceService';
+import Addservice from './pages/service/Addservice';
 import OperatorProfilePage from './pages/operator/OperatorProfilePage';
 import OperatorUpdatePage from './pages/operator/OperatorUpdatePage';
 
@@ -105,6 +107,8 @@ class App extends React.Component {
                 <Route exact path="/view-customer" component={ViewCustomer} />
                 <Route exact path="/add-vehicle" component={AddVehicle} />
                 <Route exact path="/new-invoice" component={ServiceInvoice} />
+                <Route exact path="/printInvoiceService" component={InvoiceServicePrint}/>
+                <Route exact path="/addservice" component={Addservice}/>
 
               </React.Suspense>
             </MainLayout>

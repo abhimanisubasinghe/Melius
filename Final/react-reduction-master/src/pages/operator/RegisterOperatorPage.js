@@ -62,7 +62,7 @@ handleSubmit = e => {
         console.log('qqqqqqqqqqqq');
         console.log(res.state);
         if(res.state){
-          this.props.history.push('/',{detail: res})
+          this.props.history.push('/operator-view',{detail: res})
           
         }
         else{

@@ -7,6 +7,7 @@ export const register = userRes => {
     return axios
     .post('http://localhost:5001/users/registration', {
         name: userRes.name,
+        username: userRes.username,
         DOB: userRes.DOB,
         contactNumber: userRes.contactNumber,
         password: userRes.password,
@@ -163,7 +164,6 @@ export const updateAdmin = user => {
         //console.log(res.data.state);
         console.log(res.data)
         
-        //localStorage.setItem('usertoken',res.data)
         return res.data;
     })
     .catch(err => {
