@@ -60,17 +60,17 @@ console.log('jnvvjknvsjnvkjsnvkjsnvjk');
     var username = req.body.username;
     var resultFinal;
     
-    console.log(name);
-    console.log(DOB);
-    console.log(contactNumber);
-    console.log(status);
-    console.log(address);
-    console.log(username);
-    console.log(req.body.password);
+    console.log("name",name);
+    console.log("DOB",DOB);
+    console.log("phone",contactNumber);
+    console.log("status",status);
+    console.log("add",address);
+    console.log("uname",username);
+    console.log("pass",req.body.password);
 
     // const hash = bcrypt.hashSync(password, 10)
     //             password = hash;
-    if(req.session.adminId){
+    if(!req.session.adminId){
         if(name && DOB && address && password && contactNumber && status && username){
             sql.query('SELECT userId FROM userlogin WHERE username = ?',[username],function(err1,result1){
                 if(err1){
@@ -78,6 +78,7 @@ console.log('jnvvjknvsjnvkjsnvkjsnvjk');
                 }
                 else{
                     if(result1.length>0){
+                        var state = false;
                         res.send('already registered');
                     }
                     else{
@@ -105,10 +106,13 @@ console.log('jnvvjknvsjnvkjsnvkjsnvjk');
                                                 console.log('zzzzzzzzzzzzzzz');
                                                 throw error;
                                             } 
-                            
+                                                if(result){
+                                                    var state = true;
+                                                    res.json({result3,resultFinal,state});
+                                                }
                                              //res.sendFile(path.resolve('../views/home.html',{root:__dirname}));
                                             //res.json("registered!!");
-                                            res.json({data1: result3,resultFinal});
+                                            
                                         });
                                     }
                                 }
@@ -120,10 +124,12 @@ console.log('jnvvjknvsjnvkjsnvkjsnvjk');
         }
         
         else{
-            res.json({error: 'Fill all details!!'});
+            var state = false;
+            res.send({error: 'Fill all details!!',state});
         }  
     }
     else{
+        var state = false;
         res.send('please log as an admin')
     }
 
@@ -165,8 +171,9 @@ users.post('/userUpdateByAdmin',function(req,res){
                     }
                     else{
                         if(result1 == true){
+                            var state = true,
                             var done= "updated";
-                            res.send({data: resultFinal,result1,done});
+                            res.send({state,done});
                         }
                         else{
                             res.send('update not done');
@@ -203,7 +210,8 @@ users.post('/userUpdateByUser',function(req,res){
                                 }
                                 else{
                                     if(result2.length>0){
-                                        res.json({data: result2});
+                                        var state = true;
+                                        res.json({state,result2});
                                     }
                                     else{
                                         res.send('not update')
@@ -232,7 +240,7 @@ users.post('/userUpdateByUser',function(req,res){
 users.post('/delete',function(req,res){
     var username = req.body.username;
     if(req.session.adminId){
-        sql.query('select * from userlogin where username = ?',[name],function(err,result){
+        sql.query('select * from userlogin where username = ?',[username],function(err,result){
             if(err){
                 console.log('deleteusererr1');
                 console.log(err);
@@ -256,7 +264,9 @@ users.post('/delete',function(req,res){
                                     }
                                     else{
                                         if(result3){
-                                            res.send('deleted');
+                                            var state = true;
+                                            var message = 'deleted';
+                                            res.send({state,message});
                                         }
                                         else{
                                             res.send('try again');
@@ -299,8 +309,9 @@ users.post('/login', function(req,res){
                 throw err;
             }
             else{
-                console.log(result)
                 if(result.length>0){
+                    console.log(result)
+                if(result[0].status>0){
                     bcrypt.compare(password,result[0].password,function(err2,result2){
                         if(err2){
                             console.log('userloginerr2');
@@ -342,6 +353,50 @@ users.post('/login', function(req,res){
                     })
                 }
                 else{
+                    //
+                    bcrypt.compare(password,result[0].password,function(err4,result4){
+                        if(err2){
+                            console.log('userloginerr4');
+                            console.log(err4);
+                            throw err4;
+                        }
+                        else{
+                            if(result4 == true){
+                                req.session.adminId = username;
+                                sql.query('select * from user where id = ?',[result[0].userId],function(err5,result5){
+                                    if(err3){
+                                        console.log('login err5')
+                                        console.log(err5);
+                                        throw err5
+                                    }
+                                    else{
+                                        if(result5.length>0){
+                                            res.status
+                                            state = true;
+                                            var res1 = result[0];
+                                            var res2 = result5[0];
+                                            console.log('xxxxx')
+                                            console.log(res1)
+                                            console.log(res2);
+                                            console.log('qqqqqq');
+                                            //res.status({state,res2});
+                                            res.send({res2,res1,state});
+                                        }
+                                        else{
+                                            res.send('try again');
+                                        }
+                                    }
+                                })
+                            }
+                            else{
+                                res.send('wrong data');
+                            }
+                        }
+                    })
+                }
+                }
+                else{
+                    console.log('wrong data')
                     res.send('wrong data');
                 }
             }
@@ -353,6 +408,33 @@ users.post('/login', function(req,res){
         res.send('fill all fields'); 
     }
 });
+
+//USER VIEW
+users.get('/viewUser',function(req,res){
+    if(!req.session.userId || !req.session.adminId){
+        sql.query('select * from user inner join userLogin on user.Id = userLogin.userId;',function(err,result){
+            if(err){
+                console.log('err viewuser')
+                console.log(err);
+                throw err;
+            }
+            else{
+                if(result.length>0){
+                    //var state = true;
+                    //var res1 = result[0];
+                    res.json(result);
+                    //res.send({state, res1});
+                }
+                else{
+                    console.log('not work');
+                }
+            }
+        })
+    }
+    else{
+        res.send('please log');
+    }
+})
 
 //PROFILE
 users.get('/profile', function(req,res){

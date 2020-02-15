@@ -34,7 +34,7 @@ service.use(cors());
 
 
 //go to service and display
-service.get('/view',function(req,res){
+service.get('/serviceView',function(req,res){
     if(req.session.adminId){
         res.send('please log as an admin');
     }
@@ -45,6 +45,7 @@ service.get('/view',function(req,res){
             }
             else{
                 if(result.length>0){
+
                     res.json(result);
                 }
                 else{
@@ -61,6 +62,9 @@ service.post('/addService',function(req,res){
     var category =  req.body.category;
     var name = req.body.name;
     var price =  req.body.price;
+    console.log("name",name);
+    console.log('price',price)
+    console.log("cat",category);
     if(req.session.adminId){
         if(category && name && price){
             sql.query('SELECT serviceId FROM service WHERE name = ? AND category = ?',[name,category],function(err,result){
@@ -78,22 +82,29 @@ service.post('/addService',function(req,res){
                                 throw err1;
                             }
                             else{
-                                sql.query("SELECT * FROM service",function(err2,result2){
-                                    if(err){
-                                        throw err;
-                                    }
-                                    else{
-                                        console.log('service added');
-                                        if(result2.length>0){
-                                            console.log('service added');
-                                            res.json(result2);
+                                if(result1){
+                                    var state = true;
+                                    sql.query("SELECT * FROM service",function(err2,result2){
+                                        if(err){
+                                            throw err;
                                         }
                                         else{
-                                            //console.log('')
-                                            res.json('No any services');
+                                            console.log('service added');
+                                            if(result2.length>0){
+                                                console.log('service added');
+                                                res.send({result2, state});
+                                            }
+                                            else{
+                                                //console.log('')
+                                                res.json('No any services');
+                                            }
                                         }
-                                    }
-                                });
+                                    });
+                                }
+                                else{
+                                    var state = false;
+                                    res.send(state)
+                                }
                             }
                         })
                     }
@@ -102,8 +113,9 @@ service.post('/addService',function(req,res){
         }
     }
     else{
-        
-        res.send('please log as an admin');
+        var message = 'please log as an admin';
+        var state = false;
+        res.send({message, state});
     }
 });
 
@@ -133,7 +145,8 @@ service.post('/updateService',function(req,res){
                                     else{
                                         console.log('service updated');
                                         if(result2.length>0){
-                                            res.json(result2);
+                                            var state = true;
+                                            res.send({result2,state});
                                         }
                                         else{
                                             res.json('No any services');
@@ -180,8 +193,10 @@ service.post('/serviceRemove',function(req,res){
                                     }
                                     else{
                                         console.log('service deleted');
-                                        if(result2.length>0){
-                                            res.json(result2);
+                                        if(result2){
+                                            var state = true;
+                                            var message = "deleted"
+                                            res.json(result2,message,state);
                                         }
                                         else{
                                             res.json('No any services');
