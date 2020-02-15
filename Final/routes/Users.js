@@ -172,7 +172,11 @@ users.post('/userUpdateByAdmin',function(req,res){
                     else{
                         if(result1 == true){
                             var state = true;
+<<<<<<< HEAD
                             var done = "updated";
+=======
+                            var done= "updated";
+>>>>>>> 9d3d444454f9bdbcf50ef433a32e3f767419e4ef
                             res.send({state,done});
                         }
                         else{

@@ -44,18 +44,126 @@ export const login = user => {
     })
 }
 
+export const registerCustomer = userReg=>{
+    console.log(userReg);
+    return axios
+    .post('http://localhost:5001/customers/customerRegistration',{
+        name:userReg.name,
+        fax:userReg.fax,    
+        NIC: userReg.NIC,
+        type:userReg.type ,
+
+        email:userReg.email ,
+        website:userReg.website ,
+        address:userReg.address ,
+        phoneNo:userReg.phoneNo ,
+        DOB:userReg.DOB ,
+        note:userReg.note ,
+        
+    })
+    .then(res=>{
+        console.log(res.data);
+        localStorage.setItem("usertoken",res.data)
+        return res.data
+    })
+    .catch(err=>{
+        console.log("not registered")
+        console.log(err);
+    })
+}
+
+export const viewCustomer = userReg=>{
+    console.log(userReg);
+    return axios
+    .post("http://localhost:5001/customer/customerView",{
+        Id:userReg.Id,
+        name:userReg.name,
+        fax:userReg.fax,    
+        NIC: userReg.NIC,
+        type:userReg.type ,
+        email:userReg.email ,
+        website:userReg.website ,
+        address:userReg.address ,
+        phoneNo:userReg.phoneNo ,
+        DOB:userReg.DOB ,
+        note:userReg.note ,
+        
+    })
+    .then(res=>{
+        console.log(res.data);
+        localStorage.setItem("usertoken",res.data)
+        return res.data
+    })
+    .catch(err=>{
+        console.log("not registered")
+    })
+}    
+
+
+
+export const registerVehicle = userReg=>{
+    console.log(userReg);
+    return axios
+    .post('http://localhost:5001/vehicles/vehicleRegistration',{
+        vehicleNo:userReg.vehicleNo,
+        category:userReg.category,    
+        type: userReg.type,
+        mileage:userReg.mileage ,
+
+        custId:userReg.custId ,
+        
+        
+    })
+    .then(res=>{
+        console.log(res.data);
+        localStorage.setItem("usertoken",res.data)
+        return res.data
+    })
+    .catch(err=>{
+        console.log("not registered")
+        console.log(err);
+    })
+}
+
 export const addService = service => {
     return axios
     .post('http://localhost:5001/services/addService', {
         name: service.name,
         category: service.category,
         price: service.price
+
+        
     })
     .then(res => {
         console.log('eeeeeeeeeeeeee')
         console.log(res.data.state);
         //console.log(res.data)
         
+        localStorage.setItem('servicetoken',res.data)
+        return res.data
+    })
+    .catch(err =>{
+        console.log('log err')
+        console.log(err)
+    })
+}
+
+
+export const invoice = servicein => {
+    console.log(servicein);
+    return axios
+    .post('http://localhost:5001/services/newServiceInvoice', { 
+        customerId:servicein.customerId,    
+        serviceId:servicein.serviceId,    
+        vehicleId: servicein.vehicleId,
+        total: servicein.total,
+        discount: servicein.discount,
+        remarks: servicein.remarks,
+    })
+    .then(res => {
+        console.log('eeeeeeeeeeeeee')
+        console.log(res.data.state);
+        //console.log(res.data)
         localStorage.setItem('servicetoken',res.data)
         return res.data
     })

@@ -79,6 +79,7 @@ customers.get('/view',function(req,res){
 */
 //CUSTOMER REGISTRATION
 customers.post('/customerRegistration',function(req,res){
+    console.log('mmmmmmmmeeeeeeeeee')
 
     var name = req.body.name;
     //var NIC = req.body.NIC;
@@ -111,7 +112,7 @@ customers.post('/customerRegistration',function(req,res){
     //console.log(req.session.userId);
 
        // if(req.session.userId)
-        if(req.session.userId)
+        if(!req.session.userId)
         {
             if(name && fax && type && email && website && address && phoneNo && DOB && note){
                 console.log('1111111111111111111');
@@ -133,30 +134,38 @@ customers.post('/customerRegistration',function(req,res){
                                 }
                                 else{
                                     //res.send('register successful');
-                                    if(result2.length>0){
+                                    if(result2){
                                         sql.query('select Id from customer where NIC = ?',[NIC],function(err3,result3){
                                             if(err3){
                                                 throw err3;
                                             }
                                             else{
                                                 if(result3.length>0){
-                                                    sql.query('insert into customer_address (Id,address) values (?,?)',[Id,address],function(err4,reslut4){
+                                                    console.log(result3[0])
+                                                    sql.query('insert into customer_address (Id,address) values (?,?)',[result3[0].Id,address],function(err4,result4){
                                                         if(err4){
                                                             throw err4;
                                                         }
                                                         else{
-                                                            sql.query('insert into customer customer_phone (Id,phoneNo) values (?,?)',[Id,phoneNo],function(err5,result5){
-                                                                if(err5){
-                                                                    throw err5;
-                                                                }else{
-                                                                    if(result5.length>0){
-                                                                        res.send("registered successfull");
+                                                            if(result4){
+                                                                sql.query('insert into customer_phone (Id,phoneNo) values (?,?)',[result3[0].Id,phoneNo],function(err5,result5){
+                                                                    if(err5){
+                                                                        throw err5;
+                                                                    }else{
+                                                                        if(result5){
+                                                                            var state = true;
+                                                                            var message = "registered successfull";
+                                                                            res.send({message,state});
+                                                                        }
+                                                                        else{
+                                                                            res.send('phone number not inserted')
+                                                                        }
                                                                     }
-                                                                    else{
-                                                                        res.send('phone number not inserted')
-                                                                    }
-                                                                }
-                                                            })
+                                                                })
+                                                            }
+                                                            else{
+                                                                res.send('not registered id phone address');
+                                                            }
                                                         }
                                                     })
                                                 }
@@ -236,7 +245,8 @@ customers.get('/customerView',function(req,res){
                     if(result.length>0){
                         console.log(result);
                         var length = result.length;
-                        res.send(result);
+                        var state = true;
+                        res.send({result,state});
                     }
                     else{
                         res.json('No any services');
