@@ -139,3 +139,51 @@ export const deleteUser = user => {
     })
 }
 
+
+export const updateAdmin = user => {
+    return axios 
+    .post("http//localhost:5001/users/updateByAdmin", {
+        id: user.id,
+        username: user.username,
+        name: user.name,
+        DOB: user.DOB,
+        address: user.address,
+        contactNumber: user.contactNumber,
+        password: user.password,
+        status: user.status
+    })
+    .then(res => {
+        console.log('come response');
+       // console.log(res.data);
+        //localStorage.setItem('usertoken',res.data);
+        //return res.data;
+        console.log('eeeeeeeeeeeeee')
+        //console.log(res.data.state);
+        console.log(res.data)
+        
+        //localStorage.setItem('usertoken',res.data)
+        return res.data;
+    })
+    .catch(err => {
+        console.log('err');
+        console.log(err);
+    })
+}
+
+export const viewService = service => {
+    return axios
+    .get('http//localhost:5001/services/viewService', {
+
+    })
+    .then(res => {
+        console.log('come response');
+        console.log(res.data);
+        localStorage.setItem('servicetoken',res.data);
+        return res.data;
+    })
+    .catch(err =>{
+        console.log('err');
+        console.log(err);
+    })
+}
+

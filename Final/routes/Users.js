@@ -149,6 +149,9 @@ users.post('/userUpdateByAdmin',function(req,res){
     var userId ;
     var username = req.body.username;
     var resultFinal;
+    console.log("fifoefaefrawiorawlriekailriea");
+    console.log("id",id);
+
 
     var password = req.body.password;
     if(req.session.adminId){
@@ -156,12 +159,15 @@ users.post('/userUpdateByAdmin',function(req,res){
             bcrypt.hash(password, 10, function(err, hash){
                 sql.query('UPDATE user SET name = ?, DOB = ?, address = ?, contactNumber = ?, status = ? WHERE id = ? ',[name,DOB,address,contactNumber,status,id], function(err, result){
                     if (err) {
+                        console.log("Error in updating");
                         throw err;
                     }
                     else{
+                        console.log("update success");
                         //res.send("Updated successful");
                         //res.json({data: result});
                         resultFinal = result;
+                        res.json(result);
                     }
 
                 });

@@ -1,6 +1,6 @@
 import Page from 'components/Page';
 import React from 'react';
-import { register } from './UserFunction';
+import { register, updateAdmin } from './UserFunction';
 import {
   Button,
   Card,
@@ -25,8 +25,8 @@ class OperatorUpdatePage extends React.Component{
     super(props)
 
     this.state = {
-        operator: {
-            id:"0",
+        
+            Id:"0",
             name: "abc",
             username: "abc@abc.com",
             DOB: "1/4/2020",
@@ -34,7 +34,7 @@ class OperatorUpdatePage extends React.Component{
             contactNumber: "0123456789",
             status: "0",
             password: "",
-         }
+         
     }
     
 }
@@ -49,36 +49,51 @@ componentDidMount(){
     //console.log(this.state.data[0].name)
     if(this.props.location.data){
         const operator = this.props.location.data[0];
-        this.setState({operator})
+        console.log("id",operator.Id)
+        this.setState({
+            Id: operator.Id,
+            name: operator.name,
+            username: operator.username,
+            DOB: operator.DOB,
+            address: operator.address,
+            contactNumber: operator.contactNumber,
+            status: operator.status,
+            password: operator.password,
+        })
     }
 }
 
 handleSubmit = e => { 
     e.preventDefault();
-    console.log("name",this.state.operator.name);
-    console.log("DOB",this.state.operator.DOB);
-    console.log("uname",this.state.operator.username);
-    console.log("address",this.state.operator.address);
+    //console.log("name",this.state.name);
+    //console.log("DOB",this.state.DOB);
+    //console.log("uname",this.state.username);
+    //console.log("address",this.state.address);
     const user = {
-      id : this.state.operator.id,  
-      name : this.state.operator.name,
-      username : this.state.operator.username,
-      DOB : this.state.operator.DOB,
-      address : this.state.operator.address,
-      contactNumber : this.state.operator.contactNumber,
-      status : this.state.operator.status,
-      password : this.state.operator.password
+      id : this.state.Id,  
+      name : this.state.name,
+      username : this.state.username,
+      DOB : this.state.DOB,
+      address : this.state.address,
+      contactNumber : this.state.contactNumber,
+      status : this.state.status,
+      password : this.state.password
     }
-    register(user).then(res => {
+    console.log("user",user);
+    updateAdmin(user).then(res => {
       if(res) {
         console.log('qqqqqqqqqqqq');
-        console.log(res.state);
-        if(res.state){
-          this.props.history.push('/',{detail: res})
+        //console.log(res.state);
+        if(res){
+            this.props.history.push({
+                pathname:'/operator-profile',
+                data: res})
           
         }
         else{
-          this.props.history.push('/operator-register');
+            this.props.history.push({
+                pathname:'/operator-update',
+                data: res})
         }
       }
     })
@@ -86,15 +101,9 @@ handleSubmit = e => {
 }
 
   render(){
-    var date;
-    var m;
-    var d;
-    var y;
-    var n;
-    var yyyymmdd;
   return (
     <div>
-    <Page title="Register Operator" breadcrumbs={[{ name: 'Operator-Register', active: true }]}>
+    <Page title="Update Operator" breadcrumbs={[{ name: 'Operator-Update', active: true }]}>
       <Row>
         <Col>
           <Card>
@@ -108,7 +117,7 @@ handleSubmit = e => {
                     name="name"
                     id="name"
                     placeholder="Name"
-                    value = {this.state.operator.name}
+                    value = {this.state.name}
                     onChange  = {this.onChange}
                   />
                 </FormGroup>
@@ -119,26 +128,18 @@ handleSubmit = e => {
                     name="username"
                     id="username"
                     placeholder="example@cool.com"
-                    value = {this.state.operator.username}
+                    value = {this.state.username}
                     onChange = {this.onChange}
                   />
                 </FormGroup>
-                <FormGroup>
-                {
-                            date = new Date(this.state.operator.DOB),
-                            m = date.getUTCMonth()+1, // Hours   
-                            y = (date.getUTCFullYear()),
-                            d = (date.getUTCDate()),
-                            yyyymmdd = (y)+"."+(m)+"."+(d) ,
-                            n = ''
-                        }    
+                <FormGroup>  
                 <Label for="DOB">Date Of Birth</Label>
                   <Input
-                    type="text"
+                    type="date"
                     name="DOB"
                     id="DOB"
-                    placeholder="time placeholder"
-                    value = {yyyymmdd}
+                    placeholder={this.state.DOB}
+                    value = {this.state.DOB}
                     onChange = {this.onChange}
                   />
                 </FormGroup>
@@ -149,7 +150,7 @@ handleSubmit = e => {
                     name="address"
                     id="address"
                     placeholder="Address"
-                    value = {this.state.operator.address}
+                    value = {this.state.address}
                     onChange = {this.onChange}
                   />
                 </FormGroup>
@@ -160,7 +161,7 @@ handleSubmit = e => {
                     name="contactNumber"
                     id="contactNumber"
                     placeholder="+94XXXXXXXXX"
-                    value = {this.state.operator.contactNumber}
+                    value = {this.state.contactNumber}
                     onChange = {this.onChange}
                   />
                 </FormGroup>
@@ -174,11 +175,11 @@ handleSubmit = e => {
                 <FormGroup>
                   <Label for="password">Password</Label>
                   <Input
-                    type="password"
+                    type="text"
                     name="password"
                     id="password"
                     placeholder="Password"
-                    value = {this.state.operator.password}
+                    value = {this.state.password}
                     onChange = {this.onChange}
                   />
                 </FormGroup>

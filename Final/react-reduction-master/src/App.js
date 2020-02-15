@@ -32,7 +32,7 @@ import RegisterItemPage from './pages/item/RegisterItemPage';
 import AddCustomer from './pages/customer/AddCustomer';
 import ViewCustomer from './pages/customer/ViewCustomer';
 import AddVehicle from './pages/vehicle/AddVehicle';
-import AddNewPRPage from './pages/item/AddNewPR';
+//import AddNewPRPage from './pages/item/AddNewPR';
 import RegisterStoragePage from './pages/storage/RegisterStoragePage';
 import RegisterOperatorPage from './pages/operator/RegisterOperatorPage';
 import ViewOperatorPage from './pages/operator/ViewOperatorPage';
@@ -91,7 +91,7 @@ class App extends React.Component {
                 <Route exact path="/input-groups" component={InputGroupPage} />
                 <Route exact path="/charts" component={ChartPage} />
                 <Route exact path="/item-register" component={RegisterItemPage} />
-                <Route exact path="/new-pr" component={AddNewPRPage} />
+                {/*<Route exact path="/new-pr" component={AddNewPRPage} />*/}
                 <Route exact path="/storage-register" component={RegisterStoragePage} />
                 <Route exact path="/operator-register" component={RegisterOperatorPage} />
                 <Route exact path="/operator-view" component={ViewOperatorPage} />

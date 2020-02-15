@@ -63,7 +63,7 @@ class ViewOperatorPage extends React.Component{
               }
               else{
                 console.log("ERROR");  
-                this.props.history.push('/operator-profile');
+                this.props.history.push('/operator-view');
               }
             }
           })
