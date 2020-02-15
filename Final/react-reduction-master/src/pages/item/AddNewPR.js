@@ -27,7 +27,7 @@ class AddNewPRPage extends React.Component{
         itemcode:"",
         Qty: "",
         description: "",
-        deliveryDate: "",
+        delDate: "",
         storageId: "",
         supplierId: "",
         terms:""
@@ -50,7 +50,7 @@ handleSubmit = e => {
         itemCode:this.state.itemCode,
         Qty:this.state.Qty,
         description:this.state.description,
-        deliveryDate:this.state.delDate,
+        delDate:this.state.delDate,
         storageId:this.state.storageId,
         supplierId:this.state.supplierId,        
         terms:this.state.terms,
@@ -104,7 +104,7 @@ handleSubmit = e => {
                 </FormGroup>
                 <FormGroup>
                   <Label for="exampleText">Description</Label>
-                  <Input type="textarea" name="description" id="description" onChange={this.onChange}/>
+                  <Input type="textarea" name="description" id="description" onChange={this.onChange} value={this.state.description}/>
                 </FormGroup>
                 
                
@@ -117,6 +117,8 @@ handleSubmit = e => {
                     type="text"
                     name="storageId"
                     id="storageId"
+                    onChange={this.onChange}
+                    value={this.state.storageId}
                     placeholder="Storage ID"
                   />
                 </div>
@@ -126,6 +128,8 @@ handleSubmit = e => {
                     type="text"
                     name="supplierId"
                     id="supplierId"
+                    onChange={this.onChange}
+                    value={this.state.supplierId}
                     placeholder="Supplier Id"
                   />
                 </div>  
@@ -137,6 +141,8 @@ handleSubmit = e => {
                     type="date"
                     name="delDate"
                     id="delDate"
+                    onChange={this.onChange}
+                    value={this.state.delDate}
                     placeholder="date placeholder"
                   />
                 </FormGroup>                              
@@ -147,6 +153,8 @@ handleSubmit = e => {
                     type="textarea"
                     name="terms"
                     id="terms"
+                    onChange={this.onChange}
+                    value={this.state.terms}
                     placeholder="termsion"
                   />
                 </FormGroup>
