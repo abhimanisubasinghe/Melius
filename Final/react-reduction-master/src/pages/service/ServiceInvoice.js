@@ -33,7 +33,6 @@ class NewInvoice extends React.Component{
         serviceId:"",    
 
         vehicleId: "",
-        total: "",
         discount: "",
         remarks: "",
      
