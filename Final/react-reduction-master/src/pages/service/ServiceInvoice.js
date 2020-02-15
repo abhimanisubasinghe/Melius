@@ -59,7 +59,6 @@ onSubmit(e){
       customerId:this.state.customerId,   
       serviceId:this.state.serviceId,    
       vehicleId: this.state.vehicleId,
-      total: this.state.total,
       discount: this.state.discount,
       remarks: this.state.remarks
      
@@ -124,17 +123,7 @@ onSubmit(e){
                     value={this.state.vehicleId}
                   />
                 </FormGroup>
-                <FormGroup>
-                <Label for="NIC">Total</Label>
-                  <Input
-                    type="number"
-                    name="total"
-                    id="total"
-                    placeholder="total"
-                    onChange={this.onChange}
-                    value={this.state.total}
-                  />
-                </FormGroup>
+                
                 <FormGroup>
                   <Label for="name">Discount</Label>
                   

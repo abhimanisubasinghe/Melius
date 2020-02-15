@@ -2,6 +2,8 @@ import Page from 'components/Page';
 import React from 'react';
 import { Button, Card, CardBody, CardHeader, Col, Row, Table } from 'reactstrap';
 import axios from 'axios';
+import { customersearch } from 'components/UserFunction';
+
 const tableTypes = [ 'hover'];
 
 class ViewCustomer extends React.Component{
@@ -25,14 +27,43 @@ class ViewCustomer extends React.Component{
           
     }
 
-    setStatus = () => {
+    handleInfo = e => {
+        e.preventDefault();
+        console.log("Hi!",e);
+        console.log(e.target.searchId.value);
+        console.log("hi2")
+        const user = {
+            searchId: e.target.searchId.value
+        }    
+        //console.log("e",e);
+        //searchId.preventDefault();
+        /*const user = {
+            searchId: searchId
+        }*/
+        /*console.log("search",searchId)*/
 
+        customersearch(user).then(res => {
+            if(res) {
+              console.log('qqqqqqqqqqqqq');
+              console.log(res);
+              if(res){
+                this.props.history.push({
+                    pathname:'/operator-profile',
+                    data: res})
+                
+              }
+              else{
+                console.log("ERROR");  
+                this.props.history.push('/operator-view');
+              }
+            }
+          })
     }
 
     render(){    
     return (
         <Page
-        title="Operator"
+        title="Customer"
         breadcrumbs={[{ name: 'View', active: true }]}
         className="TablePage"
         >
@@ -70,7 +101,18 @@ class ViewCustomer extends React.Component{
                             <td>{customer.phoneNo}</td>
                             <td>{customer.DOB}</td>
                             <td>{customer.note}</td>
-                            <td><Button color="info">View</Button></td>
+                            <td>
+                                <form onSubmit={this.handleInfo}>
+                                                <input 
+                                                type="hidden" 
+                                                id="searchId" 
+                                                name="searchId" 
+                                                value={customer.Id} 
+                                                disabled/>
+                                                <Button color="info">View</Button>
+                                            </form>
+
+                            </td>
                             </tr> 
                         )
                     }

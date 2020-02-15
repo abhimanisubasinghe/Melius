@@ -1,6 +1,6 @@
 import Page from 'components/Page';
 import React from 'react';
-import { register } from './UserFunction';
+import { updateAdmin } from './UserFunction';
 import {
   Button,
   Card,
@@ -19,19 +19,22 @@ import {
 } from 'reactstrap';
 import axios from 'axios';
 
-class RegisterOperatorPage extends React.Component{
+class OperatorUpdatePage extends React.Component{
 
   constructor(props) {
     super(props)
 
     this.state = {
-        name: "",
-        username: "",
-        DOB: "",
-        address: "",
-        contactNumber: "",
-        status: "",
-        password: "",
+        
+            Id:"0",
+            name: "abc",
+            username: "abc@abc.com",
+            DOB: "1/4/2020",
+            address: "abc abc abc",
+            contactNumber: "0123456789",
+            status: "0",
+            password: "",
+         
     }
     
 }
@@ -42,13 +45,32 @@ onChange = (e) => {
 )
 }
 
+componentDidMount(){
+    //console.log(this.state.data[0].name)
+    if(this.props.location.data){
+        const operator = this.props.location.data[0];
+        console.log("id",operator.Id)
+        this.setState({
+            Id: operator.Id,
+            name: operator.name,
+            username: operator.username,
+            DOB: operator.DOB,
+            address: operator.address,
+            contactNumber: operator.contactNumber,
+            status: operator.status,
+            password: operator.password,
+        })
+    }
+}
+
 handleSubmit = e => { 
     e.preventDefault();
-    console.log("name",this.state.name);
-    console.log("DOB",this.state.DOB);
-    console.log("uname",this.state.username);
-    console.log("address",this.state.address);
+    //console.log("name",this.state.name);
+    //console.log("DOB",this.state.DOB);
+    //console.log("uname",this.state.username);
+    //console.log("address",this.state.address);
     const user = {
+      id : this.state.Id,  
       name : this.state.name,
       username : this.state.username,
       DOB : this.state.DOB,
@@ -57,16 +79,21 @@ handleSubmit = e => {
       status : this.state.status,
       password : this.state.password
     }
-    register(user).then(res => {
+    console.log("user",user);
+    updateAdmin(user).then(res => {
       if(res) {
         console.log('qqqqqqqqqqqq');
-        console.log(res.state);
-        if(res.state){
-          this.props.history.push('/',{detail: res})
+        //console.log(res.state);
+        if(res){
+            this.props.history.push({
+                pathname:'/operator-profile',
+                data: res})
           
         }
         else{
-          this.props.history.push('/operator-register');
+            this.props.history.push({
+                pathname:'/operator-update',
+                data: res})
         }
       }
     })
@@ -76,7 +103,7 @@ handleSubmit = e => {
   render(){
   return (
     <div>
-    <Page title="Register Operator" breadcrumbs={[{ name: 'Operator-Register', active: true }]}>
+    <Page title="Update Operator" breadcrumbs={[{ name: 'Operator-Update', active: true }]}>
       <Row>
         <Col>
           <Card>
@@ -105,13 +132,13 @@ handleSubmit = e => {
                     onChange = {this.onChange}
                   />
                 </FormGroup>
-                <FormGroup>
+                <FormGroup>  
                 <Label for="DOB">Date Of Birth</Label>
                   <Input
                     type="date"
                     name="DOB"
                     id="DOB"
-                    placeholder="time placeholder"
+                    placeholder={this.state.DOB}
                     value = {this.state.DOB}
                     onChange = {this.onChange}
                   />
@@ -138,41 +165,17 @@ handleSubmit = e => {
                     onChange = {this.onChange}
                   />
                 </FormGroup>
-                <FormGroup tag="fieldset" row>
-                  <Label for="status" sm={2}>
-                    Status
-                  </Label>
-                  <Col sm={10}>
-                    <FormGroup check>
-                      <Label check>
-                        <Input 
-                        type="radio" 
-                        name="status" 
-                        id="status" 
-                        value = "0"
-                        onChange = {this.onChange}
-                         /> 
-                         Admin
-                      </Label>
-                    </FormGroup>
-                    <FormGroup check>
-                      <Label check>
-                      <Input 
-                        type="radio" 
-                        name="status" 
-                        id="status" 
-                        value = "1"
-                        onChange = {this.onChange}
-                         /> 
-                         Operator
-                      </Label>
-                    </FormGroup>
-                  </Col>
+                  <FormGroup>
+                  <Label for="status">Status</Label>
+                  <Input type="select" name="status" id="status" onChange={this.onChange}>
+                    <option value="0" selected>Admin</option>
+                    <option value="1">Operator</option>
+                  </Input>
                 </FormGroup>
                 <FormGroup>
                   <Label for="password">Password</Label>
                   <Input
-                    type="password"
+                    type="text"
                     name="password"
                     id="password"
                     placeholder="Password"
@@ -196,4 +199,4 @@ handleSubmit = e => {
 
 
 
-export default RegisterOperatorPage;
+export default OperatorUpdatePage;

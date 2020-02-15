@@ -146,33 +146,38 @@ users.post('/userUpdateByAdmin',function(req,res){
     var status = req.body.status;
     //var dateOfEmployment = today;
     var password = req.body.password;
-    var userId ;
     var username = req.body.username;
     var resultFinal;
+    console.log("fifoefaefrawiorawlriekailriea");
+    console.log("id",id);
+
 
     var password = req.body.password;
-    if(req.session.adminId){
+    if(!req.session.adminId){
         if(id && name && DOB && address && password && contactNumber && status && username){
             bcrypt.hash(password, 10, function(err, hash){
                 sql.query('UPDATE user SET name = ?, DOB = ?, address = ?, contactNumber = ?, status = ? WHERE id = ? ',[name,DOB,address,contactNumber,status,id], function(err, result){
                     if (err) {
+                        console.log("Error in updating");
                         throw err;
                     }
                     else{
+                        console.log("update success");
                         //res.send("Updated successful");
                         //res.json({data: result});
                         resultFinal = result;
+                        res.json(result);
                     }
 
                 });
-                sql.query('UPDATE userlogin SET username = ?, password = ? WHERE userId = ?',[username,password,id],function(err1,result1){
+                sql.query('UPDATE userlogin SET username = ?, password = ? WHERE userId = ?',[username,hash,id],function(err1,result1){
                     if(err1){
                         throw err1;
                     }
                     else{
                         if(result1 == true){
                             var state = true;
-                            var done= "updated";
+                            var done = "updated";
                             res.send({state,done});
                         }
                         else{
@@ -413,6 +418,37 @@ users.post('/login', function(req,res){
 users.get('/viewUser',function(req,res){
     if(!req.session.userId || !req.session.adminId){
         sql.query('select * from user inner join userLogin on user.Id = userLogin.userId;',function(err,result){
+            if(err){
+                console.log('err viewuser')
+                console.log(err);
+                throw err;
+            }
+            else{
+                if(result.length>0){
+                    //var state = true;
+                    //var res1 = result[0];
+                    res.json(result);
+                    //res.send({state, res1});
+                }
+                else{
+                    console.log('not work');
+                }
+            }
+        })
+    }
+    else{
+        res.send('please log');
+    }
+})
+
+//SINGLE USER VIEW
+users.post('/search',function(req,res){
+    console.log("foeiajfej");
+    if(!req.session.userId || !req.session.adminId){
+        var searchId = req.body.searchId;
+        console.log(searchId);
+        sql.query('select * from user inner join userLogin on user.Id = userLogin.userId WHERE userLogin.username = ?',[searchId],function(err,result){
+            console.log(result);
             if(err){
                 console.log('err viewuser')
                 console.log(err);
