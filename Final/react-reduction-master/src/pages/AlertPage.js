@@ -116,6 +116,7 @@ const AlertPage = () => {
 
       <Row>
         <Col>
+        
           <Card>
             <CardHeader>Additional Content</CardHeader>
             <CardBody>

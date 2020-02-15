@@ -77,7 +77,15 @@ onSubmit(e){
     console.log('come');
     if(res) {
       console.log("rrr");
-      console.log(res.data);
+      console.log(res.state);
+      if(res.state){
+        this.props.history.push('/view-customer');
+
+        
+      }
+      else{
+        this.props.history.push('/',{detail: res})
+      }
     }
     
   })*/
