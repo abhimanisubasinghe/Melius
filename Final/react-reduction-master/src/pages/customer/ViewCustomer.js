@@ -29,8 +29,8 @@ class ViewCustomer extends React.Component{
         
           axios.get(`http://localhost:5001/customers/customerView`)
           .then(res => {
-            const customers = res.data;
-            console.log(res.data);
+            const customers = res.data.result;
+            console.log("reslt",res.data);
             this.setState({ customers });
           })
           
@@ -71,8 +71,8 @@ class ViewCustomer extends React.Component{
                     {
                         this.state.customers.map((customer,i) =>
                             <tr>
-                            <td></td>
-                            <td></td>
+                            <th>{i}+1</th>
+                            <td>{}</td>
                             <td></td>
                             <td></td>
                             <td></td>

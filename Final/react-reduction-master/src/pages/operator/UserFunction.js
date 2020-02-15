@@ -141,8 +141,10 @@ export const deleteUser = user => {
 
 
 export const updateAdmin = user => {
+    console.log("userfn",user);
+    console.log("id",user.id);
     return axios 
-    .post("http//localhost:5001/users/updateByAdmin", {
+    .post("http://localhost:5001/users/userUpdateByAdmin", {
         id: user.id,
         username: user.username,
         name: user.name,

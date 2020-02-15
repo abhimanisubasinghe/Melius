@@ -1,6 +1,6 @@
 import Page from 'components/Page';
 import React from 'react';
-import { register, updateAdmin } from './UserFunction';
+import { updateAdmin } from './UserFunction';
 import {
   Button,
   Card,

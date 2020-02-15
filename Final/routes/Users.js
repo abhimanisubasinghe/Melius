@@ -146,7 +146,6 @@ users.post('/userUpdateByAdmin',function(req,res){
     var status = req.body.status;
     //var dateOfEmployment = today;
     var password = req.body.password;
-    var userId ;
     var username = req.body.username;
     var resultFinal;
     console.log("fifoefaefrawiorawlriekailriea");
@@ -154,7 +153,7 @@ users.post('/userUpdateByAdmin',function(req,res){
 
 
     var password = req.body.password;
-    if(req.session.adminId){
+    if(!req.session.adminId){
         if(id && name && DOB && address && password && contactNumber && status && username){
             bcrypt.hash(password, 10, function(err, hash){
                 sql.query('UPDATE user SET name = ?, DOB = ?, address = ?, contactNumber = ?, status = ? WHERE id = ? ',[name,DOB,address,contactNumber,status,id], function(err, result){
@@ -171,7 +170,7 @@ users.post('/userUpdateByAdmin',function(req,res){
                     }
 
                 });
-                sql.query('UPDATE userlogin SET username = ?, password = ? WHERE userId = ?',[username,password,id],function(err1,result1){
+                sql.query('UPDATE userlogin SET username = ?, password = ? WHERE userId = ?',[username,hash,id],function(err1,result1){
                     if(err1){
                         throw err1;
                     }
