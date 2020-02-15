@@ -14,6 +14,7 @@ var connection = ('./lib/db');
 var itemRouter = require('./routes/item');
 var itemTransRouter = require('./routes/transfer');
 var reorderRouter = require('./routes/reorder');
+var storageRouter = require('./routes/storage');
 
 var app = express();
 
