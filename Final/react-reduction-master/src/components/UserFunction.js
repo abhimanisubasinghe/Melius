@@ -44,7 +44,6 @@ export const login = user => {
     })
 }
 
-<<<<<<< HEAD
 export const registerCustomer = userReg=>{
     console.log(userReg);
     return axios
@@ -96,8 +95,9 @@ export const viewCustomer = userReg=>{
         return res.data
     })
     .catch(err=>{
-        console.log("not registered")
-=======
+        console.log("not registered") 
+    })
+}   
 export const addService = service => {
     return axios
     .post('http://localhost:5001/services/addService', {
@@ -133,12 +133,10 @@ export const selectUser = user => {
     })
     .catch(err =>{
         console.log('err');
->>>>>>> b0a513234622f15c57c490d53cf890b301ddccfd
         console.log(err);
     })
 }
 
-<<<<<<< HEAD
 
 
 export const registerVehicle = userReg=>{
@@ -168,7 +166,6 @@ export const registerVehicle = userReg=>{
     })
 
 }
-=======
 export const updateUser = user => {
     return axios
     .post('http://localhost:5001/users/userUpdateByUser', {
@@ -242,6 +239,5 @@ export const viewService = service => {
         console.log('err');
         console.log(err);
     })
-}
 
->>>>>>> b0a513234622f15c57c490d53cf890b301ddccfd
+}
