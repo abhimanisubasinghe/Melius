@@ -156,6 +156,7 @@ export const invoice = servicein => {
         customerId:servicein.customerId,    
         serviceId:servicein.serviceId,    
         vehicleId: servicein.vehicleId,
+        total: servicein.total,
         discount: servicein.discount,
         remarks: servicein.remarks,
     })
@@ -190,6 +191,34 @@ export const selectUser = user => {
     })
 }
 
+
+export const registerVehicle = userReg=>{
+    console.log(userReg);
+    console.log("hi");
+
+    return axios
+
+    .post('http://localhost:5001/vehicles/vehicleRegistration',{
+
+        vehicleNo:userReg.vehicleNo,
+        type:userReg.type ,      
+        category:userReg.category ,
+        mileage:userReg.mileage,    
+        custId: userReg.custId,
+
+        
+    })
+    .then(res=>{
+        console.log(res.data);
+        localStorage.setItem("usertoken",res.data)
+        return res.data
+    })
+    .catch(err=>{
+        console.log("not registered")
+        console.log(err);
+    })
+
+}
 export const updateUser = user => {
     return axios
     .post('http://localhost:5001/users/userUpdateByUser', {
@@ -264,7 +293,6 @@ export const viewService = service => {
         console.log(err);
     })
 }
-
 export const customersearch = user => {
     console.log("user",user);
     console.log(user.searchId);
@@ -285,5 +313,3 @@ export const customersearch = user => {
         console.log(err)
     })
 }
-
-
