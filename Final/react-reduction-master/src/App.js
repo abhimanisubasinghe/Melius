@@ -62,6 +62,7 @@ import Addservice from './pages/service/Addservice';
 import OperatorProfilePage from './pages/operator/OperatorProfilePage';
 import OperatorUpdatePage from './pages/operator/OperatorUpdatePage';
 import SingleView from './pages/customer/SingleView';
+import Testing from './components/Alert/Test';
 
 
 
@@ -133,6 +134,7 @@ class App extends React.Component {
                 <Route exact path="/printInvoiceService" component={InvoiceServicePrint}/>
                 <Route exact path="/addservice" component={Addservice}/>
                 <Route exact path="/singleview" component={SingleView}/>
+                <Route exact path="/test" component={Testing}/>
 
               </React.Suspense>
             </MainLayout>

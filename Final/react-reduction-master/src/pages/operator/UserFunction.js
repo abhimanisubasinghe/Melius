@@ -124,6 +124,7 @@ export const updateUser = user => {
 }
 
 export const deleteUser = user => {
+    console.log("userfn",user);
     return axios
     .post('http://localhost:5001/users/delete', {
         username: user.username,
@@ -132,7 +133,7 @@ export const deleteUser = user => {
         console.log('come response');
         console.log(res.data.state);
         localStorage.setItem('usertoken',res.data);
-        return res.data;
+        return res.data.state;
     })
     .catch(err => {
         console.log('err');
@@ -156,15 +157,21 @@ export const updateAdmin = user => {
         status: user.status
     })
     .then(res => {
-        console.log('come response');
-       // console.log(res.data);
-        //localStorage.setItem('usertoken',res.data);
-        //return res.data;
-        console.log('eeeeeeeeeeeeee')
-        //console.log(res.data.state);
-        console.log(res.data)
-        
-        return res.data;
+        if(res.data != "Fill all details"){
+            console.log('come response');
+        // console.log(res.data);
+            //localStorage.setItem('usertoken',res.data);
+            //return res.data;
+            console.log('eeeeeeeeeeeeee')
+            //console.log(res.data.state);
+            console.log(res.data)
+            
+            return "TRUE";
+        }
+        else{
+            console.log(res.data);
+            return "FALSE";
+        }
     })
     .catch(err => {
         console.log('err');
