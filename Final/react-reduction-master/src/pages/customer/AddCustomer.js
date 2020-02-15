@@ -1,6 +1,6 @@
 import Page from 'components/Page';
 import React from 'react';
-import { registerCustomer } from '../../components/UserFunction';
+//import { registerCustomer } from '../../components/UserFunction';
 import axios from 'axios';
 
 import {
@@ -73,14 +73,22 @@ onSubmit(e){
   }
   console.log('nvjsdnvklsnvsnkndslkvcnsdovnosinvsklnclksnvknskldnvsklvklsnvlks');
   console.log(customer);
-  registerCustomer(customer).then(res => {
+  /*registerCustomer(customer).then(res => {
     console.log('come');
     if(res) {
       console.log("rrr");
-      console.log(res.data);
+      console.log(res.state);
+      if(res.state){
+        this.props.history.push('/view-customer');
+
+        
+      }
+      else{
+        this.props.history.push('/',{detail: res})
+      }
     }
     
-  })
+  })*/
 
 }
 

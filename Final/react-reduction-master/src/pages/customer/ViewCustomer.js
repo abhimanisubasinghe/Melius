@@ -1,143 +1,100 @@
-
-// import Page from 'components/Page';
-// import React,{ Component } from 'react';
-// import { Card, CardBody, CardHeader, Col, Row, Table } from 'reactstrap';
-// import axios from 'axios';
-// //import './vb12.css'
-// import {Link} from 'react-router-dom';
-
-// const tableTypes = ['hover'];
-
-// export default class Viewcustomer extends React.Component{
-
-//     constructor(props) {
-//         super(props)
+import Page from 'components/Page';
+import React from 'react';
+import { Button, Card, CardBody, CardHeader, Col, Row, Table } from 'reactstrap';
+import axios from 'axios';
+class ViewCustomer extends React.Component{
+    constructor(props) {
+        super(props)
     
-//         this.state = {
-           
-//             Id: "",
-//             name: "",
-//             NIC: "",
-//             type: "",
-//             customers:[]
+        this.state = {
+            customers:[ {
+                Id:"1",
+                name: "abc",
+                fax: "abc",
+                NIC: "abc",
+                type: "abc",
 
-           
-//         }
+                email: "abc@abc.com",  
+                website: "abc",
+                address: "abc abc abc",
+                phoneNo: "0123456789",
+                DOB: "1/4/2020",
+                note:"dsd",
+             }
+            ]
+        }
+    }
+
+    componentDidMount() {
         
-//     }
+          axios.get(`http://localhost:5001/customers/customerView`)
+          .then(res => {
+            const customers = res.data.result;
+            console.log("reslt",res.data);
+            this.setState({ customers });
+          })
+          
+    }
 
-   
-//     componentDidMount() {   /* lifecycle method*/
+    setStatus = () => {
 
-       
-//         axios.get(`http://localhost:5001/customers/customerView`)
-//           .then(res => {
-//             const customers = res.data;
-//             this.setState({customers});
-            
-           
-//           })
+    }
 
-        
-//       }
+    render(){    
+    return (
+        <Page
+        title="Operator"
+        breadcrumbs={[{ name: 'View', active: true }]}
+        className="TablePage"
+        >
+        <Row>
+            <Col>
+            <Card className="mb-3">
+                <CardHeader>Responsive</CardHeader>
+                <CardBody>
+                {<Table responsive>
+                    <tr className="table-active">
+                        <th>#</th>
+                        <th>Id</th>
+                        <th>Name </th>
+                        <th>fax</th>
+                        <th>NIC</th>
+                        <th>type </th>
+                        <th>E-mail</th>
+                        <th>website</th>  
+                        <th>address</th>
+                        <th>phone No</th>
+                        <th>DOB</th>
+                        <th>note</th>
+                        <th></th>
+                    </tr>
+                    {
+                        this.state.customers.map((customer,i) =>
+                            <tr>
+                            <th>{i}+1</th>
+                            <td>{}</td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            </tr> 
+                        )
+                    }
+                </Table>}
+                </CardBody>
+            </Card>
+            </Col>
+        </Row>
+        </Page>
+    );
+    };
+}
 
-//       onChange = (e) => {
-//         this.setState(
-//         {[e.target.name]: e.target.value}
-//     )
-//     }
-
- 
-
-
-//     render(){
-        
-//         return(
-//     <Page
-//       title="Tables"
-//       breadcrumbs={[{ name: 'tables', active: true }]}
-//       className="TablePage"
-//     >
-//       {tableTypes.map((tableType, index) => (
-//         <Row key={index}>
-//           <Col>
-//             <Card className="mb-3">
-//               <CardHeader>{tableType || 'default'}</CardHeader>
-//               <CardBody>
-//                 <Row>
-//                   <Col>
-//                     <Card body>
-//                       <Table {...{ [tableType || 'default']: true }}>
-//                         <thead>
-//                           <tr>
-                                                             
-//                                 <th >Id</th>
-//                                 <th>name</th>
-//                                 <th>NIC</th>
-//                                 <th>type</th>
-//                                 <th>Delete</th>
-//                                 <th>Update</th>
-
-//                           </tr>
-//                         </thead>
-//                         <tbody>
-//                             { this.state.customers.map(person =>
-//                                     <tr className='td' >
-//                                                 <td>{person.Id}</td>
-//                                                 <td>{person.name}</td>
-//                                                 <td>{person.NIC}</td>
-//                                                 <td>{person.type}</td>
-//                                                 <td><Link to="update"><i class="fa fa-trash-o"  ></i></Link></td>
-//                                                 <td><Link to="update"><i class="fa fa-file"   onClick={()=>this.edit(person.Id)}></i></Link></td>
-
-
-//                                                                     {/* <td><Link to="update"><i class="fa fa-file" style={iconstyle}  onClick={()=>this.props.edit(person.Id)}></i></Link></td> */}
-
-
-
-
-//                                     </tr>)}   
-//                         </tbody>
-//                       </Table>
-//                     </Card>
-//                   </Col>
-
-                 
-//                 </Row>
-//               </CardBody>
-//             </Card>
-//           </Col>
-//         </Row>
-//       ))}
-
-     
-     
-//     </Page>
-//   );
-// };
-
-// }
-
-// import React, { Component } from 'react';
-
-
-// export default class Viewcustomer extends React.Component{
-    
-//     constructor(){
-//         super()
-//         this.state = {
-           
-//             customers:[]
-
-//         }
-//     }
-//     componentDidMount() {
-//         if(this.props.history.location.state){
-//             let params = this.props.history.location.state;
-//             this.setState({
-//                 customers = params
-//             })
-//         }
-//     };
-
-// }
+export default ViewCustomer;
