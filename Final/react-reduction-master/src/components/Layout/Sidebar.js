@@ -79,7 +79,7 @@ const navInventoryItems = [
 ];
 
 const navService = [
-  { to: '/addService', name: 'addservice', exact: false, Icon: MdAddCircle },
+  { to: '/addservice', name: 'addservice', exact: false, Icon: MdAddCircle },
   { to: '/new-invoice', name: 'newinvoice', exact: false, Icon: MdAddCircle },
 
 ];
