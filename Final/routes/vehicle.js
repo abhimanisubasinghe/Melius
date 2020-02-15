@@ -1,4 +1,3 @@
-'user strict';
 var express = require('express');
 var sql = require('../database/db');
 var vehicles = express.Router();
@@ -31,22 +30,24 @@ vehicles.use(body.json());
 vehicles.use(body.urlencoded({extended: false}));
 vehicles.use(cors());
 
-var path = require('path');
 
+console.log("hi");
 
 //CUSTOMER REGISTRATION
 vehicles.post('/vehicleRegistration',function(req,res){
     //var id = req.body.customerId;
-
+console.log("hhhhh");
     var vehicleNo = req.body.vehicleNo;
     //var NIC = req.body.NIC;
     var category = req.body.category;
     var type = req.body.type;
     var mileage = req.body.mileage;
     var custId = req.body.custId;
-   
+
     console.log('eeeeeeeeeeeeeeeeeeeee')
     console.log(vehicleNo);
+    console.log(category);
+
     console.log(type);
     console.log(mileage);
     console.log(custId);
@@ -56,7 +57,7 @@ vehicles.post('/vehicleRegistration',function(req,res){
     if(!req.session.userId)
     {
         console.log('aaaaaaaaaaaaa');
-        if(vehicleNo && type && mileage && custId){
+        if(vehicleNo && category && type && mileage && custId){
             sql.query('SELECT vehicleNo FROM vehicle WHERE vehicleNo = ?',[vehicleNo],function(err,result){
                 if(err){
                     console.log('errrrrrrr');
@@ -64,8 +65,8 @@ vehicles.post('/vehicleRegistration',function(req,res){
                 }
                 else{
                     if(result.length>0){
-                        console.log('service already exist')
-                        res.send('service already exist');
+                        console.log('vehicle already exist')
+                        res.send('vehicle already exist');
                     }
                     else{
                         sql.query('INSERT INTO vehicle (vehicleNo,category,type,mileage,custId) VALUES (?,?,?,?,?)',[vehicleNo,category,type,mileage,custId],function(err1,result1){
@@ -78,14 +79,16 @@ vehicles.post('/vehicleRegistration',function(req,res){
                                         throw err2;
                                     }
                                     else{
-                                        console.log('service added');
+                                        console.log('vehicle added');
                                         if(result2.length>0){
-                                            console.log('service added');
+                                            console.log('vehicle added');
+                                            console.log("wow")
                                             res.json(result2);
+
                                         }
                                         else{
                                             //console.log('')
-                                            res.json('No any services');
+                                            res.json('No any vehicle');
                                         }
                                     }
                                 });
@@ -101,5 +104,124 @@ vehicles.post('/vehicleRegistration',function(req,res){
         res.send('please log as an admin');
     }
 });
+
+
+//display vehicles
+vehicles.get('/view',function(req,res){
+    if(req.session.adminId){
+        res.send('please log as an admin');
+    }
+    else{ 
+        sql.query("SELECT * FROM vehicle",function(err,result){
+            if(err){
+                throw err;
+            }
+            else{
+                if(result.length>0){
+                    res.json(result);
+                }
+                else{
+                    res.json('No any vehicles');
+                }
+            }
+        });
+    }
+});
+
+//Update vehicle
+vehicles.post('/updateService',function(req,res){
+    var vehicleNo = req.body.vehicleNo;
+    var category = req.body.category;
+    var type = req.body.type;
+    var mileage = req.body.mileage;
+    var custId = req.body.custId;
+    if(req.session.adminId){
+        if(vehicleNo && category && type && mileage && custId){
+            sql.query('SELECT vehicleNo FROM service WHERE serviceId = ?',[vehicleNo],function(err,result){
+                if(err){
+                    throw err;
+                }
+                else{
+                    if(result.length>0){
+                        sql.query('UPDATE vehicle SET vehicleNo = ?, category = ?,type = ?, mileage= ?,custId=? WHERE vehicleNo = ?',[vehicleno,category,type,mileage,custId,vehicleNo],function(err1,result1){
+                            if(err1){
+                                throw err1;
+                            }
+                            else{
+                                sql.query("SELECT * FROM vehicle",function(err2,result2){
+                                    if(err){
+                                        throw err;
+                                    }
+                                    else{
+                                        console.log('vehicle updated');
+                                        if(result2.length>0){
+                                            res.json(result2);
+                                        }
+                                        else{
+                                            res.json('No any vehicles');
+                                        }
+                                    }
+                                });
+                            };
+                        })
+                    }
+                    else{
+                        req.send('wrong vehicle No');
+                    }
+                }
+            })
+        }
+    }
+    else{
+        res.send('please log as an admin');
+    }
+    
+});
+
+//delete  vehicle
+vehicles.post('/deletevehicle',function(req,res){
+
+    var vehicleNo = req.body.vehicleNo;
+ 
+
+    if(req.session.adminId){
+        if(Id && vehicleNo && custId){
+            sql.query('SELECT * FROM vehicle WHERE Id = ? , vehicleNo = ?, custId=?' ,[Id,vehicleNo,custId],function(err,result){
+                if(err){
+                    throw err;
+                }
+                else{
+                    if(result.length>0){
+                        sql.query('DELETE FROM vehicle WHERE Id = ? , vehicleNo = ?, custId=?',[Id,vehicleNo,custId],function(err1,result2){
+                            if(err1){
+                                throw err1;
+                            }
+                            else{
+                                console.log('deleted');
+                                sql.query("SELECT * FROM service",function(err2,result2){
+                                    if(err){
+                                        throw err;
+                                    }
+                                    else{
+                                        console.log('vehicle deleted');
+                                        if(result2.length>0){
+                                            res.json(result2);
+                                        }
+                                        else{
+                                            res.json('No any vehicles');
+                                        }
+                                    }
+                                });
+                            }
+                        })
+                    }
+                }
+            })
+        }
+        else{
+            res.send('please log as an admin')
+        }
+    }
+})
 
 module.exports = vehicles;

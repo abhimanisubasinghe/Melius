@@ -28,7 +28,10 @@ import ProgressPage from './pages/ProgressPage';
 import TablePage from './pages/TablePage';
 import TypographyPage from './pages/TypographyPage';
 import WidgetPage from './pages/WidgetPage';
-import RegisterItemPage from './pages/item/RegisterItemPage'
+import RegisterItemPage from './pages/item/RegisterItemPage';
+import AddCustomer from './pages/customer/AddCustomer';
+import ViewCustomer from './pages/customer/ViewCustomer';
+import AddVehicle from './pages/vehicle/AddVehicle';
 
 // const AlertPage = React.lazy(() => import('pages/AlertPage'));
 // const AuthModalPage = React.lazy(() => import('pages/AuthModalPage'));
@@ -101,6 +104,10 @@ class App extends React.Component {
                 <Route exact path="/charts" component={ChartPage} />
                 <Route exact path="/item-register" component={RegisterItemPage} />
                 <Route exact path="/login" component={Login} />
+                <Route exact path="/add-customer" component={AddCustomer} />
+                <Route exact path="/view-customer" component={ViewCustomer} />
+                <Route exact path="/add-vehicle" component={AddVehicle} />
+
               </React.Suspense>
             </MainLayout>
             <Redirect to="/" />
