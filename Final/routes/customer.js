@@ -256,7 +256,7 @@ customers.get('/customerView',function(req,res){
         }
     });
     
-    users.post('/search',function(req,res){
+    customers.post('/search',function(req,res){
         console.log("foeiajfej");
         if(!req.session.userId || !req.session.adminId){
             var searchId = req.body.searchId;

@@ -48,13 +48,13 @@ class ViewCustomer extends React.Component{
               console.log(res);
               if(res){
                 this.props.history.push({
-                    pathname:'/operator-profile',
+                    pathname:'/singleview',
                     data: res})
                 
               }
               else{
                 console.log("ERROR");  
-                this.props.history.push('/operator-view');
+                this.props.history.push('/singleview');
               }
             }
           })

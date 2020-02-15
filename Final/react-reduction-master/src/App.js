@@ -41,6 +41,7 @@ import InvoiceServicePrint from './pages/service/PrintInvoiceService';
 import Addservice from './pages/service/Addservice';
 import OperatorProfilePage from './pages/operator/OperatorProfilePage';
 import OperatorUpdatePage from './pages/operator/OperatorUpdatePage';
+import SingleView from './pages/customer/SingleView';
 
 
 
@@ -109,6 +110,7 @@ class App extends React.Component {
                 <Route exact path="/new-invoice" component={ServiceInvoice} />
                 <Route exact path="/printInvoiceService" component={InvoiceServicePrint}/>
                 <Route exact path="/addservice" component={Addservice}/>
+                <Route exact path="/singleview" component={SingleView}/>
 
               </React.Suspense>
             </MainLayout>

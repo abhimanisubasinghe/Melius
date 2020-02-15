@@ -53,8 +53,7 @@ class NewInvoice extends React.Component{
   }
 
 
-<<<<<<< HEAD
-onSubmit(e){
+  onSubmit(e){
   e.preventDefault();
   const invoice1 = {
       customerId:this.state.customerId,   
@@ -64,26 +63,6 @@ onSubmit(e){
       remarks: this.state.remarks
      
   }
-  console.log('nvjsdnvklsnvsnkndslkvcnsdovnosinvsklnclksnvknskldnvsklvklsnvlks');
-  console.log(invoice1);
-  invoice(invoice1).then(res => {
-    console.log('come');
-    if(res) {
-      console.log("rrr");
-      console.log(res);
-=======
-  onSubmit(e){
-    e.preventDefault();
-    const invoice1 = {
-        customerId:this.state.customerId,   
-        serviceId:this.state.serviceId,    
-        vehicleId: this.state.vehicleId,
-        total: this.state.total,
-        discount: this.state.discount,
-        remarks: this.state.remarks
->>>>>>> ca5175e84214e36e45861b4f56e2b04ad84ab898
-      
-    }
     console.log('nvjsdnvklsnvsnkndslkvcnsdovnosinvsklnclksnvknskldnvsklvklsnvlks');
     console.log(invoice1);
     invoice(invoice1).then(res => {
@@ -105,6 +84,7 @@ onSubmit(e){
     })
 
   }
+
 
 
   render(){
@@ -197,6 +177,7 @@ onSubmit(e){
   )
   }
 }
+
 
 
 
