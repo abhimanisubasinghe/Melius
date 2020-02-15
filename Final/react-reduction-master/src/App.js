@@ -28,12 +28,17 @@ import ProgressPage from './pages/ProgressPage';
 import TablePage from './pages/TablePage';
 import TypographyPage from './pages/TypographyPage';
 import WidgetPage from './pages/WidgetPage';
-import RegisterItemPage from './pages/item/RegisterItemPage'; 
+import RegisterItemPage from './pages/item/RegisterItemPage';
+import AddCustomer from './pages/customer/AddCustomer';
+import ViewCustomer from './pages/customer/ViewCustomer';
+import AddVehicle from './pages/vehicle/AddVehicle';
+import AddNewPRPage from './pages/item/AddNewPR';
 import RegisterStoragePage from './pages/storage/RegisterStoragePage';
 import RegisterOperatorPage from './pages/operator/RegisterOperatorPage';
 import ViewOperatorPage from './pages/operator/ViewOperatorPage';
 import OperatorProfilePage from './pages/operator/OperatorProfilePage';
 import OperatorUpdatePage from './pages/operator/OperatorUpdatePage';
+
 
 const getBasename = () => {
   return `/${process.env.PUBLIC_URL.split('/').pop()}`;
@@ -86,12 +91,17 @@ class App extends React.Component {
                 <Route exact path="/input-groups" component={InputGroupPage} />
                 <Route exact path="/charts" component={ChartPage} />
                 <Route exact path="/item-register" component={RegisterItemPage} />
+                <Route exact path="/new-pr" component={AddNewPRPage} />
                 <Route exact path="/storage-register" component={RegisterStoragePage} />
                 <Route exact path="/operator-register" component={RegisterOperatorPage} />
                 <Route exact path="/operator-view" component={ViewOperatorPage} />
                 <Route exact path="/operator-profile" component={OperatorProfilePage} />
                 <Route exact path="/operator-update" component={OperatorUpdatePage} />
                 <Route exact path="/login" component={Login} />
+                <Route exact path="/add-customer" component={AddCustomer} />
+                <Route exact path="/view-customer" component={ViewCustomer} />
+                <Route exact path="/add-vehicle" component={AddVehicle} />
+
               </React.Suspense>
             </MainLayout>
             <Redirect to="/" />

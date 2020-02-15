@@ -45,7 +45,7 @@ service.get('/serviceView',function(req,res){
             }
             else{
                 if(result.length>0){
-                    
+
                     res.json(result);
                 }
                 else{
@@ -145,7 +145,8 @@ service.post('/updateService',function(req,res){
                                     else{
                                         console.log('service updated');
                                         if(result2.length>0){
-                                            res.json(result2);
+                                            var state = true;
+                                            res.send({result2,state});
                                         }
                                         else{
                                             res.json('No any services');
@@ -192,8 +193,10 @@ service.post('/serviceRemove',function(req,res){
                                     }
                                     else{
                                         console.log('service deleted');
-                                        if(result2.length>0){
-                                            res.json(result2);
+                                        if(result2){
+                                            var state = true;
+                                            var message = "deleted"
+                                            res.json(result2,message,state);
                                         }
                                         else{
                                             res.json('No any services');
