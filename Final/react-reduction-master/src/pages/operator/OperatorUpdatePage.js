@@ -83,20 +83,16 @@ handleSubmit = e => {
     updateAdmin(user).then(res => {
       if(res) {
         console.log('qqqqqqqqqqqq');
-        //console.log(res.state);
-        if(res){
-            this.props.history.push({
-                pathname:'/operator-profile',
-                data: res})
-          
-        }
-        else{
+        this.props.history.push({
+          pathname:'/operator-view',
+          data: this.props.location});
+      } else{
             this.props.history.push({
                 pathname:'/operator-update',
                 data: res})
         }
       }
-    })
+    )
     
 }
 

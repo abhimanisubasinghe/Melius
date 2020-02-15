@@ -165,6 +165,7 @@ users.post('/userUpdateByAdmin',function(req,res){
                         console.log("update success");
                         //res.send("Updated successful");
                         //res.json({data: result});
+                        console.log("res",result);
                         resultFinal = result;
                         res.json(result);
                     }

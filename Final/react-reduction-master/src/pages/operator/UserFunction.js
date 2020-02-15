@@ -163,7 +163,6 @@ export const updateAdmin = user => {
         //console.log(res.data.state);
         console.log(res.data)
         
-        //localStorage.setItem('usertoken',res.data)
         return res.data;
     })
     .catch(err => {
