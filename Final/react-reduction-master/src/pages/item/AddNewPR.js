@@ -61,7 +61,8 @@ handleSubmit = e => {
                     newPR
             ,{headers: {'Accept': 'application/json'}})
             .then( response =>
-                    {console.log("good "+response)}
+                    {console.log("good "+response)
+                    this.props.history.push('/new-pr')}
             )
             .catch(() => console.log("Can’t access " + url + " response. Blocked by browser?"))
     

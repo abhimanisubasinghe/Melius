@@ -74,6 +74,7 @@ const navOperator = [
 const navInventoryItems = [
   { to: '/item-register', name: 'register', exact: false, Icon: MdAddCircle },
   { to: '/new-pr', name: 'new purchase requisition', exact: false, Icon: MdAddCircle },
+  { to: '/new-po', name: 'new purchase requisition', exact: false, Icon: MdAddCircle },
   { to: '/storage-register', name: 'storage-register', exact: false, Icon: MdAddCircle },
   { to: '/tables', name: 'tables', exact: false, Icon: MdBorderAll },
 ];
