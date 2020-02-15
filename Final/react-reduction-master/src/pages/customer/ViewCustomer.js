@@ -11,6 +11,7 @@ class ViewCustomer extends React.Component{
         super(props)
     
         this.state = {
+            searchId:"",
             customers:[]
             
         }
@@ -68,6 +69,7 @@ class ViewCustomer extends React.Component{
         className="TablePage"
         >
         <Row>
+            
             <Col>
             <Card className="mb-3">
                 <CardHeader></CardHeader>

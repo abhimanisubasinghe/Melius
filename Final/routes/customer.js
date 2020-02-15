@@ -196,16 +196,22 @@ customers.post('/customerRegistration',function(req,res){
     
     //CUSTOMER DATA UPDATE
     customers.post('/customerUpdate',function(req,res){
-        var id = req.body.customerId;
-        var name = req.body.customerName;
-        var nic = req.body.customerNIC;
-        var phone = req.body.phone;
+        console.log("magula")
+    
+        var Id = req.body.Id;
+        var name = req.body.name;
+        var NIC = req.body.NIC;
+        var fax = req.body.fax;
+        var type = req.body.type;
         var email = req.body.email;
+        var website = req.body.website;
         var address = req.body.address;
-        var vehicles = req.body.noOfVehicle;
-        if(req.session.userId){
-            if(id && name && nic && phone && email && address && vehicles ){
-                sql.query('UPDATE customer SET customerName = ?, phone = ?, email = ?, address =? , noOfVehicle = ? WHERE customerId = ? AND customerNIC = ? ',[name,phone,email,address,vehicles,id,nic], function(err, result){
+        var phoneNo = req.body.phoneNo;
+        var DOB = req.body.DOB;
+        var note = req.body.note;
+        if(!req.session.userId){
+            if(Id && name && NIC && fax && type && email  && website && address && phoneNo && DOB && note ){
+                sql.query('UPDATE customer SET Id = ? ,name = ?,NIC = ? , fax = ?,type = ?, email = ?,website = ? ,address =? , phoneNo = ?, DOB =?, note= ? WHERE Id = ? AND NIC = ? ',[Id,name,NIC,fax,email,website,address,phoneNo,DOB,note,Id,NIC], function(err, result){
                     if (err) {
                         throw err;
                     }
@@ -249,7 +255,7 @@ customers.get('/customerView',function(req,res){
                         res.send({result,state});
                     }
                     else{
-                        res.json('No any services');
+                        res.json('No any customers');
                     }
                 }
             });

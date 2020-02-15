@@ -4,7 +4,7 @@ import bgImage from 'assets/img/bg/background_1920-7.png';
 import Page from 'components/Page';
 import { bgCards, gradientCards, overlayCards } from 'demos/cardPage';
 import React from 'react';
-import { customersearch } from '../../components/UserFunction';
+import { vehiclesearch } from '../../components/UserFunction';
 import {
   Button,
   Card,
@@ -28,17 +28,13 @@ class SingleView extends React.Component{
     
         this.state = {
              data: this.props.location.data,
-             customer: {
+             vehicle: {
                 Id:"",
-                name: "",
-                fax: "",
-                NIC: "",
+                vehicleNo: "",
+                category: "",
                 type: "",
-                email: "",
-                website: "",
-                DOB: "",
-                note: "",
-
+                mileage: "",
+                custId: "",
 
                 
              }
@@ -49,8 +45,8 @@ class SingleView extends React.Component{
     componentDidMount(){
         //console.log(this.state.data[0].name)
         if(this.props.location.data){
-            const customer = this.props.location.data[0];
-            this.setState({customer})
+            const vehicle = this.props.location.data[0];
+            this.setState({vehicle})
         }
     }
 
@@ -61,18 +57,18 @@ class SingleView extends React.Component{
         const user = {
             searchId: e.target.searchId.value
         }   
-        customersearch(user).then(res => {
+        vehiclesearch(user).then(res => {
             if(res) {
               console.log(res);
               if(res){
                 this.props.history.push({
-                    pathname:'/updatecustomer',
+                    pathname:'/updatevehicle',
                     data: res})
                 
               }
               else{
                 console.log("ERROR");  
-                this.props.history.push('/operator-view');
+                this.props.history.push('/view-vehicle');
               }
             }
           })
@@ -88,14 +84,13 @@ class SingleView extends React.Component{
               <Card inverse className="text-center">
                 <CardImg width="100%" src={bgImage} alt="Card image cap" />
                 <CardImgOverlay>
-                  <CardTitle>Customer Id : -{this.state.customer.Id}</CardTitle>
-                  <CardText>{this.state.customer.fax}</CardText>
-                  <CardText>{this.state.customer.NIC}</CardText>
-                  <CardText>{this.state.customer.type}</CardText>
-                  <CardText>{this.state.customer.email}</CardText>
-                  <CardText>{this.state.customer.website}</CardText>
-                  <CardText>{this.state.customer.DOB}</CardText>
-                  <CardText>{this.state.customer.note}</CardText>
+                  <CardTitle>vehicle Id : -{this.state.vehicle.Id}</CardTitle>
+                  <CardText>{this.state.vehicle.vehicleNo}</CardText>
+                  <CardText>{this.state.vehicle.category}</CardText>
+                  <CardText>{this.state.vehicle.type}</CardText>
+                  <CardText>{this.state.vehicle.mileage}</CardText>
+                  <CardText>{this.state.vehicle.custId}</CardText>
+                 
 
                   
                 </CardImgOverlay>
@@ -103,7 +98,7 @@ class SingleView extends React.Component{
             </Col>
             <Col md="6" sm="12" xs="12">
             <Card className="mb-3">
-              <CardHeader>Buttons</CardHeader>
+              <CardHeader>Action</CardHeader>
               <CardBody>
                 
                        <CardText>
@@ -112,7 +107,7 @@ class SingleView extends React.Component{
                                     type="hidden" 
                                     id="searchId" 
                                     name="searchId" 
-                                    value={this.state.customer.Id} 
+                                    value={this.state.vehicle.Id} 
                                     disabled/>
                                 <Button  color="success">Update</Button>
                             </form>
@@ -122,7 +117,7 @@ class SingleView extends React.Component{
                                     type="hidden" 
                                     id="searchId" 
                                     name="searchId" 
-                                    value={this.state.customer.Id} 
+                                    value={this.state.vehicle.Id} 
                                     disabled
                                     />
                                     <CardText>

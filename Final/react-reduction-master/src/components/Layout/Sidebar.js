@@ -99,6 +99,8 @@ const navCustomers= [
 
 const navVehicle = [
   { to: '/add-vehicle', name: 'register', exact: false, Icon: MdTextFields },
+  { to: '/view-vehicle', name: 'View Vehicle', exact: false, Icon: MdAddCircle },
+
 ];
 
 const pageContents = [

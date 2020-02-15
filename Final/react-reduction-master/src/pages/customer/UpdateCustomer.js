@@ -1,8 +1,6 @@
 import Page from 'components/Page';
 import React from 'react';
-import { registerCustomer } from '../../components/UserFunction';
-import axios from 'axios';
-
+import { updatecustomer } from '../../components/UserFunction';
 import {
   Button,
   Card,
@@ -19,34 +17,29 @@ import {
   InputGroupAddon,
   InputGroup
 } from 'reactstrap';
+import axios from 'axios';
 
+class UpdateCustomer extends React.Component{
 
-
-
-class RegisterCustomerPage extends React.Component{
-
-  constructor() {
-    super()
+  constructor(props) {
+    super(props)
 
     this.state = {
+        
+            Id:"",
+            name: "",
+            fax: "",
+            NIC: "",
+            type: "",
+            email: "",
+            website: "",
+            address:"hii",
+            phoneNo:"522",
+            DOB: "",
+            note: "",
 
-      name: "",
-      fax: "",    
-      NIC: "",
-      type: "",
-      email: "",
-      website: "",
-      address: "",
-      phoneNo: "",
-      DOB: "",
-      note: ""
-     
-  }
-
-  this.onChange=this.onChange.bind(this)
-  this.onSubmit=this.onSubmit.bind(this)
-
-
+         
+    }
     
 }
 
@@ -56,12 +49,38 @@ onChange = (e) => {
 )
 }
 
+componentDidMount(){
+    //console.log(this.state.data[0].name)
+    if(this.props.location.data){
+        const customer = this.props.location.data[0];
+        console.log("id",customer.Id)
+        this.setState({
+            Id: customer.Id,
+            name: customer.name,
+            fax: customer.fax,
+            NIC: customer.NIC,
+            type: customer.type,
+            email: customer.email,
+            website: customer.website,
+            address: customer.address,
+            phoneNo: customer.phoneNo,
+            DOB: customer.DOB,
+            note: customer.note,
+        })
+    }
+}
 
-onSubmit(e){
-  e.preventDefault();
-  const customer = {
-      name:this.state.name,
-      fax:this.state.fax,    
+handleSubmit = e => { 
+    e.preventDefault();
+    //console.log("name",this.state.name);
+    //console.log("DOB",this.state.DOB);
+    //console.log("uname",this.state.username);
+    //console.log("address",this.state.address);
+    const customer = {
+     
+      Id: this.state.Id,
+      name: this.state.name,
+      fax: this.state.fax,
       NIC: this.state.NIC,
       type: this.state.type,
       email: this.state.email,
@@ -70,39 +89,46 @@ onSubmit(e){
       phoneNo: this.state.phoneNo,
       DOB: this.state.DOB,
       note: this.state.note,
-  }
-  console.log('nvjsdnvklsnvsnkndslkvcnsdovnosinvsklnclksnvknskldnvsklvklsnvlks');
-  console.log(customer);
-  registerCustomer(customer).then(res => {
-    console.log('come');
-    if(res) {
-      console.log("rrr");
-      console.log(res.state);
-      if(res.state){
-        this.props.history.push('/view-customer');
-
-        
-      }
-      else{
-        this.props.history.push('/',{detail: res})
-      }
     }
+    console.log("user",customer);
+    updatecustomer(customer).then(res => {
+      if(res) {
+        console.log('qqqqqqqqqqqq');
+        this.props.history.push({
+          pathname:'/view-customer',
+          data: this.props.location});
+      } else{
+            this.props.history.push({
+                pathname:'/updatecustomer',
+                data: res})
+        }
+      }
+    )
     
-  })
-
 }
-
 
   render(){
   return (
     <div>
-    <Page title="Register Customer" breadcrumbs={[{ name: 'customer-Register', active: true }]}>
+    <Page title="Update Customer" breadcrumbs={[{ name: 'Customer-Update', active: true }]}>
       <Row>
         <Col>
           <Card>
-            <CardHeader>Register Customer</CardHeader>
+            <CardHeader>Updation</CardHeader>
             <CardBody>
-              <Form onSubmit={this.onSubmit}>
+            <Form onSubmit={this.onSubmit}>
+            <FormGroup>
+                  <Label for="name">Id </Label>
+                  
+                  <Input
+                    type="text"
+                    name="name"
+                    id="name"
+                    placeholder="Cutomer Name"
+                    onChange={this.onChange}
+                    value={this.state.Id}
+                  />
+                </FormGroup>
                 <FormGroup>
                   <Label for="name">Customer Name</Label>
                   
@@ -241,4 +267,4 @@ onSubmit(e){
 
 
 
-export default RegisterCustomerPage;
+export default UpdateCustomer;

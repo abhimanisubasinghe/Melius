@@ -83,7 +83,9 @@ console.log("hhhhh");
                                         if(result2.length>0){
                                             console.log('vehicle added');
                                             console.log("wow")
-                                            res.json(result2);
+                                            var state = true;
+                                            var message = "registered successfull";
+                                            res.send({message,state});
 
                                         }
                                         else{
@@ -129,7 +131,7 @@ vehicles.get('/view',function(req,res){
 });
 
 //Update vehicle
-vehicles.post('/updateService',function(req,res){
+vehicles.post('/updatevehicle',function(req,res){
     var vehicleNo = req.body.vehicleNo;
     var category = req.body.category;
     var type = req.body.type;
@@ -223,5 +225,37 @@ vehicles.post('/deletevehicle',function(req,res){
         }
     }
 })
+
+
+vehicles.post('/search',function(req,res){
+    console.log("foeiajfej");
+    if(!req.session.userId || !req.session.adminId){
+        var searchId = req.body.searchId;
+        console.log(searchId);
+        sql.query('select * from vehicle  WHERE Id = ?',[searchId],function(err,result){
+            console.log(result);
+            if(err){
+                console.log('err viewuser')
+                console.log(err);
+                throw err;
+            }
+            else{
+                if(result.length>0){
+                    //var state = true;
+                    //var res1 = result[0];
+                    res.json(result);
+                    //res.send({state, res1});
+                }
+                else{
+                    console.log('not work');
+                }
+            }
+        })
+    }
+    else{
+        res.send('please log');
+    }
+})
+
 
 module.exports = vehicles;
