@@ -95,10 +95,9 @@ export const viewCustomer = userReg=>{
         return res.data
     })
     .catch(err=>{
-        console.log("not registered") 
+        console.log("not registered")
     })
-}   
-       
+}    
 
 
 
@@ -157,6 +156,7 @@ export const invoice = servicein => {
         customerId:servicein.customerId,    
         serviceId:servicein.serviceId,    
         vehicleId: servicein.vehicleId,
+        total: servicein.total,
         discount: servicein.discount,
         remarks: servicein.remarks,
     })
@@ -190,7 +190,6 @@ export const selectUser = user => {
         console.log(err);
     })
 }
-
 
 
 export const registerVehicle = userReg=>{
@@ -293,10 +292,7 @@ export const viewService = service => {
         console.log('err');
         console.log(err);
     })
-
-<<<<<<< HEAD
 }
-=======
 export const customersearch = user => {
     console.log("user",user);
     console.log(user.searchId);
@@ -317,6 +313,3 @@ export const customersearch = user => {
         console.log(err)
     })
 }
-
-
->>>>>>> 7df2aeead2888dfad94b3555f24f0c189e26e8d8
