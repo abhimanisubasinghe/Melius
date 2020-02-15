@@ -52,6 +52,7 @@ import AddVehicle from './pages/vehicle/AddVehicle';
 // const RegisterItemPage = React.lazy(() => import('pages/item/RegisterItemPage'));
 import AddNewPRPage from './pages/item/AddNewPR';
 import AddNewPOPage from './pages/item/AddNewPO';
+import POTablePage from './pages/item/PO';
 import ServiceInvoice from './pages/service/ServiceInvoice';
 //import AddNewPRPage from './pages/item/AddNewPR';
 import RegisterStoragePage from './pages/storage/RegisterStoragePage';

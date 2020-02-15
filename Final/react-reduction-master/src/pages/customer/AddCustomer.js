@@ -29,7 +29,6 @@ class RegisterCustomerPage extends React.Component{
     super()
 
     this.state = {
-
       name: "",
       fax: "",    
       NIC: "",
@@ -70,6 +69,7 @@ onSubmit(e){
       phoneNo: this.state.phoneNo,
       DOB: this.state.DOB,
       note: this.state.note,
+      
   }
   console.log('nvjsdnvklsnvsnkndslkvcnsdovnosinvsklnclksnvknskldnvsklvklsnvlks');
   console.log(customer);

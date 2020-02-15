@@ -153,9 +153,25 @@ customers.post('/customerRegistration',function(req,res){
                                                                         throw err5;
                                                                     }else{
                                                                         if(result5){
-                                                                            var state = true;
-                                                                            var message = "registered successfull";
-                                                                            res.send({message,state});
+                                                                            console.log("plz")
+                                                                            sql.query('select count(Id)  as count from customer',function(err6,result6){
+                                                                                console.log("plzzzz")
+                                                                                            if(err6){
+                                                                                                    throw err6;                                                                                    console.log("plzzzz")
+
+
+                                                                                            }else{
+                                                                                                if(result6){
+                                                                                                    console.log(result6);
+                                                                                                    var state = true;
+                                                                                                    var message = "registered successfull";
+                                                                                                    res.send({message,state});
+
+                                                                                                }
+                                                                                                
+                                                                                            }
+                                                                            })
+                                                                          
                                                                         }
                                                                         else{
                                                                             res.send('phone number not inserted')

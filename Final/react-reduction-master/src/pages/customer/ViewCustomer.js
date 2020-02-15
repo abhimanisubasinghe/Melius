@@ -3,6 +3,7 @@ import React from 'react';
 import { Button, Card, CardBody, CardHeader, Col, Row, Table } from 'reactstrap';
 import axios from 'axios';
 import { customersearch } from 'components/UserFunction';
+import { IconWidget, NumberWidget } from 'components/Widget';
 
 const tableTypes = [ 'hover'];
 
@@ -12,7 +13,8 @@ class ViewCustomer extends React.Component{
     
         this.state = {
             searchId:"",
-            customers:[]
+            customers:[],
+            total:[],
             
         }
     }
@@ -69,7 +71,18 @@ class ViewCustomer extends React.Component{
         className="TablePage"
         >
         <Row>
-            
+        <Col lg={3} md={6} sm={6} xs={12}>
+            <NumberWidget
+              title="Total Profit"
+              subtitle="This month"
+              number= {this.state.total.map((total)=>total.count)}
+              color="secondary"
+              progress={{
+                value: 75,
+                label: 'Last month',
+              }}
+            />
+          </Col>
             <Col>
             <Card className="mb-3">
                 <CardHeader></CardHeader>

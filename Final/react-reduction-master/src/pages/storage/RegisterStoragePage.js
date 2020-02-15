@@ -24,21 +24,8 @@ class RegisterStoragePage extends React.Component{
     super(props)
 
     this.state = {
-        itemcode:"",    
-        name: "",
-        inStock: "",
-        unitPrice: "",
-        descript: "",
-        costPrice: "",
-        reorderLevel: "",
-        itemgroup: "",
-        brand: "",
-        type: "",
-        category: "",
-        storageId: "",
-        supplierId: "",
-        barcode: "",
-        leadTime:""
+        unit:"",    
+        number: "",
     }
     
 }
@@ -52,7 +39,7 @@ onChange = (e) => {
 handleSubmit = e => { 
     e.preventDefault();
     console.log(this.state);
-    const url = "http://localhost:5000/items/add"; 
+    const url = "http://localhost:5000/storage/add"; 
     axios
             .post(url,
                     this.state
@@ -75,98 +62,27 @@ handleSubmit = e => {
             <CardHeader>Registration</CardHeader>
             <CardBody>
               <Form>
-                <FormGroup>
-                  <Label for="name">Item Name</Label>
-                  <Input
-                    type="text"
-                    name="name"
-                    id="name"
-                    placeholder="Item Name"
-                  />
-                </FormGroup>
-                <FormGroup>
-                <Label for="inStock">Amount in-stock</Label>
-                  <Input
-                    type="number"
-                    name="inStock"
-                    id="inStock"
-                    placeholder="In Stock"
-                  />
-                </FormGroup>
-                <div className="form-inline">  
-                <FormGroup>
-                <div className="col">  
-                <Label for="unitPrice">Unit Price </Label>
-                  <InputGroup>
-                  <InputGroupAddon addonType="prepend">Rs.</InputGroupAddon>
-                  <Input
-                    type="number"
-                    name="unitPrice"
-                    id="unitPrice"
-                    placeholder="Unit Price"
-                    step="1"
-                  />
-                  <InputGroupAddon addonType="append">.00</InputGroupAddon>
-                  </InputGroup>
-                </div>  
-                <div className="col">             
-                  <Label for="costPrice">Cost Price </Label>
-                  <InputGroup>
-                  <InputGroupAddon addonType="prepend">Rs.</InputGroupAddon>
-                  <Input
-                    type="number"
-                    name="costPrice"
-                    id="costPrice"
-                    placeholder="Cost Price"
-                    step="1"
-                  />
-                  <InputGroupAddon addonType="append">.00</InputGroupAddon>
-                  </InputGroup>
-                  </div>
-                  </FormGroup>
-                </div>
                 <div className="form-inline">
                 <FormGroup>
+                <div className="col"> 
+                  <Label for="exampleSelect">Select</Label>
+                  <Input type="select" name="select">
+                    <option>1</option>
+                    <option>2</option>
+                    <option>3</option>
+                    <option>4</option>
+                    <option>5</option>
+                  </Input>
+                </div>
                 <div className="col">  
-                <Label for="itemgroup">Item Group</Label>
+                <Label for="storageId">Storage ID</Label>
                   <Input
                     type="text"
-                    name="itemgroup"
-                    id="itemgroup"
-                    placeholder="Item Group"
+                    name="storageId"
+                    id="storageId"
+                    placeholder="Storage ID"
                   />
                 </div>
-                <div className="col">    
-                <Label for="brand">Brand</Label>
-                  <Input
-                    type="text"
-                    name="brand"
-                    id="brand"
-                    placeholder="Brand"
-                  />
-                </div>
-                </FormGroup>
-                </div>
-                <div className="form-inline">
-                <FormGroup>
-                <div className="col">  
-                <Label for="type">Type</Label>
-                  <Input
-                    type="text"
-                    name="type"
-                    id="type"
-                    placeholder="Type"
-                  />
-                </div>  
-                <div className="col">  
-                <Label for="category">Category</Label>
-                  <Input
-                    type="text"
-                    name="category"
-                    id="category"
-                    placeholder="Category"
-                  />
-                </div>  
                 </FormGroup>
                 </div>
                 <div className="form-inline">
@@ -229,16 +145,7 @@ handleSubmit = e => {
                   />
                 </FormGroup>
                 
-                <FormGroup>
-                  <Label for="exampleSelect">Select</Label>
-                  <Input type="select" name="select">
-                    <option>1</option>
-                    <option>2</option>
-                    <option>3</option>
-                    <option>4</option>
-                    <option>5</option>
-                  </Input>
-                </FormGroup>
+              
                 <FormGroup check row>
                     <Button>Submit</Button>
                 </FormGroup>

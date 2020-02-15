@@ -1,6 +1,6 @@
 import Page from 'components/Page';
 import React from 'react';
-import { Button, Card, CardBody, CardHeader, Col, Row, Table } from 'reactstrap';
+import { Button, Card, CardBody, CardHeader, Col, Row, Table,UncontrolledAlert, } from 'reactstrap';
 import axios from 'axios';
 import { search } from './UserFunction';
 
@@ -28,7 +28,7 @@ class ViewOperatorPage extends React.Component{
     }
 
     componentDidMount() {
-        
+        console.log(this.props.location.data);
           axios.get(`http://localhost:5001/Users/viewUser`)
           .then(res => {
             const operators = res.data;
@@ -85,7 +85,21 @@ class ViewOperatorPage extends React.Component{
         <Row>
             <Col>
             <Card className="mb-3">
-                <CardHeader>Responsive</CardHeader>
+                
+            {(this.props.location.data)?
+                (this.props.location.data == "TRUE" || this.props.location.data == true)?
+                    <UncontrolledAlert color="success">
+                    SUCCESSFUL!
+                    </UncontrolledAlert>
+                    :
+                    <UncontrolledAlert color="danger">
+                    ERROR!
+                    </UncontrolledAlert>
+                :
+                ""
+            }
+            
+                <CardHeader>Operator data</CardHeader>
                 <CardBody>
                 <Table responsive>
                     <tr className="table-active">
