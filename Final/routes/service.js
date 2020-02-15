@@ -237,7 +237,7 @@ service.post('/newServiceInvoice',function(req,res,next){
     var remarks = req.body.remarks;
     var iid;
     var newTotal = 0.0;
-    if(!(req.session.userId || req.session.adminId)){
+    if(req.session.userId || req.session.adminId){
         console.log('not logged')
         res.send('please log');
     }
@@ -308,26 +308,27 @@ service.post('/newServiceInvoice',function(req,res,next){
                                                                     console.log(total);
                                                                     doc1 = new PDFDocument;
                                                                     console.log('llwdlwionfsndlkvnavkjvnsdkjvn')
-                                                                    doc1.pipe(fs.createWriteStream(iid+'.pdf'));
-                                                                    console.log("tttttttttttttttt");
-                                                                        // Set a title and pass the X and Y coordinates
-                                                                    doc1.fontSize(15).text('Summary of Services in the day !\n\n\n', 50, 50);
-                                                                        // Set the paragraph width and align direction
-                                                                    for(var m = 0; m<result6.length; m++){
-                                                                        doc1.text("invoice Id  : "+result6[m].invoiceId+"\n customer id : "+result6[m].customerId+"\n vehicle id : "+result6[m].vehicleId+"\n date : "+result6[m].date+"\n price : "+result6[m].total+"\n disconut : "+result6[m].discount +"\n final total : "+result6[m].sub_total,{
-                                                                            width: 410,
-                                                                            align: 'left'
-                                                                        });
-                                                                        doc1.text("\n\n",{
-                                                                            width: 410,
-                                                                            align: 'left'
-                                                                        });
-                                                                    }    
+                                                                    var invoice = doc1.pipe(fs.createWriteStream(iid+'.pdf'));
+                                                                        console.log("tttttttttttttttt");
+                                                                            // Set a title and pass the X and Y coordinates
+                                                                        doc1.fontSize(15).text('Summary of Services in the day !\n\n\n', 50, 50);
+                                                                            // Set the paragraph width and align direction
+                                                                        for(var m = 0; m<result6.length; m++){
+                                                                            doc1.text("invoice Id  : "+result6[m].invoiceId+"\n customer id : "+result6[m].customerId+"\n vehicle id : "+result6[m].vehicleId+"\n date : "+result6[m].date+"\n price : "+result6[m].total+"\n disconut : "+result6[m].discount +"\n final total : "+result6[m].sub_total,{
+                                                                                width: 410,
+                                                                                align: 'left'
+                                                                            });
+                                                                            doc1.text("\n\n",{
+                                                                                width: 410,
+                                                                                align: 'left'
+                                                                            });
+                                                                        }    
 
-                                                                    // res.json('done');
-                                                                    doc1.end();
+                                                                        // res.json('done');
+                                                                        doc1.end();
                                                                     if(result6.length>0){
-                                                                        res.json(result6);
+                                                                        var state = true;
+                                                                        res.send({result6,state,invoice});
                                                                     }
                                                                     else{
                                                                         res.send('try again')
