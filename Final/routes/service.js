@@ -237,15 +237,12 @@ service.post('/newServiceInvoice',function(req,res,next){
     var remarks = req.body.remarks;
     var iid;
     var newTotal = 0.0;
-<<<<<<< HEAD
-=======
     console.log(customerId)
     console.log(vehicleId)
     console.log(serviceId)
     console.log(discount)
     console.log(date)
     console.log(remarks)
->>>>>>> 9d3d444454f9bdbcf50ef433a32e3f767419e4ef
     if(req.session.userId || req.session.adminId){
         console.log('not logged')
         res.send('please log');
@@ -336,15 +333,10 @@ service.post('/newServiceInvoice',function(req,res,next){
                                                                         // res.json('done');
                                                                         doc1.end();
                                                                     if(result6.length>0){
-<<<<<<< HEAD
-                                                                        var state = true;
-                                                                        res.send({result6,state,invoice});
-=======
                                                                         console.log('invoice send');
                                                                         var state = true;
                                                                         var res1 = result6[0];
                                                                         res.send({res1,state});
->>>>>>> 9d3d444454f9bdbcf50ef433a32e3f767419e4ef
                                                                     }
                                                                     else{
                                                                         res.send('try again')
