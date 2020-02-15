@@ -157,7 +157,6 @@ export const invoice = servicein => {
         customerId:servicein.customerId,    
         serviceId:servicein.serviceId,    
         vehicleId: servicein.vehicleId,
-        total: servicein.total,
         discount: servicein.discount,
         remarks: servicein.remarks,
     })
@@ -295,4 +294,29 @@ export const viewService = service => {
         console.log(err);
     })
 
+<<<<<<< HEAD
 }
+=======
+export const customersearch = user => {
+    console.log("user",user);
+    console.log(user.searchId);
+    return axios
+    .post('http://localhost:5001/customers/search', {
+        searchId: user.searchId,
+    })
+    .then(res => {
+        console.log('eeeeeeeeeeeeee')
+        //console.log(res.data.state);
+        console.log(res.data)
+        
+        //localStorage.setItem('usertoken',res.data)
+        return res.data;
+    })
+    .catch(err =>{
+        console.log('log err')
+        console.log(err)
+    })
+}
+
+
+>>>>>>> 7df2aeead2888dfad94b3555f24f0c189e26e8d8

@@ -33,7 +33,6 @@ class NewInvoice extends React.Component{
         serviceId:"",    
 
         vehicleId: "",
-        total: "",
         discount: "",
         remarks: "",
      
@@ -54,6 +53,25 @@ class NewInvoice extends React.Component{
   }
 
 
+<<<<<<< HEAD
+onSubmit(e){
+  e.preventDefault();
+  const invoice1 = {
+      customerId:this.state.customerId,   
+      serviceId:this.state.serviceId,    
+      vehicleId: this.state.vehicleId,
+      discount: this.state.discount,
+      remarks: this.state.remarks
+     
+  }
+  console.log('nvjsdnvklsnvsnkndslkvcnsdovnosinvsklnclksnvknskldnvsklvklsnvlks');
+  console.log(invoice1);
+  invoice(invoice1).then(res => {
+    console.log('come');
+    if(res) {
+      console.log("rrr");
+      console.log(res);
+=======
   onSubmit(e){
     e.preventDefault();
     const invoice1 = {
@@ -63,6 +81,7 @@ class NewInvoice extends React.Component{
         total: this.state.total,
         discount: this.state.discount,
         remarks: this.state.remarks
+>>>>>>> ca5175e84214e36e45861b4f56e2b04ad84ab898
       
     }
     console.log('nvjsdnvklsnvsnkndslkvcnsdovnosinvsklnclksnvknskldnvsklvklsnvlks');
@@ -133,17 +152,7 @@ class NewInvoice extends React.Component{
                     value={this.state.vehicleId}
                   />
                 </FormGroup>
-                <FormGroup>
-                <Label for="NIC">Total</Label>
-                  <Input
-                    type="number"
-                    name="total"
-                    id="total"
-                    placeholder="total"
-                    onChange={this.onChange}
-                    value={this.state.total}
-                  />
-                </FormGroup>
+                
                 <FormGroup>
                   <Label for="name">Discount</Label>
                   
