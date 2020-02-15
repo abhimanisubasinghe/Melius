@@ -244,13 +244,9 @@ customers.get('/customerView',function(req,res){
                 else{
                     if(result.length>0){
                         console.log(result);
-<<<<<<< HEAD
-                        
-                        res.json(result);
-=======
                         var length = result.length;
-                        res.send(result);
->>>>>>> b0a513234622f15c57c490d53cf890b301ddccfd
+                        var state = true;
+                        res.send({result,state});
                     }
                     else{
                         res.json('No any services');

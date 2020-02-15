@@ -55,6 +55,16 @@ import AddNewPOPage from './pages/item/AddNewPO';
 import RegisterStoragePage from './pages/storage/RegisterStoragePage';
 import RegisterOperatorPage from './pages/operator/RegisterOperatorPage';
 import ViewOperatorPage from './pages/operator/ViewOperatorPage';
+import ServiceInvoice from './pages/service/ServiceInvoice';
+//import AddNewPRPage from './pages/item/AddNewPR';
+import RegisterStoragePage from './pages/storage/RegisterStoragePage';
+import RegisterOperatorPage from './pages/operator/RegisterOperatorPage';
+import ViewOperatorPage from './pages/operator/ViewOperatorPage';
+import InvoiceServicePrint from './pages/service/PrintInvoiceService';
+import Addservice from './pages/service/Addservice';
+import OperatorProfilePage from './pages/operator/OperatorProfilePage';
+import OperatorUpdatePage from './pages/operator/OperatorUpdatePage';
+
 
 
 const getBasename = () => {
@@ -110,13 +120,20 @@ class App extends React.Component {
                 <Route exact path="/item-register" component={RegisterItemPage} />
                 <Route exact path="/new-pr" component={AddNewPRPage} />
                 <Route exact path="/new-po" component={AddNewPOPage} />
+                {/*<Route exact path="/new-pr" component={AddNewPRPage} />*/}
+                {/* <Route exact path="/new-pr" component={AddNewPRPage} /> */}
                 <Route exact path="/storage-register" component={RegisterStoragePage} />
                 <Route exact path="/operator-register" component={RegisterOperatorPage} />
                 <Route exact path="/operator-view" component={ViewOperatorPage} />
+                <Route exact path="/operator-profile" component={OperatorProfilePage} />
+                <Route exact path="/operator-update" component={OperatorUpdatePage} />
                 <Route exact path="/login" component={Login} />
                 <Route exact path="/add-customer" component={AddCustomer} />
                 <Route exact path="/view-customer" component={ViewCustomer} />
                 <Route exact path="/add-vehicle" component={AddVehicle} />
+                <Route exact path="/new-invoice" component={ServiceInvoice} />
+                <Route exact path="/printInvoiceService" component={InvoiceServicePrint}/>
+                <Route exact path="/addservice" component={Addservice}/>
 
               </React.Suspense>
             </MainLayout>

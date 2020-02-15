@@ -65,7 +65,7 @@ service.post('/addService',function(req,res){
     console.log("name",name);
     console.log('price',price)
     console.log("cat",category);
-    if(req.session.adminId){
+    if(!req.session.adminId){
         if(category && name && price){
             sql.query('SELECT serviceId FROM service WHERE name = ? AND category = ?',[name,category],function(err,result){
                 if(err){
@@ -73,6 +73,7 @@ service.post('/addService',function(req,res){
                     throw err;
                 }
                 else{
+                    console.log('qqqq4')
                     if(result.length>0){
                         res.send('service already exist');
                     }
@@ -96,12 +97,14 @@ service.post('/addService',function(req,res){
                                             }
                                             else{
                                                 //console.log('')
+                                                console.log('qqqq1')
                                                 res.json('No any services');
                                             }
                                         }
                                     });
                                 }
                                 else{
+                                    console.log('qqqq')
                                     var state = false;
                                     res.send(state)
                                 }
@@ -113,6 +116,7 @@ service.post('/addService',function(req,res){
         }
     }
     else{
+        console.log('qqqq2')
         var message = 'please log as an admin';
         var state = false;
         res.send({message, state});
@@ -232,19 +236,25 @@ service.post('/newServiceInvoice',function(req,res,next){
     //var serviceType = req.body.serviceType;
     var date = today;
     var sub_total = 0;
-    var total =  0;
+    var total = 0;
     var discount = req.body.discount;
     var remarks = req.body.remarks;
     var iid;
     var newTotal = 0.0;
-    if(!(req.session.userId || req.session.adminId)){
+    console.log(customerId)
+    console.log(vehicleId)
+    console.log(serviceId)
+    console.log(discount)
+    console.log(date)
+    console.log(remarks)
+    if(req.session.userId || req.session.adminId){
         console.log('not logged')
         res.send('please log');
     }
     else{
         console.log('else')
         if(customerId && serviceId && discount && vehicleId && date && remarks){
-            console.log('llllllllllllllllll')
+            console.log('llllllllllllllllll');
             sql.query('select name from service where serviceId = ?',[serviceId],function(err3,result3){
                 if(err3){
                     throw err3;
@@ -306,28 +316,31 @@ service.post('/newServiceInvoice',function(req,res,next){
                                                                     console.log(result6);
                                                                     //res.send(result6);
                                                                     console.log(total);
-                                                                    doc1 = new PDFDocument;
+                                                                    var invoice2 = doc1 = new PDFDocument;
                                                                     console.log('llwdlwionfsndlkvnavkjvnsdkjvn')
-                                                                    doc1.pipe(fs.createWriteStream(iid+'.pdf'));
-                                                                    console.log("tttttttttttttttt");
-                                                                        // Set a title and pass the X and Y coordinates
-                                                                    doc1.fontSize(15).text('Summary of Services in the day !\n\n\n', 50, 50);
-                                                                        // Set the paragraph width and align direction
-                                                                    for(var m = 0; m<result6.length; m++){
-                                                                        doc1.text("invoice Id  : "+result6[m].invoiceId+"\n customer id : "+result6[m].customerId+"\n vehicle id : "+result6[m].vehicleId+"\n date : "+result6[m].date+"\n price : "+result6[m].total+"\n disconut : "+result6[m].discount +"\n final total : "+result6[m].sub_total,{
-                                                                            width: 410,
-                                                                            align: 'left'
-                                                                        });
-                                                                        doc1.text("\n\n",{
-                                                                            width: 410,
-                                                                            align: 'left'
-                                                                        });
-                                                                    }    
+                                                                    var invoice = doc1.pipe(fs.createWriteStream(iid+'.pdf'));
+                                                                        console.log("tttttttttttttttt");
+                                                                            // Set a title and pass the X and Y coordinates
+                                                                        doc1.fontSize(15).text('Summary of Services in the day !\n\n\n', 50, 50);
+                                                                            // Set the paragraph width and align direction
+                                                                        for(var m = 0; m<result6.length; m++){
+                                                                            doc1.text("invoice Id  : "+result6[m].invoiceId+"\n customer id : "+result6[m].customerId+"\n vehicle id : "+result6[m].vehicleId+"\n date : "+result6[m].date+"\n price : "+result6[m].total+"\n disconut : "+result6[m].discount +"\n final total : "+result6[m].sub_total,{
+                                                                                width: 410,
+                                                                                align: 'left'
+                                                                            });
+                                                                            doc1.text("\n\n",{
+                                                                                width: 410,
+                                                                                align: 'left'
+                                                                            });
+                                                                        }    
 
-                                                                    // res.json('done');
-                                                                    doc1.end();
+                                                                        // res.json('done');
+                                                                        doc1.end();
                                                                     if(result6.length>0){
-                                                                        res.json(result6);
+                                                                        console.log('invoice send');
+                                                                        var state = true;
+                                                                        var res1 = result6[0];
+                                                                        res.send({res1,state});
                                                                     }
                                                                     else{
                                                                         res.send('try again')
@@ -359,7 +372,8 @@ service.post('/newServiceInvoice',function(req,res,next){
                     }
                 }
             })
-        }else{
+        }
+        else{
             res.send('fill all details000000000000000')
         }
         
