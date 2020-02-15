@@ -232,19 +232,25 @@ service.post('/newServiceInvoice',function(req,res,next){
     //var serviceType = req.body.serviceType;
     var date = today;
     var sub_total = 0;
-    var total =  0;
+    var total = 0;
     var discount = req.body.discount;
     var remarks = req.body.remarks;
     var iid;
     var newTotal = 0.0;
-    if(!(req.session.userId || req.session.adminId)){
+    console.log(customerId)
+    console.log(vehicleId)
+    console.log(serviceId)
+    console.log(discount)
+    console.log(date)
+    console.log(remarks)
+    if(req.session.userId || req.session.adminId){
         console.log('not logged')
         res.send('please log');
     }
     else{
         console.log('else')
         if(customerId && serviceId && discount && vehicleId && date && remarks){
-            console.log('llllllllllllllllll')
+            console.log('llllllllllllllllll');
             sql.query('select name from service where serviceId = ?',[serviceId],function(err3,result3){
                 if(err3){
                     throw err3;
@@ -306,7 +312,7 @@ service.post('/newServiceInvoice',function(req,res,next){
                                                                     console.log(result6);
                                                                     //res.send(result6);
                                                                     console.log(total);
-                                                                    doc1 = new PDFDocument;
+                                                                    var invoice2 = doc1 = new PDFDocument;
                                                                     console.log('llwdlwionfsndlkvnavkjvnsdkjvn')
                                                                     doc1.pipe(fs.createWriteStream(iid+'.pdf'));
                                                                     console.log("tttttttttttttttt");
@@ -327,7 +333,10 @@ service.post('/newServiceInvoice',function(req,res,next){
                                                                     // res.json('done');
                                                                     doc1.end();
                                                                     if(result6.length>0){
-                                                                        res.json(result6);
+                                                                        console.log('invoice send');
+                                                                        var state = true;
+                                                                        var res1 = result6[0];
+                                                                        res.send({res1,state});
                                                                     }
                                                                     else{
                                                                         res.send('try again')
@@ -359,7 +368,8 @@ service.post('/newServiceInvoice',function(req,res,next){
                     }
                 }
             })
-        }else{
+        }
+        else{
             res.send('fill all details000000000000000')
         }
         

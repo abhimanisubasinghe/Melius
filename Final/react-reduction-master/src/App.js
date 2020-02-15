@@ -29,10 +29,10 @@ import TablePage from './pages/TablePage';
 import TypographyPage from './pages/TypographyPage';
 import WidgetPage from './pages/WidgetPage';
 import RegisterItemPage from './pages/item/RegisterItemPage';
-<<<<<<< HEAD
 import AddCustomer from './pages/customer/AddCustomer';
 import ViewCustomer from './pages/customer/ViewCustomer';
 import AddVehicle from './pages/vehicle/AddVehicle';
+import ServiceInvoice from './pages/service/ServiceInvoice';
 
 // const AlertPage = React.lazy(() => import('pages/AlertPage'));
 // const AuthModalPage = React.lazy(() => import('pages/AuthModalPage'));
@@ -51,12 +51,12 @@ import AddVehicle from './pages/vehicle/AddVehicle';
 // const TypographyPage = React.lazy(() => import('pages/TypographyPage'));
 // const WidgetPage = React.lazy(() => import('pages/WidgetPage'));
 // const RegisterItemPage = React.lazy(() => import('pages/item/RegisterItemPage'));
-=======
-import AddNewPRPage from './pages/item/AddNewPR';
+
+//import AddNewPRPage from './pages/item/AddNewPR';
 import RegisterStoragePage from './pages/storage/RegisterStoragePage';
 import RegisterOperatorPage from './pages/operator/RegisterOperatorPage';
 import ViewOperatorPage from './pages/operator/ViewOperatorPage';
->>>>>>> b0a513234622f15c57c490d53cf890b301ddccfd
+
 
 
 const getBasename = () => {
@@ -110,7 +110,7 @@ class App extends React.Component {
                 <Route exact path="/input-groups" component={InputGroupPage} />
                 <Route exact path="/charts" component={ChartPage} />
                 <Route exact path="/item-register" component={RegisterItemPage} />
-                <Route exact path="/new-pr" component={AddNewPRPage} />
+                {/* <Route exact path="/new-pr" component={AddNewPRPage} /> */}
                 <Route exact path="/storage-register" component={RegisterStoragePage} />
                 <Route exact path="/operator-register" component={RegisterOperatorPage} />
                 <Route exact path="/operator-view" component={ViewOperatorPage} />
@@ -118,6 +118,7 @@ class App extends React.Component {
                 <Route exact path="/add-customer" component={AddCustomer} />
                 <Route exact path="/view-customer" component={ViewCustomer} />
                 <Route exact path="/add-vehicle" component={AddVehicle} />
+                <Route exact path="/new-invoice" component={ServiceInvoice} />
 
               </React.Suspense>
             </MainLayout>
