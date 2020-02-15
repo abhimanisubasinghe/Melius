@@ -44,6 +44,60 @@ export const login = user => {
     })
 }
 
+<<<<<<< HEAD
+export const registerCustomer = userReg=>{
+    console.log(userReg);
+    return axios
+    .post('http://localhost:5001/customers/customerRegistration',{
+        name:userReg.name,
+        fax:userReg.fax,    
+        NIC: userReg.NIC,
+        type:userReg.type ,
+
+        email:userReg.email ,
+        website:userReg.website ,
+        address:userReg.address ,
+        phoneNo:userReg.phoneNo ,
+        DOB:userReg.DOB ,
+        note:userReg.note ,
+        
+    })
+    .then(res=>{
+        console.log(res.data);
+        localStorage.setItem("usertoken",res.data)
+        return res.data
+    })
+    .catch(err=>{
+        console.log("not registered")
+        console.log(err);
+    })
+}
+
+export const viewCustomer = userReg=>{
+    console.log(userReg);
+    return axios
+    .post("http://localhost:5001/customer/customerView",{
+        Id:userReg.Id,
+        name:userReg.name,
+        fax:userReg.fax,    
+        NIC: userReg.NIC,
+        type:userReg.type ,
+        email:userReg.email ,
+        website:userReg.website ,
+        address:userReg.address ,
+        phoneNo:userReg.phoneNo ,
+        DOB:userReg.DOB ,
+        note:userReg.note ,
+        
+    })
+    .then(res=>{
+        console.log(res.data);
+        localStorage.setItem("usertoken",res.data)
+        return res.data
+    })
+    .catch(err=>{
+        console.log("not registered")
+=======
 export const addService = service => {
     return axios
     .post('http://localhost:5001/services/addService', {
@@ -79,10 +133,42 @@ export const selectUser = user => {
     })
     .catch(err =>{
         console.log('err');
+>>>>>>> b0a513234622f15c57c490d53cf890b301ddccfd
         console.log(err);
     })
 }
 
+<<<<<<< HEAD
+
+
+export const registerVehicle = userReg=>{
+    console.log(userReg);
+    console.log("hi");
+
+    return axios
+
+    .post('http://localhost:5001/vehicles/vehicleRegistration',{
+
+        vehicleNo:userReg.vehicleNo,
+        type:userReg.type ,      
+        category:userReg.category ,
+        mileage:userReg.mileage,    
+        custId: userReg.custId,
+
+        
+    })
+    .then(res=>{
+        console.log(res.data);
+        localStorage.setItem("usertoken",res.data)
+        return res.data
+    })
+    .catch(err=>{
+        console.log("not registered")
+        console.log(err);
+    })
+
+}
+=======
 export const updateUser = user => {
     return axios
     .post('http://localhost:5001/users/userUpdateByUser', {
@@ -158,3 +244,4 @@ export const viewService = service => {
     })
 }
 
+>>>>>>> b0a513234622f15c57c490d53cf890b301ddccfd
