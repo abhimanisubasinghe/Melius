@@ -19,19 +19,22 @@ import {
 } from 'reactstrap';
 import axios from 'axios';
 
-class RegisterOperatorPage extends React.Component{
+class OperatorUpdatePage extends React.Component{
 
   constructor(props) {
     super(props)
 
     this.state = {
-        name: "",
-        username: "",
-        DOB: "",
-        address: "",
-        contactNumber: "",
-        status: "",
-        password: "",
+        operator: {
+            id:"0",
+            name: "abc",
+            username: "abc@abc.com",
+            DOB: "1/4/2020",
+            address: "abc abc abc",
+            contactNumber: "0123456789",
+            status: "0",
+            password: "",
+         }
     }
     
 }
@@ -42,20 +45,29 @@ onChange = (e) => {
 )
 }
 
+componentDidMount(){
+    //console.log(this.state.data[0].name)
+    if(this.props.location.data){
+        const operator = this.props.location.data[0];
+        this.setState({operator})
+    }
+}
+
 handleSubmit = e => { 
     e.preventDefault();
-    console.log("name",this.state.name);
-    console.log("DOB",this.state.DOB);
-    console.log("uname",this.state.username);
-    console.log("address",this.state.address);
+    console.log("name",this.state.operator.name);
+    console.log("DOB",this.state.operator.DOB);
+    console.log("uname",this.state.operator.username);
+    console.log("address",this.state.operator.address);
     const user = {
-      name : this.state.name,
-      username : this.state.username,
-      DOB : this.state.DOB,
-      address : this.state.address,
-      contactNumber : this.state.contactNumber,
-      status : this.state.status,
-      password : this.state.password
+      id : this.state.operator.id,  
+      name : this.state.operator.name,
+      username : this.state.operator.username,
+      DOB : this.state.operator.DOB,
+      address : this.state.operator.address,
+      contactNumber : this.state.operator.contactNumber,
+      status : this.state.operator.status,
+      password : this.state.operator.password
     }
     register(user).then(res => {
       if(res) {
@@ -74,6 +86,12 @@ handleSubmit = e => {
 }
 
   render(){
+    var date;
+    var m;
+    var d;
+    var y;
+    var n;
+    var yyyymmdd;
   return (
     <div>
     <Page title="Register Operator" breadcrumbs={[{ name: 'Operator-Register', active: true }]}>
@@ -90,7 +108,7 @@ handleSubmit = e => {
                     name="name"
                     id="name"
                     placeholder="Name"
-                    value = {this.state.name}
+                    value = {this.state.operator.name}
                     onChange  = {this.onChange}
                   />
                 </FormGroup>
@@ -101,18 +119,26 @@ handleSubmit = e => {
                     name="username"
                     id="username"
                     placeholder="example@cool.com"
-                    value = {this.state.username}
+                    value = {this.state.operator.username}
                     onChange = {this.onChange}
                   />
                 </FormGroup>
                 <FormGroup>
+                {
+                            date = new Date(this.state.operator.DOB),
+                            m = date.getUTCMonth()+1, // Hours   
+                            y = (date.getUTCFullYear()),
+                            d = (date.getUTCDate()),
+                            yyyymmdd = (y)+"."+(m)+"."+(d) ,
+                            n = ''
+                        }    
                 <Label for="DOB">Date Of Birth</Label>
                   <Input
-                    type="date"
+                    type="text"
                     name="DOB"
                     id="DOB"
                     placeholder="time placeholder"
-                    value = {this.state.DOB}
+                    value = {yyyymmdd}
                     onChange = {this.onChange}
                   />
                 </FormGroup>
@@ -123,7 +149,7 @@ handleSubmit = e => {
                     name="address"
                     id="address"
                     placeholder="Address"
-                    value = {this.state.address}
+                    value = {this.state.operator.address}
                     onChange = {this.onChange}
                   />
                 </FormGroup>
@@ -134,40 +160,16 @@ handleSubmit = e => {
                     name="contactNumber"
                     id="contactNumber"
                     placeholder="+94XXXXXXXXX"
-                    value = {this.state.contactNumber}
+                    value = {this.state.operator.contactNumber}
                     onChange = {this.onChange}
                   />
                 </FormGroup>
-                <FormGroup tag="fieldset" row>
-                  <Label for="status" sm={2}>
-                    Status
-                  </Label>
-                  <Col sm={10}>
-                    <FormGroup check>
-                      <Label check>
-                        <Input 
-                        type="radio" 
-                        name="status" 
-                        id="status" 
-                        value = "0"
-                        onChange = {this.onChange}
-                         /> 
-                         Admin
-                      </Label>
-                    </FormGroup>
-                    <FormGroup check>
-                      <Label check>
-                      <Input 
-                        type="radio" 
-                        name="status" 
-                        id="status" 
-                        value = "1"
-                        onChange = {this.onChange}
-                         /> 
-                         Operator
-                      </Label>
-                    </FormGroup>
-                  </Col>
+                  <FormGroup>
+                  <Label for="status">Status</Label>
+                  <Input type="select" name="status" id="status" onChange={this.onChange}>
+                    <option value="0" selected>Admin</option>
+                    <option value="1">Operator</option>
+                  </Input>
                 </FormGroup>
                 <FormGroup>
                   <Label for="password">Password</Label>
@@ -176,7 +178,7 @@ handleSubmit = e => {
                     name="password"
                     id="password"
                     placeholder="Password"
-                    value = {this.state.password}
+                    value = {this.state.operator.password}
                     onChange = {this.onChange}
                   />
                 </FormGroup>
@@ -196,4 +198,4 @@ handleSubmit = e => {
 
 
 
-export default RegisterOperatorPage;
+export default OperatorUpdatePage;

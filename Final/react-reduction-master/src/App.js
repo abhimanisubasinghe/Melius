@@ -32,7 +32,8 @@ import RegisterItemPage from './pages/item/RegisterItemPage';
 import RegisterStoragePage from './pages/storage/RegisterStoragePage';
 import RegisterOperatorPage from './pages/operator/RegisterOperatorPage';
 import ViewOperatorPage from './pages/operator/ViewOperatorPage';
-
+import OperatorProfilePage from './pages/operator/OperatorProfilePage';
+import OperatorUpdatePage from './pages/operator/OperatorUpdatePage';
 
 const getBasename = () => {
   return `/${process.env.PUBLIC_URL.split('/').pop()}`;
@@ -88,6 +89,8 @@ class App extends React.Component {
                 <Route exact path="/storage-register" component={RegisterStoragePage} />
                 <Route exact path="/operator-register" component={RegisterOperatorPage} />
                 <Route exact path="/operator-view" component={ViewOperatorPage} />
+                <Route exact path="/operator-profile" component={OperatorProfilePage} />
+                <Route exact path="/operator-update" component={OperatorUpdatePage} />
                 <Route exact path="/login" component={Login} />
               </React.Suspense>
             </MainLayout>

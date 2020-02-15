@@ -68,7 +68,8 @@ const navComponents = [
 
 const navOperator = [
   { to: '/operator-register', name: 'register', exact: false, Icon: MdAddCircle },
-  { to: '/operator-view', name: 'view', exact: false, Icon: MdAddCircle }
+  { to: '/operator-view', name: 'view', exact: false, Icon: MdAddCircle },
+  { to: '/operator-profile', name: 'profile', exact: false, Icon: MdAddCircle },
 ];
 
 const navInventoryItems = [
