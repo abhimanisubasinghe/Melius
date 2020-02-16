@@ -30,10 +30,22 @@ class AddNewPRPage extends React.Component{
         delDate: "",
         storageId: "",
         supplierId: "",
-        terms:""
+        terms:"",
+        data:[
+          {itemCode:"",name:""}
+        ]
       
     }
     
+}
+componentDidMount(){
+  //console.log(this.props.location.data);
+    axios.get(`http://localhost:5000/items/item`)
+    .then(res => {
+      console.log(res.data.data);
+      const data = res.data.data;
+      this.setState({data})
+    })
 }
 
 onChange = (e) => {
@@ -79,17 +91,17 @@ handleSubmit = e => {
             <CardHeader>Purchase Requisition</CardHeader>
             <CardBody>
               <Form onSubmit={this.handleSubmit}>
-                <FormGroup>
-                  <Label for="name">Item Code</Label>
-                  <Input
-                    type="text"
-                    name="itemCode"
-                    id="itemCode"
-                    value={this.state.itemCode}
-                    onChange={this.onChange}
-                    placeholder="Item Name"
-                    
-                  />
+              <FormGroup>
+                  <Label for="exampleSelect">Item</Label>
+                  <Input type="select" name="itemCode" id="itemCode"
+                    placeholder="Item Name">
+                      <option value="" selected disabled>select itemCode</option>
+                    { this.state.data.map((data,i) =>
+                                            
+                            <option value={data.itemcode}>{data.name}</option>
+                          
+            )}
+                  </Input>
                 </FormGroup>
                 <FormGroup>
                 <Label for="Qty">Quantity</Label>
@@ -99,7 +111,7 @@ handleSubmit = e => {
                     id="Qty"
                     value={this.state.Qty}
                     onChange={this.onChange}
-                    placeholder="In Stock"
+                    placeholder="Quantity"
                     
                   />
                 </FormGroup>
