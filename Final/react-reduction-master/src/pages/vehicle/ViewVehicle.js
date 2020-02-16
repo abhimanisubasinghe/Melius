@@ -2,37 +2,71 @@ import Page from 'components/Page';
 import React from 'react';
 import { Button, Card, CardBody, CardHeader, Col, Row, Table } from 'reactstrap';
 import axios from 'axios';
+import { vehiclesearch } from '../../components/UserFunction';
+
 const tableTypes = [ 'hover'];
 
-class ViewCustomer extends React.Component{
+class ViewVehicle extends React.Component{
     constructor(props) {
         super(props)
     
         this.state = {
-            customers:[]
+            vehicles:[],
+            serchId:"",
             
         }
     }
 
     componentDidMount() {
         
-          axios.get(`http://localhost:5001/customers/customerView`)
+          axios.get(`http://localhost:5001/vehicles/view`)
           .then(res => {
-            const customers = res.data.result;
-            console.log(res.data.result);
-            this.setState({ customers });
+            const vehicles = res.data;
+            console.log(res.data);
+            this.setState({ vehicles });
           })
           
     }
 
-    setStatus = () => {
+    
+    handleInfo = e => {
+        e.preventDefault();
+        console.log("Hi!",e);
+        console.log(e.target.searchId.value);
+        console.log("hi2")
+        const user = {
+            searchId: e.target.searchId.value
+        }    
+        //console.log("e",e);
+        //searchId.preventDefault();
+        /*const user = {
+            searchId: searchId
+        }*/
+        /*console.log("search",searchId)*/
 
+        vehiclesearch(user).then(res => {
+            if(res) {
+              console.log('qqqqqqqqqqqqq');
+              console.log(res);
+              if(res){
+                this.props.history.push({
+                    pathname:'/singlevehicle',
+                    data: res})
+                
+              }
+              else{
+                console.log("ERROR");  
+                this.props.history.push('/view-vehicle');
+              }
+            }
+          })
     }
+
 
     render(){    
     return (
         <Page
-        title="Operator"
+        title="vehicles"
         breadcrumbs={[{ name: 'View', active: true }]}
         className="TablePage"
         >
@@ -44,33 +78,34 @@ class ViewCustomer extends React.Component{
                 {<Table responsive>
                     <tr className="table-active">
                         <th>Id</th>
-                        <th>Name </th>
-                        <th>fax</th>
-                        <th>NIC</th>
-                        <th>type </th>
-                        <th>E-mail</th>
-                        <th>website</th>  
-                        <th>address</th>
-                        <th>phone No</th>
-                        <th>DOB</th>
-                        <th>note</th>
+                        <th>vehicle No </th>
+                        <th>category</th>
+                        <th>type</th>
+                        <th>mileage </th>
+                        <th>owner NIC</th>
+                       
                         <th></th>
                     </tr>
                     {
-                        this.state.customers.map((customer) =>
+                        this.state.vehicles.map((vehicle) =>
                             <tr>
-                            <td>{customer.Id}</td>
-                            <td>{customer.name}</td>
-                            <td>{customer.fax}</td>
-                            <td>{customer.NIC}</td>
-                            <td>{customer.type}</td>
-                            <td>{customer.email}</td>
-                            <td>{customer.website}</td>
-                            <td>{customer.address}</td>
-                            <td>{customer.phoneNo}</td>
-                            <td>{customer.DOB}</td>
-                            <td>{customer.note}</td>
-                            <td><Button color="info">View</Button></td>
+                            <td>{vehicle.Id}</td>
+                            <td>{vehicle.vehicleId}</td>
+                            <td>{vehicle.category}</td>
+                            <td>{vehicle.type}</td>
+                            <td>{vehicle.mileage}</td>
+                            <td>{vehicle.custId}</td>
+                            
+                            <td> 
+                                <form onSubmit={this.handleInfo}>
+                                                <input 
+                                                type="hidden" 
+                                                id="searchId" 
+                                                name="searchId" 
+                                                value={vehicle.Id} 
+                                                disabled/>
+                                                <Button color="info">View</Button>
+                                            </form></td>
                             </tr> 
                         )
                     }
@@ -84,4 +119,4 @@ class ViewCustomer extends React.Component{
     };
 }
 
-export default ViewCustomer;
+export default ViewVehicle;

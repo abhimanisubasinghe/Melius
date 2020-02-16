@@ -38,7 +38,6 @@ class AddNewPOPage extends React.Component{
 
 handleChange = (e) => {
     if(["itemCode","quantity","unitPrice"].includes(e.target.name)){
-        console.log("here");
         let item = [...this.state.item]
         item[e.target.dataset.id][e.target.name] = e.target.value
         this.setState({ item },() => console.log(this.state.item))
@@ -66,18 +65,21 @@ handleSubmit = e => {
         deliveryTerms:this.state.deliveryTerms,
         paymentTerms:this.state.deliveryTerms,
     }
-    console.log(newPO);
+    //console.log(newPO);
     const url = "http://localhost:5000/reorder/addPO"; 
     axios
             .post(url,
                     newPO
             ,{headers: {'Accept': 'application/json'}})
             .then( response =>
-                    {console.log("good "+response)}
+                    {console.log("good");
+                    
+                  }
+                    
             )
             .catch(() => console.log("Can’t access " + url + " response. Blocked by browser?"))
     
-    
+            this.props.history.push('/po-view')
 }
 
   render(){

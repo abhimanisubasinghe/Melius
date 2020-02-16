@@ -82,10 +82,10 @@ handleSubmit = e => {
     console.log("user",user);
     updateAdmin(user).then(res => {
       if(res) {
-        console.log('qqqqqqqqqqqq');
+        console.log('qqqqqqqqqqqq',res);
         this.props.history.push({
           pathname:'/operator-view',
-          data: this.props.location});
+          data: res});
       } else{
             this.props.history.push({
                 pathname:'/operator-update',

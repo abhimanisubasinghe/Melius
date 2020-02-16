@@ -1,6 +1,6 @@
 import Page from 'components/Page';
 import React from 'react';
-//import { registerVehicle } from '../../components/UserFunction';
+import { registerVehicle } from '../../components/UserFunction';
 import axios from 'axios';
 
 import {
@@ -64,14 +64,18 @@ onSubmit(e){
      
   }
   console.log(vehicle);
-  /*registerVehicle(vehicle).then(res => {
+  registerVehicle(vehicle).then(res => {
     console.log('come');
     if(res) {
       console.log("rrr");
-      console.log(res.data);
-    }
+      console.log(res.state);
+      this.props.history.push('/view-vehicle');
+        }
+        else{
+          this.props.history.push('/',{detail: res})
+        }
     
-  })*/
+  })
 
 }
 
@@ -141,14 +145,6 @@ onSubmit(e){
                     value={this.state.custId}
                   />
                 </FormGroup>
-                
-                
-               
-                
-                
-              
-                
-                
                 <FormGroup check row>
                     <Button type="submit">Submit</Button>
                 </FormGroup>

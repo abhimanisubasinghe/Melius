@@ -6,11 +6,13 @@ import user1Image from 'assets/img/users/100_1.jpg';
 import bgImage from 'assets/img/bg/background_1920-7.png';
 import { UserCard } from 'components/Card';
 import Page from 'components/Page';
+//import { confirmAlert } from 'react-confirm-alert'; 
+import '../../components/Alert/react-confirm-alert.css';
 import { bgCards, gradientCards, overlayCards } from 'demos/cardPage';
 import { getStackLineChart, stackLineChartOptions } from 'demos/chartjs';
 import React from 'react';
 import { Line } from 'react-chartjs-2';
-import { search } from './UserFunction';
+import { search , deleteUser} from './UserFunction';
 import {
   Button,
   Card,
@@ -79,6 +81,57 @@ class OperatorProfilePage extends React.Component{
           })
     }
 
+    handleDelete = () => { 
+        const user = {
+          username : this.state.operator.username,
+          
+        }
+        console.log("delete user",user);
+        deleteUser(user).then(res => {
+          if(res) {
+            console.log('qqqqqqqqqqqq');
+            this.props.history.push({
+              pathname:'/operator-view',
+              data: res});
+          } else{
+                this.props.history.push({
+                    pathname:'/operator-view',
+                    data: res})
+            }
+          }
+        )
+        
+    }
+
+    // submit = () => {
+    //     confirmAlert({
+    //         customUI: ({ onClose }) => {
+    //           return (
+    //             <div className='custom-ui'>
+    //               <h1>Are you sure?</h1>
+    //               <p>You want to delete this file?</p>
+    //               <Row>
+    //               <Col>    
+    //               <Button color="info" onClick={onClose}>No</Button>
+    //               </Col>
+    //               <Col>
+    //               <Button
+    //                 color="danger"
+    //                 onClick={() => {
+    //                   this.handleDelete();
+    //                   onClose();
+    //                 }}
+    //               >
+    //                 Yes
+    //               </Button>
+    //               </Col>
+    //               </Row>
+    //             </div>
+    //           );
+    //         }
+    //       });
+    //     }
+
     render(){
         var date;
         var m;
@@ -124,6 +177,9 @@ class OperatorProfilePage extends React.Component{
                     <Col>
                     <Card className="text-center">
                             <CardText>
+                                <br/>
+                            </CardText>
+                            <CardText>
                             <form onSubmit={this.handleUpdate}>
                                 <input 
                                     type="hidden" 
@@ -134,7 +190,7 @@ class OperatorProfilePage extends React.Component{
                                 <Button color="success">Update</Button>
                             </form>
                             </CardText>
-                            <form onSubmit={this.handleDelete}>
+                            <form onSubmit={this.submit}>
                                     <input 
                                     type="hidden" 
                                     id="searchId" 
@@ -146,7 +202,9 @@ class OperatorProfilePage extends React.Component{
                                     </CardText>        
                                     
                             <CardText>        
-                            <Button color="danger">Delete</Button>
+                            <div className='container'>
+                                <Button color="danger" onClick={this.submit}>Confirm dialog</Button>
+                            </div>
                             <br/>
                             </CardText>
                             </form>

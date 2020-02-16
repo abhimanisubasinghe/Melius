@@ -21,22 +21,26 @@ import {
   Row,
 } from 'reactstrap';
 
-class OperatorProfilePage extends React.Component{
+class SingleView extends React.Component{
 
     constructor(props) {
         super(props)
     
         this.state = {
              data: this.props.location.data,
-             operator: {
-                id:"0",
-                name: "abc",
-                username: "abc@abc.com",
-                DOB: "2015-03-04T00:00:00.000Z",
-                address: "abc abc abc",
-                contactNumber: "0123456789",
-                status: "0",
-                password: "",
+             customer: {
+                Id:"",
+                name: "",
+                fax: "",
+                NIC: "",
+                type: "",
+                email: "",
+                website: "",
+                DOB: "",
+                note: "",
+
+
+                
              }
             
         }
@@ -45,8 +49,8 @@ class OperatorProfilePage extends React.Component{
     componentDidMount(){
         //console.log(this.state.data[0].name)
         if(this.props.location.data){
-            const operator = this.props.location.data[0];
-            this.setState({operator})
+            const customer = this.props.location.data[0];
+            this.setState({customer})
         }
     }
 
@@ -62,7 +66,7 @@ class OperatorProfilePage extends React.Component{
               console.log(res);
               if(res){
                 this.props.history.push({
-                    pathname:'/operator-update',
+                    pathname:'/updatecustomer',
                     data: res})
                 
               }
@@ -77,20 +81,23 @@ class OperatorProfilePage extends React.Component{
     render(){
      
         return (
-            <Page title="Operator Profile" breadcrumbs={[{ name: 'profile', active: true }]}>
+            <Page title="Customer Profile" breadcrumbs={[{ name: 'profile', active: true }]}>
 
 <Row>
             <Col  md={6} sm={6} xs={12}>
               <Card inverse className="text-center">
                 <CardImg width="100%" src={bgImage} alt="Card image cap" />
                 <CardImgOverlay>
-                  <CardTitle>Customer</CardTitle>
-                  <CardText>inversed card</CardText>
-                  <CardText>
-                    <small className="text-muted">
-                      Last updated 3 mins ago
-                    </small>
-                  </CardText>
+                  <CardTitle>Customer Id : -{this.state.customer.Id}</CardTitle>
+                  <CardText>{this.state.customer.fax}</CardText>
+                  <CardText>{this.state.customer.NIC}</CardText>
+                  <CardText>{this.state.customer.type}</CardText>
+                  <CardText>{this.state.customer.email}</CardText>
+                  <CardText>{this.state.customer.website}</CardText>
+                  <CardText>{this.state.customer.DOB}</CardText>
+                  <CardText>{this.state.customer.note}</CardText>
+
+                  
                 </CardImgOverlay>
               </Card>
             </Col>
@@ -105,7 +112,7 @@ class OperatorProfilePage extends React.Component{
                                     type="hidden" 
                                     id="searchId" 
                                     name="searchId" 
-                                    value={this.state.operator.username} 
+                                    value={this.state.customer.Id} 
                                     disabled/>
                                 <Button  color="success">Update</Button>
                             </form>
@@ -115,7 +122,7 @@ class OperatorProfilePage extends React.Component{
                                     type="hidden" 
                                     id="searchId" 
                                     name="searchId" 
-                                    value={this.state.operator.username} 
+                                    value={this.state.customer.Id} 
                                     disabled
                                     />
                                     <CardText>
@@ -146,4 +153,4 @@ const fontStyle = {
     'color' : '#242424'
 }
 
-export default OperatorProfilePage;
+export default SingleView;

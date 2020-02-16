@@ -75,8 +75,8 @@ const navOperator = [
 const navInventoryItems = [
   { to: '/item-register', name: 'register', exact: false, Icon: MdAddCircle },
   { to: '/new-pr', name: 'new purchase requisition', exact: false, Icon: MdAddCircle },
-  { to: '/new-po', name: 'new purchase requisition', exact: false, Icon: MdAddCircle },
   { to: '/po-view', name: 'purchase orders', exact: false, Icon: MdAddCircle },
+  { to: '/pr-view', name: 'purchase requisition orders', exact: false, Icon: MdAddCircle },
   { to: '/storage-register', name: 'storage-register', exact: false, Icon: MdAddCircle },
   { to: '/tables', name: 'tables', exact: false, Icon: MdBorderAll },
 ];
@@ -100,6 +100,8 @@ const navCustomers= [
 
 const navVehicle = [
   { to: '/add-vehicle', name: 'register', exact: false, Icon: MdTextFields },
+  { to: '/view-vehicle', name: 'View Vehicle', exact: false, Icon: MdAddCircle },
+
 ];
 
 const pageContents = [

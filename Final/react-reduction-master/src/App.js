@@ -53,6 +53,7 @@ import AddVehicle from './pages/vehicle/AddVehicle';
 import AddNewPRPage from './pages/item/AddNewPR';
 import AddNewPOPage from './pages/item/AddNewPO';
 import POTablePage from './pages/item/PO';
+import PRTablePage from './pages/item/PR';
 import ServiceInvoice from './pages/service/ServiceInvoice';
 //import AddNewPRPage from './pages/item/AddNewPR';
 import RegisterStoragePage from './pages/storage/RegisterStoragePage';
@@ -63,6 +64,10 @@ import Addservice from './pages/service/Addservice';
 import OperatorProfilePage from './pages/operator/OperatorProfilePage';
 import OperatorUpdatePage from './pages/operator/OperatorUpdatePage';
 import SingleView from './pages/customer/SingleView';
+import UpdateCustomer from './pages/customer/UpdateCustomer';
+import ViewVehicle from './pages/vehicle/ViewVehicle';
+import Singlevehicle from './pages/vehicle/Singlevehicle';
+import UpdateVehicle from './pages/vehicle/UpdateVehicle';
 
 
 
@@ -120,6 +125,7 @@ class App extends React.Component {
                 <Route exact path="/new-pr" component={AddNewPRPage} />
                 <Route exact path="/new-po" component={AddNewPOPage} />
                 <Route exact path="/po-view" component={POTablePage} />
+                <Route exact path="/pr-view" component={PRTablePage} />
                 {/* <Route exact path="/new-pr" component={AddNewPRPage} /> */}
                 <Route exact path="/storage-register" component={RegisterStoragePage} />
                 <Route exact path="/operator-register" component={RegisterOperatorPage} />
@@ -134,6 +140,10 @@ class App extends React.Component {
                 <Route exact path="/printInvoiceService" component={InvoiceServicePrint}/>
                 <Route exact path="/addservice" component={Addservice}/>
                 <Route exact path="/singleview" component={SingleView}/>
+                <Route exact path="/updatecustomer" component={UpdateCustomer}/>
+                <Route exact path="/view-vehicle" component={ViewVehicle}/>
+                <Route exact path="/singlevehicle" component={Singlevehicle}/>
+                <Route exact path="/updatevehicle" component={UpdateVehicle}/>
 
               </React.Suspense>
             </MainLayout>
