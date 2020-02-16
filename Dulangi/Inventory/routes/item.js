@@ -53,6 +53,18 @@ router.use(function(req, res, next) {
     next();
 });
 
+//GET LIST OF ITEMS
+router.get('/item',function(req,res,next){
+    connection.query('SELECT itemCode,name FROM item',function(err,result){
+        if(err){
+            throw err;
+        }else{
+            res.send({
+                data:result
+            })
+        }
+    })
+})
 
 //DISPLAY ITEM  LIST
 router.get('/', function(req, res, next) {
@@ -115,13 +127,13 @@ router.post('/add', function(req, res, next) {
             if (err) {
                 req.flash('error', err);
 
-                res.render('items/add', {
+                /*res.render('items/add', {
                     title: 'Add new item',
 
-                })
+                })*/
             } else {
-                req.flash('success', 'Data inserted succesfully');
-                res.redirect('/items/add');
+                /*req.flash('success', 'Data inserted succesfully');
+                res.redirect('/items/add');*/
             }
         });
 
@@ -133,12 +145,12 @@ router.post('/add', function(req, res, next) {
             error_msg += error_msg + '<br>'
         });
 
-        req.flash('error', error_msg);
+       /* req.flash('error', error_msg);
 
         res.render('items/add', {
             title: 'Add new Customer',
 
-        })
+        })*/
     }
 });
 
