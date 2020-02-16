@@ -45,6 +45,7 @@ class ModalPage extends React.Component {
               <CardBody>
                 <Button onClick={this.toggle()}>Launch Modal</Button>
                 <Modal
+                  id = {1}
                   isOpen={this.state.modal}
                   toggle={this.toggle()}
                   className={this.props.className}>

@@ -1,6 +1,6 @@
 import Page from 'components/Page';
 import React from 'react';
-import { Button, Card, CardBody, CardHeader, Col, Row, Table } from 'reactstrap';
+import { Button, Card, CardBody,UncontrolledAlert,CardHeader, Col, Row, Table } from 'reactstrap';
 import axios from 'axios';
 import { customersearch } from 'components/UserFunction';
 import { IconWidget, NumberWidget } from 'components/Widget';
@@ -87,6 +87,7 @@ class ViewCustomer extends React.Component{
           </Col>
             <Col>
             <Card className="mb-3">
+            
                 <CardHeader></CardHeader>
                 <CardBody>
                 {<Table responsive>
