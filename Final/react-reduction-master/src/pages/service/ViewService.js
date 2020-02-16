@@ -2,92 +2,79 @@ import Page from 'components/Page';
 import React from 'react';
 import { Button, Card, CardBody, CardHeader, Col, Row, Table,UncontrolledAlert, } from 'reactstrap';
 import axios from 'axios';
+import { view } from './UserFunction';
 import { search } from './UserFunction';
 
 const tableTypes = ['', 'bordered', 'striped', 'hover'];
 
-class ViewOperatorPage extends React.Component{
+class ViewServicePage extends React.Component{
 
     constructor(props) {
         super(props)
     
         this.state = {
             searchId: "",
-            operators:[ {
-                id:"0",
-                name: "abc",
-                username: "abc@abc.com",
-                DOB: "1/4/2020",
-                address: "abc abc abc",
-                contactNumber: "0123456789",
-                status: "0",
-                password: "",
+            services:[ {
+                serviceId:"",
+                name: "",
+                category: "",
+                price: ""
              }
             ]
         }
     }
 
     componentDidMount() {
-        console.log(this.props.location.data);
-          axios.get(`http://localhost:5001/Users/viewUser`)
+        
+          axios.get(`http://localhost:5001/services/viewService`)
           .then(res => {
-            const operators = res.data;
+            const services = res.data.result;
             console.log("view",res.data);
-            this.setState({ operators });
+            this.setState({ services });
           })
           
     }
 
     handleInfo = e => {
         e.preventDefault();
-        console.log("Hi!",e);
+        console.log("Hi service!",e);
         console.log(e.target.searchId.value);
-        const user = {
+        const service = {
             searchId: e.target.searchId.value
         }    
-        //console.log("e",e);
-        //searchId.preventDefault();
-        /*const user = {
-            searchId: searchId
-        }*/
-        /*console.log("search",searchId)*/
-
-        search(user).then(res => {
+        
+        search(service).then(res => {
             if(res) {
               console.log('qqqqqqqqqqqqq');
               console.log(res);
+
               if(res){
+                  //var res = res1[0];
                 this.props.history.push({
-                    pathname:'/operator-profile',
+                    pathname:'/service-profile',
                     data: res})
                 
               }
               else{
                 console.log("ERROR");  
-                this.props.history.push('/operator-view');
+                this.props.history.push('/service-view');
               }
             }
           })
     }
 
-    render(){    
-        var date;
-        var m;
-        var d;
-        var y;
-        var n;
+    render(){   
     return (
         <Page
-        title="Operator"
+        title="Service"
         breadcrumbs={[{ name: 'View', active: true }]}
         className="TablePage"
         >
         <Row>
             <Col>
             <Card className="mb-3">
-                
             {(this.props.location.data)?
-                (this.props.location.data === "TRUE" || this.props.location.data === true)?
+                (this.props.location.data === "TRUE" || this.props.location.data.state === true)?
                     <UncontrolledAlert color="success">
                     SUCCESSFUL!
                     </UncontrolledAlert>
@@ -98,45 +85,32 @@ class ViewOperatorPage extends React.Component{
                 :
                 ""
             }
-            
-                <CardHeader>Operator data</CardHeader>
+                <CardHeader>Responsive</CardHeader>
                 <CardBody>
                 <Table responsive>
                     <tr className="table-active">
                         <th>#</th>
+                        <th>Id</th>
                         <th>Name</th>
-                        <th>User Name</th>
-                        <th>DOB</th>
-                        <th>Address</th>
-                        <th>Contact Number</th>
-                        <th>Status</th>
-                        <th></th>
-                        <th></th>
+                        <th>Category</th>
+                        <th>Price</th>
                     </tr>
-                    { this.state.operators.map((operator,i) =>
+                    { this.state.services.map((service,i) =>
 
                                       <tr>
                                         <th>{i+1}</th>
-                                        <td>{operator.name}</td>
-                                        <td>{operator.username}</td>
-                                        {
-                                            date = new Date(operator.DOB),
-                                            m = date.getUTCMonth()+1, // Hours   
-                                            y = (date.getUTCFullYear()),
-                                            d = (date.getUTCDate()),
-                                            n = ''
-                                        }
-                                        <td>{d}/{m}/{y}</td>
-                                        <td>{operator.address}</td>
-                                        <td>{operator.contactNumber}</td>
-                                        <td>{operator.status!==0 ? "Operator" : "Admin" }</td>
+                                        <td>{service.serviceId}</td>
+                                        <td>{service.name}</td>
+                                        <td>{service.category}</td>
+                                        <td>{service.price}</td>
+                                        
                                         <td>
                                             <form onSubmit={this.handleInfo}>
                                                 <input 
                                                 type="hidden" 
                                                 id="searchId" 
                                                 name="searchId" 
-                                                value={operator.username} 
+                                                value={service.serviceId} 
                                                 disabled/>
                                                 <Button color="info">View</Button>
                                             </form>
@@ -152,4 +126,4 @@ class ViewOperatorPage extends React.Component{
     };
 }
 
-export default ViewOperatorPage;
+export default ViewServicePage;

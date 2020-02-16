@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>
+        transfer List
+    </title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+</head>
+
+<body>
+    <div>
+
+        <a href="/transfer/add" class="btn btn-info ml-3">Back</a>
+
+    </div>
+    <!--   <% if (messages.error) { %>
+  <p style="color:red"><%- messages.error %></p>
+<% } %> -->
+
+    <% if (messages.success) { %>
+        <p class="alert alert-success mt-4">
+            <%- messages.success %>
+        </p>
+        <% } %>
+            <br>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th scope="col">Transfer Id</th>
+                        <th scope="col">Warehouse</th>
+                        <th scope="col">Date</th>
+
+                        <th width="200px">Action</th>
+
+                    </tr>
+                </thead>
+                <tbody>
+                    <% if(data.length){
+ 
+  for(var i = 0; i< data.length; i++) {%>
+                        <tr>
+                            <th scope="row">
+                                <%= data[i].transferId%>
+                            </th>
+                            <td>
+                                <%= data[i].name%>
+                            </td>
+                            <td>
+                                <%= data[i].date.toUTCString().split('GMT')[0]%>
+                            </td>
+
+
+                            <td>
+                                <a class="btn btn-success edit" href="../transfer/view/<%=data[i].transferId%>">View</a>
+
+                            </td>
+                        </tr>
+                        <% }
+           
+   }else{ %>
+                            <tr>
+                                <td colspan="3">No user</td>
+                            </tr>
+                            <% } %>
+
+                </tbody>
+            </table>
+</body>
+
+</html>
