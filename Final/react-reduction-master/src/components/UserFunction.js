@@ -136,6 +136,24 @@ export const updatecustomer = customer => {
 }
 
 
+export const deletecustomer = user => {
+    return axios
+    .post('http://localhost:5001/customers/deletecus', {
+        Id:user.Id
+    })
+    .then(res => {
+        console.log('come response');
+        console.log(res.data.state);
+        localStorage.setItem('usertoken',res.data);
+        return res.data;
+    })
+    .catch(err => {
+        console.log('err');
+        console.log(err);
+    })
+}
+
+
 export const registerVehicle = userReg=>{
     console.log(userReg);
     return axios
@@ -166,6 +184,7 @@ export const vehiclesearch = user => {
     return axios
     .post('http://localhost:5001/vehicles/search', {
         searchId: user.searchId,
+        
     })
     .then(res => {
         console.log('eeeeeeeeeeeeee')
@@ -187,7 +206,7 @@ export const updatevehicle = user => {
     return axios 
     .post("http://localhost:5001/vehicles/updatevehicle", {
             Id: user.Id,
-            vehicle: user.vehicle,
+            vehicleNo: user.vehicleNo,
             category: user.category,
             type: user.type,
             mileage: user.mileage,
@@ -209,6 +228,26 @@ export const updatevehicle = user => {
         console.log(err);
     })
 }
+
+
+export const deletevehicle = user => {
+    console.log("userfn",user);
+    return axios
+    .post('http://localhost:5001/vehicles/delete', {
+        Id: user.Id,
+            })
+    .then(res => {
+        console.log('come response');
+        console.log(res.data.state);
+        localStorage.setItem('usertoken',res.data);
+        return res.data.state;
+    })
+    .catch(err => {
+        console.log('err');
+        console.log(err);
+    })
+}
+
 
 export const addService = service => {
     return axios

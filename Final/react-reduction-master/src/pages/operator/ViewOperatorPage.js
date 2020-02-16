@@ -14,13 +14,13 @@ class ViewOperatorPage extends React.Component{
         this.state = {
             searchId: "",
             operators:[ {
-                id:"0",
-                name: "abc",
-                username: "abc@abc.com",
-                DOB: "1/4/2020",
-                address: "abc abc abc",
-                contactNumber: "0123456789",
-                status: "0",
+                id:"",
+                name: "",
+                username: "",
+                DOB: "",
+                address: "",
+                contactNumber: "",
+                status: "",
                 password: "",
              }
             ]

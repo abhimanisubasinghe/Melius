@@ -5,6 +5,9 @@ import Page from 'components/Page';
 import { bgCards, gradientCards, overlayCards } from 'demos/cardPage';
 import React from 'react';
 import { vehiclesearch } from '../../components/UserFunction';
+import { deletevehicle } from '../../components/UserFunction';
+import { confirmAlert } from 'react-confirm-alert'; 
+
 import {
   Button,
   Card,
@@ -54,10 +57,12 @@ class SingleView extends React.Component{
         e.preventDefault();
         console.log("Hi!",e);
         console.log(e.target.searchId.value);
-        const user = {
-            searchId: e.target.searchId.value
-        }   
-        vehiclesearch(user).then(res => {
+       
+        const vehicle1 = {
+          searchId: e.target.searchId.value
+          } 
+          
+        vehiclesearch(vehicle1).then(res => {
             if(res) {
               console.log(res);
               if(res){
@@ -72,6 +77,59 @@ class SingleView extends React.Component{
               }
             }
           })
+    }
+
+
+    submit = () => {
+      confirmAlert({
+          customUI: ({ onClose }) => {
+            return (
+              <div className='custom-ui'>
+                <h1>Are you sure?</h1>
+                <p>You want to delete this file?</p>
+                <Row>
+                <Col>    
+                <Button color="info" onClick={onClose}>No</Button>
+                </Col>
+                <Col>
+                <Button
+                  color="danger"
+                  onClick={() => {
+                    this.handleDelete();
+                    onClose();
+                  }}
+                >
+                  Yes
+                </Button>
+                </Col>
+                </Row>
+              </div>
+            );
+          }
+        });
+      }
+
+      handleDelete = (e) => { 
+        const vehicle = {
+          Id : this.state.vehicle.Id,
+          
+        }
+        console.log("delete veh",vehicle);
+        
+        deletevehicle(vehicle).then(res => {
+          if(res) {
+            console.log('qqqqqqqqqqqq');
+            this.props.history.push({
+              pathname:'/view-vehicle',
+              data: res});
+          } else{
+                this.props.history.push({
+                    pathname:'/singlevehicle',
+                    data: res})
+            }
+          }
+        )
+        
     }
 
     render(){
@@ -124,7 +182,9 @@ class SingleView extends React.Component{
                                     </CardText>        
                                     
                             <CardText>        
-                            <Button  color="danger">Delete</Button>
+                            <div className='container'>
+                                <Button color="danger" onClick={this.submit}>Delete</Button>
+                            </div>                            
                             <br/>
                             </CardText>
                             </form>
