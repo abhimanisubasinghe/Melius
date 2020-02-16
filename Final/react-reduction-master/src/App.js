@@ -79,6 +79,8 @@ import CreateAppointmentPage from './pages/appointments/CreateAppointmentPage';
 import ViewAppointmentsPage from './pages/appointments/ViewAppointementsPage.js';
 import NewItemInvoice from './pages/item/ItemInvoicePage';
 import TopService from './pages/service/TopService';
+import DayViewInvoice from './pages/service/DailyInvoice';
+//import PrintDayBill from './pages/service/DailyInvoicePrint';
 
 
 
@@ -169,6 +171,9 @@ class App extends React.Component {
                 <Route exact path="/appointment-view" component={ViewAppointmentsPage}/>
                 
                 {/*<Route exact path="/service-top" component={TopService}/>*/}
+                <Route exact path="/service-top" component={TopService}/>
+                <Route exact path="/day-view" component={DayViewInvoice}/>
+                {/* <Route exact path="dayinvoice-print" component={PrintDayBill}/> */}
 
               </React.Suspense>
             </MainLayout>
