@@ -1,8 +1,6 @@
 import Page from 'components/Page';
 import React from 'react';
-import { registerVehicle } from '../../components/UserFunction';
-import axios from 'axios';
-
+import { updatevehicle } from '../../components/UserFunction';
 import {
   Button,
   Card,
@@ -19,30 +17,22 @@ import {
   InputGroupAddon,
   InputGroup
 } from 'reactstrap';
+import axios from 'axios';
 
+class OperatorUpdatePage extends React.Component{
 
-
-
-class RegisterVehicle extends React.Component{
-
-  constructor() {
-    super()
+  constructor(props) {
+    super(props)
 
     this.state = {
-
-      vehicleNo: "",
-      category: "",    
-      type: "",
-      mileage: "",
-      custId: "",
-      
-     
-  }
-
-  this.onChange=this.onChange.bind(this)
-  this.onSubmit=this.onSubmit.bind(this)
-
-
+        Id:"",
+        vehicle: "",
+        category: "",    
+        type: "",
+        mileage: "",
+        custId: "",
+         
+    }
     
 }
 
@@ -52,44 +42,75 @@ onChange = (e) => {
 )
 }
 
-
-onSubmit(e){
-  e.preventDefault();
-  const vehicle = {
-    vehicleNo:this.state.vehicleNo,
-    category:this.state.category,    
-    type: this.state.type,
-    mileage: this.state.mileage,
-    custId: this.state.custId,
-     
-  }
-  console.log(vehicle);
-  registerVehicle(vehicle).then(res => {
-    console.log('come');
-    if(res) {
-      console.log("rrr");
-      console.log(res.state);
-      this.props.history.push('/view-vehicle');
-        }
-        else{
-          this.props.history.push('/',{detail: res})
-        }
-    
-  })
-
+componentDidMount(){
+    //console.log(this.state.data[0].name)
+    if(this.props.location.data){
+        const vehicle = this.props.location.data[0];
+        console.log("id",vehicle.Id)
+        this.setState({
+            Id: vehicle.Id,
+            vehicle: vehicle.vehicle,
+            category: vehicle.category,
+            type: vehicle.type,
+            mileage: vehicle.mileage,
+            custId: vehicle.custId,
+           
+        })
+    }
 }
 
+handleSubmit = e => { 
+    e.preventDefault();
+    //console.log("name",this.state.name);
+    //console.log("DOB",this.state.DOB);
+    //console.log("uname",this.state.username);
+    //console.log("address",this.state.address);
+    const user = {
+        Id: this.state.Id,
+        vehicle: this.state.vehicle,
+        category: this.state.category,
+        type: this.state.type,
+        mileage: this.state.mileage,
+        custId: this.state.custId,
+    }
+    console.log("user",user);
+    updatevehicle(user).then(res => {
+      if(res) {
+        console.log('qqqqqqqqqqqq');
+        this.props.history.push({
+          pathname:'/view-vehicle',
+          data: this.props.location});
+      } else{
+            this.props.history.push({
+                pathname:'/operator-update',
+                data: res})
+        }
+      }
+    )
+    
+}
 
   render(){
   return (
     <div>
-    <Page title="Register Vehicle" breadcrumbs={[{ name: 'vehicle-Register', active: true }]}>
+    <Page title="Update vehicle" breadcrumbs={[{ name: 'vehicle-Update', active: true }]}>
       <Row>
         <Col>
           <Card>
-            <CardHeader>Register Vehicle</CardHeader>
+            <CardHeader>update</CardHeader>
             <CardBody>
-              <Form onSubmit={this.onSubmit}>
+            <Form onSubmit={this.onSubmit}>
+            <FormGroup>
+                <Label for="type">vehicle Id</Label>
+                  <Input
+                    type="text"
+                    name="vehicleNo"
+                    id="vehicleNo"
+                    placeholder="vehicle No"
+                    onChange={this.onChange}
+                    value={this.state.Id}
+                  />
+                </FormGroup>
               <FormGroup>
                 <Label for="type">vehicle No</Label>
                   <Input
@@ -161,4 +182,4 @@ onSubmit(e){
 
 
 
-export default RegisterVehicle;
+export default OperatorUpdatePage;

@@ -62,8 +62,15 @@ import InvoiceServicePrint from './pages/service/PrintInvoiceService';
 import Addservice from './pages/service/Addservice';
 import OperatorProfilePage from './pages/operator/OperatorProfilePage';
 import OperatorUpdatePage from './pages/operator/OperatorUpdatePage';
+import ServiceView from './pages/service/ViewService';
+import ServiceProfilePage from './pages/service/ServiceProfile';
 import SingleView from './pages/customer/SingleView';
-import Testing from './components/Alert/Test';
+import UpdateCustomer from './pages/customer/UpdateCustomer';
+import ViewVehicle from './pages/vehicle/ViewVehicle';
+import Singlevehicle from './pages/vehicle/Singlevehicle';
+import UpdateVehicle from './pages/vehicle/UpdateVehicle';
+import ServiceUpdate from './pages/service/ServiceUpdate';
+import ServiceDelete from './pages/service/ServiceDelete';
 
 
 
@@ -133,9 +140,17 @@ class App extends React.Component {
                 <Route exact path="/add-vehicle" component={AddVehicle} />
                 <Route exact path="/new-invoice" component={ServiceInvoice} />
                 <Route exact path="/printInvoiceService" component={InvoiceServicePrint}/>
+                <Route exact path="/service-add" component={Addservice}/>
+                <Route exact path="/service-view" component={ServiceView}/>
+                <Route exact path="/service-profile" component={ServiceProfilePage}/>
                 <Route exact path="/addservice" component={Addservice}/>
                 <Route exact path="/singleview" component={SingleView}/>
-                <Route exact path="/test" component={Testing}/>
+                <Route exact path="/updatecustomer" component={UpdateCustomer}/>
+                <Route exact path="/view-vehicle" component={ViewVehicle}/>
+                <Route exact path="/singlevehicle" component={Singlevehicle}/>
+                <Route exact path="/updatevehicle" component={UpdateVehicle}/>
+                <Route exact path="/service-update" component={ServiceUpdate}/>
+                <Route exact path="/service-delete" component={ServiceDelete}/>
 
               </React.Suspense>
             </MainLayout>

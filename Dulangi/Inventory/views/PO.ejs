@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>
+        <%= title %>
+    </title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+</head>
+
+<body>
+    <% if (messages.error) { %>
+        <p style="color:red">
+            <%- messages.error %>
+        </p>
+        <% } %>
+
+            <% if (messages.success) { %>
+                <p style="color:green">
+                    <%- messages.success %>
+                </p>
+                <% } %>
+                    <form action="/reorder/add" method="post" name="form1">
+
+                        <div class="form-group">
+                            <label for="exampleInputPassword1">Purchase Requisition number:</label>
+                            <input type="text" class="form-control" name="prId" id="prId" value="<%= Id%>">
+                        </div>
+                        <div class="form-group">
+                            <label for="exampleInputPassword1">Supplier Name: <%= supplierName%></label>
+                            <input type="text" class="form-control" name="supplierId" id="supplierId" value="<%= supplierId%>" hidden>
+                        </div>
+                        <div class="form-group">
+                            <label for="exampleInputPassword1">Deliver To:</label>
+                            <input type="textarea" class="form-control" name="address" id="address" value="">
+                        </div>
+                        <div class="form-group">
+                            <label for="exampleInputPassword1">Estimated Delivery date:<%= delDate %></label>
+                            <input type="text" class="form-control" name="delDate" id="delDate" value="<%= delDate %>">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="exampleInputPassword1">Item Name: <%= itemName %></label>
+                            <input type="text" class="form-control" name="itemCode" id="itemCode" value="<%= itemCode %>" hidden>
+                        </div>
+                        <div class="form-group">
+                            <label for="exampleInputPassword1">Quantity</label>
+                            <input type="text" class="form-control" name="Qty" id="Qty" value="<%= quantity %>">
+                        </div>
+                        <div class="form-group">
+                            <label for="exampleInputPassword1">Unit Price</label>
+                            <input type="text" class="form-control" name="unit" id="unit" value="<%= unitPrice %>">
+                        </div>
+                        <div class="form-group">
+                            <label for="exampleInputPassword1">Total</label>
+                            <input type="text" class="form-control" name="total" id="total" value="<%= unitPrice %>*<%= quantity%>">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="exampleInputPassword1">Description</label>
+                            <input type="text" class="form-control" name="description" id="description" value="">
+                        </div>
+                        <div class="form-group">
+                            <label for="exampleInputPassword1">Terms of Delivery</label>
+                            <input type="text" class="form-control" name="deliveryTerms" id="deliveryTerms" value="">
+                        </div>
+                        <div class="form-group">
+                            <label for="exampleInputPassword1">Terms of Payment</label>
+                            <input type="text" class="form-control" name="paymentTerms" id="paymentTerms" value="">
+                        </div> 
+
+
+                        <input type="submit" class="btn btn-primary" value="Add">
+                    </form>
+</body>
+
+</html>

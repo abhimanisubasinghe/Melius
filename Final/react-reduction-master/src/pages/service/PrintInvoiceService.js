@@ -10,6 +10,7 @@ export default class InvoiceServicePrint extends Component {
             invoiceId: '',
             customerId: '',
             vehicleId: '',
+            serviceId: '',
             date: '',
             total: '',
             discount: '',
@@ -24,13 +25,15 @@ export default class InvoiceServicePrint extends Component {
             this.setState({
                 invoiceId: data.detail.invoiceId,
                 customerId: data.detail.customerId,
+                serviceId: data.detail.serviceId,
                 vehicleId: data.detail.vehicleId,
                 date: data.detail.date,
                 total: data.detail.total,
                 discount: data.detail.discount,
                 sub_total: data.detail.sub_total
             });
-            console.log(data.detail.sub_total);
+            console.log(data.detail.invoiceId);
+            console.log(data.detail.serviceId)
         }
     }
 
@@ -48,7 +51,7 @@ export default class InvoiceServicePrint extends Component {
         <tbody>
           <tr>
             <td>InvoiceId</td>
-            <td>{this.state.InvoiceId}</td>
+            <td>{this.state.invoiceId}</td>
           </tr>
           <tr>
             <td>ServiceId</td>
@@ -67,7 +70,7 @@ export default class InvoiceServicePrint extends Component {
             <td>{this.state.discount}</td>
           </tr>
           <tr>
-            <td>Paid</td>
+            <td>price</td>
             <td>{this.state.sub_total}</td>
           </tr>
         </tbody>

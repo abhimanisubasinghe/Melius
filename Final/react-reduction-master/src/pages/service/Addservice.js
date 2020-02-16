@@ -17,7 +17,7 @@ import {
   InputGroupAddon,
   InputGroup
 } from 'reactstrap';
-import axios from 'axios';
+
 
 class Addservice extends React.Component{
 
@@ -52,56 +52,76 @@ class Addservice extends React.Component{
       if(res){
         if(res.state === true){
           console.log('done reg');
+          this.props.history.push({
+          pathname:'/service-view',
+          data: res})
+          
         }
         else{
           console.log('not add')
+          this.props.history.push({
+            pathname:'/service-add',
+            data: res})
         }
       }
     })
   }
 
-    render(){
+  render(){
     return (
-      <div className="container">
-                <div className="row">
-                    <div className="col-md-6 mt-5 mx-auto">
-                        <form noValidate onSubmit={this.onSubmit}>
-                            <h1 className='h3 mb-3 font-weight-m=normal'>Add Service</h1>
-                            <div className='form-group'>
-                                <label htmlFor='name'>Name</label>
-                                <input type="text"
-                                className='form-control'
-                                name ='name'
-                                placeholder="Service Name"
-                                value={this.state.name}
-                                onChange={this.onChange}/>
-                            </div>
-                            <div className='form-group'>
-                                <label htmlFor='category'>Category</label>
-                                <input type="text"
-                                className='form-control'
-                                name ='category'
-                                placeholder="Category"
-                                value={this.state.category}
-                                onChange={this.onChange}/>
-                            </div>
-                            <div className='form-group'>
-                                <label htmlFor='price'>Price</label>
-                                <input type="text"
-                                className='form-control'
-                                name ='price'
-                                placeholder="Price"
-                                value={this.state.price}
-                                onChange={this.onChange}/>
-                            </div>
-                            <button type='submit'
-                            className='btn btn-lg btn-primary btn-block'>
-                                Add Service
-                            </button>
-                        </form>
-                    </div>
-                </div>
-            </div>
+      
+    <div>
+    <Page title="AddService" breadcrumbs={[{ name: 'Add-Service', active: true }]}>
+      <Row>
+        <Col>
+          <Card>
+            <CardHeader>AddService</CardHeader>
+            <CardBody>
+              <Form onSubmit={this.onSubmit}>
+                <FormGroup>
+                  <Label for="name">Name</Label>
+                  <Input
+                    type="text"
+                    name="name"
+                    id="name"
+                    placeholder="Name"
+                    value = {this.state.name}
+                    onChange  = {this.onChange}
+                  />
+                </FormGroup>
+                <FormGroup>
+                  <Label for="category">Category</Label>
+                  <Input
+                    type="text"
+                    name="category"
+                    id="category"
+                    placeholder="Category"
+                    value = {this.state.category}
+                    onChange = {this.onChange}
+                  />
+                </FormGroup>
+                <FormGroup>
+                <Label for="price">Price</Label>
+                  <Input
+                    type="number"
+                    name="price"
+                    id="price"
+                    placeholder="Price"
+                    value = {this.state.price}
+                    onChange = {this.onChange}
+                  />
+                </FormGroup>
+                <FormGroup check row>
+                    <Button>Submit</Button>
+                </FormGroup>
+              </Form>
+            </CardBody>
+          </Card>
+        </Col>
+      </Row>
+    </Page>
+    </div>
+
     )
   }
 }

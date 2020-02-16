@@ -6,7 +6,7 @@ import user1Image from 'assets/img/users/100_1.jpg';
 import bgImage from 'assets/img/bg/background_1920-7.png';
 import { UserCard } from 'components/Card';
 import Page from 'components/Page';
-import { confirmAlert } from 'react-confirm-alert'; 
+//import { confirmAlert } from 'react-confirm-alert'; 
 import '../../components/Alert/react-confirm-alert.css';
 import { bgCards, gradientCards, overlayCards } from 'demos/cardPage';
 import { getStackLineChart, stackLineChartOptions } from 'demos/chartjs';
@@ -103,34 +103,34 @@ class OperatorProfilePage extends React.Component{
         
     }
 
-    submit = () => {
-        confirmAlert({
-            customUI: ({ onClose }) => {
-              return (
-                <div className='custom-ui'>
-                  <h1>Are you sure?</h1>
-                  <p>You want to delete this file?</p>
-                  <Row>
-                  <Col>    
-                  <Button color="info" onClick={onClose}>No</Button>
-                  </Col>
-                  <Col>
-                  <Button
-                    color="danger"
-                    onClick={() => {
-                      this.handleDelete();
-                      onClose();
-                    }}
-                  >
-                    Yes
-                  </Button>
-                  </Col>
-                  </Row>
-                </div>
-              );
-            }
-          });
-        }
+    // submit = () => {
+    //     confirmAlert({
+    //         customUI: ({ onClose }) => {
+    //           return (
+    //             <div className='custom-ui'>
+    //               <h1>Are you sure?</h1>
+    //               <p>You want to delete this file?</p>
+    //               <Row>
+    //               <Col>    
+    //               <Button color="info" onClick={onClose}>No</Button>
+    //               </Col>
+    //               <Col>
+    //               <Button
+    //                 color="danger"
+    //                 onClick={() => {
+    //                   this.handleDelete();
+    //                   onClose();
+    //                 }}
+    //               >
+    //                 Yes
+    //               </Button>
+    //               </Col>
+    //               </Row>
+    //             </div>
+    //           );
+    //         }
+    //       });
+    //     }
 
     render(){
         var date;

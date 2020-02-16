@@ -34,7 +34,7 @@ service.use(cors());
 
 
 //go to service and display
-service.get('/serviceView',function(req,res){
+service.get('/viewService',function(req,res){
     if(req.session.adminId){
         res.send('please log as an admin');
     }
@@ -45,8 +45,8 @@ service.get('/serviceView',function(req,res){
             }
             else{
                 if(result.length>0){
-
-                    res.json(result);
+                    var state = true;
+                    res.json({result,state});
                 }
                 else{
                     res.json('No any services');
@@ -129,7 +129,7 @@ service.post('/updateService',function(req,res){
     var category = req.body.category;
     var name = req.body.name;
     var price = req.body.price;
-    if(req.session.adminId){
+    if(!req.session.adminId){
         if(serviceId && category && name && price){
             sql.query('SELECT name FROM service WHERE serviceId = ?',[serviceId],function(err,result){
                 if(err){
@@ -150,7 +150,7 @@ service.post('/updateService',function(req,res){
                                         console.log('service updated');
                                         if(result2.length>0){
                                             var state = true;
-                                            res.send({result2,state});
+                                            res.send(result2);
                                         }
                                         else{
                                             res.json('No any services');
@@ -166,6 +166,9 @@ service.post('/updateService',function(req,res){
                 }
             })
         }
+        else{
+            res.send('fill all details');
+        }
     }
     else{
         res.send('please log as an admin');
@@ -175,9 +178,11 @@ service.post('/updateService',function(req,res){
 
 //REMOVE SERVICE
 service.post('/serviceRemove',function(req,res){
+    console.log('eeeeeee');
+    console.log(req.body.serviceId)
     var serviceId = req.body.serviceId;
     var name = req.body.name;
-    if(req.session.adminId){
+    if(!req.session.adminId){
         if(serviceId && name){
             sql.query('SELECT * FROM service WHERE serviceId = ? AND name = ?',[serviceId,name],function(err,result){
                 if(err){
@@ -214,9 +219,47 @@ service.post('/serviceRemove',function(req,res){
             })
         }
         else{
-            res.send('please log as an admin')
+            res.send('fill all details')
         }
     }
+    else{
+        res.send('please log as an admin')
+    }
+})
+
+//SEARCH SINGLE SERVICE
+service.post('/search',function(req,res){
+    var searchId = req.body.searchId;
+    if(!req.session.userId || !req.session.adminId){
+        sql.query('select * from service where serviceId = ?',[searchId],function(err,result){
+            if(err) {
+                console.log('servicesearch err');
+                console.log(err);
+            }
+            else{
+                if(result.length>0){
+                    var state = true;
+                    console.log('done');
+                    res.send(result);
+                }
+                else{
+                    console.log('no data');
+                    res.send('no data');
+                }
+            }
+        })
+    }
+    else{
+        var state = false;
+        var message = "not work"
+        res.send({state,message});
+    }
+})
+
+//TOP SERVICE
+service.get('/topService',function(req,res){
+    console.log('ddddddddd');
+    sql.query('create or replace trigger topService after Update|delete|Insert on service_invoice_services for each row when (New.serviceId >0) ',function())
 })
 
 
@@ -299,56 +342,58 @@ service.post('/newServiceInvoice',function(req,res,next){
                                                                 }
                                                                 else{
                                                                     console.log('success')
+                                                                    sql.query("select * from service_invoice inner join service_invoice_services on service_invoice.invoiceId = service_invoice_services.invoiceId where service_invoice.invoiceId = ?",[iid],function(err6,result6){
+                                                                        if(err6){
+                                                                            console.log("error6")
+                                                                            console.log(err6);
+                                                                        }
+                                                                        else{
+                                                                            // DOWN PART
+                                                                            console.log('11111111111111111111111');
+                                                                            console.log(result6);
+                                                                            //res.send(result6);
+                                                                            console.log(total);
+                                                                            var invoice2 = doc1 = new PDFDocument;
+                                                                            console.log('llwdlwionfsndlkvnavkjvnsdkjvn')
+                                                                            var invoice = doc1.pipe(fs.createWriteStream(iid+'.pdf'));
+                                                                                console.log("tttttttttttttttt");
+                                                                                    // Set a title and pass the X and Y coordinates
+                                                                                doc1.fontSize(15).text('Summary of Services in the day !\n\n\n', 50, 50);
+                                                                                    // Set the paragraph width and align direction
+                                                                                for(var m = 0; m<result6.length; m++){
+                                                                                    doc1.text("invoice Id  : "+result6[m].invoiceId+"\n customer id : "+result6[m].customerId+"\n vehicle id : "+result6[m].vehicleId+"\n date : "+result6[m].date+"\n price : "+result6[m].total+"\n disconut : "+result6[m].discount +"\n final total : "+result6[m].sub_total,{
+                                                                                        width: 410,
+                                                                                        align: 'left'
+                                                                                    });
+                                                                                    doc1.text("\n\n",{
+                                                                                        width: 410,
+                                                                                        align: 'left'
+                                                                                    });
+                                                                                }    
+        
+                                                                                // res.json('done');
+                                                                                doc1.end();
+                                                                            if(result6.length>0){
+                                                                                console.log('invoice send');
+                                                                                console.log(result6);
+                                                                                var state = true;
+                                                                                var res1 = result6[0];
+                                                                                res.send({res1});
+                                                                            }
+                                                                            else{
+                                                                                res.send('try again')
+                                                                            }
+                                                                            
+                                                                        }
+                                                                        
+                                                                    });
                                                                     //res.send("success");
                                                                     
                                                                 }
                                                                 
                                                             })
 
-                                                            sql.query("select * from service_invoice where invoiceId = ?",[iid],function(err6,result6){
-                                                                if(err6){
-                                                                    console.log("error6")
-                                                                    console.log(err6);
-                                                                }
-                                                                else{
-                                                                    // DOWN PART
-                                                                    console.log('11111111111111111111111');
-                                                                    console.log(result6);
-                                                                    //res.send(result6);
-                                                                    console.log(total);
-                                                                    var invoice2 = doc1 = new PDFDocument;
-                                                                    console.log('llwdlwionfsndlkvnavkjvnsdkjvn')
-                                                                    var invoice = doc1.pipe(fs.createWriteStream(iid+'.pdf'));
-                                                                        console.log("tttttttttttttttt");
-                                                                            // Set a title and pass the X and Y coordinates
-                                                                        doc1.fontSize(15).text('Summary of Services in the day !\n\n\n', 50, 50);
-                                                                            // Set the paragraph width and align direction
-                                                                        for(var m = 0; m<result6.length; m++){
-                                                                            doc1.text("invoice Id  : "+result6[m].invoiceId+"\n customer id : "+result6[m].customerId+"\n vehicle id : "+result6[m].vehicleId+"\n date : "+result6[m].date+"\n price : "+result6[m].total+"\n disconut : "+result6[m].discount +"\n final total : "+result6[m].sub_total,{
-                                                                                width: 410,
-                                                                                align: 'left'
-                                                                            });
-                                                                            doc1.text("\n\n",{
-                                                                                width: 410,
-                                                                                align: 'left'
-                                                                            });
-                                                                        }    
-
-                                                                        // res.json('done');
-                                                                        doc1.end();
-                                                                    if(result6.length>0){
-                                                                        console.log('invoice send');
-                                                                        var state = true;
-                                                                        var res1 = result6[0];
-                                                                        res.send({res1,state});
-                                                                    }
-                                                                    else{
-                                                                        res.send('try again')
-                                                                    }
-                                                                    
-                                                                }
-                                                                
-                                                            });
+                                                            
                                                         }
                                                     });
                                                     console.log('eeeeeeeeeeeeeeeeeeeeeeee')
