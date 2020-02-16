@@ -282,7 +282,7 @@ customers.get('/customerView',function(req,res){
             res.send('please log as an admin');
         }
         else{
-            sql.query("SELECT * FROM customer inner join customer_address on customer.Id = customer_address.Id inner join customer_phone on customer.Id = customer_phone.Id ",function(err,result){
+            sql.query("SELECT *  FROM customer inner join customer_address on customer.Id = customer_address.Id inner join customer_phone on customer.Id = customer_phone.Id ",function(err,result){
                 if(err){
                     throw err;
                 }
@@ -299,6 +299,7 @@ customers.get('/customerView',function(req,res){
                                             if(result1){
                                                 console.log(result1);
                                                 var state = true;
+                                                
                                                 var message = "registered successfull";
                                                 res.send({result});
 

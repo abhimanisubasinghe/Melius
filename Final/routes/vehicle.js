@@ -140,6 +140,11 @@ vehicles.post('/updatevehicle',function(req,res){
     console.log(vehicleNo);
     console.log('wwwwwwwwwwwwwwww')
     if(!req.session.adminId){
+        console.log(vehicleNo);
+        console.log(category);
+        console.log(type);
+        console.log(mileage);
+        console.log(custId);
         if(vehicleNo && category && type && mileage && custId){
             console.log('cccccccccc');
             sql.query('SELECT * FROM vehicle WHERE vehicleNo = ?',[vehicleNo],function(err,result){
@@ -167,6 +172,9 @@ vehicles.post('/updatevehicle',function(req,res){
                     }
                 }
             })
+        }
+        else{
+            console.log('no data');
         }
     }
     else{
