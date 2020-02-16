@@ -76,8 +76,8 @@ addItem = (e) =>{
       remarks: this.state.remarks
      
   }
-    //console.log('nvjsdnvklsnvsnkndslkvcnsdovnosinvsklnclksnvknskldnvsklvklsnvlks');
-    //console.log(invoice1);
+    /*console.log('nvjsdnvklsnvsnkndslkvcnsdovnosinvsklnclksnvknskldnvsklvklsnvlks');
+    console.log(invoice1);
     invoice(invoice1).then(res => {
       console.log('come');
       if(res) {
@@ -91,7 +91,7 @@ addItem = (e) =>{
         }
         
       }
-    })
+    })*/
     .catch(err => {
       console.log('catch err');
     })

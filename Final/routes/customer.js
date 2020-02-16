@@ -152,30 +152,11 @@ customers.post('/customerRegistration',function(req,res){
                                                                     if(err5){
                                                                         throw err5;
                                                                     }else{
-                                                                        if(result5){
-                                                                            console.log("plz")
-                                                                            sql.query('select count(Id)  as count from customer',function(err6,result6){
-                                                                                console.log("plzzzz")
-                                                                                            if(err6){
-                                                                                                    throw err6;                                                                                    console.log("plzzzz")
+                                                                        console.log(result1);
+                                                                        var state = true;
+                                                                        var message = "registered successfull";
+                                                                        res.send({message,state});
 
-
-                                                                                            }else{
-                                                                                                if(result6){
-                                                                                                    console.log(result6);
-                                                                                                    var state = true;
-                                                                                                    var message = "registered successfull";
-                                                                                                    res.send({message,state});
-
-                                                                                                }
-                                                                                                
-                                                                                            }
-                                                                            })
-                                                                          
-                                                                        }
-                                                                        else{
-                                                                            res.send('phone number not inserted')
-                                                                        }
                                                                     }
                                                                 })
                                                             }
@@ -212,7 +193,6 @@ customers.post('/customerRegistration',function(req,res){
     
     //CUSTOMER DATA UPDATE
     customers.post('/customerUpdate',function(req,res){
-        console.log("magula")
     
         var Id = req.body.Id;
         var name = req.body.name;
@@ -225,14 +205,57 @@ customers.post('/customerRegistration',function(req,res){
         var phoneNo = req.body.phoneNo;
         var DOB = req.body.DOB;
         var note = req.body.note;
+        console.log(Id);
+        console.log(fax);
+        console.log(DOB)
+        console.log(phoneNo)
+
         if(!req.session.userId){
+            console.log('come')
             if(Id && name && NIC && fax && type && email  && website && address && phoneNo && DOB && note ){
-                sql.query('UPDATE customer SET Id = ? ,name = ?,NIC = ? , fax = ?,type = ?, email = ?,website = ? ,address =? , phoneNo = ?, DOB =?, note= ? WHERE Id = ? AND NIC = ? ',[Id,name,NIC,fax,email,website,address,phoneNo,DOB,note,Id,NIC], function(err, result){
+                sql.query('UPDATE customer SET  name = ? ,NIC =?, fax = ?,type = ?, email = ?,website = ? , DOB =?, note= ? WHERE Id = ?  ',[name,NIC,fax,type,email,website,DOB,note,Id], function(err, result){
                     if (err) {
                         throw err;
                     }
                     else{
+                        if(result){
+                            sql.query('UPDATE customer_address SET address = ? WHERE Id = ?',[address,Id],function(err1,result1){
+                                if(err1){
+                                    throw err1;
+                                }else{
+                                    if(result1){
+                                        sql.query('UPDATE customer_phone SET phoneNo = ? WHERE Id = ?',[phoneNo,Id],function(err2,result2){
+                                            if(err2){
+                                                throw err2;
+                                            }
+                                            else
+                                            {
+                                                if(result2.length>0){
+                                                    var state = true;
+                                                    var massege = "done";
+                                                    res.send({massege,state})
+                                                }
+                                                else{
+                                                    //res.send('not success');
+                                                }
+                                               
+
+                                            }
+                                        })
+                                    }
+                                    else{
+                                        res.send('no address');
+                                    }
+
+                                }
+                            })
+
+                        }else{
+                            res.send("no data");
+
+                        }
                         //res.send("Updated successful");
+
                         res.json({data: result});
                     }
                 });
@@ -259,20 +282,37 @@ customers.get('/customerView',function(req,res){
             res.send('please log as an admin');
         }
         else{
-            sql.query("SELECT * FROM customer inner join customer_address on customer.Id = customer_address.Id inner join customer_phone on customer.Id = customer_phone.Id ",function(err,result){
+            sql.query("SELECT *  FROM customer inner join customer_address on customer.Id = customer_address.Id inner join customer_phone on customer.Id = customer_phone.Id ",function(err,result){
                 if(err){
                     throw err;
                 }
                 else{
-                    if(result.length>0){
-                        console.log(result);
-                        var length = result.length;
-                        var state = true;
-                        res.send({result,state});
+                    if(result){
+                        console.log("plz")
+                        sql.query('select count(Id)  as count from customer',function(err1,result1){
+                            console.log("plzzzz")
+                                        if(err1){
+                                                throw err1;                                                                                    console.log("plzzzz")
+
+
+                                        }else{
+                                            if(result1){
+                                                console.log(result1);
+                                                var state = true;
+                                                
+                                                var message = "registered successfull";
+                                                res.send({result});
+
+                                            }
+                                            
+                                        }
+                        })
+                      
                     }
                     else{
-                        res.json('No any customers');
+                        res.send('phone number not inserted')
                     }
+                    
                 }
             });
         }
@@ -283,7 +323,7 @@ customers.get('/customerView',function(req,res){
         if(!req.session.userId || !req.session.adminId){
             var searchId = req.body.searchId;
             console.log(searchId);
-            sql.query('select * from customer  WHERE Id = ?',[searchId],function(err,result){
+            sql.query('SELECT * FROM customer inner join customer_address on customer.Id = customer_address.Id inner join customer_phone on customer.Id = customer_phone.Id where customer.Id = ?',[searchId],function(err,result){
                 console.log(result);
                 if(err){
                     console.log('err viewuser')
@@ -307,5 +347,75 @@ customers.get('/customerView',function(req,res){
             res.send('please log');
         }
     })
+    
+
+
+    customers.post('/deletecus',function(req,res){
+        console.log("come");
+        if(!req.session.adminId){
+            var Id=req.body.Id;
+            sql.query('DELETE FROM customer_phone where Id = ?',[Id],function(err,result){
+                if(err){
+                    throw err;
+                }
+                else{
+                    if(result){
+                        sql.query('DELETE FROM customer_address WHERE Id = ? ',[Id],function(err1,result1){
+                            if(err1){
+                                throw err1;
+
+                            }
+                            else{
+                                if(result1){
+                                    sql.query('DELETE FROM customer WHERE Id = ?',[Id],function(err2,result2){
+                                        if(err2){
+                                            throw err2;
+
+
+                                        }
+                                        else{
+                                            if(result2){
+                                            var state = true;
+                                            res.send({state});
+
+                                            }
+                                            else{
+                                                
+                                            }
+                                            
+                        
+
+                                        }
+                                    })
+
+                                }
+                                else{
+
+                                }
+
+                            }
+                        })
+
+
+
+                    }
+                    else{
+
+                        res.send("phone No not deleted")
+
+                    }
+                }
+            })
+        }
+        else{
+            res.send('please log');
+        }
+
+
+
+
+
+    })
+    
     
     module.exports = customers;

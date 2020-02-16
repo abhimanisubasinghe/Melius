@@ -5,6 +5,10 @@ import Page from 'components/Page';
 import { bgCards, gradientCards, overlayCards } from 'demos/cardPage';
 import React from 'react';
 import { customersearch } from '../../components/UserFunction';
+import { deletecustomer } from '../../components/UserFunction';
+
+import { confirmAlert } from 'react-confirm-alert'; 
+
 import {
   Button,
   Card,
@@ -36,6 +40,8 @@ class SingleView extends React.Component{
                 type: "",
                 email: "",
                 website: "",
+                address:"",
+                phoneNo:"",
                 DOB: "",
                 note: "",
 
@@ -72,11 +78,64 @@ class SingleView extends React.Component{
               }
               else{
                 console.log("ERROR");  
-                this.props.history.push('/operator-view');
+                this.props.history.push('/view-customer');
               }
             }
           })
     }
+
+
+    handleDelete = () => { 
+      console.log("kiii");
+      const user = {
+        Id : this.state.customer.Id,
+        
+      }
+      console.log("delete user",user);
+      deletecustomer(user).then(res => {
+        if(res) {
+          console.log('wwww');
+          this.props.history.push({
+            pathname:'/view-customer',
+            data: res});
+        } else{
+              this.props.history.push({
+                  pathname:'/singleview',
+                  data: res})
+          }
+        }
+      )
+      
+  }
+
+    submit = () => {
+      confirmAlert({
+          customUI: ({ onClose }) => {
+            return (
+              <div className='custom-ui'>
+                <h1>Are you sure?</h1>
+                <p>You want to delete this file?</p>
+                <Row>
+                <Col>    
+                <Button color="info" onClick={onClose}>No</Button>
+                </Col>
+                <Col>
+                <Button
+                  color="danger"
+                  onClick={() => {
+                    this.handleDelete();
+                    onClose();
+                  }}
+                >
+                  Yes
+                </Button>
+                </Col>
+                </Row>
+              </div>
+            );
+          }
+        });
+      }
 
     render(){
      
@@ -94,6 +153,9 @@ class SingleView extends React.Component{
                   <CardText>{this.state.customer.type}</CardText>
                   <CardText>{this.state.customer.email}</CardText>
                   <CardText>{this.state.customer.website}</CardText>
+                  <CardText>{this.state.customer.address}</CardText>
+                  <CardText>{this.state.customer.phoneNo}</CardText>
+
                   <CardText>{this.state.customer.DOB}</CardText>
                   <CardText>{this.state.customer.note}</CardText>
 
@@ -117,7 +179,7 @@ class SingleView extends React.Component{
                                 <Button  color="success">Update</Button>
                             </form>
                             </CardText>
-                            <form onSubmit={this.handleDelete}>
+                            <form onSubmit={this.submit}>
                                     <input 
                                     type="hidden" 
                                     id="searchId" 
@@ -129,7 +191,7 @@ class SingleView extends React.Component{
                                     </CardText>        
                                     
                             <CardText>        
-                            <Button  color="danger">Delete</Button>
+                            <Button  color="danger" onClick={this.submit}>Delete</Button>
                             <br/>
                             </CardText>
                             </form>

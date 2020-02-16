@@ -33,8 +33,8 @@ class UpdateCustomer extends React.Component{
             type: "",
             email: "",
             website: "",
-            address:"hii",
-            phoneNo:"522",
+            address:"",
+            phoneNo:"",
             DOB: "",
             note: "",
 
@@ -99,7 +99,7 @@ handleSubmit = e => {
           data: this.props.location});
       } else{
             this.props.history.push({
-                pathname:'/updatecustomer',
+                pathname:'/singleview',
                 data: res})
         }
       }
@@ -116,7 +116,7 @@ handleSubmit = e => {
           <Card>
             <CardHeader>Updation</CardHeader>
             <CardBody>
-            <Form onSubmit={this.onSubmit}>
+            <Form onSubmit={this.handleSubmit}>
             <FormGroup>
                   <Label for="name">Id </Label>
                   
