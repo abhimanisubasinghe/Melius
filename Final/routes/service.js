@@ -290,6 +290,7 @@ service.get('/topService',function(req,res){
         res.send('please log');
     }
 })
+*/
 
 
 //Services what melius provide

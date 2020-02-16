@@ -21,6 +21,24 @@ class AuthPage extends React.Component {
     this.onSubmit = this.onSubmit.bind(this)
   }
 
+  setCookie = (cuname, cusernamevalue,cstatus, cstatusvalue, exdays) => {
+    console.log("status",cstatus);
+    console.log("val",cstatusvalue);
+    var d = new Date();
+    d.setTime(d.getTime() + ((exdays+1) * 5 *60 * 1000));
+    var expires = "expires="+d.toUTCString();
+    if(cstatusvalue!=0){
+      console.log("opeartor");
+      document.cookie = "username =" + cusernamevalue + ";status = 1 ;+"+ expires + ";path=/";
+    }
+    else{
+      console.log("admin");
+      document.cookie = "username =" + cusernamevalue + ";status = 0 ;+"+ expires + ";path=/";
+    }
+    console.log("created",document.cookie);
+    return document.cookie;
+  }
+
   onChange(e){
     this.setState({[e.target.name]: e.target.value})
   }
@@ -39,8 +57,14 @@ class AuthPage extends React.Component {
       if(res) {
         console.log('qqqqqqqqqqqqq');
         console.log(res.state);
+        console.log(res.res2);
         if(res.state){
-          this.props.history.push('/',{detail: res})
+          if (user != "" && user != null) {
+            console.log("status",res.res2.name);
+            document.cookie = "username=; status=;expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+            const cookie =this.setCookie("username", this.state.username,"status",res.res2.status, 0);
+            this.props.history.push('/',{detail: res,cookie: cookie,status:res.res2.status})
+          }
           
         }
         else{
@@ -49,7 +73,6 @@ class AuthPage extends React.Component {
       }
     })
   }
-
 
   handleLogoClick = () => {
     this.props.history.push('/');

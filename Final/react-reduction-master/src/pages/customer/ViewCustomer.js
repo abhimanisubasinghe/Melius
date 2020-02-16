@@ -25,6 +25,8 @@ class ViewCustomer extends React.Component{
           .then(res => {
             const customers = res.data.result;
             console.log(res.data.result);
+            console.log(res.data.result1);
+            console.log("$$$");
             this.setState({ customers });
           })
           
@@ -72,7 +74,7 @@ class ViewCustomer extends React.Component{
         >
         <Row>
         <Col lg={3} md={6} sm={6} xs={12}>
-            <NumberWidget
+            {/* <NumberWidget
               title="Total Profit"
               subtitle="This month"
               number= {this.state.total.map((total)=>total.count)}
@@ -81,7 +83,7 @@ class ViewCustomer extends React.Component{
                 value: 75,
                 label: 'Last month',
               }}
-            />
+            /> */}
           </Col>
             <Col>
             <Card className="mb-3">

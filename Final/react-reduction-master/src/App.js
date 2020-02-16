@@ -6,8 +6,11 @@ import AuthPage from 'pages/AuthPage';
 import React from 'react';
 import componentQueries from 'react-component-queries';
 import { BrowserRouter, Redirect, Route, Switch } from 'react-router-dom';
+import { useCookies } from 'react-cookie';
 import './styles/reduction.scss';
-import Profile from './components/Profile'
+import Profile from './components/Profile';
+import Cookies from 'universal-cookie';
+
 
 import Login from 'pages/AuthPage.js';
 //import { Router } from 'express';
@@ -53,6 +56,7 @@ import AddVehicle from './pages/vehicle/AddVehicle';
 import AddNewPRPage from './pages/item/AddNewPR';
 import AddNewPOPage from './pages/item/AddNewPO';
 import POTablePage from './pages/item/PO';
+import PRTablePage from './pages/item/PR';
 import ServiceInvoice from './pages/service/ServiceInvoice';
 //import AddNewPRPage from './pages/item/AddNewPR';
 import RegisterStoragePage from './pages/storage/RegisterStoragePage';
@@ -79,7 +83,11 @@ const getBasename = () => {
   return `/${process.env.PUBLIC_URL.split('/').pop()}`;
 };
 
+const cookies = new Cookies();
+cookies.set();
+
 class App extends React.Component {
+
   render() {
     return (
       <BrowserRouter basename={getBasename()}>
@@ -128,7 +136,8 @@ class App extends React.Component {
                 <Route exact path="/item-register" component={RegisterItemPage} />
                 <Route exact path="/new-pr" component={AddNewPRPage} />
                 <Route exact path="/new-po" component={AddNewPOPage} />
-                {/*<Route exact path="/new-pr" component={AddNewPRPage} />*/}
+                <Route exact path="/po-view" component={POTablePage} />
+                <Route exact path="/pr-view" component={PRTablePage} />
                 {/* <Route exact path="/new-pr" component={AddNewPRPage} /> */}
                 <Route exact path="/storage-register" component={RegisterStoragePage} />
                 <Route exact path="/operator-register" component={RegisterOperatorPage} />

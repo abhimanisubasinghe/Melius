@@ -1,6 +1,6 @@
 import Page from 'components/Page';
 import React from 'react';
-import { Button, Card, CardBody, CardHeader, Col, Row, Table } from 'reactstrap';
+import { Button, Card, CardBody, CardHeader, Col, Row, Table,UncontrolledAlert } from 'reactstrap';
 import axios from 'axios';
 import { vehiclesearch } from '../../components/UserFunction';
 
@@ -12,7 +12,7 @@ class ViewVehicle extends React.Component{
     
         this.state = {
             vehicles:[],
-            serchId:"",
+            searchId:"",
             
         }
     }
@@ -73,6 +73,18 @@ class ViewVehicle extends React.Component{
         <Row>
             <Col>
             <Card className="mb-3">
+            {(this.props.location.data)?
+                (this.props.location.data === "TRUE" || this.props.location.data === true)?
+                    <UncontrolledAlert color="success">
+                    SUCCESSFUL!
+                    </UncontrolledAlert>
+                    :
+                    <UncontrolledAlert color="danger">
+                    ERROR!
+                    </UncontrolledAlert>
+                :
+                ""
+            }
                 <CardHeader></CardHeader>
                 <CardBody>
                 {<Table responsive>
@@ -90,7 +102,7 @@ class ViewVehicle extends React.Component{
                         this.state.vehicles.map((vehicle) =>
                             <tr>
                             <td>{vehicle.Id}</td>
-                            <td>{vehicle.vehicleId}</td>
+                            <td>{vehicle.vehicleNo}</td>
                             <td>{vehicle.category}</td>
                             <td>{vehicle.type}</td>
                             <td>{vehicle.mileage}</td>
