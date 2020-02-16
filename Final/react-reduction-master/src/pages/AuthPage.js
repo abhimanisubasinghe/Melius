@@ -1,7 +1,10 @@
 import AuthForm, { STATE_LOGIN } from 'components/AuthForm';
 import React from 'react';
 import { Card, Col, Row } from 'reactstrap';
-import { login } from './UserFunction'
+import { login } from './UserFunction';
+//import validator from 'validator';
+import Form from 'react-validation/build/form';
+import Input from 'react-validation/build/input';
 
 class AuthPage extends React.Component {
   
@@ -10,7 +13,8 @@ class AuthPage extends React.Component {
     super()
     this.state = {
       username: '',
-      password: ''
+      password: '',
+      
     }
 
     this.onChange = this.onChange.bind(this)
@@ -21,9 +25,11 @@ class AuthPage extends React.Component {
     this.setState({[e.target.name]: e.target.value})
   }
 
+  
+
   onSubmit(e){
     e.preventDefault();
-
+    
     const user = {
       username: this.state.username,
       password: this.state.password
@@ -63,7 +69,7 @@ class AuthPage extends React.Component {
             <div className="row">
                 <div className="col-md-6 mt-5 mx-auto">
                     <form noValidate onSubmit={this.onSubmit}>
-                        <h1 className='h3 mb-3 font-weight-m=normal'>Sing In</h1>
+                        <h1 className='h3 mb-3 font-weight-m=normal'>Sign In</h1>
                         <div className='form-group'>
                             <label htmlFor='username'>Username</label>
                             <input type="text"
@@ -81,6 +87,7 @@ class AuthPage extends React.Component {
                             placeholder="Password"
                             value={this.state.password}
                             onChange={this.onChange}/>
+                            
                         </div>
                         <button type='submit'
                         className='btn btn-lg btn-primary btn-block'>

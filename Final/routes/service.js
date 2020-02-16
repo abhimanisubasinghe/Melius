@@ -255,14 +255,43 @@ service.post('/search',function(req,res){
         res.send({state,message});
     }
 })
-/*
+
 //TOP SERVICE
 service.get('/topService',function(req,res){
+   
     console.log('ddddddddd');
-    sql.query('create or replace trigger topService after Update|delete|Insert on service_invoice_services for each row when (New.serviceId >0) ',function())
+    if(!req.session.userId || !req.session.adminId){
+        sql.query('SELECT count(invoiceId) as coun, serviceId from service_invoice_services group by serviceId ORDER by coun DESC LIMIT 1',function(err,result){
+        if(err){
+            console.log('top err');
+            console.log(err);
+        }
+        else{
+            if(result.length>0){
+                var id = result[0].serviceId;
+                sql.query('select * from service where serviceId = ?',[id],function(err2,result2){
+                    if(err2){
+                        console.log('err2')
+                        console.log(err2)
+                    }
+                    else{
+                        console.log(result2);
+                        res.send({result,result2});
+                    }
+                })
+            }
+            console.log('no data');
+            //res.send('no data');
+        }
+    })
+    }
+    else{
+        console.log('please log')
+        res.send('please log');
+    }
 })
 
-*/
+
 //Services what melius provide
 //service
 

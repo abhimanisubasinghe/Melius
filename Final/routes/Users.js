@@ -373,7 +373,7 @@ users.post('/login', function(req,res){
                 else{
                     //
                     bcrypt.compare(password,result[0].password,function(err4,result4){
-                        if(err2){
+                        if(err4){
                             console.log('userloginerr4');
                             console.log(err4);
                             throw err4;
@@ -382,7 +382,7 @@ users.post('/login', function(req,res){
                             if(result4 == true){
                                 req.session.adminId = username;
                                 sql.query('select * from user where id = ?',[result[0].userId],function(err5,result5){
-                                    if(err3){
+                                    if(err5){
                                         console.log('login err5')
                                         console.log(err5);
                                         throw err5
