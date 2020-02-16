@@ -86,6 +86,30 @@ class ServiceProfilePage extends React.Component{
           })
     }
 
+    handleDelete = e => {
+        e.preventDefault();
+        console.log("Hi!",e);
+        console.log(e.target.searchId.value);
+        const service1 = {
+            searchId: e.target.searchId.value
+        }   
+        search(service1).then(res => {
+            if(res) {
+              console.log(res);
+              if(res){
+                this.props.history.push({
+                    pathname:'/service-delete',
+                    data: res})
+                
+              }
+              else{
+                console.log("ERROR");  
+                this.props.history.push('/service-view');
+              }
+            }
+          })
+    }
+
     render(){
         
         return (

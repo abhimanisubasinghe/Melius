@@ -69,6 +69,8 @@ import UpdateCustomer from './pages/customer/UpdateCustomer';
 import ViewVehicle from './pages/vehicle/ViewVehicle';
 import Singlevehicle from './pages/vehicle/Singlevehicle';
 import UpdateVehicle from './pages/vehicle/UpdateVehicle';
+import ServiceUpdate from './pages/service/ServiceUpdate';
+import ServiceDelete from './pages/service/ServiceDelete';
 
 
 
@@ -147,6 +149,8 @@ class App extends React.Component {
                 <Route exact path="/view-vehicle" component={ViewVehicle}/>
                 <Route exact path="/singlevehicle" component={Singlevehicle}/>
                 <Route exact path="/updatevehicle" component={UpdateVehicle}/>
+                <Route exact path="/service-update" component={ServiceUpdate}/>
+                <Route exact path="/service-delete" component={ServiceDelete}/>
 
               </React.Suspense>
             </MainLayout>

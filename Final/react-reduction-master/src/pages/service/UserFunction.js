@@ -85,3 +85,67 @@ export const search = service => {
         console.log(err)
     })
 }
+
+export const deleteService = service => {
+    console.log("Servicefn",service);
+    return axios
+    .post('http://localhost:5001/services/serviceRemove', {
+        serviceId: service.serviceId,
+        name: service.name,
+    })
+    .then(res => {
+        if(res.data != "fill all details"){
+            console.log('come response');
+        // console.log(res.data);
+            //localStorage.setItem('usertoken',res.data);
+            //return res.data;
+            console.log('eeeeeeeeeeeeee')
+            //console.log(res.data.state);
+            console.log(res.data)
+            
+            return "TRUE";
+        }
+        else{
+            console.log(res.data);
+            return "FALSE";
+        }
+    })
+    .catch(err => {
+        console.log('err');
+        console.log(err);
+    })
+}
+
+
+export const updateService = service => {
+    console.log("servicefn",service);
+    console.log("id",service.serviceId);
+    return axios 
+    .post("http://localhost:5001/services/updateService", {
+        serviceId: service.serviceId,
+        name: service.name,
+        category: service.category,
+        price: service.price
+    })
+    .then(res => {
+        if(res.data != "fill all details"){
+            console.log('come response');
+        // console.log(res.data);
+            //localStorage.setItem('usertoken',res.data);
+            //return res.data;
+            console.log('eeeeeeeeeeeeee')
+            //console.log(res.data.state);
+            console.log(res.data)
+            
+            return "TRUE";
+        }
+        else{
+            console.log(res.data);
+            return "FALSE";
+        }
+    })
+    .catch(err => {
+        console.log('err');
+        console.log(err);
+    })
+}
