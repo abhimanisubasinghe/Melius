@@ -320,7 +320,7 @@ service.post('/newServiceInvoice',function(req,res,next){
     console.log(discount)
     console.log(date)
     console.log(remarks)
-    if(req.session.userId || req.session.adminId){
+    if(!req.session.userId || !req.session.adminId){
         console.log('not logged')
         res.send('please log');
     }
