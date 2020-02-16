@@ -69,13 +69,28 @@ addItem = (e) =>{
 
   onSubmit(e){
   e.preventDefault();
-  const invoice1 = {
+  const invoice = {
       item:this.state.item,    
       total: this.state.total,
       discount: this.state.discount,
       remarks: this.state.remarks
      
   }
+
+  const url = "http://localhost:5000/trading/addItemInvoice"; 
+    axios
+            .post(url,
+                    invoice
+            ,{headers: {'Accept': 'application/json'}})
+            .then( response =>
+                    {console.log("good");
+                    
+                  }
+                    
+            )
+            .catch(() => console.log("Can’t access " + url + " response. Blocked by browser?"))
+    
+            //this.props.history.push('/item-invoice')
     /*console.log('nvjsdnvklsnvsnkndslkvcnsdovnosinvsklnclksnvknskldnvsklvklsnvlks');
     console.log(invoice1);
     invoice(invoice1).then(res => {
@@ -110,7 +125,7 @@ addItem = (e) =>{
           <Card>
             <CardHeader>Material Invoice </CardHeader>
             <CardBody>
-              <Form onSubmit={this.onSubmit}>
+              <Form onSubmit={this.onSubmit} onChange={this.handleChange}>
 
                         
                 {
@@ -130,7 +145,7 @@ addItem = (e) =>{
                     name="itemCode"
                     data-id={idx}
                     id={itemCode}
-                    value={this.state.item[idx].itemCode}
+                    value={item[idx].itemCode}
                     placeholder="Item Group"
                     className="itemCode"
                   />
