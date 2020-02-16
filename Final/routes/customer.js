@@ -347,6 +347,35 @@ customers.get('/customerView',function(req,res){
         }
     })
     
+    customers.post('/searchByName',function(req,res){
+        console.log("foeiajfej");
+        if(!req.session.userId || !req.session.adminId){
+            var searchId = "%"+req.body.searchId+"%";
+            console.log(searchId);
+            sql.query('SELECT * FROM customer inner join customer_address on customer.Id = customer_address.Id inner join customer_phone on customer.Id = customer_phone.Id where customer.name LIKE ?',[searchId],function(err,result){
+                console.log(result);
+                if(err){
+                    console.log('err view customer')
+                    console.log(err);
+                    throw err;
+                }
+                else{
+                    if(result.length>0){
+                        //var state = true;
+                        //var res1 = result[0];
+                        res.json(result);
+                        //res.send({state, res1});
+                    }
+                    else{
+                        console.log('not work');
+                    }
+                }
+            })
+        }
+        else{
+            res.send('please log');
+        }
+    })
 
 
     customers.post('/deletecus',function(req,res){

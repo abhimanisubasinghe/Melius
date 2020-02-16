@@ -75,6 +75,7 @@ import Singlevehicle from './pages/vehicle/Singlevehicle';
 import UpdateVehicle from './pages/vehicle/UpdateVehicle';
 import ServiceUpdate from './pages/service/ServiceUpdate';
 import ServiceDelete from './pages/service/ServiceDelete';
+import CreateAppointmentPage from './pages/appointments/CreateAppointmentPage';
 
 
 
@@ -160,6 +161,7 @@ class App extends React.Component {
                 <Route exact path="/updatevehicle" component={UpdateVehicle}/>
                 <Route exact path="/service-update" component={ServiceUpdate}/>
                 <Route exact path="/service-delete" component={ServiceDelete}/>
+                <Route exact path="/appointment-create" component={CreateAppointmentPage}/>
 
               </React.Suspense>
             </MainLayout>

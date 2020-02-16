@@ -101,6 +101,12 @@ const navContents = [
   { to: '/tables', name: 'tables', exact: false, Icon: MdBorderAll },
 ];
 
+const navAppointments = [
+  { to: '/appointment-create', name: 'Register', exact: false, Icon: MdTextFields },
+  { to: '/tables', name: 'tables', exact: false, Icon: MdBorderAll },
+];
+
+
 const navCustomers= [
   { to: '/add-customer', name: 'register', exact: false, Icon: MdAddCircle },
   { to: '/view-customer', name: 'view', exact: false, Icon: MdAddCircle },
@@ -288,6 +294,45 @@ class Sidebar extends React.Component {
             </NavItem>
             <Collapse isOpen={this.state.isOpenOperator}>
               {navOperator.map(({ to, name, exact, Icon }, index) => (
+                <NavItem key={index} className={bem.e('nav-item')}>
+                  <BSNavLink
+                    id={`navItem-${name}-${index}`}
+                    className="text-uppercase"
+                    tag={NavLink}
+                    to={to}
+                    activeClassName="active"
+                    exact={exact}
+                  >
+                    <Icon className={bem.e('nav-item-icon')} />
+                    <span className="">{name}</span>
+                  </BSNavLink>
+                </NavItem>
+              ))}
+            </Collapse>
+            <NavItem
+              className={bem.e('nav-item')}
+              onClick={this.handleClick('Appointments')}
+            >
+              <BSNavLink className={bem.e('nav-item-collapse')}>
+                <div className="d-flex">
+                  <MdSend className={bem.e('nav-item-icon')} />
+                  <span className="">Appointments</span>
+                </div>
+                <MdKeyboardArrowDown
+                  className={bem.e('nav-item-icon')}
+                  style={{
+                    padding: 0,
+                    transform: this.state.isOpenAppointments
+                      ? 'rotate(0deg)'
+                      : 'rotate(-90deg)',
+                    transitionDuration: '0.3s',
+                    transitionProperty: 'transform',
+                  }}
+                />
+              </BSNavLink>
+            </NavItem>
+            <Collapse isOpen={this.state.isOpenAppointments}>
+              {navAppointments.map(({ to, name, exact, Icon }, index) => (
                 <NavItem key={index} className={bem.e('nav-item')}>
                   <BSNavLink
                     id={`navItem-${name}-${index}`}

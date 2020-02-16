@@ -38,13 +38,15 @@ var Customers = require('./routes/customer');
 var Services = require('./routes/service');
 var Admin = require('./routes/admin');
 var Vehicle = require('./routes/vehicle');
+var Appointments = require('./routes/appointments');
 
 app.use('/',Index);
 app.use('/users', Users);
 app.use('/customers', Customers);
 app.use('/services', Services);
 app.use('/admin', Admin);
-app.use('/vehicles',Vehicle)
+app.use('/vehicles',Vehicle);
+app.use('/appointments',Appointments);
 
 // <<<<<<< HEAD
 // app.listen(3010, function(){
