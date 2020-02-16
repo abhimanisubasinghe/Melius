@@ -36,6 +36,11 @@ class PRTablePage extends React.Component{
         e.preventDefault();
         this.props.history.push('/new-pr');
     }
+
+    handlePO = e =>{
+      e.preventDefault();
+      
+    }
   /*  handleData = e =>{
         fetch("http://localhost:5000/reorder/PO")
         .then(res =>{
@@ -130,7 +135,7 @@ render(){
                             <td>{orders.status}</td>
                             <td>
                                 {<ButtonGroup className="mr-3 mb-3">
-                                    <Button color="primary" onClick={this.handleClick}>Add PO</Button>
+                                    <Button color="primary" onClick={this.handlePO}>Add PO</Button>
                                     <Button color="success" onClick={this.handleClick}>Update</Button>
                                     <Button color="danger" onClick={this.handleClick}>Remove</Button>
                                    

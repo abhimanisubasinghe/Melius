@@ -83,14 +83,14 @@ class DashboardPage extends React.Component {
   componentDidMount() {
     // this is needed, because InfiniteCalendar forces window scroll
     window.scrollTo(0, 0);
-    console.log("prev",this.props.location)
+    //console.log("prev",this.props.location)
     //this.checkCookie;
-    var user = this.getCookie("username");
+    /*var user = this.getCookie("username");
     if (user != "") {
     } else {
       this.props.history.push('/login');
       
-    }
+    }*/
   }
 
   onChange = (e) => {

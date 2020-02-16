@@ -24,7 +24,7 @@ class RegisterItemPage extends React.Component{
     super(props)
 
     this.state = {
-        itemcode:"",    
+        //itemcode:"",    
         name: "",
         inStock: "",
         unitPrice: "",
@@ -74,13 +74,15 @@ handleSubmit = e => {
           <Card>
             <CardHeader>Registration</CardHeader>
             <CardBody>
-              <Form>
+              <Form onSubmit={this.handleSubmit}>
                 <FormGroup>
                   <Label for="name">Item Name</Label>
                   <Input
                     type="text"
                     name="name"
                     id="name"
+                    value={this.state.name}
+                    onChange={this.onChange}
                     placeholder="Item Name"
                   />
                 </FormGroup>
@@ -90,6 +92,8 @@ handleSubmit = e => {
                     type="number"
                     name="inStock"
                     id="inStock"
+                    value={this.state.inStock}
+                    onChange={this.onChange}
                     placeholder="In Stock"
                   />
                 </FormGroup>
@@ -103,6 +107,8 @@ handleSubmit = e => {
                     type="number"
                     name="unitPrice"
                     id="unitPrice"
+                    value={this.state.unitPrice}
+                    onChange={this.onChange}
                     placeholder="Unit Price"
                     step="1"
                   />
@@ -117,6 +123,8 @@ handleSubmit = e => {
                     type="number"
                     name="costPrice"
                     id="costPrice"
+                    value={this.state.costPrice}
+                    onChange={this.onChange}
                     placeholder="Cost Price"
                     step="1"
                   />
@@ -133,6 +141,8 @@ handleSubmit = e => {
                     type="text"
                     name="itemgroup"
                     id="itemgroup"
+                    value={this.state.itemgroup}
+                    onChange={this.onChange}
                     placeholder="Item Group"
                   />
                 </div>
@@ -142,6 +152,8 @@ handleSubmit = e => {
                     type="text"
                     name="brand"
                     id="brand"
+                    value={this.state.brand}
+                    onChange={this.onChange}
                     placeholder="Brand"
                   />
                 </div>
@@ -155,6 +167,8 @@ handleSubmit = e => {
                     type="text"
                     name="type"
                     id="type"
+                    value={this.state.type}
+                    onChange={this.onChange}
                     placeholder="Type"
                   />
                 </div>  
@@ -164,6 +178,8 @@ handleSubmit = e => {
                     type="text"
                     name="category"
                     id="category"
+                    value={this.state.category}
+                    onChange={this.onChange}
                     placeholder="Category"
                   />
                 </div>  
@@ -177,6 +193,8 @@ handleSubmit = e => {
                     type="text"
                     name="storageId"
                     id="storageId"
+                    value={this.state.storageId}
+                    onChange={this.onChange}
                     placeholder="Storage ID"
                   />
                 </div>
@@ -186,6 +204,8 @@ handleSubmit = e => {
                     type="text"
                     name="supplierId"
                     id="supplierId"
+                    value={this.state.supplierId}
+                    onChange={this.onChange}
                     placeholder="Supplier Id"
                   />
                 </div>  
@@ -197,6 +217,8 @@ handleSubmit = e => {
                     type="text"
                     name="barcode"
                     id="barcode"
+                    value={this.state.barcode}
+                    onChange={this.onChange}
                     placeholder="Barcode"
                   />
                 </FormGroup>
@@ -206,15 +228,19 @@ handleSubmit = e => {
                     type="number"
                     name="reorderLevel"
                     id="reorderLevel"
+                    value={this.state.reorderLevel}
+                    onChange={this.onChange}
                     placeholder="Reorder Level"
                   />
                 </FormGroup>
                 <FormGroup>
                   <Label for="leadTime">Lead Time</Label>
                   <Input
-                    type="time"
+                    type="number"
                     name="leadTime"
                     id="leadTime"
+                    value={this.state.leadTime}
+                    onChange={this.onChange}
                     placeholder="Lead Time"
                   />
                 </FormGroup>
@@ -225,19 +251,10 @@ handleSubmit = e => {
                     type="textarea"
                     name="descript"
                     id="descript"
+                    value={this.state.descript}
+                    onChange={this.onChange}
                     placeholder="Description"
                   />
-                </FormGroup>
-                
-                <FormGroup>
-                  <Label for="exampleSelect">Select</Label>
-                  <Input type="select" name="select">
-                    <option>1</option>
-                    <option>2</option>
-                    <option>3</option>
-                    <option>4</option>
-                    <option>5</option>
-                  </Input>
                 </FormGroup>
                 <FormGroup check row>
                     <Button>Submit</Button>

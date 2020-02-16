@@ -144,4 +144,3 @@ render(){
       }
 }
 export default POTablePage;
-

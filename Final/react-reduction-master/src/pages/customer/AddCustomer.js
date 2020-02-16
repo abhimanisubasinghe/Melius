@@ -38,8 +38,10 @@ class RegisterCustomerPage extends React.Component{
       address: "",
       phoneNo: "",
       DOB: "",
-      note: ""
-     
+      note: "",
+      errors:{
+        NIC:'',
+      }
   }
 
   this.onChange=this.onChange.bind(this)
@@ -50,9 +52,30 @@ class RegisterCustomerPage extends React.Component{
 }
 
 onChange = (e) => {
-    this.setState(
-    {[e.target.name]: e.target.value}
-)
+//     this.setState(
+//     {[e.target.name]: e.target.value}
+// )
+  const { name ,value} = e.target
+  let errors =this.state.errors
+
+  switch(name){
+    case 'NIC':
+      errors.NIC=
+      value.length <10 
+      ?'NIC is too short'
+      :value.length === 10 && value[9] !== 'v'
+          ?'Invalid Type for  NIC'
+          :value.length >12
+            ?'NIC is too long'
+            :''
+      break
+    default:
+        break
+  }
+  this.setState({errors,[name]:value},()=>{
+    console.log(errors)
+    this.setState({errors,[name]:value})
+  })
 }
 
 
@@ -94,6 +117,7 @@ onSubmit(e){
 
 
   render(){
+    const {errors}=this.state
   return (
     <div>
     <Page title="Register Customer" breadcrumbs={[{ name: 'customer-Register', active: true }]}>
@@ -136,6 +160,10 @@ onSubmit(e){
                     onChange={this.onChange}
                     value={this.state.NIC}
                   />
+                  {
+                    errors.NIC.length >0 &&
+                    <small><span>{errors.NIC}</span></small>
+                  }
                 </FormGroup>
                 <FormGroup>
                   <Label for="name">Type</Label>
