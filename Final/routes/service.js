@@ -261,6 +261,7 @@ service.get('/topService',function(req,res){
     console.log('ddddddddd');
     sql.query('create or replace trigger topService after Update|delete|Insert on service_invoice_services for each row when (New.serviceId >0) ',function())
 })
+*/
 
 */
 //Services what melius provide

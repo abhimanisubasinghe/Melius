@@ -6,8 +6,11 @@ import AuthPage from 'pages/AuthPage';
 import React from 'react';
 import componentQueries from 'react-component-queries';
 import { BrowserRouter, Redirect, Route, Switch } from 'react-router-dom';
+import { useCookies } from 'react-cookie';
 import './styles/reduction.scss';
-import Profile from './components/Profile'
+import Profile from './components/Profile';
+import Cookies from 'universal-cookie';
+
 
 import Login from 'pages/AuthPage.js';
 //import { Router } from 'express';
@@ -79,7 +82,11 @@ const getBasename = () => {
   return `/${process.env.PUBLIC_URL.split('/').pop()}`;
 };
 
+const cookies = new Cookies();
+cookies.set();
+
 class App extends React.Component {
+
   render() {
     return (
       <BrowserRouter basename={getBasename()}>
