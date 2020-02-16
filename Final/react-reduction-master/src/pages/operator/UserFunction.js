@@ -66,6 +66,27 @@ export const search = user => {
     })
 }
 
+export const searchByName = async user => {
+    console.log("user",user);
+    console.log(user.searchId);
+    return await axios
+    .post('http://localhost:5001/users/searchByName', {
+        searchId: user.searchId,
+    })
+    .then(res => {
+        console.log('eeeeeeeeeeeeee')
+        //console.log(res.data.state);
+        console.log(res.data)
+        
+        //localStorage.setItem('usertoken',res.data)
+        return res.data;
+    })
+    .catch(err =>{
+        console.log('log err')
+        console.log(err)
+    })
+}
+
 export const addService = service => {
     return axios
     .post('http://localhost:5001/services/addService', {

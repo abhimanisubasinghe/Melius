@@ -75,14 +75,24 @@ const navOperator = [
 const navInventoryItems = [
   { to: '/item-register', name: 'register', exact: false, Icon: MdAddCircle },
   { to: '/new-pr', name: 'new purchase requisition', exact: false, Icon: MdAddCircle },
-  { to: '/new-po', name: 'new purchase requisition', exact: false, Icon: MdAddCircle },
+  { to: '/po-view', name: 'purchase orders', exact: false, Icon: MdAddCircle },
+  { to: '/pr-view', name: 'purchase requisition orders', exact: false, Icon: MdAddCircle },
   { to: '/storage-register', name: 'storage-register', exact: false, Icon: MdAddCircle },
   { to: '/tables', name: 'tables', exact: false, Icon: MdBorderAll },
 ];
 
 const navService = [
-  { to: '/addService', name: 'add service', exact: false, Icon: MdAddCircle },
-  { to: '/new-invoice', name: 'invoice', exact: false, Icon: MdAddCircle },
+  { to: '/service-add', name: 'addservice', exact: false, Icon: MdAddCircle },
+  { to: '/new-invoice', name: 'newinvoice', exact: false, Icon: MdAddCircle },
+  { to: '/service-view', name: 'serviceview', exact: false, Icon: MdAddCircle },
+  { to: '/service-profile', name: 'serviceprofile', exact: false, Icon: MdAddCircle },
+  { to: '/printInvoiceService', name: 'printservice', exact: false, Icon: MdAddCircle },
+  // { to: '/addService', name: 'add service', exact: false, Icon: MdAddCircle },
+  // { to: '/new-invoice', name: 'invoice', exact: false, Icon: MdAddCircle },
+  { to: '/service-update', name: 'updateservice', exact: false, Icon: MdAddCircle },
+  { to: '/service-delete', name: 'deleteservice', exact: false, Icon: MdAddCircle },
+
+
 
 ];
 

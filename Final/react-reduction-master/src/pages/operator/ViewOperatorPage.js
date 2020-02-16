@@ -87,7 +87,7 @@ class ViewOperatorPage extends React.Component{
             <Card className="mb-3">
                 
             {(this.props.location.data)?
-                (this.props.location.data == "TRUE" || this.props.location.data == true)?
+                (this.props.location.data === "TRUE" || this.props.location.data === true)?
                     <UncontrolledAlert color="success">
                     SUCCESSFUL!
                     </UncontrolledAlert>

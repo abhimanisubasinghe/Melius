@@ -469,6 +469,34 @@ users.post('/search',function(req,res){
             }
             else{
                 if(result.length>0){
+                    res.json(result);
+                }
+                else{
+                    console.log('not work');
+                }
+            }
+        })
+    }
+    else{
+        res.send('please log');
+    }
+})
+
+//SINGLE USER VIEW
+users.post('/searchByName',function(req,res){
+    console.log("foeiajfej");
+    if(!req.session.userId || !req.session.adminId){
+        var searchId = "%"+req.body.searchId+"%";
+        console.log(searchId);
+        sql.query('select * from user inner join userLogin on user.Id = userLogin.userId WHERE user.name LIKE ?',[searchId],function(err,result){
+            console.log(result);
+            if(err){
+                console.log('err viewuser')
+                console.log(err);
+                throw err;
+            }
+            else{
+                if(result.length>0){
                     //var state = true;
                     //var res1 = result[0];
                     res.json(result);
@@ -476,6 +504,7 @@ users.post('/search',function(req,res){
                 }
                 else{
                     console.log('not work');
+                    res.json(result);
                 }
             }
         })

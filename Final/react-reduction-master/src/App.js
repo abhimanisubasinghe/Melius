@@ -53,6 +53,7 @@ import AddVehicle from './pages/vehicle/AddVehicle';
 import AddNewPRPage from './pages/item/AddNewPR';
 import AddNewPOPage from './pages/item/AddNewPO';
 import POTablePage from './pages/item/PO';
+import PRTablePage from './pages/item/PR';
 import ServiceInvoice from './pages/service/ServiceInvoice';
 //import AddNewPRPage from './pages/item/AddNewPR';
 import RegisterStoragePage from './pages/storage/RegisterStoragePage';
@@ -62,11 +63,15 @@ import InvoiceServicePrint from './pages/service/PrintInvoiceService';
 import Addservice from './pages/service/Addservice';
 import OperatorProfilePage from './pages/operator/OperatorProfilePage';
 import OperatorUpdatePage from './pages/operator/OperatorUpdatePage';
+import ServiceView from './pages/service/ViewService';
+import ServiceProfilePage from './pages/service/ServiceProfile';
 import SingleView from './pages/customer/SingleView';
 import UpdateCustomer from './pages/customer/UpdateCustomer';
 import ViewVehicle from './pages/vehicle/ViewVehicle';
 import Singlevehicle from './pages/vehicle/Singlevehicle';
 import UpdateVehicle from './pages/vehicle/UpdateVehicle';
+import ServiceUpdate from './pages/service/ServiceUpdate';
+import ServiceDelete from './pages/service/ServiceDelete';
 
 
 
@@ -123,7 +128,8 @@ class App extends React.Component {
                 <Route exact path="/item-register" component={RegisterItemPage} />
                 <Route exact path="/new-pr" component={AddNewPRPage} />
                 <Route exact path="/new-po" component={AddNewPOPage} />
-                {/*<Route exact path="/new-pr" component={AddNewPRPage} />*/}
+                <Route exact path="/po-view" component={POTablePage} />
+                <Route exact path="/pr-view" component={PRTablePage} />
                 {/* <Route exact path="/new-pr" component={AddNewPRPage} /> */}
                 <Route exact path="/storage-register" component={RegisterStoragePage} />
                 <Route exact path="/operator-register" component={RegisterOperatorPage} />
@@ -136,12 +142,17 @@ class App extends React.Component {
                 <Route exact path="/add-vehicle" component={AddVehicle} />
                 <Route exact path="/new-invoice" component={ServiceInvoice} />
                 <Route exact path="/printInvoiceService" component={InvoiceServicePrint}/>
+                <Route exact path="/service-add" component={Addservice}/>
+                <Route exact path="/service-view" component={ServiceView}/>
+                <Route exact path="/service-profile" component={ServiceProfilePage}/>
                 <Route exact path="/addservice" component={Addservice}/>
                 <Route exact path="/singleview" component={SingleView}/>
                 <Route exact path="/updatecustomer" component={UpdateCustomer}/>
                 <Route exact path="/view-vehicle" component={ViewVehicle}/>
                 <Route exact path="/singlevehicle" component={Singlevehicle}/>
                 <Route exact path="/updatevehicle" component={UpdateVehicle}/>
+                <Route exact path="/service-update" component={ServiceUpdate}/>
+                <Route exact path="/service-delete" component={ServiceDelete}/>
 
               </React.Suspense>
             </MainLayout>

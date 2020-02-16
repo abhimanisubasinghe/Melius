@@ -51,23 +51,22 @@ routerThree.post('/PRAdd',function(req,res,next){
 
 //Display PRs
 routerThree.get('/PRs', function(req, res, next) {
-    connection.query('SELECT * FROM purchaserequisition', function(err, result) {
+    connection.query('SELECT p.Id,p.itemCode,p.quantity,p.description,p.issuedDate,p.deliveryDate,p.storageId,p.supplierId,p.terms,p.status,i.name AS itemName,s.name AS supplierName FROM item i INNER JOIN purchaserequisition p ON p.itemCode=i.itemCode INNER JOIN supplier s ON s.supplierId=p.supplierId ', function(err, result) {
         if (err) {
             throw err;
         } else {
             if(result.length>0){
 
                 for (i = 0; i < result.length; i++) {
-                    result[i].neww=result[i].issuedDate.toISOString().substring(0,10);
+                    result[i].issuedDate=result[i].issuedDate.toISOString().substring(0,10);
+                    result[i].deliveryDate=result[i].deliveryDate.toISOString().substring(0,10);
                   }
-                res.render('items/PRList',{
-                    title: 'PR List',
+                  res.send({
                     data:result
-                    
                 });
 
                 
-                console.log(result[0].issuedDate.toISOString().substring(0,10));
+                //console.log(result[0].issuedDate.toISOString().substring(0,10));
                 
             }
             else{
@@ -242,6 +241,33 @@ routerThree.post('/addPO', function(req, res, next) {
     })
 
 })
+
+//Display Purchase Orders
+
+routerThree.get('/PO', function(req, res, next) {
+    connection.query('SELECT * FROM purchaseorders', function(err, result) {
+        if (err) {
+            throw err;
+        } else {
+                
+            if(result.length>0){
+                for (i = 0; i < result.length; i++) {
+                    
+                    result[i].IssuedDate=result[i].IssuedDate.toISOString().substring(0,10);
+                    result[i].EstimatedDelivery=result[i].EstimatedDelivery.toISOString().substring(0,10);
+                  }
+                res.send({
+                    data:result
+                });
+                
+            }
+            else{
+                res.json('No items');
+            }
+        }
+    });
+
+});
 
 //Create Good receipt note
 

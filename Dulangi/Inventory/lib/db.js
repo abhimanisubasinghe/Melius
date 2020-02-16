@@ -1,10 +1,11 @@
 const mysql = require('mysql');
 
 const connection = mysql.createConnection({
-     host: '127.0.0.1',
+     host: 'localhost',
      user: 'root',
      password: '',
-     database: 'servicecenter'
+     database:'servicecenter'
+     
  });
 
  connection.connect(function(error) {
@@ -12,7 +13,7 @@ const connection = mysql.createConnection({
      if (!!error) {
          console.log(error);
      } else {
-         console.log('Connected!!!');
+         console.log("connected");
      }
  });
 

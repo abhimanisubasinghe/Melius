@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import ReactToPrint from 'react-to-print';
+import { Button, Card, CardBody, CardHeader, Col, Row,Form, Table,UncontrolledAlert, } from 'reactstrap';
+
 
  
 export default class InvoiceServicePrint extends Component {
@@ -10,6 +12,7 @@ export default class InvoiceServicePrint extends Component {
             invoiceId: '',
             customerId: '',
             vehicleId: '',
+            serviceId: '',
             date: '',
             total: '',
             discount: '',
@@ -24,14 +27,20 @@ export default class InvoiceServicePrint extends Component {
             this.setState({
                 invoiceId: data.detail.invoiceId,
                 customerId: data.detail.customerId,
+                serviceId: data.detail.serviceId,
                 vehicleId: data.detail.vehicleId,
                 date: data.detail.date,
                 total: data.detail.total,
                 discount: data.detail.discount,
                 sub_total: data.detail.sub_total
             });
-            console.log(data.detail.sub_total);
+            console.log(data.detail.invoiceId);
+            console.log(data.detail.serviceId)
         }
+    }
+
+    myFun = () => {
+      window.print();
     }
 
 
@@ -39,7 +48,14 @@ export default class InvoiceServicePrint extends Component {
 
   render() {
     return (
-      <table>
+      <body>
+        <div id = 'printer'>
+        <Row>
+        <Col>
+          <Card className="mb-3">
+          <CardHeader>Invoice</CardHeader>
+      <CardBody>
+          <Table responsive>
         <thead>
           <th>Feilds</th>
           <th>Values</th>
@@ -48,7 +64,7 @@ export default class InvoiceServicePrint extends Component {
         <tbody>
           <tr>
             <td>InvoiceId</td>
-            <td>{this.state.InvoiceId}</td>
+            <td>{this.state.invoiceId}</td>
           </tr>
           <tr>
             <td>ServiceId</td>
@@ -67,11 +83,24 @@ export default class InvoiceServicePrint extends Component {
             <td>{this.state.discount}</td>
           </tr>
           <tr>
-            <td>Paid</td>
+            <td>price</td>
             <td>{this.state.sub_total}</td>
           </tr>
         </tbody>
-      </table>
+        </Table>
+      </CardBody>
+          </Card>
+        </Col>
+      </Row>
+        
+      </div>
+      <Form onSubmit={this.myFun}>
+      <Button>Print Button</Button>
+      </Form>
+      </body>
+
+      
+     
     );
   }
 }
