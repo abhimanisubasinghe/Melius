@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Customers</title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+</head>
+
+<body>
+    <form action="../update/<%= id %>" method="post" name="form1">
+        <div class="form-group">
+            <label for="exampleInputPassword1">Name</label>
+            <input type="text" class="form-control" name="name" id="name" value="<%= name %>" placeholder="Name">
+        </div>
+
+        <div class="form-group">
+            <label for="exampleInputPassword1">In stock</label>
+            <input type="text" class="form-control" name="inStock" id="inStock" value="<%= inStock %>">
+        </div>
+        <div class="form-group">
+            <label for="exampleInputPassword1">purchase price</label>
+            <input type="text" class="form-control" name="costPrice" id="costPrice" value="<%= costPrice %>">
+        </div>
+        <div class="form-group">
+            <label for="exampleInputPassword1">selling price</label>
+            <input type="text" class="form-control" name="unitPrice" id="unitPrice" value="<%= unitPrice %>">
+        </div>
+        <div class="form-group">
+            <label for="exampleInputEmail1">Reorder Point</label>
+            <input type="text" name="reorderLevel" class="form-control" id="reorderLevel" aria-describedby="emailHelp" value="<%= reorderLevel %>">
+        </div>
+        <div class="form-group">
+            <label for="exampleInputPassword1">Lead Time</label>
+            <input type="text" class="form-control" name="leadTime" id="leadTime" value="<%= leadTime %>">
+        </div>
+        <div class="form-group">
+            <label for="exampleInputPassword1">Reorder quantity</label>
+            <input type="text" class="form-control" name="reorderQuantity" id="reorderQuantity" value="<%= reorderQuantity %>">
+        </div>
+        <div class="form-group">
+            <label for="exampleInputPassword1">Description</label>
+            <input type="text" class="form-control" name="descript" id="descript" value="<%= descript %>">
+        </div>
+
+        <div class="form-group">
+            <label for="exampleInputPassword1">StorageId</label>
+            <input type="text" class="form-control" name="storage" id="storage" value="<%= storageId %>">
+        </div>
+        <div class="form-group">
+            <label for="exampleInputPassword1">SupplierId</label>
+            <input type="text" class="form-control" name="supplier" id="supplier" value="<%= supplierId %>">
+        </div>
+        <div class="form-group">
+            <label for="exampleInputPassword1">BarCode</label>
+            <input type="text" class="form-control" name="barcode" id="barcode" value="<%= barcode %>">
+        </div>
+
+
+
+        <button type="submit" class="btn btn-info">Update</button>
+    </form>
+</body>
+
+</html>
