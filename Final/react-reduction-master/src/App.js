@@ -162,6 +162,7 @@ class App extends React.Component {
                 <Route exact path="/updatevehicle" component={UpdateVehicle}/>
                 <Route exact path="/service-update" component={ServiceUpdate}/>
                 <Route exact path="/service-delete" component={ServiceDelete}/>
+                <Route exact path="/service-top" component={TopService}/>
 
               </React.Suspense>
             </MainLayout>
