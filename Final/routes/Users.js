@@ -328,8 +328,8 @@ users.post('/login', function(req,res){
             }
             else{
                 if(result.length>0){
-                    console.log(result)
-                if(result[0].status>0){
+                    console.log("dataHave",result)
+                if(result[0].status!="0"){
                     bcrypt.compare(password,result[0].password,function(err2,result2){
                         if(err2){
                             console.log('userloginerr2');
@@ -373,7 +373,7 @@ users.post('/login', function(req,res){
                 else{
                     //
                     bcrypt.compare(password,result[0].password,function(err4,result4){
-                        if(err2){
+                        if(err4){
                             console.log('userloginerr4');
                             console.log(err4);
                             throw err4;
