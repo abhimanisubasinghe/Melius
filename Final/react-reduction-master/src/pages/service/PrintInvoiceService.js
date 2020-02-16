@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import ReactToPrint from 'react-to-print';
+import { Button, Card, CardBody, CardHeader, Col, Row,Form, Table,UncontrolledAlert, } from 'reactstrap';
+
 
  
 export default class InvoiceServicePrint extends Component {
@@ -37,12 +39,23 @@ export default class InvoiceServicePrint extends Component {
         }
     }
 
+    myFun = () => {
+      window.print();
+    }
+
 
 
 
   render() {
     return (
-      <table>
+      <body>
+        <div id = 'printer'>
+        <Row>
+        <Col>
+          <Card className="mb-3">
+          <CardHeader>Invoice</CardHeader>
+      <CardBody>
+          <Table responsive>
         <thead>
           <th>Feilds</th>
           <th>Values</th>
@@ -74,7 +87,20 @@ export default class InvoiceServicePrint extends Component {
             <td>{this.state.sub_total}</td>
           </tr>
         </tbody>
-      </table>
+        </Table>
+      </CardBody>
+          </Card>
+        </Col>
+      </Row>
+        
+      </div>
+      <Form onSubmit={this.myFun}>
+      <Button>Print Button</Button>
+      </Form>
+      </body>
+
+      
+     
     );
   }
 }

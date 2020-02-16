@@ -1,6 +1,6 @@
 import Page from 'components/Page';
 import React from 'react';
-import { Button, Card, CardBody, CardHeader, Col, Row, Table } from 'reactstrap';
+import { Button, Card, CardBody, CardHeader, Col, Row, Table,UncontrolledAlert, } from 'reactstrap';
 import axios from 'axios';
 import { view } from './UserFunction';
 import { search } from './UserFunction';
@@ -73,6 +73,18 @@ class ViewServicePage extends React.Component{
         <Row>
             <Col>
             <Card className="mb-3">
+            {(this.props.location.data)?
+                (this.props.location.data === "TRUE" || this.props.location.data.state === true)?
+                    <UncontrolledAlert color="success">
+                    SUCCESSFUL!
+                    </UncontrolledAlert>
+                    :
+                    <UncontrolledAlert color="danger">
+                    ERROR!
+                    </UncontrolledAlert>
+                :
+                ""
+            }
                 <CardHeader>Responsive</CardHeader>
                 <CardBody>
                 <Table responsive>

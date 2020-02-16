@@ -101,7 +101,7 @@ class NewInvoice extends React.Component{
                   <Label for="name">Customer Id</Label>
                   
                   <Input
-                    type="text"
+                    type="number"
                     name="customerId"
                     id="customerId"
                     placeholder="customer Id"
@@ -113,7 +113,7 @@ class NewInvoice extends React.Component{
                   <Label for="name">service Id</Label>
                   
                   <Input
-                    type="text"
+                    type="number"
                     name="serviceId"
                     id="serviceId"
                     placeholder="service Id"
@@ -124,7 +124,7 @@ class NewInvoice extends React.Component{
                 <FormGroup>
                 <Label for="fax">Vehicle Id</Label>
                   <Input
-                    type="text"
+                    type="number"
                     name="vehicleId"
                     id="vehicleId"
                     placeholder=" vehicle Id"
@@ -137,7 +137,7 @@ class NewInvoice extends React.Component{
                   <Label for="name">Discount</Label>
                   
                   <Input
-                    type="text"
+                    type="number"
                     name="discount"
                     id="discount"
                     placeholder="discount "
@@ -145,9 +145,6 @@ class NewInvoice extends React.Component{
                     value={this.state.discount}
                   />
                 </FormGroup>
-                
-                
-               
                 <FormGroup>
                 <Label for="bracode">Remarks</Label>
                   <Input

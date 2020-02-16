@@ -67,6 +67,7 @@ handleSubmit = e => {
     }
     console.log("service",service);
     updateService(service).then(res => {
+        console.log("update",res);
       if(res) {
         console.log('qqqqqqqqqqqq',res);
         this.props.history.push({

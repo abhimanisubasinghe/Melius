@@ -69,8 +69,9 @@ handleSubmit = e => {
     }
     console.log("service",service);
     deleteService(service).then(res => {
+       // console.log("delete",res);
       if(res) {
-        console.log('qqqqqqqqqqqq',res);
+        console.log('delqqqqqqqqqqqq',res);
         this.props.history.push({
           pathname:'/service-view',
           data: res});
