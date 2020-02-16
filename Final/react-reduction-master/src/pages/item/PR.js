@@ -15,7 +15,7 @@ class PRTablePage extends React.Component{
         this.state = {
             searchId: "",
             pr:[ {
-                PRId:"",
+                Id:"",
                 itemCode:"",
                 itemName:"",
                 quantity:"",
@@ -24,6 +24,7 @@ class PRTablePage extends React.Component{
                 deliveryDate:"",
                 storageId:"",
                 supplierId:"",
+                supplierName:"",
                 terms:"",
                 status:""
              }
@@ -34,6 +35,11 @@ class PRTablePage extends React.Component{
     handleClick = e =>{
         e.preventDefault();
         this.props.history.push('/new-pr');
+    }
+
+    handlePO = e =>{
+      e.preventDefault();
+      
     }
   /*  handleData = e =>{
         fetch("http://localhost:5000/reorder/PO")
@@ -85,7 +91,7 @@ render(){
               <CardHeader>
               
               {<ButtonGroup className="mr-3 mb-3">
-                <Button color="success" onClick={this.handleClick}>+ Add New Purchase Order</Button>
+                <Button color="success" onClick={this.handleClick}>+ Add New Purchase Requisition</Button>
                 
               </ButtonGroup>}
               </CardHeader>
@@ -100,14 +106,16 @@ render(){
                           <tr>
                             <th>#</th>
                             <th>Purchase Requisition Id</th>
-                            <th>Item name</th>
+                            <th>Item</th>
                             <th>Quantity</th>
                             <th>Description</th>
                             <th>Issued Date</th>
                             <th>Est. Delivery Date</th>
                             <th>location</th>
+                            <th>Supplier</th>
                             <th>Terms</th>
                             <th>Status</th>
+                            <th>Modify</th>
                           </tr>
                         </thead>
                         <tbody>
@@ -115,15 +123,24 @@ render(){
             { this.state.pr.map((orders,i) =>
                           <tr>
                             <th scope="row">{i+1}</th>
-                            <td>{orders.PRID}</td>
+                            <td>{orders.Id}</td>
                             <td>{orders.itemName}</td>
                             <td>{orders.quantity}</td>
                             <td>{orders.description}</td>
                             <td>{orders.issuedDate}</td>
                             <td>{orders.deliveryDate}</td>
                             <td>{orders.storageId}</td>
+                            <td>{orders.supplierName}</td>
                             <td>{orders.terms}</td>
                             <td>{orders.status}</td>
+                            <td>
+                                {<ButtonGroup className="mr-3 mb-3">
+                                    <Button color="primary" onClick={this.handlePO}>Add PO</Button>
+                                    <Button color="success" onClick={this.handleClick}>Update</Button>
+                                    <Button color="danger" onClick={this.handleClick}>Remove</Button>
+                                   
+                
+                                </ButtonGroup>}</td>
                           </tr>
             )}
                         </tbody>
