@@ -26,7 +26,7 @@ class OperatorUpdatePage extends React.Component{
 
     this.state = {
         Id:"",
-        vehicle: "",
+        vehicleNo: "",
         category: "",    
         type: "",
         mileage: "",
@@ -49,7 +49,7 @@ componentDidMount(){
         console.log("id",vehicle.Id)
         this.setState({
             Id: vehicle.Id,
-            vehicle: vehicle.vehicle,
+            vehicleNo: vehicle.vehicleNo,
             category: vehicle.category,
             type: vehicle.type,
             mileage: vehicle.mileage,
@@ -67,7 +67,7 @@ handleSubmit = e => {
     //console.log("address",this.state.address);
     const user = {
         Id: this.state.Id,
-        vehicle: this.state.vehicle,
+        vehicleNo: this.state.vehicleNo,
         category: this.state.category,
         type: this.state.type,
         mileage: this.state.mileage,
@@ -82,7 +82,7 @@ handleSubmit = e => {
           data: this.props.location});
       } else{
             this.props.history.push({
-                pathname:'/operator-update',
+                pathname:'/siglevehicle',
                 data: res})
         }
       }
@@ -99,14 +99,14 @@ handleSubmit = e => {
           <Card>
             <CardHeader>update</CardHeader>
             <CardBody>
-            <Form onSubmit={this.onSubmit}>
+            <Form onSubmit={this.handleSubmit}>
             <FormGroup>
                 <Label for="type">vehicle Id</Label>
                   <Input
                     type="text"
-                    name="vehicleNo"
-                    id="vehicleNo"
-                    placeholder="vehicle No"
+                    name="vehicleId"
+                    id="vehicleId"
+                    placeholder="vehicle Id"
                     onChange={this.onChange}
                     value={this.state.Id}
                   />

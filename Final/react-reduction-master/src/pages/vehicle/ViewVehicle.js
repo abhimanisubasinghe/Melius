@@ -90,7 +90,7 @@ class ViewVehicle extends React.Component{
                         this.state.vehicles.map((vehicle) =>
                             <tr>
                             <td>{vehicle.Id}</td>
-                            <td>{vehicle.vehicleId}</td>
+                            <td>{vehicle.vehicleNo}</td>
                             <td>{vehicle.category}</td>
                             <td>{vehicle.type}</td>
                             <td>{vehicle.mileage}</td>

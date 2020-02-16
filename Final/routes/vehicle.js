@@ -137,38 +137,33 @@ vehicles.post('/updatevehicle',function(req,res){
     var type = req.body.type;
     var mileage = req.body.mileage;
     var custId = req.body.custId;
-    if(req.session.adminId){
+    console.log(vehicleNo);
+    console.log('wwwwwwwwwwwwwwww')
+    if(!req.session.adminId){
         if(vehicleNo && category && type && mileage && custId){
-            sql.query('SELECT vehicleNo FROM service WHERE serviceId = ?',[vehicleNo],function(err,result){
+            console.log('cccccccccc');
+            sql.query('SELECT * FROM vehicle WHERE vehicleNo = ?',[vehicleNo],function(err,result){
                 if(err){
                     throw err;
                 }
                 else{
                     if(result.length>0){
-                        sql.query('UPDATE vehicle SET vehicleNo = ?, category = ?,type = ?, mileage= ?,custId=? WHERE vehicleNo = ?',[vehicleno,category,type,mileage,custId,vehicleNo],function(err1,result1){
+                        sql.query('UPDATE vehicle SET category = ?,type = ? ,mileage = ? ,custId = ?  WHERE vehicleNo = ?',[category,type,mileage,custId,vehicleNo],function(err1,result1){
                             if(err1){
                                 throw err1;
                             }
                             else{
-                                sql.query("SELECT * FROM vehicle",function(err2,result2){
-                                    if(err){
-                                        throw err;
-                                    }
-                                    else{
-                                        console.log('vehicle updated');
-                                        if(result2.length>0){
-                                            res.json(result2);
-                                        }
-                                        else{
-                                            res.json('No any vehicles');
-                                        }
-                                    }
-                                });
+                                if(result1){
+                                    console.log('updated');
+                                    var state = true;
+                                    res.send(state);
+                                }
+                                
                             };
                         })
                     }
                     else{
-                        req.send('wrong vehicle No');
+                        res.send('wrong vehicle No');
                     }
                 }
             })
@@ -181,48 +176,52 @@ vehicles.post('/updatevehicle',function(req,res){
 });
 
 //delete  vehicle
-vehicles.post('/deletevehicle',function(req,res){
+vehicles.post('/delete',function(req,res){
 
-    var vehicleNo = req.body.vehicleNo;
- 
+     var Id = req.body.Id;
 
-    if(req.session.adminId){
-        if(Id && vehicleNo && custId){
-            sql.query('SELECT * FROM vehicle WHERE Id = ? , vehicleNo = ?, custId=?' ,[Id,vehicleNo,custId],function(err,result){
+    console.log(Id);
+    if(!req.session.adminId){
+        console.log('come');
+        if(Id){
+            console.log('go');
+            sql.query('SELECT * FROM vehicle WHERE Id = ? ' ,[Id],function(err,result){
                 if(err){
                     throw err;
                 }
                 else{
+                    console.log('me');
                     if(result.length>0){
-                        sql.query('DELETE FROM vehicle WHERE Id = ? , vehicleNo = ?, custId=?',[Id,vehicleNo,custId],function(err1,result2){
+                        console.log('me1');
+                        sql.query('DELETE FROM vehicle WHERE Id = ? ',[Id],function(err1,result2){
                             if(err1){
                                 throw err1;
                             }
                             else{
                                 console.log('deleted');
-                                sql.query("SELECT * FROM service",function(err2,result2){
-                                    if(err){
-                                        throw err;
-                                    }
-                                    else{
-                                        console.log('vehicle deleted');
-                                        if(result2.length>0){
-                                            res.json(result2);
-                                        }
-                                        else{
-                                            res.json('No any vehicles');
-                                        }
-                                    }
-                                });
+                                if(result2){
+                                    console.log('delete');
+                                    var state = true;
+                                    res.send({state});
+                                }
+                                else{
+                                    res.send('not delete');
+                                }
                             }
                         })
+                    }
+                    else{
+                        res.send('data not find');
                     }
                 }
             })
         }
         else{
-            res.send('please log as an admin')
+            res.send('no id');
         }
+    }
+    else{
+        res.send('please log as an admin');
     }
 })
 
@@ -231,8 +230,9 @@ vehicles.post('/search',function(req,res){
     console.log("foeiajfej");
     if(!req.session.userId || !req.session.adminId){
         var searchId = req.body.searchId;
+        
         console.log(searchId);
-        sql.query('select * from vehicle  WHERE Id = ?',[searchId],function(err,result){
+        sql.query('select * from vehicle  WHERE Id = ? ',[searchId],function(err,result){
             console.log(result);
             if(err){
                 console.log('err viewuser')

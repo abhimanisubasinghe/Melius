@@ -56,6 +56,7 @@ import AddVehicle from './pages/vehicle/AddVehicle';
 import AddNewPRPage from './pages/item/AddNewPR';
 import AddNewPOPage from './pages/item/AddNewPO';
 import POTablePage from './pages/item/PO';
+import PRTablePage from './pages/item/PR';
 import ServiceInvoice from './pages/service/ServiceInvoice';
 //import AddNewPRPage from './pages/item/AddNewPR';
 import RegisterStoragePage from './pages/storage/RegisterStoragePage';
@@ -134,7 +135,8 @@ class App extends React.Component {
                 <Route exact path="/item-register" component={RegisterItemPage} />
                 <Route exact path="/new-pr" component={AddNewPRPage} />
                 <Route exact path="/new-po" component={AddNewPOPage} />
-                {/*<Route exact path="/new-pr" component={AddNewPRPage} />*/}
+                <Route exact path="/po-view" component={POTablePage} />
+                <Route exact path="/pr-view" component={PRTablePage} />
                 {/* <Route exact path="/new-pr" component={AddNewPRPage} /> */}
                 <Route exact path="/storage-register" component={RegisterStoragePage} />
                 <Route exact path="/operator-register" component={RegisterOperatorPage} />

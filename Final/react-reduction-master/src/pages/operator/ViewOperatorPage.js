@@ -14,13 +14,13 @@ class ViewOperatorPage extends React.Component{
         this.state = {
             searchId: "",
             operators:[ {
-                id:"0",
-                name: "abc",
-                username: "abc@abc.com",
-                DOB: "1/4/2020",
-                address: "abc abc abc",
-                contactNumber: "0123456789",
-                status: "0",
+                id:"",
+                name: "",
+                username: "",
+                DOB: "",
+                address: "",
+                contactNumber: "",
+                status: "",
                 password: "",
              }
             ]
@@ -87,7 +87,7 @@ class ViewOperatorPage extends React.Component{
             <Card className="mb-3">
                 
             {(this.props.location.data)?
-                (this.props.location.data == "TRUE" || this.props.location.data == true)?
+                (this.props.location.data === "TRUE" || this.props.location.data === true)?
                     <UncontrolledAlert color="success">
                     SUCCESSFUL!
                     </UncontrolledAlert>
