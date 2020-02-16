@@ -92,8 +92,9 @@ const navService = [
  // { to: '/service-update', name: 'updateservice', exact: false, Icon: MdAddCircle },
   //{ to: '/service-delete', name: 'deleteservice', exact: false, Icon: MdAddCircle },
   { to: '/service-top', name: 'topservice', exact: false, Icon: MdAddCircle },
+  { to: '/day-view', name: 'dayview', exact: false, Icon: MdAddCircle },
 
-
+//
 
 ];
 

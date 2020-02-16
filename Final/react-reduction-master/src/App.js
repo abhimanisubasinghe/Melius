@@ -76,6 +76,8 @@ import UpdateVehicle from './pages/vehicle/UpdateVehicle';
 import ServiceUpdate from './pages/service/ServiceUpdate';
 import ServiceDelete from './pages/service/ServiceDelete';
 import TopService from './pages/service/TopService';
+import DayViewInvoice from './pages/service/DailyInvoice';
+//import PrintDayBill from './pages/service/DailyInvoicePrint';
 
 
 
@@ -162,6 +164,8 @@ class App extends React.Component {
                 <Route exact path="/service-update" component={ServiceUpdate}/>
                 <Route exact path="/service-delete" component={ServiceDelete}/>
                 <Route exact path="/service-top" component={TopService}/>
+                <Route exact path="/day-view" component={DayViewInvoice}/>
+                {/* <Route exact path="dayinvoice-print" component={PrintDayBill}/> */}
 
               </React.Suspense>
             </MainLayout>

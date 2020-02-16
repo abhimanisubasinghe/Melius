@@ -575,11 +575,12 @@ service.post('/dateBill',function(req,res){
                             });
                                // res.json('done');
                             doc1.end();
+                            res.send({result,result1});
                         }
                     })
 
                     console.log(result);
-                    res.json({result : result});
+                    
                 }
             });
         }

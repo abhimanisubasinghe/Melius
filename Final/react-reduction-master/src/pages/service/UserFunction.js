@@ -149,3 +149,35 @@ export const updateService = service => {
         console.log(err);
     })
 }
+
+export const dayinvoice = service => {
+    console.log("servicefn",service);
+    console.log("id",service.day);
+
+    return axios 
+    .post("http://localhost:5001/services/dateBill", {
+        
+        date: service.day,
+    })
+    .then(res => {
+        if(res.data != "fill all details"){
+            console.log('come response');
+        // console.log(res.data);
+            //localStorage.setItem('usertoken',res.data);
+            //return res.data;
+            console.log('eeeeeeeeeeeeee')
+            //console.log(res.data.state);
+            console.log(res.data)
+            
+            return "TRUE";
+        }
+        else{
+            console.log(res.data);
+            return "FALSE";
+        }
+    })
+    .catch(err => {
+        console.log('err');
+        console.log(err);
+    })
+}
