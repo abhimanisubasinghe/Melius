@@ -369,6 +369,7 @@ customers.get('/customerView',function(req,res){
                     }
                     else{
                         console.log('not work');
+                        res.json(result);
                     }
                 }
             })

@@ -136,8 +136,7 @@ render(){
           </Col>
         </Row>
       ))}
-
-     
+  
      
     </Page>
   );

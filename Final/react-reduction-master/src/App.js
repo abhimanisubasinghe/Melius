@@ -164,7 +164,7 @@ class App extends React.Component {
                 <Route exact path="/service-update" component={ServiceUpdate}/>
                 <Route exact path="/service-delete" component={ServiceDelete}/>
                 <Route exact path="/appointment-create" component={CreateAppointmentPage}/>
-                <Route exact path="/service-top" component={TopService}/>
+                {/*<Route exact path="/service-top" component={TopService}/>*/}
 
               </React.Suspense>
             </MainLayout>

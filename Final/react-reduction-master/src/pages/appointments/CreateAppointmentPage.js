@@ -47,6 +47,7 @@ searchCustomer = val => {
         console.log(res);
         if(res){
           const customers = res;  
+          console.log("searched customers",customers);
           this.setState({ customers, customerloading: false });
         }
         else{
