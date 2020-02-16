@@ -76,6 +76,7 @@ import UpdateVehicle from './pages/vehicle/UpdateVehicle';
 import ServiceUpdate from './pages/service/ServiceUpdate';
 import ServiceDelete from './pages/service/ServiceDelete';
 import CreateAppointmentPage from './pages/appointments/CreateAppointmentPage';
+import ViewAppointmentsPage from './pages/appointments/ViewAppointementsPage.js';
 import NewItemInvoice from './pages/item/ItemInvoicePage';
 import TopService from './pages/service/TopService';
 
@@ -165,6 +166,8 @@ class App extends React.Component {
                 <Route exact path="/service-update" component={ServiceUpdate}/>
                 <Route exact path="/service-delete" component={ServiceDelete}/>
                 <Route exact path="/appointment-create" component={CreateAppointmentPage}/>
+                <Route exact path="/appointment-view" component={ViewAppointmentsPage}/>
+                
                 {/*<Route exact path="/service-top" component={TopService}/>*/}
 
               </React.Suspense>

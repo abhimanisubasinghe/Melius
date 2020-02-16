@@ -17,7 +17,7 @@ import {
   InputGroup
 } from 'reactstrap';
 import axios from 'axios';
-import { searchByCustomerName } from './UserFunction';
+import { searchByCustomerName, searchByVehicleById, register } from './UserFunction';
 
 class CreateAppointmentPage extends React.Component{
 
@@ -31,7 +31,10 @@ class CreateAppointmentPage extends React.Component{
         descript: "",
         customers: null,
         customerloading: false,
-        customervalue: ''
+        customervalue: '',
+        vehicles: null,
+        vehicleloading: false,
+        vehiclevalue: ''
     }
     
 }
@@ -60,6 +63,36 @@ searchCustomer = val => {
   
 };
 
+searchVehicle = val => {
+  const user = {
+      searchId: val
+  }    
+  this.setState({ loading: true });
+  searchByVehicleById(user).then(res => {
+      if(res) {
+        console.log('qqqqqqqqqqqqq');
+        console.log(res);
+        if(res){
+          const vehicles = res;  
+          console.log("searched vehicles",vehicles);
+          this.setState({ vehicles, vehicleloading: false });
+        }
+        else{
+          
+        }
+      }
+    })
+  
+
+  
+};
+
+onChangeHandlerVehicle = async e => {
+  this.searchVehicle(e.target.value);
+  this.setState({ vehiclevalue: e.target.value });
+};
+
+
 onChangeHandlerCustomer = async e => {
   this.searchCustomer(e.target.value);
   this.setState({ customervalue: e.target.value });
@@ -74,7 +107,27 @@ onChange = (e) => {
 handleSubmit = e => { 
     e.preventDefault();
     console.log(this.state);
-    const url = "http://localhost:5000/items/add"; 
+    const user = {
+      date:this.state.date,
+      customerId: this.state.customerId,
+      vehicleId: this.state.vehicleId,
+      descript: this.state.descript
+
+    }
+    register(user).then(res => {
+      if(res) {
+        console.log('qqqqqqqqqqqq');
+        console.log(res.state);
+        if(res.state){
+          this.props.history.push('/appointment-view',{detail: res})
+          
+        }
+        else{
+          this.props.history.push('/appointment-create');
+        }
+      }
+    })
+    /*const url = "http://localhost:5000/items/add"; 
     axios
             .post(url,
                     this.state
@@ -84,7 +137,26 @@ handleSubmit = e => {
             )
             .catch(() => console.log("Can’t access " + url + " response. Blocked by browser?"))
     
-    
+  */  
+}
+
+onSelectVehicle = (e) => {
+  console.log("v",e.target.value)
+  //console.log(e.target.value.name)
+ //console.log(this.state.items[e.target.value])
+  this.setState(
+   {vehicleId: e.target.value}
+  );
+  
+}
+
+onSelectCustomer = (e) => {
+  console.log("c",e.target.value)
+  //console.log(e.target.value.name)
+ //console.log(this.state.items[e.target.value])
+  this.setState(
+   {customerId: e.target.valued}
+  );
 }
 
   render(){
@@ -96,7 +168,7 @@ handleSubmit = e => {
           <Card>
             <CardHeader>Appointments</CardHeader>
             <CardBody>
-              <Form>
+              <Form onSubmit={this.handleSubmit}>
               <FormGroup>
                 <Label for="date">Date Of Appointment</Label>
                   <Input
@@ -108,37 +180,42 @@ handleSubmit = e => {
                     onChange = {this.onChange}
                   />
                 </FormGroup>  
-              <div className="form-inline">
               <FormGroup>
               <div className="col">
+                  <Label for="customer">Customer</Label>
                   <Input
                     value={this.state.customervalue}
                     onChange={e => this.onChangeHandlerCustomer(e)}
-                    placeholder="Customer"
+                    placeholder="Search Customer"
                   />
-                  <Input type="select" name="customerId" id="customerId">
+                  <Input type="select" name="customerId" id="customerId" onChange={this.onChange}>
                       { this.state.customers === null ? 
                         <option>no customer</option>
                       :
                         this.state.customers.map((obj,i) => 
-                         <option  value={i}>{obj.name}</option>)
+                         <option selected value={obj.Id}>{obj.name}</option>)
                       }
                   </Input>
                 </div>  
                 </FormGroup>
                 <FormGroup>
-                <div className="col">  
-                  <Label for="exampleSelect">Select</Label>
-                  <Input type="select" name="select">
-                    <option>1</option>
-                    <option>2</option>
-                    <option>3</option>
-                    <option>4</option>
-                    <option>5</option>
+              <div className="col">
+                  <Label for="vehicle">Vehicle</Label>
+                  <Input
+                    value={this.state.vehiclevalue}
+                    onChange={e => this.onChangeHandlerVehicle(e)}
+                    placeholder="Search Vehicle"
+                  />
+                  <Input type="select" name="vehicleId" id="vehicleId" onChange={this.onChange} >
+                      { this.state.vehicles === null ? 
+                        <option>no vehicles</option>
+                      :
+                        this.state.vehicles.map((obj,i) => 
+                         <option selected value={obj.Id}>{obj.vehicleNo}</option>)
+                      }
                   </Input>
                 </div>  
                 </FormGroup>
-                </div>
                 <FormGroup>
                 <Label for="descript">Description</Label>
                   <Input
@@ -146,6 +223,8 @@ handleSubmit = e => {
                     name="descript"
                     id="descript"
                     placeholder="Description"
+                    value={this.state.descript}
+                    onChange= {this.onChange}
                   />
                 </FormGroup>
                 <FormGroup check row>

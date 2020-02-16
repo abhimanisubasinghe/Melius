@@ -105,7 +105,7 @@ const navContents = [
 
 const navAppointments = [
   { to: '/appointment-create', name: 'Register', exact: false, Icon: MdTextFields },
-  { to: '/tables', name: 'tables', exact: false, Icon: MdBorderAll },
+  { to: '/appointment-view', name: 'tables', exact: false, Icon: MdBorderAll },
 ];
 
 
