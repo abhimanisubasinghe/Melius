@@ -7,23 +7,25 @@ import axios from 'axios';
 const tableTypes = [''];
 
 
-class POTablePage extends React.Component{
+class PRTablePage extends React.Component{
 
     constructor(props) {
         super(props)
     
         this.state = {
             searchId: "",
-            po:[ {
-                OrderID:"",
-                supplierId:"",
+            pr:[ {
                 PRId:"",
-                address:"",
-                IssuedDate:"",
-                EstimatedDelivery:"",
-                Total:"",
-                DeliveryTerms:"",
-                PaymentTerms:""
+                itemCode:"",
+                itemName:"",
+                quantity:"",
+                description:"",
+                issuedDate:"",
+                deliveryDate:"",
+                storageId:"",
+                supplierId:"",
+                terms:"",
+                status:""
              }
             ]
         }
@@ -31,7 +33,7 @@ class POTablePage extends React.Component{
 
     handleClick = e =>{
         e.preventDefault();
-        this.props.history.push('/new-po');
+        this.props.history.push('/new-pr');
     }
   /*  handleData = e =>{
         fetch("http://localhost:5000/reorder/PO")
@@ -50,11 +52,11 @@ class POTablePage extends React.Component{
 
     componentDidMount(){
         //console.log(this.props.location.data);
-          axios.get(`http://localhost:5000/reorder/PO`)
+          axios.get(`http://localhost:5000/reorder/PRs`)
           .then(res => {
             const len = res.data.data.length;
-            const po = res.data.data;
-            this.setState({po})
+            const pr = res.data.data;
+            this.setState({pr})
             
           /* for(let i=0;i<len;i++){
                 const pos = res.data.data[i];
@@ -71,7 +73,7 @@ render(){
 
   return (
     <Page
-      title="Purchase Orders"
+      title="Purchase Requisitions"
       breadcrumbs={[{ name: 'purchase orders', active: true }]}
       className="TablePage"
     >
@@ -97,31 +99,31 @@ render(){
                         <thead>
                           <tr>
                             <th>#</th>
-                            <th>Order Id</th>
-                            <th>Supplier</th>
                             <th>Purchase Requisition Id</th>
-                            <th>Deliver To</th>
+                            <th>Item name</th>
+                            <th>Quantity</th>
+                            <th>Description</th>
                             <th>Issued Date</th>
                             <th>Est. Delivery Date</th>
-                            <th>Total</th>
-                            <th>Delivery Terms</th>
-                            <th>Payment Terms</th>
+                            <th>location</th>
+                            <th>Terms</th>
+                            <th>Status</th>
                           </tr>
                         </thead>
                         <tbody>
 
-            { this.state.po.map((orders,i) =>
+            { this.state.pr.map((orders,i) =>
                           <tr>
                             <th scope="row">{i+1}</th>
-                            <td>{orders.OrderID}</td>
-                            <td>{orders.supplierId}</td>
-                            <td>{orders.PRId}</td>
-                            <td>{orders.address}</td>
-                            <td>{orders.IssuedDate}</td>
-                            <td>{orders.EstimatedDelivery}</td>
-                            <td>{orders.Total}</td>
-                            <td>{orders.DeliveryTerms}</td>
-                            <td>{orders.PaymentTerms}</td>
+                            <td>{orders.PRID}</td>
+                            <td>{orders.itemName}</td>
+                            <td>{orders.quantity}</td>
+                            <td>{orders.description}</td>
+                            <td>{orders.issuedDate}</td>
+                            <td>{orders.deliveryDate}</td>
+                            <td>{orders.storageId}</td>
+                            <td>{orders.terms}</td>
+                            <td>{orders.status}</td>
                           </tr>
             )}
                         </tbody>
@@ -143,4 +145,4 @@ render(){
   );
       }
 }
-export default POTablePage;
+export default PRTablePage;
