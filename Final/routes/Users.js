@@ -382,7 +382,7 @@ users.post('/login', function(req,res){
                             if(result4 == true){
                                 req.session.adminId = username;
                                 sql.query('select * from user where id = ?',[result[0].userId],function(err5,result5){
-                                    if(err3){
+                                    if(err5){
                                         console.log('login err5')
                                         console.log(err5);
                                         throw err5
