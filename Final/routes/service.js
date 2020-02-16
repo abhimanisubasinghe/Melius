@@ -65,7 +65,7 @@ service.post('/addService',function(req,res){
     console.log("name",name);
     console.log('price',price)
     console.log("cat",category);
-    if(!req.session.adminId){
+    if(req.session.adminId){
         if(category && name && price){
             sql.query('SELECT serviceId FROM service WHERE name = ? AND category = ?',[name,category],function(err,result){
                 if(err){
@@ -129,7 +129,7 @@ service.post('/updateService',function(req,res){
     var category = req.body.category;
     var name = req.body.name;
     var price = req.body.price;
-    if(!req.session.adminId){
+    if(req.session.adminId){
         if(serviceId && category && name && price){
             sql.query('SELECT name FROM service WHERE serviceId = ?',[serviceId],function(err,result){
                 if(err){
@@ -182,7 +182,7 @@ service.post('/serviceRemove',function(req,res){
     console.log(req.body.serviceId)
     var serviceId = req.body.serviceId;
     var name = req.body.name;
-    if(!req.session.adminId){
+    if(req.session.adminId){
         if(serviceId && name){
             sql.query('SELECT * FROM service WHERE serviceId = ? AND name = ?',[serviceId,name],function(err,result){
                 if(err){
@@ -260,7 +260,7 @@ service.post('/search',function(req,res){
 service.get('/topService',function(req,res){
    
     console.log('ddddddddd');
-    if(!req.session.userId || !req.session.adminId){
+    if(req.session.userId || req.session.adminId){
         sql.query('SELECT count(invoiceId) as coun, serviceId from service_invoice_services group by serviceId ORDER by coun DESC LIMIT 1',function(err,result){
         if(err){
             console.log('top err');
@@ -290,7 +290,7 @@ service.get('/topService',function(req,res){
         res.send('please log');
     }
 })
-*/
+
 
 
 //Services what melius provide

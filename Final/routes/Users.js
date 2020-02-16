@@ -70,7 +70,7 @@ console.log('jnvvjknvsjnvkjsnvkjsnvjk');
 
     // const hash = bcrypt.hashSync(password, 10)
     //             password = hash;
-    if(!req.session.adminId){
+    if(req.session.adminId){
         if(name && DOB && address && password && contactNumber && status && username){
             sql.query('SELECT userId FROM userlogin WHERE username = ?',[username],function(err1,result1){
                 if(err1){
@@ -162,7 +162,7 @@ users.post('/userUpdateByAdmin',function(req,res){
     console.log("userna",username);
 
     //var password = req.body.password;
-    if(!req.session.adminId){
+    if(req.session.adminId){
         if(id && name && DOB && address && password && contactNumber && status && username){
             bcrypt.hash(password, 10, function(err, hash){
                 sql.query('UPDATE user SET name = ?, DOB = ?, address = ?, contactNumber = ?, status = ? WHERE id = ? ',[name,DOB,address,contactNumber,status,id], function(err, result){
@@ -257,7 +257,7 @@ users.post('/userUpdateByUser',function(req,res){
 users.post('/delete',function(req,res){
     console.log("bajioae");
     var username = req.body.username;
-    if(!req.session.adminId){
+    if(req.session.adminId){
         sql.query('select * from userlogin where username = ?',[username],function(err,result){
             if(err){
                 console.log('deleteusererr1');
@@ -429,7 +429,7 @@ users.post('/login', function(req,res){
 
 //USER VIEW
 users.get('/viewUser',function(req,res){
-    if(!req.session.userId || !req.session.adminId){
+    if(req.session.userId || req.session.adminId){
         sql.query('select * from user inner join userLogin on user.Id = userLogin.userId;',function(err,result){
             if(err){
                 console.log('err viewuser')
@@ -457,7 +457,7 @@ users.get('/viewUser',function(req,res){
 //SINGLE USER VIEW
 users.post('/search',function(req,res){
     console.log("foeiajfej");
-    if(!req.session.userId || !req.session.adminId){
+    if(req.session.userId || req.session.adminId){
         var searchId = req.body.searchId;
         console.log(searchId);
         sql.query('select * from user inner join userLogin on user.Id = userLogin.userId WHERE userLogin.username = ?',[searchId],function(err,result){
@@ -485,7 +485,7 @@ users.post('/search',function(req,res){
 //SINGLE USER VIEW
 users.post('/searchByName',function(req,res){
     console.log("foeiajfej");
-    if(!req.session.userId || !req.session.adminId){
+    if(req.session.userId || req.session.adminId){
         var searchId = "%"+req.body.searchId+"%";
         console.log(searchId);
         sql.query('select * from user inner join userLogin on user.Id = userLogin.userId WHERE user.name LIKE ?',[searchId],function(err,result){
