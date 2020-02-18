@@ -203,22 +203,22 @@ router.post('/update/(:id)', function(req, res, next) {
         costPrice: req.body.costPrice,
         reorderLevel: req.body.reorderLevel,
         leadTime: req.body.leadTime,
-        reorderQuantity: req.body.reorderQuantity,
         descript: req.body.descript,
-        storageId: req.body.storage,
-        supplierId: req.body.supplier,
+        storageId: req.body.storageId,
+        supplierId: req.body.supplierId,
         barcode: req.body.barcode
 
     };
     connection.query('UPDATE item SET ? WHERE itemCode=' + req.params.id, items, function(err) {
         if (err) {
-
+            console.log(err);
             req.flash('error', err);
-            res.redirect('/items');
+           /* res.redirect('/items');*/
 
         } else {
+            console.log("here **");
             req.flash('success', 'Data updated successfully!');
-            res.redirect('/items');
+           /* res.redirect('/items');*/
         }
     });
 });
@@ -226,13 +226,13 @@ router.post('/update/(:id)', function(req, res, next) {
 
 //DELETE ITEM
 
-router.get('/delete/(:id)', function(req, res, next) {
+router.post('/delete/(:id)', function(req, res, next) {
 
     var user = { itemCode: req.params.id }
-
+    console.log("Here *****")
     connection.query('DELETE FROM item WHERE itemCode=' + req.params.id, user, function(err, result) {
         if (err) {
-            console.log(req.params.id);
+            console.log(err);
             req.flash('error', err)
                 // redirect to users list page
             res.redirect('/items')

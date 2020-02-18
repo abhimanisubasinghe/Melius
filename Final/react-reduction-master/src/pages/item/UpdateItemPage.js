@@ -24,7 +24,7 @@ class UpdateItemPage extends React.Component{
     super(props)
 
     this.state = {
-        item:{
+        
             itemCode:"",
             name:"",
             inStock:"",
@@ -42,15 +42,21 @@ class UpdateItemPage extends React.Component{
             number:"",
             supplierName:"",
             barcode:""
-        } 
+        
+        
     }
     
 }
 
 onChange = (e) => {
+    var x = e.target.name;
     this.setState(
-    {[e.target.name]: e.target.value}
+    
+     {   [e.target.name] :e.target.value
+    }
+    
 )
+console.log(this.state);
 }
 
 componentDidMount(){
@@ -61,16 +67,41 @@ componentDidMount(){
         const item = res.data.data[0];
         //console.log(res.data.data[0].name);
         //this.setState( {item.name:res.data.data.name)
-        this.setState({item})
-        console.log(this.state.item.name);
+        this.setState({
+            itemCode:res.data.data[0].itemCode,
+            name:res.data.data[0].name,
+            inStock:res.data.data[0].inStock,
+            unitPrice:res.data.data[0].unitPrice,
+            costPrice:res.data.data[0].costPrice,
+            reorderLevel:res.data.data[0].reorderLevel,
+            leadTime:res.data.data[0].leadTime,
+            descript:res.data.data[0].descript,
+            Itemgroup:res.data.data[0].Itemgroup,
+            brand:res.data.data[0].brand,
+            type:res.data.data[0].type,
+            category:res.data.data[0].category,
+            storageId:res.data.data[0].storageId,
+            unit:res.data.data[0].unit,
+            number:res.data.data[0].number,
+            supplierName:res.data.data[0].supplierName,
+            barcode:res.data.data[0].barcode
+
+        })
+        /*this.setState(
+            this.state.data[0].itemcode=res.data.data.itemCode,
+            this.state.data[0].name=res.data.data.name
+        )*/
+        console.log(this.state);
 
       })
+
+      
 }
 
 handleSubmit = e => { 
     e.preventDefault();
     console.log(this.state);
-    const url = "http://localhost:5000/items/add"; 
+    const url = "http://localhost:5000/items/update/"+this.state.itemCode; 
     axios
             .post(url,
                     this.state
@@ -84,6 +115,7 @@ handleSubmit = e => {
 }
 
   render(){
+    //let {item} = this.state
   return (
     <div>
     <Page title="Register Item" breadcrumbs={[{ name: 'Item-Register', active: true }]}>
@@ -93,15 +125,15 @@ handleSubmit = e => {
             <CardHeader>Registration</CardHeader>
             <CardBody>
               <Form onSubmit={this.handleSubmit}>
-                <FormGroup>
+              <FormGroup>
                   <Label for="name">Item Name</Label>
                   <Input
                     type="text"
                     name="name"
                     id="name"
-                    value={this.state.item.name}
+                    value={this.state.name}
                     onChange={this.onChange}
-                    
+                    placeholder="Item Name"
                   />
                 </FormGroup>
                 <FormGroup>
@@ -110,7 +142,7 @@ handleSubmit = e => {
                     type="number"
                     name="inStock"
                     id="inStock"
-                    value={this.state.item.inStock}
+                    value={this.state.inStock}
                     onChange={this.onChange}
                     placeholder="In Stock"
                   />
@@ -125,7 +157,7 @@ handleSubmit = e => {
                     type="number"
                     name="unitPrice"
                     id="unitPrice"
-                    value={this.state.item.unitPrice}
+                    value={this.state.unitPrice}
                     onChange={this.onChange}
                     placeholder="Unit Price"
                     step="1"
@@ -141,7 +173,7 @@ handleSubmit = e => {
                     type="number"
                     name="costPrice"
                     id="costPrice"
-                    value={this.state.item.costPrice}
+                    value={this.state.costPrice}
                     onChange={this.onChange}
                     placeholder="Cost Price"
                     step="1"
@@ -159,7 +191,7 @@ handleSubmit = e => {
                     type="text"
                     name="itemgroup"
                     id="itemgroup"
-                    value={this.state.item.Itemgroup}
+                    value={this.state.Itemgroup}
                     onChange={this.onChange}
                     placeholder="Item Group"
                   />
@@ -170,7 +202,7 @@ handleSubmit = e => {
                     type="text"
                     name="brand"
                     id="brand"
-                    value={this.state.item.brand}
+                    value={this.state.brand}
                     onChange={this.onChange}
                     placeholder="Brand"
                   />
@@ -185,7 +217,7 @@ handleSubmit = e => {
                     type="text"
                     name="type"
                     id="type"
-                    value={this.state.item.type}
+                    value={this.state.type}
                     onChange={this.onChange}
                     placeholder="Type"
                   />
@@ -196,7 +228,7 @@ handleSubmit = e => {
                     type="text"
                     name="category"
                     id="category"
-                    value={this.state.item.category}
+                    value={this.state.category}
                     onChange={this.onChange}
                     placeholder="Category"
                   />
@@ -211,7 +243,7 @@ handleSubmit = e => {
                     type="text"
                     name="storageId"
                     id="storageId"
-                    value={this.state.item.storageId}
+                    value={this.state.storageId}
                     onChange={this.onChange}
                     placeholder="Storage ID"
                   />
@@ -222,7 +254,7 @@ handleSubmit = e => {
                     type="text"
                     name="supplierId"
                     id="supplierId"
-                    value={this.state.item.supplierName}
+                    value={this.state.supplierName}
                     onChange={this.onChange}
                     placeholder="Supplier Id"
                   />
@@ -235,7 +267,7 @@ handleSubmit = e => {
                     type="text"
                     name="barcode"
                     id="barcode"
-                    value={this.state.item.barcode}
+                    value={this.state.barcode}
                     onChange={this.onChange}
                     placeholder="Barcode"
                   />
@@ -246,7 +278,7 @@ handleSubmit = e => {
                     type="number"
                     name="reorderLevel"
                     id="reorderLevel"
-                    value={this.state.item.reorderLevel}
+                    value={this.state.reorderLevel}
                     onChange={this.onChange}
                     placeholder="Reorder Level"
                   />
@@ -257,7 +289,7 @@ handleSubmit = e => {
                     type="number"
                     name="leadTime"
                     id="leadTime"
-                    value={this.state.item.leadTime}
+                    value={this.state.leadTime}
                     onChange={this.onChange}
                     placeholder="Lead Time"
                   />
@@ -269,7 +301,7 @@ handleSubmit = e => {
                     type="textarea"
                     name="descript"
                     id="descript"
-                    value={this.state.item.descript}
+                    value={this.state.descript}
                     onChange={this.onChange}
                     placeholder="Description"
                   />

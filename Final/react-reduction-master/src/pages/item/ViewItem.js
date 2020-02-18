@@ -45,28 +45,25 @@ class ItemTablePage extends React.Component{
         
 
     }
-    handleDelete = e =>{
-
+    handleDelete = (id) =>{
+        //e.preventDefault();
+        //console.log(e);
+        const url = "http://localhost:5000/items/delete/"+id; 
+    axios
+            .post(url
+            ,{headers: {'Accept': 'application/json'}})
+            .then( response =>
+                    {   this.props.history.push('/item-view');
+                        console.log("good "+response)}
+            )
+            .catch(() => console.log("Can’t access " + url + " response. Blocked by browser?"))
+    
     }
 
     handleClick = e =>{
         e.preventDefault();
         this.props.history.push('/item-register');
     }
-  /*  handleData = e =>{
-        fetch("http://localhost:5000/reorder/PO")
-        .then(res =>{
-            res.text();
-        })
-        .then(res =>{
-            this.setState({searchId : res})
-            console.log(this.state.searchId)
-        })
-        .catch(err =>{
-            console.log(err);
-        });
-
-    }*/
 
     componentDidMount(){
         //console.log(this.props.location.data);
@@ -76,15 +73,6 @@ class ItemTablePage extends React.Component{
             const len = res.data.data.length;
             const item = res.data.data;
             this.setState({item})
-            
-          /* for(let i=0;i<len;i++){
-                const pos = res.data.data[i];
-                this.setState((prevState)=>({
-                    po:[...prevState.po,pos]}
-                    ));         
-                
-
-                }*/
           })
     }
 
@@ -159,7 +147,7 @@ render(){
                             <td>{orders.barcode}</td>
                             <td><ButtonGroup className="mr-3 mb-3">
                                     <Button color="warning" onClick={this.handleEdit} value={orders.itemCode}>Update</Button>
-                                    <Button color="danger" onClick={this.handleDelete}>Delete</Button>
+                                    <Button color="danger" value={orders.itemCode} onClick={() => { if (window.confirm('Are you sure you wish to delete this item?')) this.handleDelete(orders.itemCode) } }>Delete</Button>
                             </ButtonGroup></td>
                           </tr>
             )}
