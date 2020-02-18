@@ -6,8 +6,6 @@ export const addService = service => {
         name: service.name,
         category: service.category,
         price: service.price
-
-        
     })
     .then(res => {
         console.log('eeeeeeeeeeeeee')

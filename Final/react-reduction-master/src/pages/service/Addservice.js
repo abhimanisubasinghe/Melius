@@ -18,7 +18,6 @@ import {
   InputGroup
 } from 'reactstrap';
 
-
 class Addservice extends React.Component{
 
   constructor() {
@@ -33,10 +32,14 @@ class Addservice extends React.Component{
     this.onSubmit = this.onSubmit.bind(this)
   }
 
-  onChange = (e) => {
+  onChange = (e) => { 
+    e.preventDefault();
+      //const { name, value } = e.target;
+    
       this.setState(
-      {[e.target.name]: e.target.value}
-  )
+        {[e.target.name]: e.target.value}
+      )
+      // eslint-disable-next-line default-case
   }
 
   onSubmit(e){
@@ -47,7 +50,6 @@ class Addservice extends React.Component{
       name: this.state.name,
       price: this.state.price
     }
-
     addService(service).then(res => {
       if(res){
         if(res.state === true){
@@ -77,7 +79,7 @@ class Addservice extends React.Component{
           <Card>
             <CardHeader>AddService</CardHeader>
             <CardBody>
-              <Form onSubmit={this.onSubmit}>
+              <Form onSubmit={this.onSubmit}> 
                 <FormGroup>
                   <Label for="name">Name</Label>
                   <Input
@@ -113,6 +115,7 @@ class Addservice extends React.Component{
                 </FormGroup>
                 <FormGroup check row>
                     <Button>Submit</Button>
+                    <small> </small>
                 </FormGroup>
               </Form>
             </CardBody>

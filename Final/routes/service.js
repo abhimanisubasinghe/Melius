@@ -9,7 +9,9 @@ var sql2 = require('../database/db2');
 var PDFDocument, doc, doc1;
 var fs = require('fs');
 PDFDocument = require('pdfkit');
+//var logIn = require('./Users')
 //var printer = require('printer');
+
 
 
 const TWO_HOUR = 1000*60*60*2;
@@ -32,10 +34,14 @@ service.use(body.json());
 service.use(body.urlencoded({extend: false}));
 service.use(cors());
 
+service.get('/',function(req,res){
+    console.log(req.session.adminId);
+    //res.send(logIn)
+})
 
 //go to service and display
 service.get('/viewService',function(req,res){
-    if(req.session.adminId){
+    if(!req.session.adminId || !req.session.userId){
         res.send('please log as an admin');
     }
     else{ 
@@ -59,12 +65,14 @@ service.get('/viewService',function(req,res){
 
 //ADD NEW SERVICE
 service.post('/addService',function(req,res){
+    console.log(req.session.adminId);
     var category =  req.body.category;
     var name = req.body.name;
     var price =  req.body.price;
     console.log("name",name);
     console.log('price',price)
     console.log("cat",category);
+    console.log(req.session.adminId);
     if(req.session.adminId){
         if(category && name && price){
             sql.query('SELECT serviceId FROM service WHERE name = ? AND category = ?',[name,category],function(err,result){

@@ -78,6 +78,7 @@ import ServiceDelete from './pages/service/ServiceDelete';
 import NewItemInvoice from './pages/item/ItemInvoicePage';
 import TopService from './pages/service/TopService';
 import DayViewInvoice from './pages/service/DailyInvoice';
+import TopCustomer from './pages/customer/TopCustomer'
 //import PrintDayBill from './pages/service/DailyInvoicePrint';
 
 
@@ -167,6 +168,7 @@ class App extends React.Component {
                 <Route exact path="/service-delete" component={ServiceDelete}/>
                 <Route exact path="/service-top" component={TopService}/>
                 <Route exact path="/day-view" component={DayViewInvoice}/>
+                <Route exact path="/customer-top" component={TopCustomer}/>
                 {/* <Route exact path="dayinvoice-print" component={PrintDayBill}/> */}
 
               </React.Suspense>
