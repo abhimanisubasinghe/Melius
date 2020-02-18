@@ -72,10 +72,12 @@ const getBasename = () => {
   return `/${process.env.PUBLIC_URL.split('/').pop()}`;
 };
 
-//const cookies = new Cookies();
-//cookies.set();
 
 class Inventory extends React.Component {
+
+  componentDidMount(){
+    console.log(this.props);
+  }
 
   render() {
     return (

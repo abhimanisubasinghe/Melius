@@ -69,6 +69,7 @@ import DayViewInvoice from './pages/service/DailyInvoice';
 import Inventory from './Inventory';
 import InfoHub from './InfoHub';
 import ServiceCenter from './ServiceCenter';
+import MainPage from './pages/MainPage';
 //import PrintDayBill from './pages/service/DailyInvoicePrint';
 
 
@@ -127,11 +128,19 @@ class App extends React.Component {
                 <AuthPage {...props} authState={STATE_SIGNUP} />
               )}
             />
+            <LayoutRoute
+              exact
+              path="/"
+              layout={EmptyLayout}
+              component={props => (
+                <MainPage {...props} />
+              )}
+            />
 
             <WelcomeLayout breakpoint={this.props.breakpoint}>
               <React.Suspense fallback={<PageSpinner />}>
                 <Route exact path="/profile" component={Profile}/>
-                <Route exact path="/" component={DashboardPage} />
+                <Route exact path="/dashboard" component={DashboardPage} />
                 <Route exact path="/login-modal" component={AuthModalPage} />
                 <Route exact path="/buttons" component={ButtonPage} />
                 <Route exact path="/cards" component={CardPage} />

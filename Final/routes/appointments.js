@@ -63,7 +63,7 @@ appointements.post('/create', function(req,res){
             if(date && customerId && vehicleId && descript){
                 sql.query('INSERT INTO appointement (date,customerId,vehicleId,descript) VALUES (?,?,?,?)',[date,customerId,vehicleId,descript], function(err2,result2){
                     if(err2){
-                        throw err2;
+                        console.log("error2",err);
                     }
                     else{
                         //res.send('register successful');

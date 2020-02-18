@@ -1,0 +1,6 @@
+div.image {
+    content:url(./wall2.jpg);
+    width: 500px;
+    max-height: 760px;
+    background-repeat:no-repeat;
+ }
