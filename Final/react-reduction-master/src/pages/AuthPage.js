@@ -21,11 +21,11 @@ class AuthPage extends React.Component {
     this.onSubmit = this.onSubmit.bind(this)
   }
 
-  setCookie = (cuname, cusernamevalue,cstatus, cstatusvalue, exdays) => {
+  /*setCookie = (cuname, cusernamevalue,cstatus, cstatusvalue, exdays) => {
     console.log("status",cstatus);
     console.log("val",cstatusvalue);
     var d = new Date();
-    d.setTime(d.getTime() + ((exdays+1) * 5 *60 * 1000));
+    d.setTime(d.getTime() + ((exdays+1) *1 *60 * 1000));
     var expires = "expires="+d.toUTCString();
     if(cstatusvalue!=0){
       console.log("opeartor");
@@ -38,7 +38,7 @@ class AuthPage extends React.Component {
     console.log("created",document.cookie);
     return document.cookie;
   }
-
+*/
   onChange(e){
     this.setState({[e.target.name]: e.target.value})
   }
@@ -61,9 +61,9 @@ class AuthPage extends React.Component {
         if(res.state){
           if (user != "" && user != null) {
             console.log("status",res.res2.name);
-            document.cookie = "username=; status=;expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
-            const cookie =this.setCookie("username", this.state.username,"status",res.res2.status, 0);
-            this.props.history.push('/',{detail: res,cookie: cookie,status:res.res2.status})
+            //document.cookie = "username=; status=;expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+            //const cookie =this.setCookie("username", this.state.username,"status",res.res2.status, 0);
+            this.props.history.push('/',{detail: res,/*cookie: cookie,*/status:res.res2.status})
           }
           
         }

@@ -1,6 +1,6 @@
 import { STATE_LOGIN, STATE_SIGNUP } from 'components/AuthForm';
 import GAListener from 'components/GAListener';
-import { EmptyLayout, LayoutRoute, MainLayout , WelcomeLayout} from 'components/Layout';
+import { EmptyLayout, LayoutRoute, MainLayout , InventoryLayout} from 'components/Layout';
 import PageSpinner from 'components/PageSpinner';
 import AuthPage from 'pages/AuthPage';
 import React from 'react';
@@ -60,15 +60,10 @@ import ServiceDelete from './pages/service/ServiceDelete';
 import CreateAppointmentPage from './pages/appointments/CreateAppointmentPage';
 import ViewAppointmentsPage from './pages/appointments/ViewAppointementsPage.js';
 import NewItemInvoice from './pages/item/ItemInvoicePage';
-import ItemView from './pages/item/ViewItemPage';
 import TopService from './pages/service/TopService';
-import ViewService from './pages/service/ViewService';
 import DayViewInvoice from './pages/service/DailyInvoice';
-
-//import { WelcomeLayout } from './components/Layout';
-import Inventory from './Inventory';
-import InfoHub from './InfoHub';
-import ServiceCenter from './ServiceCenter';
+import ItemView from './pages/item/ViewItemPage';
+import { ServiceCenterLayout } from './components/Layout';
 //import PrintDayBill from './pages/service/DailyInvoicePrint';
 
 
@@ -80,7 +75,7 @@ const getBasename = () => {
 //const cookies = new Cookies();
 //cookies.set();
 
-class App extends React.Component {
+class Inventory extends React.Component {
 
   render() {
     return (
@@ -97,30 +92,6 @@ class App extends React.Component {
             />
             <LayoutRoute
               exact
-              path="/inventory"
-              layout={EmptyLayout}
-              component={props => (
-                <Inventory {...props}/>
-              )}
-            />
-            <LayoutRoute
-              exact
-              path="/servicecenter"
-              layout={EmptyLayout}
-              component={props => (
-                <ServiceCenter {...props}/>
-              )}
-            />
-            <LayoutRoute
-              exact
-              path="/infohub"
-              layout={EmptyLayout}
-              component={props => (
-                <InfoHub {...props}/>
-              )}
-            />
-            <LayoutRoute
-              exact
               path="/signup"
               layout={EmptyLayout}
               component={props => (
@@ -128,7 +99,7 @@ class App extends React.Component {
               )}
             />
 
-            <WelcomeLayout breakpoint={this.props.breakpoint}>
+            <InventoryLayout breakpoint={this.props.breakpoint}>
               <React.Suspense fallback={<PageSpinner />}>
                 <Route exact path="/profile" component={Profile}/>
                 <Route exact path="/" component={DashboardPage} />
@@ -180,18 +151,16 @@ class App extends React.Component {
                 <Route exact path="/updatevehicle" component={UpdateVehicle}/>
                 <Route exact path="/service-update" component={ServiceUpdate}/>
                 <Route exact path="/service-delete" component={ServiceDelete}/>
-                <Route exact path="/view-item" component={ItemView}/>
                 <Route exact path="/appointment-create" component={CreateAppointmentPage}/>
                 <Route exact path="/appointment-view" component={ViewAppointmentsPage}/>
-                
+                <Route exact path="/view-item" component={ItemView}/>
                 {/*<Route exact path="/service-top" component={TopService}/>*/}
                 <Route exact path="/service-top" component={TopService}/>
                 <Route exact path="/day-view" component={DayViewInvoice}/>
-                <Route exact path="/service-view" component={ViewService}/>
                 {/* <Route exact path="dayinvoice-print" component={PrintDayBill}/> */}
 
               </React.Suspense>
-            </WelcomeLayout>
+            </InventoryLayout>
             <Redirect to="/" />
           </Switch>
         </GAListener>
@@ -224,4 +193,4 @@ const query = ({ width }) => {
   return { breakpoint: 'xs' };
 };
 
-export default componentQueries(query)(App);
+export default componentQueries(query)(Inventory);

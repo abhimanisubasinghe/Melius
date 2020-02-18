@@ -65,7 +65,7 @@ service.post('/addService',function(req,res){
     console.log("name",name);
     console.log('price',price)
     console.log("cat",category);
-    if(req.session.adminId){
+    if(!req.session.adminId){
         if(category && name && price){
             sql.query('SELECT serviceId FROM service WHERE name = ? AND category = ?',[name,category],function(err,result){
                 if(err){
@@ -182,7 +182,7 @@ service.post('/serviceRemove',function(req,res){
     console.log(req.body.serviceId)
     var serviceId = req.body.serviceId;
     var name = req.body.name;
-    if(req.session.adminId){
+    if(!req.session.adminId){
         if(serviceId && name){
             sql.query('SELECT * FROM service WHERE serviceId = ? AND name = ?',[serviceId,name],function(err,result){
                 if(err){
@@ -260,7 +260,7 @@ service.post('/search',function(req,res){
 service.get('/topService',function(req,res){
    
     console.log('ddddddddd');
-    if(req.session.userId || req.session.adminId){
+    if(!req.session.userId || !req.session.adminId){
         sql.query('SELECT count(invoiceId) as coun, serviceId from service_invoice_services group by serviceId ORDER by coun DESC LIMIT 1',function(err,result){
         if(err){
             console.log('top err');
@@ -319,7 +319,7 @@ service.post('/newServiceInvoice',function(req,res,next){
     console.log(discount)
     console.log(date)
     console.log(remarks)
-    if(!req.session.userId || !req.session.adminId){
+    if(req.session.userId || req.session.adminId){
         console.log('not logged')
         res.send('please log');
     }
@@ -459,7 +459,7 @@ service.post('/newServiceInvoice',function(req,res,next){
 service.post('/deleteBill',function(req,res){
     var invoiceId = req.body.invoiceId;
     
-    if( req.session.adminId){
+    if( !req.session.adminId){
         sql.query('select serviceId from service_invoice_services where invoiceId = ?',[invoiceId],function(err,result){
             if(err){
                 throw err;
@@ -500,7 +500,7 @@ service.post('/deleteBill',function(req,res){
 service.post('/currentBill',function(req,res){
     var serviceId = req.body.invoiceId;
 
-    if(req.session.userId || req.session.adminId){
+    if(!req.session.userId || !req.session.adminId){
         sql.query('SELECT date FROM service_invoice WHERE invoiceId = ?',[serviceId],function(err,result){
             if(err){
                 throw err;
@@ -531,7 +531,7 @@ service.post('/dateBill',function(req,res){
     var total = 0;
     var date = req.body.date;
     console.log(date);
-    if(req.session.userId || req.session.adminId){
+    if(!req.session.userId || !req.session.adminId){
         if(date){
             sql.query('SELECT * FROM service_invoice WHERE date = ?',[date],function(err,result){
                 if(err){

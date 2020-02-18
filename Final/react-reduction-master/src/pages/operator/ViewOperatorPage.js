@@ -31,9 +31,11 @@ class ViewOperatorPage extends React.Component{
         console.log(this.props.location.data);
           axios.get(`http://localhost:5001/Users/viewUser`)
           .then(res => {
+            if(res.data){  
             const operators = res.data;
             console.log("view",res.data);
             this.setState({ operators });
+            }
           })
           
     }

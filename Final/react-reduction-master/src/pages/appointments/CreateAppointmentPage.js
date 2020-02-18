@@ -1,6 +1,8 @@
 import Page from 'components/Page';
+import {appointmentDateValidator, notNull} from '../../validations'
 import React from 'react';
 import {
+  Alert,
   Button,
   Card,
   CardBody,
@@ -34,7 +36,12 @@ class CreateAppointmentPage extends React.Component{
         customervalue: '',
         vehicles: null,
         vehicleloading: false,
-        vehiclevalue: ''
+        vehiclevalue: '',
+        validateDate: true,
+        validateCustomerId: true,
+        validateVehicleId: true,
+        validations: true,
+      
     }
     
 }
@@ -87,6 +94,28 @@ searchVehicle = val => {
   
 };
 
+validatingFields = () => {
+  this.setState({
+    validateDate: appointmentDateValidator(this.state.date),
+    validateCustomerId: notNull(this.state.customerId),
+    validateVehicleId: notNull(this.state.vehicleId)
+  })
+  if(appointmentDateValidator(this.state.date) === true &&  notNull(this.state.vehicleId) === true && notNull(this.state.customerId) === true){
+    console.log("OK");
+    this.setState({
+      validations: true
+    })
+    return true;
+  }
+  else{
+    console.log("error");
+    this.setState({
+      validations: false
+    })
+    return false;
+  }
+}
+
 onChangeHandlerVehicle = async e => {
   this.searchVehicle(e.target.value);
   this.setState({ vehiclevalue: e.target.value });
@@ -106,6 +135,8 @@ onChange = (e) => {
 
 handleSubmit = e => { 
     e.preventDefault();
+    const val = this.validatingFields();
+    console.log("validating",val);
     console.log(this.state);
     const user = {
       date:this.state.date,
@@ -114,7 +145,7 @@ handleSubmit = e => {
       descript: this.state.descript
 
     }
-    register(user).then(res => {
+    /*register(user).then(res => {
       if(res) {
         console.log('qqqqqqqqqqqq');
         console.log(res.state);
@@ -126,7 +157,7 @@ handleSubmit = e => {
           this.props.history.push('/appointment-create');
         }
       }
-    })
+    })*/
     /*const url = "http://localhost:5000/items/add"; 
     axios
             .post(url,
@@ -179,7 +210,14 @@ onSelectCustomer = (e) => {
                     value = {this.state.date}
                     onChange = {this.onChange}
                   />
-                </FormGroup>  
+                  {
+                  this.state.validateDate !== true ?                  
+                  <Alert color="danger">
+                  Enter a valid date
+                  </Alert>  
+                  : ""
+                  }
+                </FormGroup>
               <FormGroup>
               <div className="col">
                   <Label for="customer">Customer</Label>
@@ -196,7 +234,14 @@ onSelectCustomer = (e) => {
                          <option selected value={obj.Id}>{obj.name}</option>)
                       }
                   </Input>
-                </div>  
+                </div>
+                {
+                  this.state.validateCustomerId !== true ?                  
+                  <Alert color="danger">
+                  Enter a valid customer ID
+                  </Alert>  
+                  : ""
+                  }  
                 </FormGroup>
                 <FormGroup>
               <div className="col">
@@ -214,7 +259,14 @@ onSelectCustomer = (e) => {
                          <option selected value={obj.Id}>{obj.vehicleNo}</option>)
                       }
                   </Input>
-                </div>  
+                </div>
+                {
+                  this.state.validateVehicleId !== true ?                  
+                  <Alert color="danger">
+                  Enter a valid vehicle ID
+                  </Alert>  
+                  : ""
+                  }  
                 </FormGroup>
                 <FormGroup>
                 <Label for="descript">Description</Label>
@@ -229,6 +281,14 @@ onSelectCustomer = (e) => {
                 </FormGroup>
                 <FormGroup check row>
                     <Button>Submit</Button>
+                    {
+                  this.state.validations !== true ?                  
+                  <Alert color="danger">
+                  Error in entering data!
+                  </Alert>  
+                  : ""
+                  } 
+                    
                 </FormGroup>
               </Form>
             </CardBody>

@@ -151,7 +151,7 @@ function IndexNavbar() {
                 <i class="fa fa-user-circle" style={iconStyle}></i> Login
               </NavLink>
             </NavItem>*/}
-
+{/*
 <NavItem>
             <Link to="/index/views/SectionLogin">
             <Button
@@ -184,6 +184,7 @@ function IndexNavbar() {
                 Systems
               </Button>
             </NavItem>
+*/}
             
           </Nav>
 
@@ -193,6 +194,7 @@ function IndexNavbar() {
     
   );
 }
+
 const iconStyle = {
   fontSize: '25px',
   color: 'black',

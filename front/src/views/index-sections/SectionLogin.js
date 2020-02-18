@@ -17,7 +17,7 @@
 
 */
 import React from "react";
-
+import { login } from './UserFunction';
 // reactstrap components
 import {
   Button,
@@ -34,7 +34,75 @@ import {
 
 // core components
 
-function SectionLogin() {
+class SectionLogin extends React.Component {
+
+  constructor() {
+    super()
+    this.state = {
+      username: '',
+      password: '',
+      
+    }
+
+    this.onChange = this.onChange.bind(this)
+    this.onSubmit = this.onSubmit.bind(this)
+  }
+
+  setCookie = (cuname, cusernamevalue,cstatus, cstatusvalue, exdays) => {
+    console.log("status",cstatus);
+    console.log("val",cstatusvalue);
+    var d = new Date();
+    d.setTime(d.getTime() + ((exdays+1) * 5 *60 * 1000));
+    var expires = "expires="+d.toUTCString();
+    if(cstatusvalue!=0){
+      console.log("opeartor");
+      document.cookie = "username =" + cusernamevalue + ";status = 1 ;+"+ expires + ";path=/";
+    }
+    else{
+      console.log("admin");
+      document.cookie = "username =" + cusernamevalue + ";status = 0 ;+"+ expires + ";path=/";
+    }
+    console.log("created",document.cookie);
+    return document.cookie;
+  }
+
+  onChange(e){
+    this.setState({[e.target.name]: e.target.value})
+  }
+
+  
+
+  onSubmit(e){
+    e.preventDefault();
+    
+    const user = {
+      username: this.state.username,
+      password: this.state.password
+    }
+
+    login(user).then(res => {
+      if(res) {
+        console.log('qqqqqqqqqqqqq');
+        console.log(res.state);
+        console.log(res.res2);
+        if(res.state){
+          if (user != "" && user != null) {
+            console.log("status",res.res2.name);
+            document.cookie = "username=; status=;expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+            const cookie =this.setCookie("username", this.state.username,"status",res.res2.status, 0);
+            this.props.history.push('/',{detail: res,cookie: cookie,status:res.res2.status})
+          }
+          
+        }
+        else{
+          console.log("ERROR");
+          //this.props.history.push('/login');
+        }
+      }
+    })
+  }
+
+  render(){
   return (
     <>
       <div
@@ -48,41 +116,23 @@ function SectionLogin() {
             <Col className="mx-auto" lg="4" md="6">
               <Card className="card-register">
                 <h3 className="title mx-auto">Welcome</h3>
-                <div className="social-line text-center">
-                  <Button
-                    className="btn-neutral btn-just-icon mt-0"
-                    color="facebook"
-                    href="#pablo"
-                    onClick={e => e.preventDefault()}
-                  >
-                    <i className="fa fa-facebook-square" />
-                  </Button>
-                  <Button
-                    className="btn-neutral btn-just-icon mt-0 ml-1"
-                    color="google"
-                    href="#pablo"
-                    onClick={e => e.preventDefault()}
-                  >
-                    <i className="fa fa-google-plus" />
-                  </Button>
-                  <Button
-                    className="btn-neutral btn-just-icon mt-0 ml-1"
-                    color="twitter"
-                    href="#pablo"
-                    onClick={e => e.preventDefault()}
-                  >
-                    <i className="fa fa-twitter" />
-                  </Button>
-                </div>
-                <Form className="register-form">
-                  <label>Email</label>
+                <Form className="register-form" onSubmit={this.onSubmit}>
+                  <label>User Name</label>
                   <InputGroup className="form-group-no-border">
                     <InputGroupAddon addonType="prepend">
                       <InputGroupText>
                         <i className="nc-icon nc-email-85" />
                       </InputGroupText>
                     </InputGroupAddon>
-                    <Input placeholder="Email" type="email" />
+                    <input 
+                    name ='username'
+                    placeholder="User Name"
+                    value={this.state.username}
+                    onChange={this.onChange}
+                    placeholder="Username"
+                    type="text" 
+                    
+                    />
                   </InputGroup>
                   <label>Password</label>
                   <InputGroup className="form-group-no-border">
@@ -91,7 +141,14 @@ function SectionLogin() {
                         <i className="nc-icon nc-key-25" />
                       </InputGroupText>
                     </InputGroupAddon>
-                    <Input placeholder="Password" type="password" />
+                    <input 
+                    placeholder="Password" 
+                    type="password" 
+                    className='form-control'
+                    name ='password'
+                    value={this.state.password}
+                    onChange={this.onChange}
+                    />
                   </InputGroup>
                   <Button
                     block
@@ -99,20 +156,11 @@ function SectionLogin() {
                     color="danger"
                     type="button"
                   >
-                    Register
+                    Sign In 
                   </Button>
                 </Form>
-                <div className="forgot">
-                {  <Button
-                    className="btn-link"
-                    color="danger"
-                    href="#pablo"
-                    onClick={e => e.preventDefault()}
-                  >
-                    Forgot password?
-                </Button>}
-                </div>
               </Card>
+              {/*
               <div className="col text-center">
                 <Button
                   className="btn-round"
@@ -126,12 +174,14 @@ function SectionLogin() {
                   
                 </Button>
               </div>
+              */}
             </Col>
           </Row>
         </Container>
       </div>{" "}
     </>
   );
+}
 }
 
 const container={

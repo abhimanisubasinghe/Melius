@@ -203,7 +203,7 @@ class OperatorProfilePage extends React.Component{
                                     
                             <CardText>        
                             <div className='container'>
-                                <Button color="danger" onClick={this.submit}>Confirm dialog</Button>
+                                <Button color="danger" onClick={this.submit}>Delete</Button>
                             </div>
                             <br/>
                             </CardText>
