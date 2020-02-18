@@ -2,19 +2,20 @@ import Page from 'components/Page';
 import React from 'react';
 import { Card, CardBody, CardHeader, Col, Row, Table , Button , ButtonGroup ,CardText,CardSubtitle } from 'reactstrap';
 import axios from 'axios';
+import UpdateItemPage from './UpdateItemPage';
 
 
-const tableTypes = [''];
+const tableTypes = ['HOVER'];
 
 
-class POTablePage extends React.Component{
+class ItemTablePage extends React.Component{
 
     constructor(props) {
         super(props)
     
         this.state = {
             searchId: "",
-            po:[ {
+            item:[ {
                 itemCode:"",
                 name:"",
                 inStock:"",
@@ -33,14 +34,24 @@ class POTablePage extends React.Component{
                 barcode:""
                 
             
-            }
-            ]
+            }]
         }
+    }
+
+    handleEdit = (e) =>{
+        e.preventDefault();
+        console.log(e.target.value);
+        this.props.history.push('/item-update/'+e.target.value);
+        
+
+    }
+    handleDelete = e =>{
+
     }
 
     handleClick = e =>{
         e.preventDefault();
-        this.props.history.push('/new-po');
+        this.props.history.push('/item-register');
     }
   /*  handleData = e =>{
         fetch("http://localhost:5000/reorder/PO")
@@ -59,11 +70,12 @@ class POTablePage extends React.Component{
 
     componentDidMount(){
         //console.log(this.props.location.data);
-          axios.get(`http://localhost:5000/reorder/PO`)
+          axios.get(`http://localhost:5000/items/`)
           .then(res => {
+            //console.log(res.data);  
             const len = res.data.data.length;
-            const po = res.data.data;
-            this.setState({po})
+            const item = res.data.data;
+            this.setState({item})
             
           /* for(let i=0;i<len;i++){
                 const pos = res.data.data[i];
@@ -80,8 +92,8 @@ render(){
 
   return (
     <Page
-      title="Purchase Orders"
-      breadcrumbs={[{ name: 'purchase orders', active: true }]}
+      title="Items"
+      breadcrumbs={[{ name: 'Item List', active: true }]}
       className="TablePage"
     >
           
@@ -92,7 +104,7 @@ render(){
               <CardHeader>
               
               {<ButtonGroup className="mr-3 mb-3">
-                <Button color="success" onClick={this.handleClick}>+ Add New Purchase Order</Button>
+                <Button color="success" onClick={this.handleClick}>+ Add New Item</Button>
                 
               </ButtonGroup>}
               </CardHeader>
@@ -121,12 +133,13 @@ render(){
                             <th>Storage Unit</th>
                             <th>Supplier Name</th>
                             <th>Barcode</th>
+                            <th>Actions</th>
 
                           </tr>
                         </thead>
                         <tbody>
 
-            { this.state.po.map((orders,i) =>
+            { this.state.item.map((orders,i) =>
                           <tr>
                             <th scope="row">{i+1}</th>
                             <td>{orders.itemCode}</td>
@@ -144,6 +157,10 @@ render(){
                             <td>{orders.unit}{orders.number}</td>
                             <td>{orders.supplierName}</td>
                             <td>{orders.barcode}</td>
+                            <td><ButtonGroup className="mr-3 mb-3">
+                                    <Button color="warning" onClick={this.handleEdit} value={orders.itemCode}>Update</Button>
+                                    <Button color="danger" onClick={this.handleDelete}>Delete</Button>
+                            </ButtonGroup></td>
                           </tr>
             )}
                         </tbody>
@@ -165,4 +182,4 @@ render(){
   );
       }
 }
-export default POTablePage;
+export default ItemTablePage;

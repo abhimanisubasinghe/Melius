@@ -68,20 +68,20 @@ router.get('/item',function(req,res,next){
 
 //DISPLAY ITEM  LIST
 router.get('/', function(req, res, next) {
-    connection.query('SELECT * FROM item', function(err, result) {
+    connection.query('SELECT i.itemCode,i.name,i.inStock,i.unitPrice,i.costPrice,i.reorderLevel,i.leadTime,i.descript,i.Itemgroup,i.brand,i.type,i.category,st.unit,st.number,s.name AS supplierName,i.barcode FROM supplier s INNER JOIN item i ON i.supplierId=s.supplierId INNER JOIN storage st ON i.storageId=st.storageId', function(err, result) {
         if (err) {
             throw err;
         } else {
             if(result.length>0){
-                res.render('items/index',{
-                    title: 'Item List',
+                res.send({
+                    
                     data:result
 
                 });
                 
             }
             else{
-                res.json('No items');
+                res.send('No items');
             }
         }
     });
@@ -156,8 +156,8 @@ router.post('/add', function(req, res, next) {
 
 //UPDATE ITEMS FORM
 router.get('/edit/(:id)', function(req, res, next) {
-
-    connection.query('SELECT * FROM item WHERE itemCode=' + req.params.id, function(err, rows, fields) {
+    console.log("here");
+    connection.query('SELECT i.itemCode,i.name,i.inStock,i.unitPrice,i.costPrice,i.reorderLevel,i.leadTime,i.descript,i.Itemgroup,i.brand,i.type,i.category,i.storageId,i.barcode,st.unit,st.number,s.name AS supplierName,i.barcode FROM supplier s INNER JOIN item i ON i.supplierId=s.supplierId INNER JOIN storage st ON i.storageId=st.storageId WHERE itemCode=' + req.params.id, function(err, rows, fields) {
 
         if (err) throw err
 
@@ -165,8 +165,11 @@ router.get('/edit/(:id)', function(req, res, next) {
             req.flash('error', 'item not found with id =', +req.params.id);
             res.redirect('/items');
         } else {
-            console.log(rows[0].inStock);
-            res.render('items/edit', {
+            console.log(rows[0].barcode);
+            res.send({
+                data:rows
+            })
+            /*res.render('items/edit', {
                 title: "Edit item",
                 id: rows[0].itemCode,
                 name: rows[0].name,
@@ -183,7 +186,7 @@ router.get('/edit/(:id)', function(req, res, next) {
                 supplierId: rows[0].supplierId,
                 barcode: rows[0].barcode
 
-            })
+            })*/
         }
     })
 

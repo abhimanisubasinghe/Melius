@@ -78,6 +78,8 @@ import ServiceDelete from './pages/service/ServiceDelete';
 import NewItemInvoice from './pages/item/ItemInvoicePage';
 import TopService from './pages/service/TopService';
 import DayViewInvoice from './pages/service/DailyInvoice';
+import ItemTablePage from './pages/item/ViewItem';
+import UpdateItemPage from './pages/item/UpdateItemPage';
 //import PrintDayBill from './pages/service/DailyInvoicePrint';
 
 
@@ -138,6 +140,8 @@ class App extends React.Component {
                 <Route exact path="/charts" component={ChartPage} />
                 <Route exact path="/item-register" component={RegisterItemPage} />
                 <Route exact path="/item-invoice" component={NewItemInvoice} />
+                <Route exact path="/item-view" component={ItemTablePage} />
+                <Route exact path="/item-update/:itemId" component={UpdateItemPage} />
                 <Route exact path="/new-pr" component={AddNewPRPage} />
                 <Route exact path="/new-po" component={AddNewPOPage} />
                 <Route exact path="/po-view" component={POTablePage} />
