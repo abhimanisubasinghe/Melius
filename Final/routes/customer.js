@@ -276,6 +276,44 @@ customers.post('/customerRegistration',function(req,res){
        });
 
 
+//TOP CUSTOMER
+customers.get('/topCustomer',function(req,res){
+   
+    console.log('ddddddddd');
+    if(!req.session.userId || !req.session.adminId){
+        sql.query('SELECT count(customerId) as coun, customerId from service_invoice group by customerId ORDER by coun DESC LIMIT 1',function(err,result){
+        if(err){
+            console.log('top err');
+            console.log(err);
+        }
+        else{
+            if(result.length>0){
+                var id = result[0].customerId;
+                sql.query('select * from customer where Id = ?',[id],function(err2,result2){
+                    if(err2){
+                        console.log('err2')
+                        console.log(err2)
+                    }
+                    else{
+                        console.log(result2);
+                        res.send({result,result2});
+                    }
+                })
+            }
+            console.log('no data');
+            //res.send('no data');
+        }
+    })
+    }
+    else{
+        console.log('please log')
+        res.send('please log');
+    }
+})
+
+
+
+
 
 customers.get('/customerView',function(req,res){
         if(req.session.adminId){
@@ -348,6 +386,36 @@ customers.get('/customerView',function(req,res){
         }
     })
     
+    customers.post('/searchByName',function(req,res){
+        console.log("foeiajfej");
+        if(!req.session.userId || !req.session.adminId){
+            var searchId = "%"+req.body.searchId+"%";
+            console.log(searchId);
+            sql.query('SELECT * FROM customer inner join customer_address on customer.Id = customer_address.Id inner join customer_phone on customer.Id = customer_phone.Id where customer.name LIKE ?',[searchId],function(err,result){
+                console.log(result);
+                if(err){
+                    console.log('err view customer')
+                    console.log(err);
+                    throw err;
+                }
+                else{
+                    if(result.length>0){
+                        //var state = true;
+                        //var res1 = result[0];
+                        res.json(result);
+                        //res.send({state, res1});
+                    }
+                    else{
+                        console.log('not work');
+                        res.json(result);
+                    }
+                }
+            })
+        }
+        else{
+            res.send('please log');
+        }
+    })
 
 
     customers.post('/deletecus',function(req,res){

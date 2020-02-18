@@ -1,9 +1,11 @@
 import Page from 'components/Page';
 import React from 'react';
 import { registerCustomer } from '../../components/UserFunction';
+import { notNull, faxValidator, emailValidator, URLValidator, phoneValidator,DOBValidator,NICValidator } from '../../validations';
 import axios from 'axios';
 
 import {
+  Alert,
   Button,
   Card,
   CardBody,
@@ -16,6 +18,7 @@ import {
   Input,
   Label,
   Row,
+  UncontrolledAlert,
   InputGroupAddon,
   InputGroup
 } from 'reactstrap';
@@ -30,18 +33,24 @@ class RegisterCustomerPage extends React.Component{
 
     this.state = {
       name: "",
+      validateName: true,
       fax: "",    
+      validateFax: true,
       NIC: "",
+      validateNIC: true,
       type: "",
       email: "",
+      validateEmail: true,
       website: "",
+      validateWeb: true,
       address: "",
+      validateAddress: true,
       phoneNo: "",
+      validatePhone: true,
       DOB: "",
+      validateDOB: true,
       note: "",
-      errors:{
-        NIC:'',
-      }
+      validations: true,
   }
 
   this.onChange=this.onChange.bind(this)
@@ -52,35 +61,58 @@ class RegisterCustomerPage extends React.Component{
 }
 
 onChange = (e) => {
-//     this.setState(
-//     {[e.target.name]: e.target.value}
-// )
-  const { name ,value} = e.target
-  let errors =this.state.errors
-
-  switch(name){
-    case 'NIC':
-      errors.NIC=
-      value.length <10 
-      ?'NIC is too short'
-      :value.length === 10 && value[9] !== 'v'
-          ?'Invalid Type for  NIC'
-          :value.length >12
-            ?'NIC is too long'
-            :''
-      break
-    default:
-        break
-  }
-  this.setState({errors,[name]:value},()=>{
-    console.log(errors)
-    this.setState({errors,[name]:value})
-  })
+    this.setState(
+    {[e.target.name]: e.target.value }
+)
 }
 
+validatingFields = () => {
+
+  //var fax = true;
+
+  //if(faxValidator(this.state.fax) && notNull(this.state.fax))
+
+  this.setState({
+    validateName: notNull(this.state.name),
+    validateFax:faxValidator(this.state.fax) && notNull(this.state.fax) ? true : false ,
+    validateNIC:NICValidator(this.state.NIC) && notNull(this.state.NIC) ? true : false ,
+    validateEmail:emailValidator(this.state.email) && notNull(this.state.email) ? true : false ,
+    validateWeb:URLValidator(this.state.website) && notNull(this.state.website) ? true : false ,
+    validatePhone:phoneValidator(this.state.phone) && notNull(this.state.phone) ? true : false ,
+    validateAddres:notNull(this.state.address) ,
+    validateDOB:DOBValidator(this.state.DOB),
+
+  })
+  
+  if(notNull(this.state.name) &&
+  faxValidator(this.state.fax) && notNull(this.state.fax) &&
+  NICValidator(this.state.NIC) && notNull(this.state.NIC) &&
+  emailValidator(this.state.email) && notNull(this.state.email) &&
+  URLValidator(this.state.website) && notNull(this.state.website) &&
+  phoneValidator(this.state.phone) && notNull(this.state.phone) &&
+  notNull(this.state.address) &&
+  DOBValidator(this.state.DOB)   
+  ){
+    console.log("OK");
+    this.setState({
+      validations: true
+    })
+    return true;
+  }
+  else{
+    console.log("error");
+    this.setState({
+      validations: false
+    })
+    return false;
+  }
+
+
+}
 
 onSubmit(e){
   e.preventDefault();
+  
   const customer = {
       name:this.state.name,
       fax:this.state.fax,    
@@ -160,10 +192,14 @@ onSubmit(e){
                     onChange={this.onChange}
                     value={this.state.NIC}
                   />
+                  <UncontrolledAlert color="danger">
+
                   {
                     errors.NIC.length >0 &&
                     <small><span>{errors.NIC}</span></small>
                   }
+                  </UncontrolledAlert>
+
                 </FormGroup>
                 <FormGroup>
                   <Label for="name">Type</Label>
@@ -200,6 +236,12 @@ onSubmit(e){
                     onChange={this.onChange}
                     value={this.state.website}
                   />
+                  <UncontrolledAlert color="danger">
+                  {
+                    errors.website.length >0 &&
+                    <small><span>{errors.website}</span></small>
+                  }
+                  </UncontrolledAlert>
                   </div>
                   </FormGroup>
                 </div>

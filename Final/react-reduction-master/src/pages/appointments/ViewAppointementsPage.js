@@ -2,26 +2,23 @@ import Page from 'components/Page';
 import React from 'react';
 import { Button, Card, CardBody, CardHeader, Col, Row, Table,UncontrolledAlert, } from 'reactstrap';
 import axios from 'axios';
-import { search } from './UserFunction';
+//import { search } from './UserFunction';
 
 const tableTypes = ['', 'bordered', 'striped', 'hover'];
 
-class ViewOperatorPage extends React.Component{
+class ViewAppointmetsPage extends React.Component{
 
     constructor(props) {
         super(props)
     
         this.state = {
             searchId: "",
-            operators:[ {
-                id:"",
-                name: "",
-                username: "",
-                DOB: "",
-                address: "",
-                contactNumber: "",
-                status: "",
-                password: "",
+            appointments:[ {
+                jobId:"0",
+                date:"",
+                customerId: "0",
+                vehicleId: "0",
+                descript: "abc",
              }
             ]
         }
@@ -29,17 +26,17 @@ class ViewOperatorPage extends React.Component{
 
     componentDidMount() {
         console.log(this.props.location.data);
-          axios.get(`http://localhost:5001/Users/viewUser`)
+          axios.get(`http://localhost:5001/appointmets/`)
           .then(res => {
             if(res.data){  
-            const operators = res.data;
+            const appointments = res.data;
             console.log("view",res.data);
-            this.setState({ operators });
+            this.setState({ appointments });
             }
           })
           
     }
-
+/*
     handleInfo = e => {
         e.preventDefault();
         console.log("Hi!",e);
@@ -54,7 +51,7 @@ class ViewOperatorPage extends React.Component{
         }*/
         /*console.log("search",searchId)*/
 
-        search(user).then(res => {
+  /*      search(user).then(res => {
             if(res) {
               console.log('qqqqqqqqqqqqq');
               console.log(res);
@@ -70,7 +67,7 @@ class ViewOperatorPage extends React.Component{
               }
             }
           })
-    }
+    }*/
 
     render(){    
         var date;
@@ -80,7 +77,7 @@ class ViewOperatorPage extends React.Component{
         var n;
     return (
         <Page
-        title="Operator"
+        title="Appointmets"
         breadcrumbs={[{ name: 'View', active: true }]}
         className="TablePage"
         >
@@ -106,39 +103,34 @@ class ViewOperatorPage extends React.Component{
                 <Table responsive>
                     <tr className="table-active">
                         <th>#</th>
-                        <th>Name</th>
-                        <th>User Name</th>
-                        <th>DOB</th>
-                        <th>Address</th>
-                        <th>Contact Number</th>
-                        <th>Status</th>
-                        <th></th>
+                        <th>Date</th>
+                        <th>Customer ID</th>
+                        <th>Vehicle ID</th>
+                        <th>Description</th>
                         <th></th>
                     </tr>
-                    { this.state.operators.map((operator,i) =>
+                    { this.state.appointments.map((appointment,i) =>
 
                                       <tr>
                                         <th>{i+1}</th>
-                                        <td>{operator.name}</td>
-                                        <td>{operator.username}</td>
                                         {
-                                            date = new Date(operator.DOB),
+                                            date = new Date(appointment.date),
                                             m = date.getUTCMonth()+1, // Hours   
                                             y = (date.getUTCFullYear()),
                                             d = (date.getUTCDate()),
                                             n = ''
                                         }
                                         <td>{d}/{m}/{y}</td>
-                                        <td>{operator.address}</td>
-                                        <td>{operator.contactNumber}</td>
-                                        <td>{operator.status!==0 ? "Operator" : "Admin" }</td>
+                                        <td>{appointment.customerId}</td>
+                                        <td>{appointment.vehicleId}</td>
+                                        <td>{appointment.descript}</td>
                                         <td>
                                             <form onSubmit={this.handleInfo}>
                                                 <input 
                                                 type="hidden" 
                                                 id="searchId" 
                                                 name="searchId" 
-                                                value={operator.username} 
+                                                value={appointment.jobId} 
                                                 disabled/>
                                                 <Button color="info">View</Button>
                                             </form>
@@ -154,4 +146,4 @@ class ViewOperatorPage extends React.Component{
     };
 }
 
-export default ViewOperatorPage;
+export default ViewAppointmetsPage;

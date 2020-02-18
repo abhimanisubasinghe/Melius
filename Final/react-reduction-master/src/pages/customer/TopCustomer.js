@@ -7,17 +7,17 @@ import { search } from './UserFunction';
 
 const tableTypes = ['', 'bordered', 'striped', 'hover'];
 
-class ViewTopService extends React.Component{
+class ViewTopCustomer extends React.Component{
 
     constructor(props) {
         super(props)
     
         this.state = {
             
-                serviceId:"",
+                Id:"",
                 name: "",
-                category: "",
-                price: "",
+                NIC: "",
+                email: "",
                 topCount : '',   
         
         }
@@ -25,22 +25,22 @@ class ViewTopService extends React.Component{
 
     componentDidMount() {
         
-          axios.get(`http://localhost:5001/services/topService`)
+          axios.get(`http://localhost:5001/customers/topCustomer`)
           .then(res => {
             //const services1 = res.data.result;
             //const services2 = res.data.result2;
             console.log("view",res.data);
-            console.log(res.data.result[0].serviceId)
+            console.log(res.data.result[0].Id)
             // this.setState.serviceId = res.data.result2[0].serviceId;
             // this.setState.name = res.data.result2[0].name;
             // this.setState.category = res.data.result2[0].category;
             // this.setState.price = res.data.result2[0].price;
             // this.setState.topCount = res.data.result[0].coun;
             this.setState({
-                serviceId: res.data.result2[0].serviceId,
+                Id: res.data.result2[0].Id,
                 name: res.data.result2[0].name,
-                category: res.data.result2[0].category,
-                price: res.data.result2[0].price,
+                NIC: res.data.result2[0].NIC,
+                email: res.data.result2[0].email,
                 topCount: res.data.result[0].coun
             })
           })
@@ -50,7 +50,7 @@ class ViewTopService extends React.Component{
     render(){   
     return (
         <Page
-        title="Top Service"
+        title="Top Customer"
         breadcrumbs={[{ name: 'View', active: true }]}
         className="TablePage"
         >
@@ -58,27 +58,27 @@ class ViewTopService extends React.Component{
             <Col>
             <Card className="mb-3">
             
-                <CardHeader>TOP SERVICE</CardHeader>
+                <CardHeader>TOP CUSTOMER</CardHeader>
                 <CardBody>
                 <Table responsive>
                     <tr className="table-active">
                         <th>#</th>
                         <th>Id</th>
                         <th>Name</th>
-                        <th>Category</th>
-                        <th>Price</th>
+                        <th>NIC</th>
+                        <th>Email</th>
                     </tr>
 
 
                                       <tr>
                                         <td>**</td>
-                                        <td>{this.state.serviceId}</td>
+                                        <td>{this.state.Id}</td>
                                         <td>{this.state.name}</td>
-                                        <td>{this.state.category}</td>
-                                        <td>{this.state.price}</td>
+                                        <td>{this.state.NIC}</td>
+                                        <td>{this.state.email}</td>
                                         </tr>
                 </Table>
-                <h3>Number of service yet {this.state.topCount} </h3>
+                <h3>Number of service don by {this.state.name}  = {this.state.topCount} </h3>
                 </CardBody>
             </Card>
             </Col>
@@ -88,4 +88,4 @@ class ViewTopService extends React.Component{
     };
 }
 
-export default ViewTopService;
+export default ViewTopCustomer;

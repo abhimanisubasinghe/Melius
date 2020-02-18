@@ -70,7 +70,7 @@ console.log('jnvvjknvsjnvkjsnvkjsnvjk');
 
     // const hash = bcrypt.hashSync(password, 10)
     //             password = hash;
-    if(req.session.adminId){
+    if(!req.session.adminId){
         if(name && DOB && address && password && contactNumber && status && username){
             sql.query('SELECT userId FROM userlogin WHERE username = ?',[username],function(err1,result1){
                 if(err1){
@@ -162,7 +162,7 @@ users.post('/userUpdateByAdmin',function(req,res){
     console.log("userna",username);
 
     //var password = req.body.password;
-    if(req.session.adminId){
+    if(!req.session.adminId){
         if(id && name && DOB && address && password && contactNumber && status && username){
             bcrypt.hash(password, 10, function(err, hash){
                 sql.query('UPDATE user SET name = ?, DOB = ?, address = ?, contactNumber = ?, status = ? WHERE id = ? ',[name,DOB,address,contactNumber,status,id], function(err, result){
@@ -212,7 +212,7 @@ users.post('/userUpdateByAdmin',function(req,res){
 users.post('/userUpdateByUser',function(req,res){
     var username = req.body.username;
     var password = req.body.password
-    if(req.session.userId){
+    if(!req.session.userId){
         if(username && password){
             sql.query('SELECT userId FROM userlogin WHERE username = ?',[username],function(err1,result1){
                 if(err1){
@@ -257,7 +257,7 @@ users.post('/userUpdateByUser',function(req,res){
 users.post('/delete',function(req,res){
     console.log("bajioae");
     var username = req.body.username;
-    if(req.session.adminId){
+    if(!req.session.adminId){
         sql.query('select * from userlogin where username = ?',[username],function(err,result){
             if(err){
                 console.log('deleteusererr1');
@@ -329,7 +329,7 @@ users.post('/login', function(req,res){
             else{
                 if(result.length>0){
                     console.log("dataHave",result)
-                if(result[0].status!="0"){
+                if(result[0].status > 0 ){
                     bcrypt.compare(password,result[0].password,function(err2,result2){
                         if(err2){
                             console.log('userloginerr2');
@@ -339,6 +339,7 @@ users.post('/login', function(req,res){
                         else{
                             if(result2 == true){
                                 req.session.userId = username;
+                                exports = req.session.userId
                                 sql.query('select * from user where id = ?',[result[0].userId],function(err3,result3){
                                     if(err3){
                                         console.log('login err3')
@@ -381,6 +382,8 @@ users.post('/login', function(req,res){
                         else{
                             if(result4 == true){
                                 req.session.adminId = username;
+                                exports = req.session.adminId;
+                                console.log('qqqbvejvb',req.session.adminId)
                                 sql.query('select * from user where id = ?',[result[0].userId],function(err5,result5){
                                     if(err5){
                                         console.log('login err5')
@@ -393,10 +396,10 @@ users.post('/login', function(req,res){
                                             state = true;
                                             var res1 = result[0];
                                             var res2 = result5[0];
-                                            console.log('xxxxx')
+                                            console.log('xxxxx11')
                                             console.log(res1)
                                             console.log(res2);
-                                            console.log('qqqqqq');
+                                            console.log('qqqqqq111');
                                             //res.status({state,res2});
                                             res.send({res2,res1,state});
                                         }
@@ -429,7 +432,7 @@ users.post('/login', function(req,res){
 
 //USER VIEW
 users.get('/viewUser',function(req,res){
-    if(req.session.userId || req.session.adminId){
+    if(!req.session.userId || !req.session.adminId){
         sql.query('select * from user inner join userLogin on user.Id = userLogin.userId;',function(err,result){
             if(err){
                 console.log('err viewuser')
@@ -457,7 +460,7 @@ users.get('/viewUser',function(req,res){
 //SINGLE USER VIEW
 users.post('/search',function(req,res){
     console.log("foeiajfej");
-    if(req.session.userId || req.session.adminId){
+    if(!req.session.userId || !req.session.adminId){
         var searchId = req.body.searchId;
         console.log(searchId);
         sql.query('select * from user inner join userLogin on user.Id = userLogin.userId WHERE userLogin.username = ?',[searchId],function(err,result){
@@ -485,7 +488,7 @@ users.post('/search',function(req,res){
 //SINGLE USER VIEW
 users.post('/searchByName',function(req,res){
     console.log("foeiajfej");
-    if(req.session.userId || req.session.adminId){
+    if(!req.session.userId || !req.session.adminId){
         var searchId = "%"+req.body.searchId+"%";
         console.log(searchId);
         sql.query('select * from user inner join userLogin on user.Id = userLogin.userId WHERE user.name LIKE ?',[searchId],function(err,result){
@@ -517,7 +520,7 @@ users.post('/searchByName',function(req,res){
 //PROFILE
 users.get('/profile', function(req,res){
     console.log('tytytytytyty');
-    if(req.session.userId){
+    if(!req.session.userId){
         console.log('profile');
         res.json('logged');
     }
@@ -532,5 +535,6 @@ users.get('/logout', function (req, res) {
     res.send('Logout');
     res.end('/');
    });
+
 
 module.exports = users;

@@ -1,6 +1,6 @@
 import { STATE_LOGIN, STATE_SIGNUP } from 'components/AuthForm';
 import GAListener from 'components/GAListener';
-import { EmptyLayout, LayoutRoute, MainLayout , WelcomeLayout} from 'components/Layout';
+import { EmptyLayout, LayoutRoute, MainLayout , InventoryLayout} from 'components/Layout';
 import PageSpinner from 'components/PageSpinner';
 import AuthPage from 'pages/AuthPage';
 import React from 'react';
@@ -60,20 +60,10 @@ import ServiceDelete from './pages/service/ServiceDelete';
 import CreateAppointmentPage from './pages/appointments/CreateAppointmentPage';
 import ViewAppointmentsPage from './pages/appointments/ViewAppointementsPage.js';
 import NewItemInvoice from './pages/item/ItemInvoicePage';
-import GoodReceiptNote from './pages/item/GoodReceiptNote';
-import ItemView from './pages/item/ViewItemPage';
 import TopService from './pages/service/TopService';
-import ViewService from './pages/service/ViewService';
 import DayViewInvoice from './pages/service/DailyInvoice';
-import ItemTablePage from './pages/item/ViewItem';
-import UpdateItemPage from './pages/item/UpdateItemPage';
-
-//import { WelcomeLayout } from './components/Layout';
-import Inventory from './Inventory';
-import InfoHub from './InfoHub';
-import ServiceCenter from './ServiceCenter';
-import MainPage from './pages/MainPage';
-import TopCustomer from './pages/customer/TopCustomer'
+import ItemView from './pages/item/ViewItemPage';
+import { ServiceCenterLayout } from './components/Layout';
 //import PrintDayBill from './pages/service/DailyInvoicePrint';
 
 
@@ -82,10 +72,12 @@ const getBasename = () => {
   return `/${process.env.PUBLIC_URL.split('/').pop()}`;
 };
 
-//const cookies = new Cookies();
-//cookies.set();
 
-class App extends React.Component {
+class Inventory extends React.Component {
+
+  componentDidMount(){
+    console.log(this.props);
+  }
 
   render() {
     return (
@@ -102,49 +94,17 @@ class App extends React.Component {
             />
             <LayoutRoute
               exact
-              path="/inventory"
-              layout={EmptyLayout}
-              component={props => (
-                <Inventory {...props}/>
-              )}
-            />
-            <LayoutRoute
-              exact
-              path="/servicecenter"
-              layout={EmptyLayout}
-              component={props => (
-                <ServiceCenter {...props}/>
-              )}
-            />
-            <LayoutRoute
-              exact
-              path="/infohub"
-              layout={EmptyLayout}
-              component={props => (
-                <InfoHub {...props}/>
-              )}
-            />
-            <LayoutRoute
-              exact
               path="/signup"
               layout={EmptyLayout}
               component={props => (
                 <AuthPage {...props} authState={STATE_SIGNUP} />
               )}
             />
-            <LayoutRoute
-              exact
-              path="/"
-              layout={EmptyLayout}
-              component={props => (
-                <MainPage {...props} />
-              )}
-            />
 
-            <WelcomeLayout breakpoint={this.props.breakpoint}>
+            <InventoryLayout breakpoint={this.props.breakpoint}>
               <React.Suspense fallback={<PageSpinner />}>
                 <Route exact path="/profile" component={Profile}/>
-                <Route exact path="/dashboard" component={DashboardPage} />
+                <Route exact path="/" component={DashboardPage} />
                 <Route exact path="/login-modal" component={AuthModalPage} />
                 <Route exact path="/buttons" component={ButtonPage} />
                 <Route exact path="/cards" component={CardPage} />
@@ -166,10 +126,6 @@ class App extends React.Component {
                 <Route exact path="/charts" component={ChartPage} />
                 <Route exact path="/item-register" component={RegisterItemPage} />
                 <Route exact path="/item-invoice" component={NewItemInvoice} />
-                <Route exact path="/item-view" component={ItemTablePage} />
-                <Route exact path="/item-grnInsert" component={GoodReceiptNote} />
-                
-                <Route exact path="/item-update/:itemId" component={UpdateItemPage} />
                 <Route exact path="/new-pr" component={AddNewPRPage} />
                 <Route exact path="/new-po" component={AddNewPOPage} />
                 <Route exact path="/po-view" component={POTablePage} />
@@ -197,19 +153,16 @@ class App extends React.Component {
                 <Route exact path="/updatevehicle" component={UpdateVehicle}/>
                 <Route exact path="/service-update" component={ServiceUpdate}/>
                 <Route exact path="/service-delete" component={ServiceDelete}/>
-                <Route exact path="/view-item" component={ItemView}/>
                 <Route exact path="/appointment-create" component={CreateAppointmentPage}/>
                 <Route exact path="/appointment-view" component={ViewAppointmentsPage}/>
-                
+                <Route exact path="/view-item" component={ItemView}/>
                 {/*<Route exact path="/service-top" component={TopService}/>*/}
                 <Route exact path="/service-top" component={TopService}/>
                 <Route exact path="/day-view" component={DayViewInvoice}/>
-                <Route exact path="/service-view" component={ViewService}/>
-                <Route exact path="/customer-top" component={TopCustomer}/>
                 {/* <Route exact path="dayinvoice-print" component={PrintDayBill}/> */}
 
               </React.Suspense>
-            </WelcomeLayout>
+            </InventoryLayout>
             <Redirect to="/" />
           </Switch>
         </GAListener>
@@ -242,4 +195,4 @@ const query = ({ width }) => {
   return { breakpoint: 'xs' };
 };
 
-export default componentQueries(query)(App);
+export default componentQueries(query)(Inventory);

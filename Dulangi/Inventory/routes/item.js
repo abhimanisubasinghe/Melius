@@ -10,7 +10,7 @@ var Promise = require('promise');
 router.use(function(req, res, next) {
 
     var P1 = new Promise(function(resolve, reject) {
-        connection.query('SELECT item.itemCode,supplier.leadTime FROM item INNER JOIN supplier ON item.supplierId = supplier.supplierId', function(err, rows) {
+        connection.query('SELECT item2.itemCode,supplier.leadTime FROM item INNER JOIN supplier ON item2.supplierId = supplier.supplierId', function(err, rows) {
             if (err) {
                 reject(err)
             } else {
@@ -41,7 +41,7 @@ router.use(function(req, res, next) {
     }).then(data => {
         for (j = 0; j < data.length; j++) {
 
-            connection.query('UPDATE item SET reorder_level = ? WHERE itemCode = ?', data[i], function(err, result) {
+            connection.query('UPDATE item2 SET reorder_level = ? WHERE itemCode = ?', data[i], function(err, result) {
                 if (err) {
                     req.flash(err);
                 }
@@ -55,7 +55,7 @@ router.use(function(req, res, next) {
 
 //GET LIST OF ITEMS
 router.get('/item',function(req,res,next){
-    connection.query('SELECT itemCode,name FROM item',function(err,result){
+    connection.query('SELECT itemCode,name FROM item2',function(err,result){
         if(err){
             throw err;
         }else{
@@ -122,7 +122,7 @@ router.post('/add', function(req, res, next) {
         };
 
         console.log(item);
-        connection.query('INSERT INTO item SET ?', item, function(err, result) {
+        connection.query('INSERT INTO item2 SET ?', item, function(err, result) {
 
             if (err) {
                 req.flash('error', err);
@@ -209,7 +209,7 @@ router.post('/update/(:id)', function(req, res, next) {
         barcode: req.body.barcode
 
     };
-    connection.query('UPDATE item SET ? WHERE itemCode=' + req.params.id, items, function(err) {
+    connection.query('UPDATE item2 SET ? WHERE itemCode=' + req.params.id, items, function(err) {
         if (err) {
             console.log(err);
             req.flash('error', err);

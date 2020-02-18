@@ -1,10 +1,12 @@
 import AuthForm, { STATE_LOGIN } from 'components/AuthForm';
 import React from 'react';
-import { Card, Col, Row } from 'reactstrap';
+import { Card, Col, Row, Alert } from 'reactstrap';
 import { login } from './UserFunction';
+import {Link} from 'react-router-dom';
 //import validator from 'validator';
 import Form from 'react-validation/build/form';
 import Input from 'react-validation/build/input';
+import { notNull} from '../validations'
 
 class AuthPage extends React.Component {
   
@@ -14,6 +16,10 @@ class AuthPage extends React.Component {
     this.state = {
       username: '',
       password: '',
+      validateUsername: true,
+      validatePassword: true,
+      validations: true,
+      expires: null
       
     }
 
@@ -21,33 +27,38 @@ class AuthPage extends React.Component {
     this.onSubmit = this.onSubmit.bind(this)
   }
 
-  setCookie = (cuname, cusernamevalue,cstatus, cstatusvalue, exdays) => {
-    console.log("status",cstatus);
-    console.log("val",cstatusvalue);
-    var d = new Date();
-    d.setTime(d.getTime() + ((exdays+1) * 5 *60 * 1000));
-    var expires = "expires="+d.toUTCString();
-    if(cstatusvalue!=0){
-      console.log("opeartor");
-      document.cookie = "username =" + cusernamevalue + ";status = 1 ;+"+ expires + ";path=/";
-    }
-    else{
-      console.log("admin");
-      document.cookie = "username =" + cusernamevalue + ";status = 0 ;+"+ expires + ";path=/";
-    }
-    console.log("created",document.cookie);
-    return document.cookie;
-  }
-
   onChange(e){
     this.setState({[e.target.name]: e.target.value})
   }
+
+  validatingFields = () => {
+    this.setState({
+      validateUsername: notNull(this.state.username),
+      validatePassword: notNull(this.state.password)
+    })
+    if(notNull(this.state.username) === true && notNull(this.state.password) === true){
+      console.log("OK");
+      this.setState({
+        validations: true
+      })
+      return true;
+    }
+    else{
+      console.log("error");
+      this.setState({
+        validations: false
+      })
+      return false;
+    }
+  }
+  
 
   
 
   onSubmit(e){
     e.preventDefault();
-    
+    const val = this.validatingFields();
+    if(val){
     const user = {
       username: this.state.username,
       password: this.state.password
@@ -61,17 +72,31 @@ class AuthPage extends React.Component {
         if(res.state){
           if (user != "" && user != null) {
             console.log("status",res.res2.name);
-            document.cookie = "username=; status=;expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
-            const cookie =this.setCookie("username", this.state.username,"status",res.res2.status, 0);
-            this.props.history.push('/',{detail: res,cookie: cookie,status:res.res2.status})
+            //document.cookie = "username=; status=;expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+            var d = new Date();
+            d.setTime(d.getTime() + (1 *60 *60 * 1000));
+            var expires = d;
+            this.setState({
+              expires: expires
+            })
+            console.log("main page");
+            this.props.history.push('/',{detail: res,
+                                          status:res.res2.status,
+                                          expires:this.state.expires,
+                                          username:this.state.username})
+            
           }
           
         }
         else{
           this.props.history.push('/login');
+          this.setState({
+            validations: false
+          })
         }
       }
     })
+  }
   }
 
   handleLogoClick = () => {
@@ -101,6 +126,13 @@ class AuthPage extends React.Component {
                             placeholder="User Name"
                             value={this.state.username}
                             onChange={this.onChange}/>
+                            {
+                              this.state.validateUsername !== true ?                  
+                              <Alert color="danger">
+                              Enter a valid username
+                              </Alert>  
+                              : ""
+                            }
                         </div>
                         <div className='form-group'>
                             <label htmlFor='password'>Password</label>
@@ -110,12 +142,33 @@ class AuthPage extends React.Component {
                             placeholder="Password"
                             value={this.state.password}
                             onChange={this.onChange}/>
+                            {
+                              this.state.validatePassword !== true ?                  
+                              <Alert color="danger">
+                              Enter a valid password
+                              </Alert>  
+                              : ""
+                            }
                             
                         </div>
                         <button type='submit'
                         className='btn btn-lg btn-primary btn-block'>
                             Sign in
                         </button>
+                        {
+                          this.state.validations !== true ?                  
+                          <Alert color="danger">
+                          Error! Plese enter the login details again.
+                          </Alert>  
+                          : ""
+                        }
+                        <br/>
+                        <Link to="/">
+                        <button type='success'
+                        className='btn btn-lg btn-success btn-block'>
+                          Back
+                        </button>
+                        </Link>
                     </form>
                 </div>
             </div>
