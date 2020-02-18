@@ -113,6 +113,7 @@ const navAppointments = [
 const navCustomers= [
   { to: '/add-customer', name: 'register', exact: false, Icon: MdAddCircle },
   { to: '/view-customer', name: 'view', exact: false, Icon: MdAddCircle },
+  { to: '/customer-top', name: 'topcustomer', exact: false, Icon: MdAddCircle },
 
 ];
 

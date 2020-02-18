@@ -329,7 +329,7 @@ users.post('/login', function(req,res){
             else{
                 if(result.length>0){
                     console.log("dataHave",result)
-                if(result[0].status!="0"){
+                if(result[0].status > 0 ){
                     bcrypt.compare(password,result[0].password,function(err2,result2){
                         if(err2){
                             console.log('userloginerr2');
@@ -339,6 +339,7 @@ users.post('/login', function(req,res){
                         else{
                             if(result2 == true){
                                 req.session.userId = username;
+                                exports = req.session.userId
                                 sql.query('select * from user where id = ?',[result[0].userId],function(err3,result3){
                                     if(err3){
                                         console.log('login err3')
@@ -381,6 +382,8 @@ users.post('/login', function(req,res){
                         else{
                             if(result4 == true){
                                 req.session.adminId = username;
+                                exports = req.session.adminId;
+                                console.log('qqqbvejvb',req.session.adminId)
                                 sql.query('select * from user where id = ?',[result[0].userId],function(err5,result5){
                                     if(err5){
                                         console.log('login err5')
@@ -393,10 +396,10 @@ users.post('/login', function(req,res){
                                             state = true;
                                             var res1 = result[0];
                                             var res2 = result5[0];
-                                            console.log('xxxxx')
+                                            console.log('xxxxx11')
                                             console.log(res1)
                                             console.log(res2);
-                                            console.log('qqqqqq');
+                                            console.log('qqqqqq111');
                                             //res.status({state,res2});
                                             res.send({res2,res1,state});
                                         }
@@ -532,5 +535,6 @@ users.get('/logout', function (req, res) {
     res.send('Logout');
     res.end('/');
    });
+
 
 module.exports = users;

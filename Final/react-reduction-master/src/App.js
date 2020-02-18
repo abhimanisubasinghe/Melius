@@ -70,6 +70,7 @@ import Inventory from './Inventory';
 import InfoHub from './InfoHub';
 import ServiceCenter from './ServiceCenter';
 import MainPage from './pages/MainPage';
+import TopCustomer from './pages/customer/TopCustomer'
 //import PrintDayBill from './pages/service/DailyInvoicePrint';
 
 
@@ -197,6 +198,7 @@ class App extends React.Component {
                 <Route exact path="/service-top" component={TopService}/>
                 <Route exact path="/day-view" component={DayViewInvoice}/>
                 <Route exact path="/service-view" component={ViewService}/>
+                <Route exact path="/customer-top" component={TopCustomer}/>
                 {/* <Route exact path="dayinvoice-print" component={PrintDayBill}/> */}
 
               </React.Suspense>
