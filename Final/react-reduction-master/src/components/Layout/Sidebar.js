@@ -78,7 +78,8 @@ const navInventoryItems = [
   { to: '/item-view', name: 'Item List', exact: false, Icon: MdAddCircle },
   { to: '/po-view', name: 'purchase orders', exact: false, Icon: MdAddCircle },
   { to: '/pr-view', name: 'purchase requisition orders', exact: false, Icon: MdAddCircle },
-  { to: '/storage-register', name: 'storage-register', exact: false, Icon: MdAddCircle },
+  { to: '/pr-view', name: 'purchase requisition orders', exact: false, Icon: MdAddCircle },  
+  { to: '/item-grnInsert', name: 'Good Receipt Note', exact: false, Icon: MdAddCircle },
   { to: '/tables', name: 'tables', exact: false, Icon: MdBorderAll },
 ];
 

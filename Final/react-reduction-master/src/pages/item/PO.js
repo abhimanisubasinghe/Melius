@@ -56,14 +56,6 @@ class POTablePage extends React.Component{
             const po = res.data.data;
             this.setState({po})
             
-          /* for(let i=0;i<len;i++){
-                const pos = res.data.data[i];
-                this.setState((prevState)=>({
-                    po:[...prevState.po,pos]}
-                    ));         
-                
-
-                }*/
           })
     }
 

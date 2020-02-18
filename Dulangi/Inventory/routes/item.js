@@ -247,5 +247,31 @@ router.post('/delete/(:id)', function(req, res, next) {
 
 
 
+// Get unit price for the invoice
+router.get('/unitPrice/(:id)',function(req,res,next){
+    console.log(req.params.id);
+    connection.query('SELECT unitPrice FROM item WHERE itemCode='+req.params.id,function(err,result){
+        if(err){
+            throw err;
+        }else{
+            if(result.length<0){
+                res.send({
+                    data:[{
+                        unitPrice:0
+                    }]
+                })
+            }else{
+                
+            res.send({
+                data:result
+            })
+        }
+        }
+    })
+})
+
+
+
+
 
 module.exports = router;

@@ -29,10 +29,13 @@ class NewItemInvoice extends React.Component{
     super()
 
     this.state = {    
-        item:[{itemCode:"",quantity:"",unitPrice:""}],
-        total: "",
-        discount: "",
+        item:[{itemCode:"",quantity:0 ,unitPrice:0}],
+        total:0,
+        discount: 0,
         remarks: "",
+        data:[
+          {itemCode:"",name:""}
+        ]
      
      
     }
@@ -44,11 +47,56 @@ class NewItemInvoice extends React.Component{
     
   }
 
+  componentDidMount(){
+    
+      axios.get(`http://localhost:5000/items/item`)
+      .then(res => {
+        console.log(res.data.data);
+        const data = res.data.data;
+        this.setState({data})
+      })
+  }
+
+  handleTotal = (item,id) => {
+    var subtotal = item[id].quantity * item[id].unitPrice
+    console.log(subtotal);
+    this.setState({
+      total:this.state.total+subtotal
+    })
+    console.log(subtotal);
+  }
+
+  handleDiscount = e =>{
+    this.setState({
+      //[e.target.name]: e.target.value,
+      total:this.state.total-this.state.discount
+    })
+  }
+
+  // Handle change in the fields and 
   handleChange = (e) => {
-    if(["itemCode","quantity","unitPrice"].includes(e.target.name)){
-        let item = [...this.state.item]
+    if(["itemCode","quantity"].includes(e.target.name)){
+
+      const id=e.target.dataset.id;
+      let item = [...this.state.item]
+
+      if(["itemCode"].includes(e.target.name)){
+        axios.get(`http://localhost:5000/items/unitPrice/`+e.target.value)
+        
+        .then(res => {
+          console.log(res.data.data[0].unitPrice);
+          item[id].unitPrice=res.data.data[0].unitPrice})
+
+        .catch((err) => console.log("Can’t access  response."+ err ))
+
+      }
+        
         item[e.target.dataset.id][e.target.name] = e.target.value
         this.setState({ item },() => console.log(this.state.item))
+        if(["quantity"].includes(e.target.name)){
+          this.handleTotal(this.state.item,id)
+        }
+        
     } else {
         this.setState({[e.target.name]:e.target.value})
     }
@@ -90,23 +138,7 @@ addItem = (e) =>{
             )
             .catch(() => console.log("Can’t access " + url + " response. Blocked by browser?"))
     
-            //this.props.history.push('/item-invoice')
-    /*console.log('nvjsdnvklsnvsnkndslkvcnsdovnosinvsklnclksnvknskldnvsklvklsnvlks');
-    console.log(invoice1);
-    invoice(invoice1).then(res => {
-      console.log('come');
-      if(res) {
-        console.log("rrr");
-        console.log(res);
-        if(res.res1){
-          this.props.history.push('/printInvoiceService', {detail:res.res1 })
-        }
-        else{
-          this.props.history.push('/new-invoice');
-        }
-        
-      }
-    })*/
+            
     .catch(err => {
       console.log('catch err');
     })
@@ -125,7 +157,7 @@ addItem = (e) =>{
           <Card>
             <CardHeader>Material Invoice </CardHeader>
             <CardBody>
-              <Form onSubmit={this.onSubmit} onChange={this.handleChange}>
+              <Form onSubmit={this.onSubmit}>
 
                         
                 {
@@ -139,6 +171,8 @@ addItem = (e) =>{
                 <div key={idx}>
                 <div className="form-inline">    
                 <div className="col">  
+
+                
                 <Label htmlfor={itemCode}>Item Name</Label>
                   <Input
                     type="text"
@@ -146,7 +180,8 @@ addItem = (e) =>{
                     data-id={idx}
                     id={itemCode}
                     value={item[idx].itemCode}
-                    placeholder="Item Group"
+                    onChange={this.handleChange}
+                    placeholder="Item"
                     className="itemCode"
                   />
                 </div>
@@ -158,7 +193,8 @@ addItem = (e) =>{
                     id={qty}
                     data-id={idx}
                     value={item[idx].quantity}
-                    placeholder="Brand"
+                    onChange={this.handleChange}
+                    placeholder="quantity"
                     className="quantity"
                   />
                 </div> 
@@ -191,20 +227,8 @@ addItem = (e) =>{
                 </div> 
                 
                   </FormGroup>
-                
-                <FormGroup>
-                <Label for="total">Total</Label>
-                  <Input
-                    type="number"
-                    name="total"
-                    id="total"
-                    placeholder=" vehicle Id"
-                    onChange={this.onChange}
-                    value={this.state.total}
-                  />
-                </FormGroup>
-                
-                <FormGroup>
+
+                  <FormGroup>
                   <Label for="name">Discount</Label>
                   
                   <Input
@@ -216,6 +240,20 @@ addItem = (e) =>{
                     value={this.state.discount}
                   />
                 </FormGroup>
+                
+                <FormGroup>
+                <Label for="total">Total</Label>
+                  <Input
+                    type="number"
+                    name="total"
+                    id="total"
+                    placeholder="Total"
+                    onClick={this.handleDiscount}
+                    value={this.state.total}
+                  />
+                </FormGroup>
+                
+                
                 <FormGroup>
                 <Label for="bracode">Remarks</Label>
                   <Input

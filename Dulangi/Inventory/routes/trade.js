@@ -3,7 +3,7 @@ var router = express.Router();
 var connection = require('../lib/db');
 var Promise = require('promise');
 
-//Add new Purchase order without Purchase requisition
+//Add new invoice
 router.post('/addItemInvoice', function(req, res, next) {
 
 
@@ -12,7 +12,7 @@ router.post('/addItemInvoice', function(req, res, next) {
         total:req.body.total,
         date:new Date(),
         remarks:req.body.remarks,
-        discount:req.body.delDate,
+        discount:req.body.discount,
         
 
     }
