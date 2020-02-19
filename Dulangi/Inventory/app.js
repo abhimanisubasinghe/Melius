@@ -16,6 +16,7 @@ var itemTransRouter = require('./routes/transfer');
 var reorderRouter = require('./routes/reorder');
 var storageRouter = require('./routes/storage');
 var tradingRouter = require('./routes/trade');
+var goodReceivedRouter = require('./routes/grn');
 
 
 var app = express();
@@ -49,6 +50,7 @@ app.use('/transfer', itemTransRouter);
 app.use('/reorder', reorderRouter);
 app.use('/storage', storageRouter);
 app.use('/trading', tradingRouter);
+app.use('/grn', goodReceivedRouter);
 
 
 

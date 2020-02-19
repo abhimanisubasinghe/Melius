@@ -75,10 +75,11 @@ const navOperator = [
 const navInventoryItems = [
   { to: '/item-register', name: 'register', exact: false, Icon: MdAddCircle },
   { to: '/item-invoice', name: 'Material Invoice', exact: false, Icon: MdAddCircle },
-  //{ to: '/new-pr', name: 'new purchase requisition', exact: false, Icon: MdAddCircle },
+  { to: '/item-view', name: 'Item List', exact: false, Icon: MdAddCircle },
   { to: '/po-view', name: 'purchase orders', exact: false, Icon: MdAddCircle },
   { to: '/pr-view', name: 'purchase requisition orders', exact: false, Icon: MdAddCircle },
-  { to: '/storage-register', name: 'storage-register', exact: false, Icon: MdAddCircle },
+  { to: '/pr-view', name: 'purchase requisition orders', exact: false, Icon: MdAddCircle },  
+  { to: '/item-grnInsert', name: 'Good Receipt Note', exact: false, Icon: MdAddCircle },
   { to: '/tables', name: 'tables', exact: false, Icon: MdBorderAll },
 ];
 

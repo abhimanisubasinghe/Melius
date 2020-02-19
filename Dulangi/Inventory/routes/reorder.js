@@ -51,16 +51,20 @@ routerThree.post('/PRAdd',function(req,res,next){
 
 //Display PRs
 routerThree.get('/PRs', function(req, res, next) {
+    
     connection.query('SELECT p.Id,p.itemCode,p.quantity,p.description,p.issuedDate,p.deliveryDate,p.storageId,p.supplierId,p.terms,p.status,i.name AS itemName,s.name AS supplierName FROM item i INNER JOIN purchaserequisition p ON p.itemCode=i.itemCode INNER JOIN supplier s ON s.supplierId=p.supplierId ', function(err, result) {
         if (err) {
-            throw err;
+            console.log(err);
         } else {
+            console.log(result.length);
             if(result.length>0){
-
+                console.log("here");
                 for (i = 0; i < result.length; i++) {
                     result[i].issuedDate=result[i].issuedDate.toISOString().substring(0,10);
                     result[i].deliveryDate=result[i].deliveryDate.toISOString().substring(0,10);
                   }
+                  
+
                   res.send({
                     data:result
                 });

@@ -68,16 +68,20 @@ router.get('/item',function(req,res,next){
 
 //DISPLAY ITEM  LIST
 router.get('/', function(req, res, next) {
-    connection.query('SELECT * FROM item', function(err, result) {
+    connection.query('SELECT i.itemCode,i.name,i.inStock,i.unitPrice,i.costPrice,i.reorderLevel,i.leadTime,i.descript,i.Itemgroup,i.brand,i.type,i.category,st.unit,st.number,s.name AS supplierName,i.barcode FROM supplier s INNER JOIN item i ON i.supplierId=s.supplierId INNER JOIN storage st ON i.storageId=st.storageId', function(err, result) {
         if (err) {
             throw err;
         } else {
             if(result.length>0){
-                res.json(result);
+                res.send({
+                    
+                    data:result
+
+                });
                 
             }
             else{
-                res.json('No items');
+                res.send('No items');
             }
         }
     });
@@ -152,8 +156,8 @@ router.post('/add', function(req, res, next) {
 
 //UPDATE ITEMS FORM
 router.get('/edit/(:id)', function(req, res, next) {
-
-    connection.query('SELECT * FROM item2 WHERE itemCode=' + req.params.id, function(err, rows, fields) {
+    console.log("here");
+    connection.query('SELECT i.itemCode,i.name,i.inStock,i.unitPrice,i.costPrice,i.reorderLevel,i.leadTime,i.descript,i.Itemgroup,i.brand,i.type,i.category,i.storageId,i.barcode,st.unit,st.number,s.name AS supplierName,i.barcode FROM supplier s INNER JOIN item i ON i.supplierId=s.supplierId INNER JOIN storage st ON i.storageId=st.storageId WHERE itemCode=' + req.params.id, function(err, rows, fields) {
 
         if (err) throw err
 
@@ -161,8 +165,11 @@ router.get('/edit/(:id)', function(req, res, next) {
             req.flash('error', 'item not found with id =', +req.params.id);
             res.redirect('/items');
         } else {
-            console.log(rows[0].inStock);
-            res.render('items/edit', {
+            console.log(rows[0].barcode);
+            res.send({
+                data:rows
+            })
+            /*res.render('items/edit', {
                 title: "Edit item",
                 id: rows[0].itemCode,
                 name: rows[0].name,
@@ -179,7 +186,7 @@ router.get('/edit/(:id)', function(req, res, next) {
                 supplierId: rows[0].supplierId,
                 barcode: rows[0].barcode
 
-            })
+            })*/
         }
     })
 
@@ -196,22 +203,22 @@ router.post('/update/(:id)', function(req, res, next) {
         costPrice: req.body.costPrice,
         reorderLevel: req.body.reorderLevel,
         leadTime: req.body.leadTime,
-        reorderQuantity: req.body.reorderQuantity,
         descript: req.body.descript,
-        storageId: req.body.storage,
-        supplierId: req.body.supplier,
+        storageId: req.body.storageId,
+        supplierId: req.body.supplierId,
         barcode: req.body.barcode
 
     };
     connection.query('UPDATE item2 SET ? WHERE itemCode=' + req.params.id, items, function(err) {
         if (err) {
-
+            console.log(err);
             req.flash('error', err);
-            res.redirect('/items');
+           /* res.redirect('/items');*/
 
         } else {
+            console.log("here **");
             req.flash('success', 'Data updated successfully!');
-            res.redirect('/items');
+           /* res.redirect('/items');*/
         }
     });
 });
@@ -219,13 +226,13 @@ router.post('/update/(:id)', function(req, res, next) {
 
 //DELETE ITEM
 
-router.get('/delete/(:id)', function(req, res, next) {
+router.post('/delete/(:id)', function(req, res, next) {
 
     var user = { itemCode: req.params.id }
-
+    console.log("Here *****")
     connection.query('DELETE FROM item WHERE itemCode=' + req.params.id, user, function(err, result) {
         if (err) {
-            console.log(req.params.id);
+            console.log(err);
             req.flash('error', err)
                 // redirect to users list page
             res.redirect('/items')
@@ -237,6 +244,32 @@ router.get('/delete/(:id)', function(req, res, next) {
 
     });
 });
+
+
+
+// Get unit price for the invoice
+router.get('/unitPrice/(:id)',function(req,res,next){
+    console.log(req.params.id);
+    connection.query('SELECT unitPrice FROM item WHERE itemCode='+req.params.id,function(err,result){
+        if(err){
+            throw err;
+        }else{
+            if(result.length<0){
+                res.send({
+                    data:[{
+                        unitPrice:0
+                    }]
+                })
+            }else{
+                
+            res.send({
+                data:result
+            })
+        }
+        }
+    })
+})
+
 
 
 
