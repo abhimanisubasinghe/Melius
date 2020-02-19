@@ -2,7 +2,7 @@ import Page from 'components/Page';
 import React from 'react';
 import { Button, Card, CardBody, CardHeader, Col, Row, Table,UncontrolledAlert, } from 'reactstrap';
 import axios from 'axios';
-//import { search } from './UserFunction';
+import { search } from './UserFunction';
 
 const tableTypes = ['', 'bordered', 'striped', 'hover'];
 
@@ -25,10 +25,11 @@ class ViewAppointmetsPage extends React.Component{
     }
 
     componentDidMount() {
-        console.log(this.props.location.data);
-          axios.get(`http://localhost:5001/appointmets/`)
+        console.log(this.props.location);
+          axios.get(`http://localhost:5001/appointments/`)
           .then(res => {
-            if(res.data){  
+            if(res){  
+            console.log(res);
             const appointments = res.data;
             console.log("view",res.data);
             this.setState({ appointments });
@@ -36,7 +37,7 @@ class ViewAppointmetsPage extends React.Component{
           })
           
     }
-/*
+
     handleInfo = e => {
         e.preventDefault();
         console.log("Hi!",e);
@@ -44,20 +45,15 @@ class ViewAppointmetsPage extends React.Component{
         const user = {
             searchId: e.target.searchId.value
         }    
-        //console.log("e",e);
-        //searchId.preventDefault();
-        /*const user = {
-            searchId: searchId
-        }*/
-        /*console.log("search",searchId)*/
+        //console.log("search",searchId)
 
-  /*      search(user).then(res => {
+      search(user).then(res => {
             if(res) {
               console.log('qqqqqqqqqqqqq');
               console.log(res);
               if(res){
                 this.props.history.push({
-                    pathname:'/operator-profile',
+                    pathname:'/appointment-profile',
                     data: res})
                 
               }
@@ -67,7 +63,7 @@ class ViewAppointmetsPage extends React.Component{
               }
             }
           })
-    }*/
+    }
 
     render(){    
         var date;

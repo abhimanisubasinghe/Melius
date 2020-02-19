@@ -1,9 +1,11 @@
 import Page from 'components/Page';
 import React from 'react';
 import { invoice } from '../../components/UserFunction';
+import {appointmentDateValidator, notNull} from '../../validations'
 import axios from 'axios';
 
 import {
+  Alert,
   Button,
   Card,
   CardBody,
@@ -30,9 +32,11 @@ class NewItemInvoice extends React.Component{
 
     this.state = {    
         item:[{itemCode:"",quantity:"",unitPrice:""}],
+        validateItem: true,
         total: "",
         discount: "",
         remarks: "",
+        validations: true,
      
      
     }
@@ -42,6 +46,26 @@ class NewItemInvoice extends React.Component{
 
 
     
+  }
+
+  validatingFields = () => {
+    this.setState({
+      validateItem: notNull(this.state.item[0].itemCode) && notNull(this.state.item[0].quantity),
+          })
+    if(notNull(this.state.item[0].itemCode && notNull(this.state.item[0].quantity))){
+      console.log("OK");
+      this.setState({
+        validations: true
+      })
+      return true;
+    }
+    else{
+      console.log("error");
+      this.setState({
+        validations: false
+      })
+      return false;
+    }
   }
 
   handleChange = (e) => {
@@ -69,6 +93,8 @@ addItem = (e) =>{
 
   onSubmit(e){
   e.preventDefault();
+  var val = this.validatingFields();
+  if(val){
   const invoice = {
       item:this.state.item,    
       total: this.state.total,
@@ -110,6 +136,13 @@ addItem = (e) =>{
     .catch(err => {
       console.log('catch err');
     })
+  }
+  else{
+    this.props.history.push('/item-invoice');
+    this.setState({
+      validations: false
+    })
+  }
 
   }
 
@@ -188,6 +221,13 @@ addItem = (e) =>{
                 <FormGroup>
                 <div className="col">  
                 <Button color="info" onClick={this.addItem}>New Item</Button>
+                {
+                              this.state.validateItem !== true ?                  
+                              <Alert color="danger">
+                              Enter items
+                              </Alert>  
+                              : ""
+                            }
                 </div> 
                 
                   </FormGroup>
@@ -234,6 +274,13 @@ addItem = (e) =>{
                 
                 <FormGroup check row>
                     <Button type="submit">Submit</Button>
+                    {
+                              this.state.validations !== true ?                  
+                              <Alert color="danger">
+                              ERROR!
+                              </Alert>  
+                              : ""
+                            }        
                 </FormGroup>
               </Form>
             </CardBody>

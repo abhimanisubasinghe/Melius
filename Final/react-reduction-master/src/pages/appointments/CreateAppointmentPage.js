@@ -137,6 +137,7 @@ handleSubmit = e => {
     e.preventDefault();
     const val = this.validatingFields();
     console.log("validating",val);
+    if(val){
     console.log(this.state);
     const user = {
       date:this.state.date,
@@ -145,11 +146,11 @@ handleSubmit = e => {
       descript: this.state.descript
 
     }
-    /*register(user).then(res => {
+    register(user).then(res => {
       if(res) {
         console.log('qqqqqqqqqqqq');
-        console.log(res.state);
-        if(res.state){
+        console.log(res);
+        if(res){
           this.props.history.push('/appointment-view',{detail: res})
           
         }
@@ -157,7 +158,14 @@ handleSubmit = e => {
           this.props.history.push('/appointment-create');
         }
       }
-    })*/
+    })
+  }
+  else{
+    this.props.history.push('/appointment-create');
+          this.setState({
+            validations: false
+          })
+  }
     /*const url = "http://localhost:5000/items/add"; 
     axios
             .post(url,

@@ -155,7 +155,7 @@ class MainPage extends React.Component {
           <Card className="flex-row">
             <CardBody>
             <center>
-              <CardTitle><Link to="/login"><Button className="btn-lg">Log In</Button></Link></CardTitle>
+              <CardTitle><Link to="/login"><Button type="secondary" className="btn-lg">Log In</Button></Link></CardTitle>
               </center>
             </CardBody>
             <CardImg

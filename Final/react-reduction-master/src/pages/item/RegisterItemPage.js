@@ -1,6 +1,8 @@
 import Page from 'components/Page';
+import {appointmentDateValidator, notNull, positiveNumberValidator} from '../../validations'
 import React from 'react';
 import {
+  Alert,
   Button,
   Card,
   CardBody,
@@ -26,21 +28,70 @@ class RegisterItemPage extends React.Component{
     this.state = {
         //itemcode:"",    
         name: "",
+        validateName: true,
         inStock: "",
+        validateInStock: true,
         unitPrice: "",
+        validateUnitPrice: true,
         descript: "",
         costPrice: "",
+        validateCostPrice: true,
         reorderLevel: "",
+        validateReorderLevel: true,
         itemgroup: "",
         brand: "",
         type: "",
         category: "",
         storageId: "",
+        validateStorageId: true,
         supplierId: "",
+        validateSupplierId: true,
         barcode: "",
-        leadTime:""
+        leadTime:"",
+        validateLeadTime: true,
+        validations: true
     }
     
+}
+
+componentDidMount(){
+  console.log(this.props);
+}
+
+validatingFields = () => {
+  this.setState({
+    validateName: notNull(this.state.name),
+    validateInStock: positiveNumberValidator(this.state.inStock),
+    validateUnitPrice: positiveNumberValidator(this.state.unitPrice),
+    validateCostPrice: positiveNumberValidator(this.state.costPrice),
+    validateReorderLevel: positiveNumberValidator(this.state.reorderLevel),
+    validateStorageId: notNull(this.state.storageId),
+    validateSupplierId: notNull(this.state.supplierId),
+    validateLeadTime: positiveNumberValidator(this.state.leadTime),
+
+  })
+  if(notNull(this.state.name) === true &&  
+    positiveNumberValidator(this.state.inStock) === true && 
+    positiveNumberValidator(this.state.unitPrice) === true &&
+    positiveNumberValidator(this.state.costPrice) === true &&
+    positiveNumberValidator(this.state.reorderLevel) === true &&
+    notNull(this.state.storageId) === true &&
+    notNull(this.state.supplierId) === true &&
+    positiveNumberValidator(this.state.leadTime) === true
+    ){
+    console.log("OK");
+    this.setState({
+      validations: true
+    })
+    return true;
+  }
+  else{
+    console.log("error");
+    this.setState({
+      validations: false
+    })
+    return false;
+  }
 }
 
 onChange = (e) => {
@@ -52,6 +103,8 @@ onChange = (e) => {
 handleSubmit = e => { 
     e.preventDefault();
     console.log(this.state);
+    const val = this.validatingFields();
+    if(val){
     const url = "http://localhost:5000/items/add"; 
     axios
             .post(url,
@@ -62,7 +115,13 @@ handleSubmit = e => {
             )
             .catch(() => console.log("Can’t access " + url + " response. Blocked by browser?"))
     
-    
+            }
+    else{
+      this.props.history.push('/item-register');
+      this.setState({
+        validations: false
+      })
+    }
 }
 
   render(){
@@ -85,6 +144,13 @@ handleSubmit = e => {
                     onChange={this.onChange}
                     placeholder="Item Name"
                   />
+                  {
+                              this.state.validateName !== true ?                  
+                              <Alert color="danger">
+                              Enter a item name
+                              </Alert>  
+                              : ""
+                            }
                 </FormGroup>
                 <FormGroup>
                 <Label for="inStock">Amount in-stock</Label>
@@ -96,6 +162,13 @@ handleSubmit = e => {
                     onChange={this.onChange}
                     placeholder="In Stock"
                   />
+                  {
+                              this.state.validateInStock !== true ?                  
+                              <Alert color="danger">
+                              Enter a valid in stock
+                              </Alert>  
+                              : ""
+                            }
                 </FormGroup>
                 <div className="form-inline">  
                 <FormGroup>
@@ -114,6 +187,13 @@ handleSubmit = e => {
                   />
                   <InputGroupAddon addonType="append">.00</InputGroupAddon>
                   </InputGroup>
+                  {
+                              this.state.validateUnitPrice !== true ?                  
+                              <Alert color="danger">
+                              Enter a unit price
+                              </Alert>  
+                              : ""
+                            }
                 </div>  
                 <div className="col">             
                   <Label for="costPrice">Cost Price </Label>
@@ -130,6 +210,13 @@ handleSubmit = e => {
                   />
                   <InputGroupAddon addonType="append">.00</InputGroupAddon>
                   </InputGroup>
+                  {
+                              this.state.validateCostPrice !== true ?                  
+                              <Alert color="danger">
+                              Enter a cost price
+                              </Alert>  
+                              : ""
+                            }
                   </div>
                   </FormGroup>
                 </div>
@@ -197,6 +284,13 @@ handleSubmit = e => {
                     onChange={this.onChange}
                     placeholder="Storage ID"
                   />
+                  {
+                              this.state.validateStorageId !== true ?                  
+                              <Alert color="danger">
+                              Enter a valid storage Id
+                              </Alert>  
+                              : ""
+                            }
                 </div>
                 <div className="col">
                 <Label for="supplierId">Supplier ID</Label>
@@ -208,6 +302,13 @@ handleSubmit = e => {
                     onChange={this.onChange}
                     placeholder="Supplier Id"
                   />
+                  {
+                              this.state.validateSupplierId !== true ?                  
+                              <Alert color="danger">
+                              Enter a valid supplierId
+                              </Alert>  
+                              : ""
+                            }
                 </div>  
                 </FormGroup>
                 </div>
@@ -232,6 +333,13 @@ handleSubmit = e => {
                     onChange={this.onChange}
                     placeholder="Reorder Level"
                   />
+                  {
+                              this.state.validateReorderLevel !== true ?                  
+                              <Alert color="danger">
+                              Enter a valid reorderLevel
+                              </Alert>  
+                              : ""
+                            }
                 </FormGroup>
                 <FormGroup>
                   <Label for="leadTime">Lead Time</Label>
@@ -243,6 +351,13 @@ handleSubmit = e => {
                     onChange={this.onChange}
                     placeholder="Lead Time"
                   />
+                  {
+                              this.state.validateLeadTime !== true ?                  
+                              <Alert color="danger">
+                              Enter a valid lead time
+                              </Alert>  
+                              : ""
+                            }
                 </FormGroup>
                 
                 <FormGroup>
@@ -258,6 +373,13 @@ handleSubmit = e => {
                 </FormGroup>
                 <FormGroup check row>
                     <Button>Submit</Button>
+                    {
+                              this.state.validations !== true ?                  
+                              <Alert color="danger">
+                              ERROR!
+                              </Alert>  
+                              : ""
+                            }
                 </FormGroup>
               </Form>
             </CardBody>

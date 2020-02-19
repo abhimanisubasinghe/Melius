@@ -1,14 +1,14 @@
 'user strict';
 var express = require('express');
 var sql = require('../database/db');
-var appointements = express.Router();
+var appointments = express.Router();
 var cors = require('cors');
 var body = require('body-parser');
 var ses = require('express-session');
 
 const TWO_HOUR = 1000*60*60*2;
 
-appointements.use(ses({
+appointments.use(ses({
     name: "sid", 
     secret: "adcnskl",
     resave: false,
@@ -19,15 +19,15 @@ appointements.use(ses({
     }
 }));
 
-appointements.use(body.json());
-appointements.use(body.urlencoded({extended: false}));
-appointements.use(cors());
+appointments.use(body.json());
+appointments.use(body.urlencoded({extended: false}));
+appointments.use(cors());
 
-appointements.get('/',function(req,res){
+appointments.get('/',function(req,res){
     if(!req.session.userId || !req.session.adminId){
         sql.query('select * from appointments;',function(err,result){
             if(err){
-                console.log('err view appointements')
+                console.log('err view appointments')
                 console.log(err);
                 throw err;
             }
@@ -47,7 +47,7 @@ appointements.get('/',function(req,res){
 }
 )
 
-appointements.post('/create', function(req,res){
+appointments.post('/create', function(req,res){
     console.log('jnvvjknvsjnvkjsnvkjsnvjk');
     
         var date = req.body.date;
@@ -61,13 +61,18 @@ appointements.post('/create', function(req,res){
         console.log("descript",descript);
         if(!req.session.userId || !req.session.adminId){
             if(date && customerId && vehicleId && descript){
-                sql.query('INSERT INTO appointement (date,customerId,vehicleId,descript) VALUES (?,?,?,?)',[date,customerId,vehicleId,descript], function(err2,result2){
+                console.log("stage1")
+                sql.query('INSERT INTO appointments (date,customerId,vehicleId,descript) VALUES (?,?,?,?)',[date,customerId,vehicleId,descript], function(err2,result2){
+                    
                     if(err2){
+                        
                         console.log("error2",err);
                     }
                     else{
                         //res.send('register successful');
-                        if(result2.length>0){
+                        console.log(result2);
+                        if(result2){
+                            console.log("successful");
                             var state = true;
                             res.json({state,result2});
                         }
@@ -91,7 +96,7 @@ appointements.post('/create', function(req,res){
         
     });
 
-appointements.post('/update',function(req,res){
+appointments.post('/update',function(req,res){
     var jobId = req.body.jobId; 
     var date = req.body.date;
     var customerId = req.body.customerId;
@@ -130,7 +135,7 @@ appointements.post('/update',function(req,res){
         }
 });
 
-appointements.post('/delete',function(req,res){
+appointments.post('/delete',function(req,res){
     console.log("bajioae");
     var jobId = req.body.jobId;
     if(!req.session.adminId){
@@ -168,4 +173,31 @@ appointements.post('/delete',function(req,res){
     }
 })
 
-module.exports = appointements;
+appointments.post('/search',function(req,res){
+    console.log("foeiajfej");
+    if(!req.session.userId || !req.session.adminId){
+        var searchId = req.body.searchId;
+        console.log(searchId);
+        sql.query('select * from appointments WHERE jobId = ?',[searchId],function(err,result){
+            console.log(result);
+            if(err){
+                console.log('err view appointment')
+                console.log(err);
+                throw err;
+            }
+            else{
+                if(result.length>0){
+                    res.json(result);
+                }
+                else{
+                    console.log('not work');
+                }
+            }
+        })
+    }
+    else{
+        res.send('please log');
+    }
+})
+
+module.exports = appointments;

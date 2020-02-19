@@ -1,6 +1,8 @@
 import Page from 'components/Page';
+import {appointmentDateValidator, notNull, positiveNumberValidator} from '../../validations'
 import React from 'react';
 import {
+  Alert,
   Button,
   Card,
   CardBody,
@@ -25,15 +27,21 @@ class AddNewPRPage extends React.Component{
 
     this.state = {
         itemcode:"",
+        validateItemCode: true,
         Qty: "",
+        validateQty: true,
         description: "",
         delDate: "",
+        validateDelDate: true,
         storageId: "",
+        validateStorageId:true,
         supplierId: "",
+        validateSupplierId: true,
         terms:"",
         data:[
           {itemCode:"",name:""}
-        ]
+        ],
+        validations: true,
       
     }
     
@@ -54,9 +62,41 @@ onChange = (e) => {
 )
 }
 
+validatingFields = () => {
+  this.setState({
+    validateSupplierId: notNull(this.state.supplierId),
+    validateItemCode: notNull(this.state.itemcode),
+    validateQty: positiveNumberValidator(this.state.Qty),
+    validateDelDate: appointmentDateValidator(this.state.delDate),
+    validateStorageId: notNull(this.state.storageId),
+  })
+  if(notNull(this.state.supplierId) && 
+  notNull(this.state.itemcode) &&
+  appointmentDateValidator(this.state.delDate) &&
+  positiveNumberValidator(this.state.Qty) && 
+  notNull(this.state.storageId)
+
+  ){
+    console.log("OK");
+    this.setState({
+      validations: true
+    })
+    return true;
+  }
+  else{
+    console.log("error");
+    this.setState({
+      validations: false
+    })
+    return false;
+  }
+}
+
 handleSubmit = e => { 
     e.preventDefault();
     //console.log(e.target);
+    var val = this.validatingFields();
+    if(val){
     console.log(this.state);
     const newPR={
         itemCode:this.state.itemCode,
@@ -78,7 +118,15 @@ handleSubmit = e => {
             )
             .catch(() => console.log("Can’t access " + url + " response. Blocked by browser?"))
     
-    
+            }
+            else{
+
+              this.props.history.push('/new-pr');
+              this.setState({
+            validations: false
+          })
+
+            }
 }
 
   render(){
@@ -102,6 +150,13 @@ handleSubmit = e => {
                           
             )}
                   </Input>
+                  {
+                              this.state.validateItemCode !== true ?                  
+                              <Alert color="danger">
+                              Enter a valid itemcode
+                              </Alert>  
+                              : ""
+                            }
                 </FormGroup>
                 <FormGroup>
                 <Label for="Qty">Quantity</Label>
@@ -115,6 +170,13 @@ handleSubmit = e => {
                     
                   />
                 </FormGroup>
+                {
+                              this.state.validateQty !== true ?                  
+                              <Alert color="danger">
+                              Enter a valid quantity
+                              </Alert>  
+                              : ""
+                            }
                 <FormGroup>
                   <Label for="exampleText">Description</Label>
                   <Input type="textarea" name="description" id="description" onChange={this.onChange} value={this.state.description}/>
@@ -134,6 +196,13 @@ handleSubmit = e => {
                     value={this.state.storageId}
                     placeholder="Storage ID"
                   />
+                  {
+                              this.state.validateStorageId !== true ?                  
+                              <Alert color="danger">
+                              Enter a valid storage ID
+                              </Alert>  
+                              : ""
+                            }
                 </div>
                 <div className="col">
                 <Label for="supplierId">Supplier ID</Label>
@@ -145,6 +214,13 @@ handleSubmit = e => {
                     value={this.state.supplierId}
                     placeholder="Supplier Id"
                   />
+                  {
+                              this.state.validateSupplierId !== true ?                  
+                              <Alert color="danger">
+                              Enter a valid supplier ID
+                              </Alert>  
+                              : ""
+                            }
                 </div>  
                 </FormGroup>
                 </div>
@@ -158,6 +234,13 @@ handleSubmit = e => {
                     value={this.state.delDate}
                     placeholder="date placeholder"
                   />
+                  {
+                              this.state.validateDelDate !== true ?                  
+                              <Alert color="danger">
+                              Enter a valid date
+                              </Alert>  
+                              : ""
+                            }
                 </FormGroup>                              
                 
                 <FormGroup>
@@ -173,6 +256,13 @@ handleSubmit = e => {
                 </FormGroup>
                 <FormGroup check row>
                     <Button>Submit</Button>
+                    {
+                              this.state.validations !== true ?                  
+                              <Alert color="danger">
+                              ERROR!
+                              </Alert>  
+                              : ""
+                            }
                 </FormGroup>
               </Form>
             </CardBody>

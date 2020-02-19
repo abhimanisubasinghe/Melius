@@ -59,6 +59,7 @@ import ServiceUpdate from './pages/service/ServiceUpdate';
 import ServiceDelete from './pages/service/ServiceDelete';
 import CreateAppointmentPage from './pages/appointments/CreateAppointmentPage';
 import ViewAppointmentsPage from './pages/appointments/ViewAppointementsPage.js';
+import AppointmentProfile from './pages/appointments/AppointmentsProfilePage.js';
 import NewItemInvoice from './pages/item/ItemInvoicePage';
 import ItemView from './pages/item/ViewItemPage';
 import TopService from './pages/service/TopService';
@@ -83,6 +84,50 @@ const getBasename = () => {
 //cookies.set();
 
 class App extends React.Component {
+
+  constructor() {
+    super()
+    this.state = {
+      username: '',
+      authorization: "",
+      expires: '',
+      
+    }
+  }
+
+  componentDidMount(){
+
+    if(this.props.location){ 
+
+    console.log(this.props.location);
+
+    var d = new Date();
+    d.setTime(d.getTime());
+    const now = d;
+    console.log(now);
+    if(this.props.location.state){
+      console.log(this.props.location.state.expires);
+      this.setState({
+        authorization: this.props.location.state.status,
+        username: this.props.location.state.username,
+        expires: this.props.location.state.expires
+
+      });
+
+
+      if(now>this.props.location.state.expires){
+        this.props.history.push('/login');
+      }
+    }
+    else{
+      this.props.history.push('/login');
+    }
+  }
+  else{
+    
+  }
+
+  }
 
   render() {
     return (
@@ -199,6 +244,7 @@ class App extends React.Component {
                 <Route exact path="/day-view" component={DayViewInvoice}/>
                 <Route exact path="/service-view" component={ViewService}/>
                 <Route exact path="/customer-top" component={TopCustomer}/>
+                <Route exact path="/appointment-profile" component={AppointmentProfile} />
                 {/* <Route exact path="dayinvoice-print" component={PrintDayBill}/> */}
 
               </React.Suspense>

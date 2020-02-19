@@ -25,7 +25,12 @@ import {
   MdViewList,
   MdWeb,
   MdWidgets,
-  MdAddCircle
+  MdAddCircle,
+  MdAddShoppingCart,
+  MdAssignment,
+  MdBook,
+  MdDomain,
+  MdDns
 } from 'react-icons/md';
 import { NavLink } from 'react-router-dom';
 import {
@@ -42,17 +47,18 @@ const sidebarBackground = {
   backgroundImage: `url("${sidebarBgImage}")`,
   backgroundSize: 'cover',
   backgroundRepeat: 'no-repeat',
+  backgroundColor: 'rgba(0,0,0,0.5)'
 };
 
 
 const navInventoryItems = [
   { to: '/item-register', name: 'register', exact: false, Icon: MdAddCircle },
-  { to: '/item-invoice', name: 'Material Invoice', exact: false, Icon: MdAddCircle },
+  { to: '/item-invoice', name: 'Material Invoice', exact: false, Icon: MdAddShoppingCart },
   //{ to: '/new-pr', name: 'new purchase requisition', exact: false, Icon: MdAddCircle },
-  { to: '/po-view', name: 'purchase orders', exact: false, Icon: MdAddCircle },
-  { to: '/pr-view', name: 'purchase requisition orders', exact: false, Icon: MdAddCircle },
-  { to: '/view-item', name: 'Items', exact: false, Icon: MdAddCircle },
-  { to: '/storage-register', name: 'storage-register', exact: false, Icon: MdAddCircle },
+  { to: '/po-view', name: 'purchase orders', exact: false, Icon: MdAssignment },
+  { to: '/pr-view', name: 'purchase requisition orders', exact: false, Icon:MdDns },
+  { to: '/view-item', name: 'Items', exact: false, Icon: MdBook },
+  { to: '/storage-register', name: 'storage-register', exact: false, Icon: MdDomain },
 ];
 
 
@@ -62,7 +68,7 @@ const pageContents = [
 ];
 
 const navItems = [
-  { to: '/', name: 'dashboard', exact: true, Icon: MdDashboard },
+  { to: '/dashboard', name: 'dashboard', exact: true, Icon: MdDashboard },
 ];
 
 const bem = bn.create('sidebar');
@@ -94,7 +100,7 @@ class Sidebar extends React.Component {
               <img
                 src={logo200Image}
                 width="40"
-                height="30"
+                height="40"
                 className="pr-2"
                 alt=""
               />
@@ -203,6 +209,12 @@ class Sidebar extends React.Component {
       </aside>
     );
   }
+}
+
+const overlay = {
+  
+  'backgroundColor': 'rgba(0,0,0,0.5)'
+  
 }
 
 export default Sidebar;

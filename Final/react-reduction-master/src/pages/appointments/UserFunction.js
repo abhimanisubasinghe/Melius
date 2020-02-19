@@ -53,8 +53,9 @@ export const register = userRes => {
         
     })
     .then(res => {
+        console.log(res);
         console.log(res.data)
-        localStorage.setItem('usertoken', res.data)
+        //localStorage.setItem('usertoken', res.data)
         return res.data
     })
     .catch(err => {
@@ -62,3 +63,25 @@ export const register = userRes => {
         console.log(err);
     })
 }
+
+export const search = user => {
+    console.log("user",user);
+    console.log(user.searchId);
+    return axios
+    .post('http://localhost:5001/appointments/search', {
+        searchId: user.searchId,
+    })
+    .then(res => {
+        console.log('eeeeeeeeeeeeee')
+        //console.log(res.data.state);
+        console.log(res.data)
+        
+        //localStorage.setItem('usertoken',res.data)
+        return res.data;
+    })
+    .catch(err =>{
+        console.log('log err')
+        console.log(err)
+    })
+}
+

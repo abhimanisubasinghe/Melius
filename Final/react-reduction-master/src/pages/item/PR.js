@@ -17,8 +17,10 @@ class PRTablePage extends React.Component{
             pr:[ {
                 Id:"",
                 itemCode:"",
+                validateItemCode: true,
                 itemName:"",
                 quantity:"",
+                validateQuantity: true,
                 description:"",
                 issuedDate:"",
                 deliveryDate:"",

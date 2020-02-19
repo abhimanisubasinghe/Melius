@@ -1,6 +1,8 @@
 import Page from 'components/Page';
+import {appointmentDateValidator, notNull, positiveNumberValidator} from '../../validations'
 import React from 'react';
 import {
+  Alert,
   Button,
   Card,
   CardBody,
@@ -24,17 +26,53 @@ class AddNewPOPage extends React.Component{
     super(props)
 
     this.state = {
-        supplierId:"",    
+        supplierId:"",
+        validateSupplierId: true,    
         address: "",
+        validateAddress: true,
         delDate: "",
+        validateDelDate: true,
         item:[{itemCode:"",quantity:"",unitPrice:""}],
+        validateItem: true,
         total: "",
         description: "",
         deliveryTerms: "",
         paymentTerms: "",
+        validations: true,
     }
     
 }
+
+validatingFields = () => {
+  this.setState({
+    validateSupplierId: notNull(this.state.supplierId),
+    validateAddress: notNull(this.state.address),
+    validateDelDate: appointmentDateValidator(this.state.delDate),
+    validateItem: notNull(this.state.item[0].itemCode) && notNull(this.state.item[0].quantity),
+
+  })
+  if(notNull(this.state.supplierId) && 
+  notNull(this.state.address) &&
+  appointmentDateValidator(this.state.delDate) &&
+  notNull(this.state.item[0].itemCode) && 
+  notNull(this.state.item[0].quantity)
+
+  ){
+    console.log("OK");
+    this.setState({
+      validations: true
+    })
+    return true;
+  }
+  else{
+    console.log("error");
+    this.setState({
+      validations: false
+    })
+    return false;
+  }
+}
+
 
 handleChange = (e) => {
     if(["itemCode","quantity","unitPrice"].includes(e.target.name)){
@@ -53,8 +91,11 @@ addItem = (e) =>{
 }
 
 handleSubmit = e => { 
+
     e.preventDefault();
 
+    var val = this.validatingFields();
+    if(val){
     const newPO={
         supplierId:this.state.supplierId,    
         address:this.state.address,
@@ -80,6 +121,15 @@ handleSubmit = e => {
             .catch(() => console.log("Can’t access " + url + " response. Blocked by browser?"))
     
             this.props.history.push('/po-view')
+
+                }
+                else{
+                  this.props.history.push('/new-po');
+                  this.setState({
+                    validations: false
+                  })
+
+                }
 }
 
   render(){
@@ -102,6 +152,13 @@ handleSubmit = e => {
                     value={this.state.supplierId}
                     placeholder="Supplier Name"
                   />
+                  {
+                              this.state.validateSupplierId !== true ?                  
+                              <Alert color="danger">
+                              Enter a valid Supplier ID
+                              </Alert>  
+                              : ""
+                            }
                 </FormGroup>
                 <FormGroup>
                 <Label htmlfor="address">Deliver To:</Label>
@@ -112,6 +169,13 @@ handleSubmit = e => {
                     value={this.state.address}
                     placeholder="In Stock"
                   />
+                  {
+                              this.state.validateAddress !== true ?                  
+                              <Alert color="danger">
+                              Enter a valid address
+                              </Alert>  
+                              : ""
+                            }
                 </FormGroup>
                 <FormGroup>
                 <Label htmlfor="delDate">Estimated Delivery Date:</Label>
@@ -122,6 +186,13 @@ handleSubmit = e => {
                     value={this.state.delDate}
                     placeholder="Delivery Date"
                   />
+                  {
+                              this.state.validateDelDate !== true ?                  
+                              <Alert color="danger">
+                              Enter a valid date
+                              </Alert>  
+                              : ""
+                            }
                 </FormGroup>
                
                 
@@ -175,6 +246,7 @@ handleSubmit = e => {
                   />
                   <InputGroupAddon addonType="append">.00</InputGroupAddon>
                   </InputGroup>
+
                   </div>
                   </div>
                   </div>
@@ -187,7 +259,13 @@ handleSubmit = e => {
                 <div className="col">  
                 <Button color="info" onClick={this.addItem}>New Item</Button>
                 </div> 
-                
+                {
+                              this.state.validateItem !== true ?                  
+                              <Alert color="danger">
+                              Enter items!
+                              </Alert>  
+                              : ""
+                            }
                   </FormGroup>
                   
                 <div className="form-inline">
@@ -252,6 +330,13 @@ handleSubmit = e => {
                
                 <FormGroup check row>
                     <Button>Submit</Button>
+                    {
+                              this.state.validations !== true ?                  
+                              <Alert color="danger">
+                              ERROR!
+                              </Alert>  
+                              : ""
+                            }
                 </FormGroup>
               </Form>
             </CardBody>
