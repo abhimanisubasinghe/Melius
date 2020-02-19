@@ -79,8 +79,9 @@ class AppointmentsProfilePage extends React.Component{
     }
 
     handleDelete = () => { 
+        
         const user = {
-          username : this.state.appointment.username,
+          jobId: this.state.appointment.jobId
           
         }
         console.log("delete user",user);
@@ -159,7 +160,7 @@ class AppointmentsProfilePage extends React.Component{
                             
                             <br/>
                             
-                            <CardText style={fontStyle}>Appointment date: {this.state.appointment.address}</CardText>
+                            <CardText style={fontStyle}>{this.state.appointment.address}</CardText>
                             
                             <br/>
                         </CardImgOverlay>
@@ -176,7 +177,7 @@ class AppointmentsProfilePage extends React.Component{
                                     type="hidden" 
                                     id="searchId" 
                                     name="searchId" 
-                                    value={this.state.appointment.username} 
+                                    value={this.state.appointment.jobId} 
                                     disabled/>
                                 <Button color="success">Update</Button>
                             </form>
@@ -186,7 +187,7 @@ class AppointmentsProfilePage extends React.Component{
                                     type="hidden" 
                                     id="searchId" 
                                     name="searchId" 
-                                    value={this.state.appointment.username} 
+                                    value={this.state.appointment.jobId} 
                                     disabled
                                     />
                                     <CardText>

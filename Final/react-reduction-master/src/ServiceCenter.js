@@ -60,6 +60,7 @@ import ServiceDelete from './pages/service/ServiceDelete';
 import CreateAppointmentPage from './pages/appointments/CreateAppointmentPage';
 import ViewAppointmentsPage from './pages/appointments/ViewAppointementsPage.js';
 import AppointmentProfile from './pages/appointments/AppointmentsProfilePage.js';
+import AppointmentUpdate from './pages/appointments/AppointmentUpdate.js';
 import NewItemInvoice from './pages/item/ItemInvoicePage';
 import TopService from './pages/service/TopService';
 import DayViewInvoice from './pages/service/DailyInvoice';
@@ -193,6 +194,7 @@ class ServiceCenter extends React.Component {
                 <Route exact path="/appointment-create" component={CreateAppointmentPage}/>
                 <Route exact path="/appointment-view" component={ViewAppointmentsPage}/>
                 <Route exact path="/appointment-profile" component={AppointmentProfile} />
+                <Route exact path="/appointment-update" component={AppointmentUpdate}/>
                 <Route exact path="/view-item" component={ItemView}/> 
                 {/*<Route exact path="/service-top" component={TopService}/>*/}
                 <Route exact path="/service-top" component={TopService}/>

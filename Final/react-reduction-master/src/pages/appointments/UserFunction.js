@@ -85,3 +85,55 @@ export const search = user => {
     })
 }
 
+export const deleteUser = user => {
+    console.log("userfn",user);
+    console.log("ofdasf",user.jobId);
+    return axios
+    .post('http://localhost:5001/appointments/delete', {
+        jobId: user.jobId,
+    })
+    .then(res => {
+        console.log('come response');
+        console.log(res.data.state);
+        localStorage.setItem('usertoken',res.data);
+        return res.data.state;
+    })
+    .catch(err => {
+        console.log('err');
+        console.log(err);
+    })
+}
+
+export const update = user => {
+    console.log("userfn",user);
+    console.log("id",user.jobId);
+    return axios 
+    .post("http://localhost:5001/appointments/update", {
+        jobId: user.jobId,
+        date: user.date,
+        customerId: user.customerId,
+        vehicleId: user.vehicleId,
+        descript: user.descript,
+    })
+    .then(res => {
+        if(res.data != "Fill all details"){
+            console.log('come response');
+        // console.log(res.data);
+            //localStorage.setItem('usertoken',res.data);
+            //return res.data;
+            console.log('eeeeeeeeeeeeee')
+            //console.log(res.data.state);
+            console.log(res.data)
+            
+            return "TRUE";
+        }
+        else{
+            console.log(res.data);
+            return "FALSE";
+        }
+    })
+    .catch(err => {
+        console.log('err');
+        console.log(err);
+    })
+}

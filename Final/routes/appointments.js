@@ -97,6 +97,7 @@ appointments.post('/create', function(req,res){
     });
 
 appointments.post('/update',function(req,res){
+    console.log("blabal");
     var jobId = req.body.jobId; 
     var date = req.body.date;
     var customerId = req.body.customerId;
@@ -110,7 +111,7 @@ appointments.post('/update',function(req,res){
         //var password = req.body.password;
         if(!req.session.userId || !req.session.adminId){
             if(jobId  && date && customerId && vehicleId && descript){
-                sql.query('UPDATE user SET date = ?, customerId = ?, vehicleId = ?, descript = ? WHERE jobId  = ? ',[date,customerId,vehicleId,descript,jobId], function(err, result){
+                sql.query('UPDATE appointments SET date = ?, customerId = ?, vehicleId = ?, descript = ? WHERE jobId  = ? ',[date,customerId,vehicleId,descript,jobId], function(err, result){
                         if (err) {
                             console.log("Error in updating");
                             throw err;
@@ -139,7 +140,8 @@ appointments.post('/delete',function(req,res){
     console.log("bajioae");
     var jobId = req.body.jobId;
     if(!req.session.adminId){
-        sql.query('select * from appointment where jobId = ?',[jobId],function(err,result){
+        sql.query('select * from appointments where jobId = ?',[jobId],function(err,result){
+            console.log("asewf")
             if(err){
                 console.log('deleteusererr1');
                 console.log(err);
@@ -147,11 +149,11 @@ appointments.post('/delete',function(req,res){
             }
             else{
                 if(result[0].jobId){
-                    sql.query('delete from appointment where jobId = ?',[jobId],function(err2,result2){
+                    sql.query('delete from appointments where jobId = ?',[jobId],function(err2,result2){
                         if(err2){
                             console.log('userdeleteerr2');
                             console.log(err2);
-                            throw err2;
+                            res.send('try again');
                         }
                         else{
                             if(result2){
