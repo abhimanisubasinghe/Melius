@@ -9,7 +9,7 @@
   "author": "Tilanga Pramith",
   "license": "ISC",
   "dependencies": {
-    "bcrypt": "^3.0.6",
+    "bcrypt": "^5.0.0",
     "body-parser": "^1.19.0",
     "common": "^0.2.5",
     "cookie-parser": "^1.4.4",
